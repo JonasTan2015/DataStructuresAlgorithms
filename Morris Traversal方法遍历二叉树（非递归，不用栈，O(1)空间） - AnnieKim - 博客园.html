@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/bundle-iMetro.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/bundle-iMetro-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/AnnieKim/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/AnnieKim/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/AnnieKim/wlwmanifest.xml">
+<script type="text/javascript" src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/encoder.js.下载"></script><script src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'AnnieKim', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script></head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/AnnieKim/"><img id="blogLogo" src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/AnnieKim/">Annie Kim's Blog</a></h1>
+<h2>未来我们高声欢呼，现在我们静心读书。◕‿◕</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/AnnieKim/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/AnnieKim">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/AnnieKim/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/AnnieKim/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 14&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 83</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html">Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间）</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>本文主要解决一个问题，如何实现二叉树的前中后序遍历，有两个要求：</p>
+<p>1. O(1)空间复杂度，即只能使用常数空间；</p>
+<p>2. 二叉树的形状不能被破坏（中间过程允许改变其形状）。</p>
+<p>通常，实现二叉树的前序（preorder）、中序（inorder）、后序（postorder）遍历有两个常用的方法：一是递归(recursive)，二是使用栈实现的迭代版本(stack+iterative)。这两种方法都是O(n)的空间复杂度（递归本身占用stack空间或者用户自定义的stack），所以不满足要求。（用这两种方法实现的中序遍历实现可以参考<a href="https://github.com/AnnieKim/LeetCode/blob/master/BinaryTreeInorderTraversal.h" target="_blank">这里</a>。）</p>
+<p><strong>Morris Traversal</strong>方法可以做到这两点，与前两种方法的不同在于该方法只需要O(1)空间，而且同样可以在O(n)时间内完成。</p>
+<p>要使用O(1)空间进行遍历，最大的难点在于，遍历到子节点的时候怎样重新返回到父节点（假设节点中没有指向父节点的p指针），由于不能用栈作为辅助空间。为了解决这个问题，Morris方法用到了<a href="http://en.wikipedia.org/wiki/Threaded_binary_tree#The_array_of_Inorder_traversal" target="_blank">线索二叉树</a>（threaded binary tree）的概念。在Morris方法中不需要为每个节点额外分配指针指向其前驱（predecessor）和后继节点（successor），只需要利用叶子节点中的左右空指针指向某种顺序遍历下的前驱节点或后继节点就可以了。</p>
+<p>Morris只提供了中序遍历的方法，在中序遍历的基础上稍加修改可以实现前序，而后续就要再费点心思了。所以先从中序开始介绍。</p>
+<p>首先定义在这篇文章中使用的二叉树节点结构，即由val，left和right组成：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;">1</span> <span style="color: #0000ff;">struct</span><span style="color: #000000;"> TreeNode {
+</span><span style="color: #008080;">2</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> val;
+</span><span style="color: #008080;">3</span>     TreeNode *<span style="color: #000000;">left;
+</span><span style="color: #008080;">4</span>     TreeNode *<span style="color: #000000;">right;
+</span><span style="color: #008080;">5</span>     TreeNode(<span style="color: #0000ff;">int</span><span style="color: #000000;"> x) : val(x), left(NULL), right(NULL) {}
+</span><span style="color: #008080;">6</span> };</pre>
+</div>
+<h4><span style="color: #000000;">一、中序遍历</span></h4>
+<p><strong>步骤：</strong></p>
+<p>1. 如果当前节点的左孩子为空，则输出当前节点并将其右孩子作为当前节点。</p>
+<p>2. 如果当前节点的左孩子不为空，在当前节点的左子树中找到当前节点在中序遍历下的前驱节点。</p>
+<p>&nbsp; &nbsp;a) 如果前驱节点的右孩子为空，将它的右孩子设置为当前节点。当前节点更新为当前节点的左孩子。</p>
+<p>&nbsp; &nbsp;b)&nbsp;如果前驱节点的右孩子为当前节点，将它的右孩子重新设为空（恢复树的形状）。输出当前节点。当前节点更新为当前节点的右孩子。</p>
+<p>3. 重复以上1、2直到当前节点为空。</p>
+<p><strong>图示：</strong></p>
+<p>下图为每一步迭代的结果（从左至右，从上到下），cur代表当前节点，深色节点表示该节点已输出。</p>
+<p><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/14214057-7cc645706e7741e3b5ed62b320000354.jpg" alt=""></p>
+<p><strong>代码：</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">void</span> inorderMorrisTraversal(TreeNode *<span style="color: #000000;">root) {
+</span><span style="color: #008080;"> 2</span>     TreeNode *cur = root, *prev =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">while</span> (cur !=<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 5</span>         <span style="color: #0000ff;">if</span> (cur-&gt;left == NULL)          <span style="color: #008000;">//</span><span style="color: #008000;"> 1.</span>
+<span style="color: #008080;"> 6</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;"> 7</span>             printf(<span style="color: #800000;">"</span><span style="color: #800000;">%d </span><span style="color: #800000;">"</span>, cur-&gt;<span style="color: #000000;">val);
+</span><span style="color: #008080;"> 8</span>             cur = cur-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;"> 9</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">11</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">12</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> find predecessor</span>
+<span style="color: #008080;">13</span>             prev = cur-&gt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">14</span>             <span style="color: #0000ff;">while</span> (prev-&gt;right != NULL &amp;&amp; prev-&gt;right !=<span style="color: #000000;"> cur)
+</span><span style="color: #008080;">15</span>                 prev = prev-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">16</span> 
+<span style="color: #008080;">17</span>             <span style="color: #0000ff;">if</span> (prev-&gt;right == NULL)   <span style="color: #008000;">//</span><span style="color: #008000;"> 2.a)</span>
+<span style="color: #008080;">18</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">19</span>                 prev-&gt;right =<span style="color: #000000;"> cur;
+</span><span style="color: #008080;">20</span>                 cur = cur-&gt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">21</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">22</span>             <span style="color: #0000ff;">else</span>                       <span style="color: #008000;">//</span><span style="color: #008000;"> 2.b)</span>
+<span style="color: #008080;">23</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">24</span>                 prev-&gt;right =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">25</span>                 printf(<span style="color: #800000;">"</span><span style="color: #800000;">%d </span><span style="color: #800000;">"</span>, cur-&gt;<span style="color: #000000;">val);
+</span><span style="color: #008080;">26</span>                 cur = cur-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">27</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">28</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">29</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">30</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>复杂度分析：</strong></p>
+<p>空间复杂度：O(1)，因为只用了两个辅助指针。</p>
+<p>时间复杂度：O(n)。证明时间复杂度为O(n)，最大的疑惑在于寻找中序遍历下二叉树中所有节点的前驱节点的时间复杂度是多少，即以下两行代码：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;">1</span> <span style="color: #0000ff;">while</span> (prev-&gt;right != NULL &amp;&amp; prev-&gt;right !=<span style="color: #000000;"> cur)
+</span><span style="color: #008080;">2</span>     prev = prev-&gt;right;</pre>
+</div>
+<p>直觉上，认为它的复杂度是O(nlgn)，因为找单个节点的前驱节点与树的高度有关。但事实上，寻找所有节点的前驱节点只需要O(n)时间。n个节点的二叉树中一共有n-1条边，整个过程中每条边最多只走2次，一次是为了定位到某个节点，另一次是为了寻找上面某个节点的前驱节点，如下图所示，其中红色是为了定位到某个节点，黑色线是为了找到前驱节点。所以复杂度为O(n)。</p>
+<p><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/15150628-5285f29bab234750a62e2309394b6e14.jpg" alt=""></p>
+<h4>二、前序遍历</h4>
+<p>前序遍历与中序遍历相似，代码上只有一行不同，不同就在于输出的顺序。</p>
+<p><strong>步骤：</strong></p>
+<p>1. 如果当前节点的左孩子为空，则输出当前节点并将其右孩子作为当前节点。</p>
+<p>2. 如果当前节点的左孩子不为空，在当前节点的左子树中找到当前节点在中序遍历下的前驱节点。</p>
+<p>&nbsp; &nbsp;a) 如果前驱节点的右孩子为空，将它的右孩子设置为当前节点。<strong>输出当前节点（在这里输出，这是与中序遍历唯一一点不同）。</strong>当前节点更新为当前节点的左孩子。</p>
+<p>&nbsp; &nbsp;b)&nbsp;如果前驱节点的右孩子为当前节点，将它的右孩子重新设为空。当前节点更新为当前节点的右孩子。</p>
+<p>3. 重复以上1、2直到当前节点为空。</p>
+<p><strong>图示：</strong></p>
+<p><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/14221458-aa5f9e92cce743ccacbc735048133058.jpg" alt=""></p>
+<p><strong>代码：</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">void</span> preorderMorrisTraversal(TreeNode *<span style="color: #000000;">root) {
+</span><span style="color: #008080;"> 2</span>     TreeNode *cur = root, *prev =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">while</span> (cur !=<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;"> 4</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 5</span>         <span style="color: #0000ff;">if</span> (cur-&gt;left ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;"> 6</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;"> 7</span>             printf(<span style="color: #800000;">"</span><span style="color: #800000;">%d </span><span style="color: #800000;">"</span>, cur-&gt;<span style="color: #000000;">val);
+</span><span style="color: #008080;"> 8</span>             cur = cur-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;"> 9</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">11</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">12</span>             prev = cur-&gt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">13</span>             <span style="color: #0000ff;">while</span> (prev-&gt;right != NULL &amp;&amp; prev-&gt;right !=<span style="color: #000000;"> cur)
+</span><span style="color: #008080;">14</span>                 prev = prev-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">15</span> 
+<span style="color: #008080;">16</span>             <span style="color: #0000ff;">if</span> (prev-&gt;right ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">18</span>                 printf(<span style="color: #800000;">"</span><span style="color: #800000;">%d </span><span style="color: #800000;">"</span>, cur-&gt;val);  <span style="color: #008000;">//</span><span style="color: #008000;"> the only difference with inorder-traversal</span>
+<span style="color: #008080;">19</span>                 prev-&gt;right =<span style="color: #000000;"> cur;
+</span><span style="color: #008080;">20</span>                 cur = cur-&gt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">21</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">22</span>             <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">23</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">24</span>                 prev-&gt;right =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">25</span>                 cur = cur-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">26</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">27</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">28</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">29</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>复杂度分析：</strong></p>
+<p>时间复杂度与空间复杂度都与中序遍历时的情况相同。</p>
+<p><strong>三、后序遍历</strong></p>
+<p>后续遍历稍显复杂，需要建立一个临时节点dump，令其左孩子是root。并且还需要一个子过程，就是倒序输出某两个节点之间路径上的各个节点。</p>
+<p><strong>步骤：</strong></p>
+<p>当前节点设置为临时节点dump。</p>
+<p>1. 如果当前节点的左孩子为空，则将其右孩子作为当前节点。</p>
+<p>2. 如果当前节点的左孩子不为空，在当前节点的左子树中找到当前节点在中序遍历下的前驱节点。</p>
+<p>&nbsp; &nbsp;a) 如果前驱节点的右孩子为空，将它的右孩子设置为当前节点。当前节点更新为当前节点的左孩子。</p>
+<p>&nbsp; &nbsp;b)&nbsp;如果前驱节点的右孩子为当前节点，将它的右孩子重新设为空。<strong>倒序输出从当前节点的左孩子到该前驱节点这条路径上的所有节点。</strong>当前节点更新为当前节点的右孩子。</p>
+<p>3. 重复以上1、2直到当前节点为空。</p>
+<p><strong>图示：</strong></p>
+<p><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/15165951-7991525829134fb3beefed9fbf7e0536.jpg" alt=""></p>
+<p><strong>代码：</strong></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">void</span> reverse(TreeNode *<span style="color: #0000ff;">from</span>, TreeNode *to) <span style="color: #008000;">//</span><span style="color: #008000;"> reverse the tree nodes 'from' -&gt; 'to'.</span>
+<span style="color: #008080;"> 2</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">if</span> (<span style="color: #0000ff;">from</span> ==<span style="color: #000000;"> to)
+</span><span style="color: #008080;"> 4</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 5</span>     TreeNode *x = <span style="color: #0000ff;">from</span>, *y = <span style="color: #0000ff;">from</span>-&gt;right, *<span style="color: #000000;">z;
+</span><span style="color: #008080;"> 6</span>     <span style="color: #0000ff;">while</span> (<span style="color: #0000ff;">true</span><span style="color: #000000;">)
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 8</span>         z = y-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;"> 9</span>         y-&gt;right =<span style="color: #000000;"> x;
+</span><span style="color: #008080;">10</span>         x =<span style="color: #000000;"> y;
+</span><span style="color: #008080;">11</span>         y =<span style="color: #000000;"> z;
+</span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">if</span> (x ==<span style="color: #000000;"> to)
+</span><span style="color: #008080;">13</span>             <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;">14</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">15</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">16</span> 
+<span style="color: #008080;">17</span> <span style="color: #0000ff;">void</span> printReverse(TreeNode* <span style="color: #0000ff;">from</span>, TreeNode *to) <span style="color: #008000;">//</span><span style="color: #008000;"> print the reversed tree nodes 'from' -&gt; 'to'.</span>
+<span style="color: #008080;">18</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">19</span>     reverse(<span style="color: #0000ff;">from</span><span style="color: #000000;">, to);
+</span><span style="color: #008080;">20</span>     
+<span style="color: #008080;">21</span>     TreeNode *p =<span style="color: #000000;"> to;
+</span><span style="color: #008080;">22</span>     <span style="color: #0000ff;">while</span> (<span style="color: #0000ff;">true</span><span style="color: #000000;">)
+</span><span style="color: #008080;">23</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">24</span>         printf(<span style="color: #800000;">"</span><span style="color: #800000;">%d </span><span style="color: #800000;">"</span>, p-&gt;<span style="color: #000000;">val);
+</span><span style="color: #008080;">25</span>         <span style="color: #0000ff;">if</span> (p == <span style="color: #0000ff;">from</span><span style="color: #000000;">)
+</span><span style="color: #008080;">26</span>             <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;">27</span>         p = p-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">28</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">29</span>     
+<span style="color: #008080;">30</span>     reverse(to, <span style="color: #0000ff;">from</span><span style="color: #000000;">);
+</span><span style="color: #008080;">31</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">32</span> 
+<span style="color: #008080;">33</span> <span style="color: #0000ff;">void</span> postorderMorrisTraversal(TreeNode *<span style="color: #000000;">root) {
+</span><span style="color: #008080;">34</span>     TreeNode dump(<span style="color: #800080;">0</span><span style="color: #000000;">);
+</span><span style="color: #008080;">35</span>     dump.left =<span style="color: #000000;"> root;
+</span><span style="color: #008080;">36</span>     TreeNode *cur = &amp;dump, *prev =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">37</span>     <span style="color: #0000ff;">while</span><span style="color: #000000;"> (cur)
+</span><span style="color: #008080;">38</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">39</span>         <span style="color: #0000ff;">if</span> (cur-&gt;left ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;">40</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">41</span>             cur = cur-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">42</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">43</span>         <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">44</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">45</span>             prev = cur-&gt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">46</span>             <span style="color: #0000ff;">while</span> (prev-&gt;right != NULL &amp;&amp; prev-&gt;right !=<span style="color: #000000;"> cur)
+</span><span style="color: #008080;">47</span>                 prev = prev-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">48</span> 
+<span style="color: #008080;">49</span>             <span style="color: #0000ff;">if</span> (prev-&gt;right ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;">50</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">51</span>                 prev-&gt;right =<span style="color: #000000;"> cur;
+</span><span style="color: #008080;">52</span>                 cur = cur-&gt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">53</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">54</span>             <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">55</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">56</span>                 printReverse(cur-&gt;left, prev);  <span style="color: #008000;">//</span><span style="color: #008000;"> call print</span>
+<span style="color: #008080;">57</span>                 prev-&gt;right =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">58</span>                 cur = cur-&gt;<span style="color: #000000;">right;
+</span><span style="color: #008080;">59</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">60</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">61</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">62</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>复杂度分析：</strong></p>
+<p>空间复杂度同样是O(1)；时间复杂度也是O(n)，倒序输出过程只不过是加大了常数系数。</p>
+<p><strong>注：</strong></p>
+<p>以上所有的代码以及测试代码可以在<a href="https://github.com/AnnieKim/ForMyBlog/tree/master/20130615" target="_blank">我的Github</a>里获取。</p>
+<p><strong>参考：</strong></p>
+<p>http://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/<br>http://www.geeksforgeeks.org/morris-traversal-for-preorder/<br>http://stackoverflow.com/questions/6478063/how-is-the-complexity-of-morris-traversal-on<br>http://blog.csdn.net/wdq347/article/details/8853371<br>Data Structures and Algorithms in C++ by Adam Drozdek</p>
+<p>---------------</p>
+<p>以前我只知道递归和栈+迭代实现二叉树遍历的方法，昨天才了解到有使用O(1)空间复杂度的方法。以上都是我参考了网上的资料加上个人的理解来总结，如果有什么不对的地方非常欢迎大家的指正。</p>
+<p>原创文章，欢迎转载，转载请注明出处：http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html。</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/AnnieKim/category/471888.html" target="_blank">Algorithm</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/AnnieKim/tag/Morris%20Traversal/">Morris Traversal</a>, <a href="http://www.cnblogs.com/AnnieKim/tag/Morris%20Inorder%20Traversal/">Morris Inorder Traversal</a>, <a href="http://www.cnblogs.com/AnnieKim/tag/without%20stack/">without stack</a>, <a href="http://www.cnblogs.com/AnnieKim/tag/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/">二叉树遍历</a>, <a href="http://www.cnblogs.com/AnnieKim/tag/%E5%B8%B8%E6%95%B0%E7%A9%BA%E9%97%B4%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">常数空间中序遍历</a>, <a href="http://www.cnblogs.com/AnnieKim/tag/%E7%BA%BF%E7%B4%A2%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">线索二叉树中序遍历</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3136862,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;5f322d0b-0d7f-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/AnnieKim/" target="_blank"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/20130423085927.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/AnnieKim/">AnnieKim</a><br>
+            <a href="http://home.cnblogs.com/u/AnnieKim/followees">关注 - 15</a><br>
+            <a href="http://home.cnblogs.com/u/AnnieKim/followers">粉丝 - 69</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;5f322d0b-0d7f-e011-a53f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3136862,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">12</span>
+    </div>
+    <div class="buryit" onclick="votePost(3136862,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/05/08/3059614.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/AnnieKim/archive/2013/05/08/3059614.html" title="发布于2013-05-08 21:35">[Google Code Jam] 2013-1A-C Good Luck 解法</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-06-15 18:22</span> <a href="http://www.cnblogs.com/AnnieKim/">AnnieKim</a> 阅读(<span id="post_view_count">30426</span>) 评论(<span id="post_comment_count">27</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3136862" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#" onclick="AddToWz(3136862);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=89136,cb_entryId=3136862,cb_blogApp=currentBlogApp,cb_blogUserGuid='5f322d0b-0d7f-e011-a53f-842b2b196315',cb_entryCreatedDate='2013/6/15 18:22:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705596" class="layer">#1楼</a><a name="2705596" id="comment_anchor_2705596"></a>  <span class="comment_date">2013-06-15 19:14</span> <a id="a_comment_author_2705596" href="http://www.cnblogs.com/zyue/" target="_blank">dark_dream</a> <a href="http://msg.cnblogs.com/send/dark_dream" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2705596" class="blog_comment_body">求问楼主画图是用什么画的？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2705596,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2705596,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2705596_avatar" style="display:none;">http://pic.cnblogs.com/face/480994/20130615221519.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705603" class="layer">#2楼</a><a name="2705603" id="comment_anchor_2705603"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-06-15 19:36</span> <a id="a_comment_author_2705603" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2705603" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705596" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2705596);">@</a>
+dark_dream<br>是用visio画的，导出到jpeg:)</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2705603,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2705603,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2705603_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705658" class="layer">#3楼</a><a name="2705658" id="comment_anchor_2705658"></a>  <span class="comment_date">2013-06-15 22:11</span> <a id="a_comment_author_2705658" href="http://www.cnblogs.com/zyue/" target="_blank">dark_dream</a> <a href="http://msg.cnblogs.com/send/dark_dream" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2705658" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705603" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2705603);">@</a>
+AnnieKim<br>谢！！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2705658,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2705658,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2705658_avatar" style="display:none;">http://pic.cnblogs.com/face/480994/20130615221519.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705683" class="layer">#4楼</a><a name="2705683" id="comment_anchor_2705683"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-06-15 22:58</span> <a id="a_comment_author_2705683" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2705683" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705658" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2705658);">@</a>
+dark_dream<br>不客气~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2705683,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2705683,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2705683_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2705741" class="layer">#5楼</a><a name="2705741" id="comment_anchor_2705741"></a>  <span class="comment_date">2013-06-16 01:48</span> <a id="a_comment_author_2705741" href="http://www.cnblogs.com/c4isr/" target="_blank">C4ISR</a> <a href="http://msg.cnblogs.com/send/C4ISR" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2705741" class="blog_comment_body">这个博文说的很清楚</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2705741,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2705741,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2705741_avatar" style="display:none;">http://pic.cnblogs.com/face/373043/20161008054836.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2712118" class="layer">#6楼</a><a name="2712118" id="comment_anchor_2712118"></a>  <span class="comment_date">2013-06-24 13:47</span> <a id="a_comment_author_2712118" href="http://www.cnblogs.com/xuchao/" target="_blank">啊超~</a> <a href="http://msg.cnblogs.com/send/%E5%95%8A%E8%B6%85~" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2712118" class="blog_comment_body">线索二叉树的确能解决遍历的问题，很充分的利用了叶子节点的空链域，但是我我觉得你的描述有点冗余了，我们可否这样描述，就拿中序来说，比如当前节点的左子树不为空，这个时候只要找到当前节点左子树中最右的叶子节点，即是当前节点的直接前驱，后继的话也是同样的描述（后继就是最左叶子节点了）</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2712118,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2712118,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2712118_avatar" style="display:none;">http://pic.cnblogs.com/face/u484710.jpg?id=28225609</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2712372" class="layer">#7楼</a><a name="2712372" id="comment_anchor_2712372"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-06-24 17:48</span> <a id="a_comment_author_2712372" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2712372" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2712118" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2712118);">@</a>
+啊超~<br>中序遍历下的前驱节点是左子树中最右的叶子节点，我这里并没有用到后继，只是令前驱节点指向当前节点。<br>我是按照我将来回忆起来比较方便的方法描述，表达可能显得有些拖沓，以后会慢慢改进:)</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2712372,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2712372,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2712372_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2712391" class="layer">#8楼</a><a name="2712391" id="comment_anchor_2712391"></a>  <span class="comment_date">2013-06-24 18:04</span> <a id="a_comment_author_2712391" href="http://www.cnblogs.com/xuchao/" target="_blank">啊超~</a> <a href="http://msg.cnblogs.com/send/%E5%95%8A%E8%B6%85~" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2712391" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2712372" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2712372);">@</a>
+AnnieKim<br>恩，是的，理解最重要<br>给你的只是一个小小的建议，具体的你也可以看下严蔚敏的数据结构，讲的还是比较清晰的，虽然大部分是伪码</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2712391,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2712391,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2712391_avatar" style="display:none;">http://pic.cnblogs.com/face/u484710.jpg?id=28225609</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2712411" class="layer">#9楼</a><a name="2712411" id="comment_anchor_2712411"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-06-24 18:45</span> <a id="a_comment_author_2712411" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2712411" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2712391" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2712391);">@</a>
+啊超~<br>你说看严蔚敏的数据结构，是看线索二叉树吧。<br>这里关键还是应用。<br>不过还是谢谢你的建议。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2712411,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2712411,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2712411_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2721819" class="layer">#10楼</a><a name="2721819" id="comment_anchor_2721819"></a>  <span class="comment_date">2013-07-07 17:00</span> <a id="a_comment_author_2721819" href="http://www.cnblogs.com/sing1ee/" target="_blank">sing1ee</a> <a href="http://msg.cnblogs.com/send/sing1ee" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2721819" class="blog_comment_body">还是不太理解，查找每一个节点的中序遍历前驱的时候，为何平均是O(1)，而不是O(logn)。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2721819,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2721819,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2721863" class="layer">#11楼</a><a name="2721863" id="comment_anchor_2721863"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-07-07 18:58</span> <a id="a_comment_author_2721863" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2721863" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2721819" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2721819);">@</a>
+sing1ee<br>我认为对于单个节点来讲，平均情况下查找复杂度是O(lgn)，最好时是O(1)。<br>考虑所有节点总的查找复杂度的话，是O(n)（文章里有解释）。而且这并不代表对于单个节点是O(1)啊，有些节点是O(1)，有些是O(lgn)。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2721863,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2721863,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2721863_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2721864" class="layer">#12楼</a><a name="2721864" id="comment_anchor_2721864"></a>  <span class="comment_date">2013-07-07 19:00</span> <a id="a_comment_author_2721864" href="http://www.cnblogs.com/sing1ee/" target="_blank">sing1ee</a> <a href="http://msg.cnblogs.com/send/sing1ee" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2721864" class="blog_comment_body">嗯，后来仔细看了你的解释。<br>明白了。<br>多谢。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2721864,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2721864,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2721866" class="layer">#13楼</a><a name="2721866" id="comment_anchor_2721866"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-07-07 19:05</span> <a id="a_comment_author_2721866" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2721866" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2721864" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2721864);">@</a>
+sing1ee<br>嗯嗯，你太客气了哈~:)</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2721866,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2721866,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2721866_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2731577" class="layer">#14楼</a><a name="2731577" id="comment_anchor_2731577"></a>  <span class="comment_date">2013-07-20 16:32</span> <a id="a_comment_author_2731577" href="http://home.cnblogs.com/u/461136/" target="_blank">云戈</a> <a href="http://msg.cnblogs.com/send/%E4%BA%91%E6%88%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2731577" class="blog_comment_body">请问博主，后序遍历的时候reverse函数的思想是怎样的？x、y、y-&gt;right的颠倒我看了好久都没看懂，可否详加解释？多谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2731577,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2731577,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2731591" class="layer">#15楼</a><a name="2731591" id="comment_anchor_2731591"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-07-20 17:12</span> <a id="a_comment_author_2731591" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2731591" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2731577" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2731577);">@</a>
+云戈<br>给你举一个例子吧。<br>调用reverse(1, 3)之前和之后分别如下(这里的-&gt;都是指向右孩子的指针)：<br>前：1-&gt;2-&gt;3            后：3-&gt;2-&gt;1<br>调用reverse主要是为了倒序输出，输出完之后需要再调用reverse恢复原来的树的形状。<br>个人觉得morris的后续遍历太复杂了，所以网上也很少有讲后续的方案，还是中序和前序比较多。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2731591,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2731591,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2731591_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2731653" class="layer">#16楼</a><a name="2731653" id="comment_anchor_2731653"></a>  <span class="comment_date">2013-07-20 19:16</span> <a id="a_comment_author_2731653" href="http://home.cnblogs.com/u/461136/" target="_blank">云戈</a> <a href="http://msg.cnblogs.com/send/%E4%BA%91%E6%88%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2731653" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2731591" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2731591);">@</a>
+AnnieKim<br>嗯，多谢。reverse函数的功能我是理解的，主要不是很理解以下四句：<br>z = y-&gt;right;<br>y-&gt;right = x;<br>x = y;<br>y = z;<br>刚才在纸上又画了画，已经弄懂了，多谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2731653,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2731653,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2778511" class="layer">#17楼</a><a name="2778511" id="comment_anchor_2778511"></a>  <span class="comment_date">2013-09-19 20:16</span> <a id="a_comment_author_2778511" href="http://home.cnblogs.com/u/569071/" target="_blank">rannn</a> <a href="http://msg.cnblogs.com/send/rannn" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2778511" class="blog_comment_body">其实后续遍历一个更简单的方法就是把前序遍历的代码原本access left的地方access right，原本right的地方取left， 并且将原本需要输出的地方入栈。全部走完后最后再出栈print<br><br><br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_98593" class="syntaxhighlighter  csharp"><div class="toolbar"><span><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp keyword">static</code> <code class="csharp keyword">void</code> <code class="csharp plain">MorrisPostOrder(Node root)</code></div><div class="line number2 index1 alt1"><code class="csharp plain">{</code></div><div class="line number3 index2 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(root == </code><code class="csharp keyword">null</code><code class="csharp plain">) </code><code class="csharp keyword">return</code><code class="csharp plain">;</code></div><div class="line number4 index3 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">var</code> <code class="csharp plain">current = root;</code></div><div class="line number5 index4 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">var</code> <code class="csharp plain">stack = </code><code class="csharp keyword">new</code> <code class="csharp plain">Stack&lt;</code><code class="csharp keyword">int</code><code class="csharp plain">&gt;();</code></div><div class="line number6 index5 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">while</code> <code class="csharp plain">(current != </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number7 index6 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number8 index7 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(current.Right != </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number9 index8 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number10 index9 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">var</code> <code class="csharp plain">t = current.Right;</code></div><div class="line number11 index10 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">while</code> <code class="csharp plain">(t.Left != </code><code class="csharp keyword">null</code> <code class="csharp plain">&amp;&amp; t.Left != current)</code></div><div class="line number12 index11 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number13 index12 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">t = t.Left;</code></div><div class="line number14 index13 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(t.Left == </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number17 index16 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number18 index17 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">stack.Push(current.D);</code></div><div class="line number19 index18 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">t.Left = current;</code></div><div class="line number20 index19 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = current.Right;</code></div><div class="line number21 index20 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number22 index21 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number23 index22 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number24 index23 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">t.Left = </code><code class="csharp keyword">null</code><code class="csharp plain">;</code></div><div class="line number25 index24 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = current.Left;</code></div><div class="line number26 index25 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number27 index26 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number28 index27 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number29 index28 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number30 index29 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">stack.Push(current.D);</code></div><div class="line number31 index30 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = current.Left;</code></div><div class="line number32 index31 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number33 index32 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number34 index33 alt1">&nbsp;</div><div class="line number35 index34 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">foreach</code> <code class="csharp plain">(</code><code class="csharp keyword">var</code> <code class="csharp plain">i </code><code class="csharp keyword">in</code> <code class="csharp plain">stack)</code></div><div class="line number36 index35 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number37 index36 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Console.Write(i + </code><code class="csharp string">" "</code><code class="csharp plain">);</code></div><div class="line number38 index37 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number39 index38 alt2"><code class="csharp plain">}</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2778511,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2778511,&#39;Bury&#39;,this)">反对(2)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2779917" class="layer">#18楼</a><a name="2779917" id="comment_anchor_2779917"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-09-22 17:31</span> <a id="a_comment_author_2779917" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2779917" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2778511" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2778511);">@</a>
+rannn<br>您的方法给了我一点提示，就是空的左指针也可以利用起来，到目前为止我利用的都是叶子节点内部闲置的右指针。<br>按照您的方法，如果要把后续遍历从头到尾打印出来，程序里的stack还是要占用O(n)空间，这并不是我这篇文章想要实现的。<br>谢谢您的评论。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2779917,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2779917,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2779917_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2894868" class="layer">#19楼</a><a name="2894868" id="comment_anchor_2894868"></a>  <span class="comment_date">2014-03-13 17:24</span> <a id="a_comment_author_2894868" href="http://www.cnblogs.com/peimin/" target="_blank">peimin.org</a> <a href="http://msg.cnblogs.com/send/peimin.org" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2894868" class="blog_comment_body">博主 想问下 你博客中 那个类似于CSDN的代码 格式化 是怎么做的 谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2894868,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2894868,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2894868_avatar" style="display:none;">http://pic.cnblogs.com/face/595738/20131231104146.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2894869" class="layer">#20楼</a><a name="2894869" id="comment_anchor_2894869"></a>  <span class="comment_date">2014-03-13 17:24</span> <a id="a_comment_author_2894869" href="http://www.cnblogs.com/peimin/" target="_blank">peimin.org</a> <a href="http://msg.cnblogs.com/send/peimin.org" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2894869" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2778511" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2778511);">@</a>
+rannn<br>想问下 你这个类似于CSDN的代码格式化 怎么做的 谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2894869,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2894869,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2894869_avatar" style="display:none;">http://pic.cnblogs.com/face/595738/20131231104146.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2894891" class="layer">#21楼</a><a name="2894891" id="comment_anchor_2894891"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2014-03-13 17:48</span> <a id="a_comment_author_2894891" href="http://www.cnblogs.com/AnnieKim/" target="_blank">AnnieKim</a> <a href="http://msg.cnblogs.com/send/AnnieKim" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2894891" class="blog_comment_body"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#2894868" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2894868);">@</a>
+peimin_outlook<br>编辑的时候有“插入代码”的按钮啊。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2894891,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2894891,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2894891_avatar" style="display:none;">http://pic.cnblogs.com/face/300640/20130423085927.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#3097449" class="layer">#22楼</a><a name="3097449" id="comment_anchor_3097449"></a>  <span class="comment_date">2014-12-31 12:14</span> <a id="a_comment_author_3097449" href="http://home.cnblogs.com/u/585318/" target="_blank">mm豆mm</a> <a href="http://msg.cnblogs.com/send/mm%E8%B1%86mm" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3097449" class="blog_comment_body">"整个过程中每条边最多只走2次，一次是为了定位到某个节点，另一次是为了寻找上面某个节点的前驱节点"<br>每条边是不是应该最多走三遍？一次是定位，两次是找前驱节点（一次前驱节点right连接到当前节点，一次前驱节点right为空）？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3097449,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3097449,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#3113710" class="layer">#23楼</a><a name="3113710" id="comment_anchor_3113710"></a>  <span class="comment_date">2015-01-23 22:38</span> <a id="a_comment_author_3113710" href="http://home.cnblogs.com/u/717323/" target="_blank">laoyixia</a> <a href="http://msg.cnblogs.com/send/laoyixia" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3113710" class="blog_comment_body">博主问一下，用栈迭代的方法空间复杂度应该是O(logn)吧(树的高度)，不是O(n)?不知道对不对？谢谢。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3113710,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3113710,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#3130670" class="layer">#24楼</a><a name="3130670" id="comment_anchor_3130670"></a>  <span class="comment_date">2015-02-21 00:51</span> <a id="a_comment_author_3130670" href="http://home.cnblogs.com/u/724338/" target="_blank">CodingBug</a> <a href="http://msg.cnblogs.com/send/CodingBug" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3130670" class="blog_comment_body">@AnnieKim<br><br>Your inorderMorrisTraversal() is wrong.</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3130670,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3130670,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#3156347" class="layer">#25楼</a><a name="3156347" id="comment_anchor_3156347"></a>  <span class="comment_date">2015-04-05 03:24</span> <a id="a_comment_author_3156347" href="http://home.cnblogs.com/u/740432/" target="_blank">-东方不败-</a> <a href="http://msg.cnblogs.com/send/-%E4%B8%9C%E6%96%B9%E4%B8%8D%E8%B4%A5-" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3156347" class="blog_comment_body">Morris 后序遍历，翻转链表有问题：<br>没有处理头结点的右孩子指针，结果会改变二叉链表的结构，影响其他操作。<br>应该加一句：<br>from-&gt;right = NULL;</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3156347,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3156347,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#3171669" class="layer">#26楼</a><a name="3171669" id="comment_anchor_3171669"></a>  <span class="comment_date">2015-04-28 02:53</span> <a id="a_comment_author_3171669" href="http://www.cnblogs.com/joycelee/" target="_blank">Joyce-Lee</a> <a href="http://msg.cnblogs.com/send/Joyce-Lee" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3171669" class="blog_comment_body">讲解好清晰，图画的很清楚，转载一下，多谢啦</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3171669,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3171669,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#3367088" class="layer">#27楼</a><a name="3367088" id="comment_anchor_3367088"></a><span id="comment-maxId" style="display:none;">3367088</span><span id="comment-maxDate" style="display:none;">2016/2/26 9:44:02</span>  <span class="comment_date">2016-02-26 09:44</span> <a id="a_comment_author_3367088" href="http://home.cnblogs.com/u/898368/" target="_blank">ohuohuo</a> <a href="http://msg.cnblogs.com/send/ohuohuo" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3367088" class="blog_comment_body">@AnnieKim @CodingBug<br><br>annie你的inorderMorrisTraversal的第2个判断错了，整个code应该是：<br><br>vector&lt;int&gt; inorderTraversal_3(TreeNode *root) {<br>        vector&lt;int&gt; res;<br>        TreeNode *cur = root;<br>        while (cur)<br>        {<br>            if (cur-&gt;left)<br>            {<br>                TreeNode *prev = cur-&gt;left;<br>                while (prev-&gt;right &amp;&amp; prev-&gt;right != cur)<br>                    prev = prev-&gt;right;<br>                    <br>                if (prev-&gt;right == cur) //这里判断是不是current，而不是是不是null<br>                {<br>                    res.push_back(cur-&gt;val);<br>                    cur = cur-&gt;right;<br>                    prev-&gt;right = NULL;<br>                }<br>                else<br>                {<br>                    prev-&gt;right = cur;<br>                    cur = cur-&gt;left;<br>                }<br>            }<br>            else<br>            {<br>                res.push_back(cur-&gt;val);<br>                cur = cur-&gt;right;<br>            }<br>        }<br>        return res;<br>    }</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3367088,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3367088,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="https://group.cnblogs.com/topic/76017.html" target="_blank">【福利】Microsoft Azure给博客园的你专属三重大礼</a><br><a href="http://www.163yun.com/zs?zsfrom=vcloud" target="_blank">【邀请】网易云渠道合作伙伴招商大会，邀您共创未来</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/24442-20161115165230123-1587531896.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/558810/" target="_blank">是谁让Alphabet的“登月计划”收紧了钱袋？</a><br> ·  <a href="http://news.cnblogs.com/n/558809/" target="_blank">英伟达研发的无人驾驶汽车已在美国上路测试</a><br> ·  <a href="http://news.cnblogs.com/n/558808/" target="_blank">独角兽企业扩大业务范围讨好投资者 为IPO铺路</a><br> ·  <a href="http://news.cnblogs.com/n/558807/" target="_blank">跟踪调查：手环计步无助减肥 九成用户一年后弃用</a><br> ·  <a href="http://news.cnblogs.com/n/558806/" target="_blank">内容风口催生变局 芒果娱乐会取代芒果TV上市吗？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://bbs.h3bpm.com/read.php?tid=861&amp;fid=11?utm_source=cnblogs&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank"><img width="468" height="60" src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/24442-20161209172633163-432348046.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><p><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/o_cartman_gandalf.png" width="80" height="80"></p>
+<p> </p>
+<p>anniekim.pku[at]gmail.com</p>
+<p>完整LeetCode方案请参考我的GitHub→_→<a href="https://github.com/AnnieKim"><img src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/o_octocat.png" width="25" height="25" align="center"></a></p>
+<p>
+<!-- GoStats Simple HTML Based Code -->
+<a target="_blank" title="流量统计" href="http://gostats.cn/"><img alt="流量统计" src="./Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间） - AnnieKim - 博客园_files/counter.png" style="border-width:0"></a>
+<!-- End GoStats Simple HTML Based Code -->
+</p><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/AnnieKim/">AnnieKim</a><br>园龄：<a href="http://home.cnblogs.com/u/AnnieKim/" title="入园时间：2011-05-16">5年6个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/AnnieKim/followers/">69</a><br>关注：<a href="http://home.cnblogs.com/u/AnnieKim/followees/">15</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;5f322d0b-0d7f-e011-a53f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/AnnieKim/category/471888.html">Algorithm(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/AnnieKim/category/336613.html">C++(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/AnnieKim/category/346840.html">JAVA(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/AnnieKim/category/471889.html">LeetCode(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/AnnieKim/category/336619.html">笔试题(3)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/AnnieKim/archive/2013/06.html">2013年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/AnnieKim/archive/2013/05.html">2013年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/AnnieKim/archive/2013/04.html">2013年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/AnnieKim/archive/2012/01.html">2012年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/AnnieKim/archive/2011/12.html">2011年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/AnnieKim/archive/2011/11.html">2011年11月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/AnnieKim/archive/2011/05.html">2011年5月 (4)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links337623" class="catList sidebar-block">
+<h3 class="catListTitle">Blog</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.matrix67.com/blog/" rel="nofollow">matrix67</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="http://techsingular.net/" rel="nofollow">技术奇异点</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_2" href="http://mindhacks.cn/" rel="nofollow">刘未鹏 | MIND HACKS</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_3" href="http://www.yangsheep.net/algorithm.html" rel="nofollow">算法之美</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_4" href="http://zhiqiang.org/blog/" rel="nofollow">阅微堂</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html#3367088">1. Re:Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间）</a></li>
+        <li class="recent_comment_body">@AnnieKim @CodingBugannie你的inorderMorrisTraversal的第2个判断错了，整个code应该是：vector inorderTraversal_3(TreeNo......</li>
+        <li class="recent_comment_author">--ohuohuo</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/AnnieKim/archive/2012/01/01/2309567.html#3299512">2. Re:Java调用C/C++编写的第三方dll动态链接库（非native API）--- JNI</a></li>
+        <li class="recent_comment_body">多谢楼主分享，之前看一些入门的帖子走了不少弯路，这次真正理清了Java调用C/C++动态链接库的方法。很不错，思路很清晰！点赞！</li>
+        <li class="recent_comment_author">--Nothing_Is_Imposible</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/18/3028607.html#3239641">3. Re:[LeetCode(Q69)] Sqrt(x) (编程实现sqrt)</a></li>
+        <li class="recent_comment_body">网上找到的这个，我是用的for循环，然后出现了数据溢出，换成楼主所说的long long之后终于通过了。</li>
+        <li class="recent_comment_author">--contixue</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/21/3034631.html#3181244">4. Re:[LeetCode(Q41)] First Missing Positive (乱序数组中寻找第一个未出现的正整数)</a></li>
+        <li class="recent_comment_body">@<br>正确的，有重复的元素，这些元素会被放到末尾。判断第一个出现下标和值不一值的就是要求的值</li>
+        <li class="recent_comment_author">--P.wang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/21/3034631.html#3181231">5. Re:[LeetCode(Q41)] First Missing Positive (乱序数组中寻找第一个未出现的正整数)</a></li>
+        <li class="recent_comment_body">如果数组中有重复元素，你这个解法就不对吧？</li>
+        <li class="recent_comment_author">--P.wang</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html">1. Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间）(30426)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2012/01/01/2309567.html">2. Java调用C/C++编写的第三方dll动态链接库（非native API）--- JNI(16903)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/18/3028607.html">3. [LeetCode(Q69)] Sqrt(x) (编程实现sqrt)(11915)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/21/3034631.html">4. [LeetCode(Q41)] First Missing Positive (乱序数组中寻找第一个未出现的正整数)(11106)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/25/3041982.html">5. [LeetCode(Q49)] Anagrams (回文构词法)(10170)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html">1. Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间）(27)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/18/3028607.html">2. [LeetCode(Q69)] Sqrt(x) (编程实现sqrt)(19)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2012/01/01/2309567.html">3. Java调用C/C++编写的第三方dll动态链接库（非native API）--- JNI(11)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2011/12/04/2275589.html">4. 恼人的函数指针（二）：指向类成员的指针(7)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/04/21/3034631.html">5. [LeetCode(Q41)] First Missing Positive (乱序数组中寻找第一个未出现的正整数)(5)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html">1. Morris Traversal方法遍历二叉树（非递归，不用栈，O(1)空间）(12)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2011/12/04/2275589.html">2. 恼人的函数指针（二）：指向类成员的指针(9)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2011/11/22/2258946.html">3. const限定修饰符用法总结(常量，指针，迭代器，函数参数，成员函数)(9)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2011/11/20/2255813.html">4. 恼人的函数指针（一）(8)</a></li><li><a href="http://www.cnblogs.com/AnnieKim/archive/2012/01/01/2309567.html">5. Java调用C/C++编写的第三方dll动态链接库（非native API）--- JNI(8)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 AnnieKim
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

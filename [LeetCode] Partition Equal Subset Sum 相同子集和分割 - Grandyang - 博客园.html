@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.cnblogs.com/grandyang/p/5951422.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/bundle-UnlimitedSunlight.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/bundle-UnlimitedSunlight-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/grandyang/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/grandyang/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/grandyang/wlwmanifest.xml">
+<script type="text/javascript" src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/encoder.js.下载"></script><script src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'grandyang', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script><script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true } },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/grandyang/"><img id="blogLogo" src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/grandyang/">Grandyang</a></h1>
+<h2>选择泥泞的路，才会留下脚印...</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/grandyang/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Grandyang">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/grandyang/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/grandyang/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 914&nbsp; </span>
+<span id="stats_article_count">文章 - 1&nbsp; </span>
+<span id="stats-comment_count">评论 - 357</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/grandyang/p/5951422.html">[LeetCode] Partition Equal Subset Sum 相同子集和分割</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp;</p>
+<p>Given a <strong>non-empty</strong> array containing <strong>only positive integers</strong>, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.</p>
+<p><strong>Note:</strong><br>
+Both the array size and each of the array element will not exceed 100.
+</p>
+<p><strong>Example 1:</strong>
+</p>
+<pre>Input: [1, 5, 11, 5]
+
+Output: true
+
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+</pre>
+<p><strong>Example 2:</strong></p>
+<pre>Input: [1, 2, 3, 5]
+
+Output: false
+
+Explanation: The array cannot be partitioned into equal sum subsets.
+</pre>
+<p>&nbsp;</p>
+<p>这道题给了我们一个数组，问我们这个数组能不能分成两个非空子集合，使得两个子集合的元素之和相同。那么我们想，原数组所有数字和一定是偶数，不然根本无法拆成两个和相同的子集合，那么我们只需要算出原数组的数字之和，然后除以2，就是我们的target，那么问题就转换为能不能找到一个非空子集合，使得其数字之和为target。开始我想的是遍历所有子集合，算和，但是这种方法无法通过OJ的大数据集合。于是乎，动态规划DP就是我们的不二之选。我们定义一个一维的dp数组，其中dp[i]表示数字i是否是原数组的任意个子集合之和，那么我们我们最后只需要返回dp[target]就行了。我们初始化dp[0]为true，由于题目中限制了所有数字为正数，那么我们就不用担心会出现和为0或者负数的情况。那么关键问题就是要找出递归公式了，我们需要遍历原数组中的数字，对于遍历到的每个数字nums[i]，我们需要更新我们的dp数组，要更新[nums[i], target]之间的值，那么对于这个区间中的任意一个数字j，如果dp[j - nums[j]]为true的话，那么dp[j]就一定为true，于是地推公式如下：</p>
+<p>dp[j] = dp[j] || dp[j - nums[i]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (nums[i] &lt;= j &lt;= target)</p>
+<p>有了递推公式，那么我们就可以写出代码如下：</p>
+<p>&nbsp;</p>
+<p>解法一：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">bool</span> canPartition(vector&lt;<span style="color: #0000ff;">int</span>&gt;&amp;<span style="color: #000000;"> nums) {
+        </span><span style="color: #0000ff;">int</span> sum = accumulate(nums.begin(), nums.end(), <span style="color: #800080;">0</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">if</span> (sum % <span style="color: #800080;">2</span> == <span style="color: #800080;">1</span>) <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">int</span> target = sum / <span style="color: #800080;">2</span><span style="color: #000000;">;
+        vector</span>&lt;<span style="color: #0000ff;">bool</span>&gt; dp(target + <span style="color: #800080;">1</span>, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+        dp[</span><span style="color: #800080;">0</span>] = <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; nums.size(); ++<span style="color: #000000;">i) {
+            </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> j = target; j &gt;= nums[i]; --<span style="color: #000000;">j) {
+                dp[j] </span>= dp[j] || dp[j -<span style="color: #000000;"> nums[i]];
+            }
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> dp.back();
+    }
+};</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>这道题还可以用bitset来做，感觉也十分的巧妙，bisets的大小设为5001，为啥呢，因为题目中说了数组的长度和每个数字的大小都不会超过100，那么最大的和为10000，那么一半就是5000，前面再加上个0，就是5001了。我们初始化把最低位赋值为1，然后我们算出数组之和，然后我们遍历数字，对于遍历到的数字num，我们把bits向左平移num位，然后再或上原来的bits，这样所有的可能出现的和位置上都为1。举个例子来说吧，比如对于数组[2,3]来说，初始化bits为1，然后对于数字2，bits变为101，我们可以看出来bits[2]标记为了1，然后遍历到3，bits变为了101101，我们看到bits[5],bits[3],bits[2]都分别为1了，正好代表了可能的和2，3，5，这样我们遍历玩整个数组后，去看bits[sum &gt;&gt; 1]是否为1即可，参见代码如下：</p>
+<p>&nbsp;</p>
+<p>解法二：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">bool</span> canPartition(vector&lt;<span style="color: #0000ff;">int</span>&gt;&amp;<span style="color: #000000;"> nums) {
+        bitset</span>&lt;<span style="color: #800080;">5001</span>&gt; bits(<span style="color: #800080;">1</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">int</span> sum = accumulate(nums.begin(), nums.end(), <span style="color: #800080;">0</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> num : nums) bits |= bits &lt;&lt;<span style="color: #000000;"> num;
+        </span><span style="color: #0000ff;">return</span> (sum % <span style="color: #800080;">2</span> == <span style="color: #800080;">0</span>) &amp;&amp; bits[sum &gt;&gt; <span style="color: #800080;">1</span><span style="color: #000000;">];
+    }
+};</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>参考资料：</p>
+<p><a href="https://discuss.leetcode.com/topic/62334/simple-c-4-line-solution-using-a-bitset" target="_blank">https://discuss.leetcode.com/topic/62334/simple-c-4-line-solution-using-a-bitset</a></p>
+<p><a href="https://discuss.leetcode.com/topic/62312/java-solution-similar-to-backpack-problem-easy-to-understand/2" target="_blank">https://discuss.leetcode.com/topic/62312/java-solution-similar-to-backpack-problem-easy-to-understand/2</a></p>
+<p>&nbsp;</p>
+<p><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/grandyang/p/4606334.html">LeetCode All in One 题目讲解汇总(持续更新中...)</a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/grandyang/category/625406.html" target="_blank">LeetCode</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5951422,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;02affae8-0e77-e111-aa3f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/grandyang/" target="_blank"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/grandyang/">Grandyang</a><br>
+            <a href="http://home.cnblogs.com/u/grandyang/followees">关注 - 23</a><br>
+            <a href="http://home.cnblogs.com/u/grandyang/followers">粉丝 - 107</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;02affae8-0e77-e111-aa3f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5951422,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(5951422,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/grandyang/p/5951061.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/grandyang/p/5951061.html" title="发布于2016-10-11 22:32">[LintCode] Reverse Linked List 倒置链表</a><br><a href="http://www.cnblogs.com/grandyang/p/5958762.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/grandyang/p/5958762.html" title="发布于2016-10-13 23:58">[LintCode] Longest Substring Without Repeating Characters</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-10-12 07:42</span> <a href="http://www.cnblogs.com/grandyang/">Grandyang</a> 阅读(<span id="post_view_count">860</span>) 评论(<span id="post_comment_count">6</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5951422" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/grandyang/p/5951422.html#" onclick="AddToWz(5951422);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=198221,cb_entryId=5951422,cb_blogApp=currentBlogApp,cb_blogUserGuid='02affae8-0e77-e111-aa3f-842b2b196315',cb_entryCreatedDate='2016/10/12 7:42:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533066" class="layer">#1楼</a><a name="3533066" id="comment_anchor_3533066"></a>  <span class="comment_date">2016-10-16 15:14</span> <a id="a_comment_author_3533066" href="http://home.cnblogs.com/u/1001268/" target="_blank">fantasywindy</a> <a href="http://msg.cnblogs.com/send/fantasywindy" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3533066" class="blog_comment_body">不太理解这一行，for (int j = target; j &gt;= nums[i]; --j) <br><br>因为下一行dp[j] = dp[j] || dp[j - nums[i]]; 可以看出每个dp[j]是依赖于比j小的index的dp[j-nums[i]], 所以我觉得for循环的应该是从小到大来才对啊，写成这样 for(int j = nums[i]; j &lt;= target; ++j)这样就是Wrong Answer， 不懂为啥？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3533066,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3533066,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533272" class="layer">#2楼</a><a name="3533272" id="comment_anchor_3533272"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-10-17 00:10</span> <a id="a_comment_author_3533272" href="http://www.cnblogs.com/grandyang/" target="_blank">Grandyang</a> <a href="http://msg.cnblogs.com/send/Grandyang" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3533272" class="blog_comment_body"><a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533066" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3533066);">@</a>
+fantasywindy<br>我觉得是因为这道题的最终目标是要看dp[target]是否能为true，而且nums[i]不一定就比target小，比如[1,2,5]这个数组target为4，4就比5小，所以不存在什么从小到大遍历，而且另一个致命的原因是如果从nums[i]开始遍历, dp[nums[i]]肯定会为true，对于从1开头的数字就会有问题，比如[1,3,4]这个数组，第一次循环dp[1]更新为true，那么j变成2，那么dp[2]也会由于dp[1]的值而被更新为true，而原数组并不存在和为2的子数组，所以这样肯定是不行的。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3533272,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3533272,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533447" class="layer">#3楼</a><a name="3533447" id="comment_anchor_3533447"></a>  <span class="comment_date">2016-10-17 10:01</span> <a id="a_comment_author_3533447" href="http://home.cnblogs.com/u/1001268/" target="_blank">fantasywindy</a> <a href="http://msg.cnblogs.com/send/fantasywindy" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3533447" class="blog_comment_body"><a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533272" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3533272);">@</a>
+Grandyang<br>嗯，后来我调试了一下，发现问题确实跟你说的一样，只是从动态规划的逻辑上感觉说不通，动态规划一般都是后一个状态依赖于前一个状态的计算，感觉如果从这一点来理解的话，这段程序就不好理解了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3533447,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3533447,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533524" class="layer">#4楼</a><a name="3533524" id="comment_anchor_3533524"></a>  <span class="comment_date">2016-10-17 10:51</span> <a id="a_comment_author_3533524" href="http://home.cnblogs.com/u/1001268/" target="_blank">fantasywindy</a> <a href="http://msg.cnblogs.com/send/fantasywindy" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3533524" class="blog_comment_body"><a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533272" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3533272);">@</a>
+Grandyang<br>整明白了，这道题其实可以变成是0 1 背包问题，其实动态规划转移公式是这样的，<br>dp[i][j]代表从第一个元素到第i个元素组成的集合中是否能挑出一个子集满足其和是刚好等于j的，那么我们的最终就是要算出dp[n][sum/2].<br><br>对于dp[i][j]来说，分为两种情况，如果j &gt;= nums[i-1]的话，那么dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]], 否则的话，dp[i][j] = dp[i-1][j], 不做空间优化的代码写出来如下所示.<br>所以如果数组不做优化的话，代码应该如下所示<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_369582" class="syntaxhighlighter collapsed  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/grandyang/p/5951422.html#" class="toolbar_item command_expandSource expandSource">+ View Code</a></span><span><a href="http://www.cnblogs.com/grandyang/p/5951422.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">bool</code> <code class="cpp plain">canPartition(vector&lt;</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt;&amp; nums) {</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">sum = accumulate(nums.begin(), nums.end(), 0);</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(sum % 2 != 0)</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp keyword bold">false</code><code class="cpp plain">;</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">target = sum / 2;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">n = nums.size();</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">vector&lt;vector&lt;</code><code class="cpp color1 bold">bool</code><code class="cpp plain">&gt;&gt; dp(n + 1, vector&lt;</code><code class="cpp color1 bold">bool</code><code class="cpp plain">&gt;(target + 1, </code><code class="cpp keyword bold">false</code><code class="cpp plain">));</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//now we have to initialize the dp array</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 1; i &lt;= n; ++i)</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">dp[i][0] = </code><code class="cpp keyword bold">true</code><code class="cpp plain">;</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">j = 0; j &lt;= target; ++j)</code></div><div class="line number24 index23 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">dp[0][j] = </code><code class="cpp keyword bold">false</code><code class="cpp plain">;</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number27 index26 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">dp[0][0] = </code><code class="cpp keyword bold">true</code><code class="cpp plain">;</code></div><div class="line number29 index28 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number30 index29 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 1; i &lt;= n; ++i)</code></div><div class="line number31 index30 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number32 index31 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">j = 0; j &lt;= target; ++j)</code></div><div class="line number33 index32 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number34 index33 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(j &gt;= nums[i-1])</code></div><div class="line number35 index34 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number36 index35 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">dp[i][j] = dp[i-1][j] || dp[i-1][j - nums[i-1]];</code></div><div class="line number37 index36 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number38 index37 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">else</code></div><div class="line number39 index38 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number40 index39 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">dp[i][j] = dp[i-1][j];</code></div><div class="line number41 index40 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number42 index41 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number43 index42 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number44 index43 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number45 index44 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">dp[n][target];</code></div><div class="line number46 index45 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div><br><br>从代码中可以看出，dp[i][j]其实仅仅依赖于上一次外层大循环的值，所以可以使用滚用数组来优化空间，而且dp[i-1][j]需要更新成dp[i][j]仅仅是当j &gt;= nums[i-1]的情况下，其它情况下维持不变即可，还有一点需要注意的是，dp[i][j] = dp[i-1][j] || dp[i-1][j - nums[i-1]]; 即dp[i][j]的计算是依赖于外层上一次即i-1中的比j小的index的值， 所以内层循环不能从小到大，如果从小到大会复写后来j需要用到的值，这样滚动数组就失效了，所以只能从大到小。<br><br><br><br>呵呵，动态规划的数组利用也是很有意思的一件事，我也是看了好几个贴子后现在才明白，下次做动态规划题先不要想着优化空间，等先把没有优化过的写出来后再试着优化空间。<div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_713872" class="syntaxhighlighter collapsed  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/grandyang/p/5951422.html#" class="toolbar_item command_expandSource expandSource">+ View Code</a></span><span><a href="http://www.cnblogs.com/grandyang/p/5951422.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp color1 bold">bool</code> <code class="cpp plain">canPartition(vector&lt;</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt;&amp; nums) {</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">sum = accumulate(nums.begin(), nums.end(), 0);</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(sum % 2 != 0)</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp keyword bold">false</code><code class="cpp plain">;</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">target = sum / 2;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">n = nums.size();</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">vector&lt;</code><code class="cpp color1 bold">bool</code><code class="cpp plain">&gt; dp(target + 1, </code><code class="cpp keyword bold">false</code><code class="cpp plain">);</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//now we have to initialize the dp array</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">dp[0] = </code><code class="cpp keyword bold">true</code><code class="cpp plain">;</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i = 1; i &lt;= n; ++i)</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">j = target; j &gt;= nums[i-1]; --j)</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number24 index23 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(j &gt;= nums[i-1])</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">dp[j] = dp[j] || dp[j - nums[i-1]];</code></div><div class="line number27 index26 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number29 index28 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number30 index29 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number31 index30 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">dp[target];</code></div><div class="line number32 index31 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3533524,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3533524,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533591" class="layer">#5楼</a><a name="3533591" id="comment_anchor_3533591"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-10-17 11:34</span> <a id="a_comment_author_3533591" href="http://www.cnblogs.com/grandyang/" target="_blank">Grandyang</a> <a href="http://msg.cnblogs.com/send/Grandyang" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3533591" class="blog_comment_body"><a href="http://www.cnblogs.com/grandyang/p/5951422.html#3533524" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3533524);">@</a>
+fantasywindy<br>写的真不错，赞一个！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3533591,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3533591,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/grandyang/p/5951422.html#3561157" class="layer">#6楼</a><a name="3561157" id="comment_anchor_3561157"></a><span id="comment-maxId" style="display:none;">3561157</span><span id="comment-maxDate" style="display:none;">2016/11/21 14:38:49</span>  <span class="comment_date">2016-11-21 14:38</span> <a id="a_comment_author_3561157" href="http://www.cnblogs.com/encode/" target="_blank">放作夥</a> <a href="http://msg.cnblogs.com/send/%E6%94%BE%E4%BD%9C%E5%A4%A5" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3561157" class="blog_comment_body">位运算方法我只能自己在草稿上模拟发现是对的，但是不明白为什么是对的。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3561157,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3561157,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/grandyang/p/5951422.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/grandyang/p/5951422.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/24442-20161115165230123-1587531896.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/557991/" target="_blank">微软希望所有Linux开发人员迁移到Windows 10</a><br> ·  <a href="http://news.cnblogs.com/n/557990/" target="_blank">好大夫在线创始人王航：“六脉神剑”轻模式打造互联网医院</a><br> ·  <a href="http://news.cnblogs.com/n/557989/" target="_blank">苏宁投资项目已经接近20个 最新一个是易果生鲜</a><br> ·  <a href="http://news.cnblogs.com/n/557988/" target="_blank">英特尔破釜沉舟豪赌AI 未来三年深度学习或提速百倍</a><br> ·  <a href="http://news.cnblogs.com/n/557987/" target="_blank">《魔兽世界》最大“怀旧服”Nostalrius被封后重启</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/24442-20161114133622451-1554357151.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br> ·  <a href="http://kb.cnblogs.com/page/550625/" target="_blank">程序猿媳妇儿注意事项</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2015-10-12 <a href="http://www.cnblogs.com/grandyang/p/4873248.html">[LeetCode] Nim Game 尼姆游戏</a><br>2015-10-12 <a href="http://www.cnblogs.com/grandyang/p/4871307.html">C++ unordered_map remove 实现哈希表移除</a><br></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><a href="http://www.visitormap.org/" target="_top"><img src="./[LeetCode] Partition Equal Subset Sum 相同子集和分割 - Grandyang - 博客园_files/y-1.png" alt="Free Visitor Maps at VisitorMap.org" border="0"></a><br><a href="http://www.visitormap.org/">Get a FREE visitor map for your site!</a>
+<div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/grandyang/">Grandyang</a><br>园龄：<a href="http://home.cnblogs.com/u/grandyang/" title="入园时间：2012-03-26">4年8个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/grandyang/followers/">107</a><br>关注：<a href="http://home.cnblogs.com/u/grandyang/followees/">23</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;02affae8-0e77-e111-aa3f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/10/01&#39;);return false;">&lt;</a></td><td align="center">2016年11月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/12/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/01.html"><u>1</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/02.html"><u>2</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/03.html"><u>3</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/04.html"><u>4</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/05.html"><u>5</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/06.html"><u>6</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/07.html"><u>7</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/08.html"><u>8</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/09.html"><u>9</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/10.html"><u>10</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/11.html"><u>11</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/12.html"><u>12</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/13.html"><u>13</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/14.html"><u>14</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/15.html"><u>15</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/16.html"><u>16</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/17.html"><u>17</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/18.html"><u>18</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/19.html"><u>19</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/20.html"><u>20</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/21.html"><u>21</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/22.html"><u>22</u></a></td><td align="center">23</td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/24.html"><u>24</u></a></td><td align="center">25</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/26.html"><u>26</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/27.html"><u>27</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/11/28.html"><u>28</u></a></td><td class="CalTodayDay" align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/grandyang/p/6108158.html">1. [LeetCode] Optimal Account Balancing 最优账户平衡</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6106167.html">2. 机器学习&amp;深度学习资料</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6103525.html">3. [LeetCode] Can I Win 我能赢吗</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6103521.html">4. IOS UIAlertController 使用方法</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6096138.html">5. [LeetCode] Island Perimeter 岛屿周长</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6089060.html">6. [LeetCode] Minimum Moves to Equal Array Elements II 最少移动次数使数组元素相等之二</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6087347.html">7. [LeetCode] Repeated Substring Pattern 重复子字符串模式</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6081984.html">8. [LeetCode] 132 Pattern 132模式</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6079790.html">9. Maya Plugin 编译Maya插件</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6077344.html">10. [LeetCode] Assign Cookies 分点心</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/grandyang/category/652317.html">3D Visualization(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/grandyang/category/637842.html">Adobe Software(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/grandyang/category/663275.html">Algorithms(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/grandyang/category/634612.html">C/C++, Java(31)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/grandyang/category/711820.html">CareerCup(150)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/grandyang/category/784319.html">CUDA/OpenCL(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/grandyang/category/624035.html">Digital Image Processing(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/grandyang/category/625885.html">Entertainment(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/grandyang/category/658003.html">GTK+/VTK/ITK/FLTK(17)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/grandyang/category/628989.html">IOS(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/grandyang/category/875464.html">LaTex(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/grandyang/category/625406.html">LeetCode(444)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/grandyang/category/731123.html">LintCode(86)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/grandyang/category/718760.html">MatLab(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/grandyang/category/734787.html">Maya / 3ds Max(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/grandyang/category/808866.html">MySQL(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/grandyang/category/632345.html">OpenCV(35)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/grandyang/category/624346.html">Point Grey Research(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/grandyang/category/658313.html">Qt(47)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/grandyang/category/624037.html">Useful Links(33)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/grandyang/archive/2016/11.html">2016年11月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/grandyang/archive/2016/10.html">2016年10月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/grandyang/archive/2016/09.html">2016年9月 (24)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/grandyang/archive/2016/08.html">2016年8月 (40)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/grandyang/archive/2016/07.html">2016年7月 (31)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/grandyang/archive/2016/06.html">2016年6月 (33)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/grandyang/archive/2016/05.html">2016年5月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/grandyang/archive/2016/04.html">2016年4月 (70)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/grandyang/archive/2016/03.html">2016年3月 (32)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/grandyang/archive/2016/02.html">2016年2月 (32)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/grandyang/archive/2016/01.html">2016年1月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/grandyang/archive/2015/12.html">2015年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/grandyang/archive/2015/11.html">2015年11月 (36)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/grandyang/archive/2015/10.html">2015年10月 (43)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/grandyang/archive/2015/09.html">2015年9月 (51)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/grandyang/archive/2015/08.html">2015年8月 (46)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/grandyang/archive/2015/07.html">2015年7月 (45)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/grandyang/archive/2015/06.html">2015年6月 (29)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/grandyang/archive/2015/05.html">2015年5月 (28)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/grandyang/archive/2015/04.html">2015年4月 (42)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/grandyang/archive/2015/03.html">2015年3月 (55)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/grandyang/archive/2015/02.html">2015年2月 (61)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/grandyang/archive/2015/01.html">2015年1月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/grandyang/archive/2014/12.html">2014年12月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/grandyang/archive/2014/11.html">2014年11月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/grandyang/archive/2014/10.html">2014年10月 (35)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/grandyang/archive/2014/09.html">2014年9月 (5)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	698729
+	</li>
+	<li class="liRank">
+		排名 -	121
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/4217175.html#3567481">1. Re:[LeetCode] Find Peak Element 求数组的峰值</a></li>
+        <li class="recent_comment_body">@xzhang45这个没有统一的标准吧，只要能正确运行就可以了吧...</li>
+        <li class="recent_comment_author">--Grandyang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/6103525.html#3567438">2. Re:[LeetCode] Can I Win 我能赢吗</a></li>
+        <li class="recent_comment_body">@Grandyang发现了，这个地方需要恢复状态。多谢〜...</li>
+        <li class="recent_comment_author">--fantasywindy</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/4383632.html#3567436">3. Re:[LeetCode] House Robber 打家劫舍</a></li>
+        <li class="recent_comment_body">@Grandyang如我之前的评论说过，其实动态规划啥的第一眼很难想到，大多数情况下我都是先写递归算法，因为从递归算法很就容易推导出所谓的动态规划公式出来，然后再转换成动态规划，再优化空间等。整个过程......</li>
+        <li class="recent_comment_author">--fantasywindy</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/4217175.html#3566688">4. Re:[LeetCode] Find Peak Element 求数组的峰值</a></li>
+        <li class="recent_comment_body">@Grandyang <br>楼主你好！请问你的二分使用的左闭右开的方式，但是为什么初始right值的时候却是用的右闭合的方式？谢谢！</li>
+        <li class="recent_comment_author">--xzhang45</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/5619296.html#3566670">5. Re:[LeetCode] Valid Perfect Square 检验完全平方数</a></li>
+        <li class="recent_comment_body">O(1)那个解法丧心病狂！</li>
+        <li class="recent_comment_author">--sexyNerd</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/grandyang/p/4606334.html">1. LeetCode All in One 题目讲解汇总(持续更新中...)(42581)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4295761.html">2. [LeetCode] Best Time to Buy and Sell Stock IV 买卖股票的最佳时间之四(12767)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4383632.html">3. [LeetCode] House Robber 打家劫舍(8515)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4523624.html">4. [LeetCode] Shortest Palindrome 最短回文串(8102)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4800552.html">5. [LeetCode] Perfect Squares 完全平方数(8084)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4997417.html">6. [LeetCode] Best Time to Buy and Sell Stock with Cooldown 买股票的最佳时间含冷冻期(7099)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4629032.html">7. [LeetCode] Number of Digit One 数字1的个数(7088)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4743837.html">8. [LeetCode] Ugly Number II 丑陋数之二(6732)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4484571.html">9. [LeetCode] Course Schedule 课程清单(6554)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4545261.html">10. [LeetCode] Contains Duplicate III 包含重复值之三(6531)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/grandyang/p/4105725.html">1. [FlyCapture2] Bumblebee XB3 Save Images to Three AVI Files (Left, Center and Right) 大黄蜂立体相机保存捕获的视频到左中右三个不同的文件(35)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4555831.html">2. [LeetCode] Surrounded Regions 包围区域(17)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4606334.html">3. LeetCode All in One 题目讲解汇总(持续更新中...)(12)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4480780.html">4. [LeetCode] Longest Substring Without Repeating Characters 最长无重复子串(10)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4539680.html">5. [LeetCode] Contains Duplicate II 包含重复值之二(8)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/grandyang/p/4606334.html">1. LeetCode All in One 题目讲解汇总(持续更新中...)(7)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4854466.html">2. [LeetCode] Game of Life 生命游戏(3)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4743837.html">3. [LeetCode] Ugly Number II 丑陋数之二(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4309345.html">4. [LeetCode] Subsets 子集合(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4539768.html">5. [LeetCode] Word Ladder 词语阶梯(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4475985.html">6. Manacher's Algorithm 马拉车算法(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4465932.html">7. [LeetCode] Median of Two Sorted Arrays 两个有序数组的中位数(1)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4464476.html">8. [LeetCode] Longest Palindromic Substring 最长回文串(1)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4447233.html">9. [LeetCode] Happy Number 快乐数(1)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4431949.html">10. [LeetCode] Divide Two Integers 两数相除(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 Grandyang
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

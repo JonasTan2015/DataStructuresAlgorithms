@@ -1,0 +1,1649 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)http://billhoo.blog.51cto.com/2337751/411486 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<script id="allmobilize" charset="utf-8" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/allmobilize.min.js.下载"></script><style type="text/css"></style><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://billhoo.blog.51cto.com/#">
+
+
+<title>【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客</title>
+<meta name="description" content="相信很多人（包括自己）初识KMP算法的时候始终是丈二和尚摸不着头脑，要么完全不知所云，要么看不懂书上的解释，要么自己觉得好像心里了解KMP算法的意思，却说不出个究竟，所谓知其然不知其所以然是也。&#160;&amp;nb..">
+<meta name="keywords" content="KMP 详解 初学,休闲,职场">
+<meta http-equiv="Cache-Control" content="private">
+<!--<base href="http://billhoo.blog.51cto.com/">--><base href=".">
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/def.js.下载"></script>
+<script language="javascript" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/message.js.下载" type="text/javascript"></script>
+<script language="javascript" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/user_comment.js.下载" type="text/javascript"></script>
+<script language="javascript" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/base2.js.下载" type="text/javascript"></script>
+<script language="javascript" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/dialog_utf8.js.下载" type="text/javascript"></script>
+<link href="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/28.css" rel="stylesheet" type="text/css">
+<link rel="alternate" href="http://billhoo.blog.51cto.com/rss.php?uid=2337751" type="application/rss+xml" title="RSS 2.0">
+<link rel="edituri" type="application/rsd+xml" title="rsd" href="http://billhoo.blog.51cto.com/xmlrpc.php?rsd=1">
+<link href="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/header_master_top.css" rel="stylesheet" type="text/css">
+<link href="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/base.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	.mainNav li a{display:inline-block}
+</style>
+<script>
+var myid = "";
+function add_flink(){
+	if(myid==""){
+
+        var refurlk = "http://billhoo.blog.51cto.com/2337751/411486";
+
+				//commentSubmit("",refurlk);
+				location.href="http://home.51cto.com/index.php?reback="+encodeURIComponent(encodeURIComponent(refurlk));
+				
+				return false;
+	}else{
+		var mtk = "36d7ba965a8e8d2dc265640a23e937ba";
+      		var url='/mod/edit_flink.php?type=addflink&uid=2337751&flink=http://billhoo.blog.51cto.com&mtk='+mtk;
+		var ajax = InitAjax1();
+		ajax.open("GET", url, true);
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				/*if(myid == 5290427){
+					alert(ajax.responseText);
+				}*/
+				if(ajax.responseText==""){
+					alert("添加成功。");
+				}
+				if(ajax.responseText=="1"){
+				alert("链接指向自己。");
+				}
+				if(ajax.responseText=="2"){
+				alert("友情链接已存在。")
+				}
+				if(ajax.responseText=="4"){
+					alert("验证已过期。")
+					}
+			}
+		}
+		ajax.send(null);
+	}
+
+
+
+}
+function sendmessage(){
+
+	var refurlk = "http://billhoo.blog.51cto.com/2337751/411486";
+
+	if(myid){
+		return true;
+	}else{
+		commentSubmit("",refurlk);
+		return false;
+	}
+}
+function copylink(ourl){
+	if(!ourl){
+		var clipBoardContent = "http://billhoo.blog.51cto.com";
+	}else{
+		var clipBoardContent = ourl;
+	}
+	window.clipboardData.setData("Text",clipBoardContent);
+	alert("复制成功!");
+	return false;
+}
+function correctPNG() {
+if (document.getElementById('blog_touxian'))
+{
+var img = document.getElementById('blog_touxian');
+      var imgName = img.src.toUpperCase()
+      var imgID = (img.id) ? "id='" + img.id + "' " : ""
+      var imgClass = (img.className) ? "class='" + img.className + "' " : ""
+      var imgTitle = (img.title) ? "title='" + img.title + "' " : "title='" + img.alt + "' "
+      var imgStyle = "display:inline-block;" + img.style.cssText
+      if (img.align == "left") imgStyle = "float:left;" + imgStyle
+      if (img.align == "right") imgStyle = "float:right;" + imgStyle
+      if (img.parentElement.href) imgStyle = "cursor:hand;" + imgStyle
+      var strNewHTML = "<span " + imgID + imgClass + imgTitle
+         + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
+         + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+         + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>" ;
+      img.outerHTML = strNewHTML;
+}
+}
+//window.attachEvent("onload", correctPNG);
+window.onload=correctPNG;
+
+function copy(){
+var text=document.getElementById("txtUser").value;
+if(copy2Clipboard(text)!=false){ 
+alert("复制成功了！ "); 
+} 
+}
+function copy2Clipboard(txt){ 
+if(window.clipboardData){ 
+window.clipboardData.clearData(); 
+window.clipboardData.setData("Text",txt); 
+}else if(navigator.userAgent.indexOf("Opera")!=-1){ 
+window.location=txt; 
+}else if(window.netscape){ 
+try{ 
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+} 
+catch(e){ 
+alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。"); 
+return false; 
+} 
+var clip=Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+if(!clip)return; 
+var trans=Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+if(!trans)return; 
+trans.addDataFlavor('text/unicode'); 
+var str=new Object(); 
+var len=new Object(); 
+var str=Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString); 
+var copytext=txt;str.data=copytext; 
+trans.setTransferData("text/unicode",str,copytext.length*2); 
+var clipid=Components.interfaces.nsIClipboard; 
+if(!clip)return false; 
+clip.setData(trans,null,clipid.kGlobalClipboard); 
+return true;
+} 
+}
+
+function mod_close(){
+  document.getElementById('mod_tg').style.display="none";
+}
+
+function match_invite(uid) {
+    var url='/mod/match_invite.php';
+	var ajax = InitAjax();
+    var re = 'uid=' + uid;
+	ajax.open("POST", url, true);
+    ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax.send(re);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            if(ajax.responseText == 1){
+                alert("邀请信息已经发送成功。");
+            } else if(ajax.responseText=="-1"){
+                alert("邀请失败，请稍候再试。");
+            } else if(ajax.responseText=="2"){
+                alert("该用户已经报名了。")
+            }
+        }
+    }
+}
+
+</script>
+<style type="text/css">
+/*
+.artContent img {max-width:450px !important;}
+.showContent img{max-width:650px!important;}
+*/
+
+.artContent img{max-width: 450px; width:expression(this.width > 450 ? "450px" : this.width)}
+/*
+.showContent img{max-width: 450px; width:expression(this.width > 650 ? "650px" : this.width)}
+*/
+
+
+</style>
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/share.js.下载"></script><link rel="stylesheet" href="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/share_style1_32.css"><script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script></head>
+
+<body>
+
+<div id="home_top">
+<div class="top_nav" style="width:990px;">
+<div class="left" style="margin-top:10px; width:440px;"><a href="http://blog.51cto.com/" target="_blank"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/head_blog_sibebar_logo.gif" align="absmiddle" style="margin-top:-4px;"></a><a target="_blank" href="http://www.51cto.com/">51CTO首页</a><img height="25" align="absmiddle" width="16" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;"><a href="http://blog.51cto.com/" target="_blank">51CTO博客</a><img height="25" align="absmiddle" width="16" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;"><a href="http://home.51cto.com/?reback=http%253A%252F%252Fbillhoo.blog.51cto.com%252F2337751%252F411486">我的博客</a><img height="25" align="absmiddle" width="16" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/top_bg_xian.gif" style="margin-top:-4px;">
+
+<a target="_blank" href="http://blog.51cto.com/search.php">搜索</a>
+<a href="javascript:void(0);" style="color: rgb(255, 0, 0); text-decoration: underline;" id="showMessagerDim">每日博报</a>
+</div>
+
+<div class="right" style="width:550px;">
+<div class="more"><img height="16" align="absmiddle" width="27" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/top_shequ.gif"><a target="_blank" style="color:#C00" href="http://gaozhao.51cto.com/">招聘</a><a target="_blank" href="http://edu.51cto.com/" style="color: rgb(204, 0, 0);">学院</a><a target="_blank" href="http://bbs.51cto.com/">论坛</a><a target="_blank" href="http://blog.51cto.com/">博客</a><a target="_blank" href="http://down.51cto.com/">下载</a><a href="javascript:viod(0);" onmouseout="popupClose()" onmouseover="show(3,this)">更多<img align="absmiddle" style="padding-left: 4px;" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/nav_ico1.gif"></a>            </div>            <span id="login_status"><div class="login" style="padding-top:8px; text-align:right;"><a href="http://home.51cto.com/index?reback=http://billhoo.blog.51cto.com/2337751/411486" target="_self">登录</a><a href="http://home.51cto.com/user/register?reback=http://billhoo.blog.51cto.com/2337751/411486" target="_self">注册</a></div></span>                </div>    </div></div>
+
+
+
+<div class="subMenu3" id="s3" onmouseover="popupNoClose()" onmouseout="popupClose()">
+<ul>
+<li><a href="http://home.51cto.com/" target="_blank">家园</a></li>
+<li><a href="http://edu.51cto.com/" target="_blank">学院</a></li>
+<li><a href="http://blog.51cto.com/" target="_blank">博客</a></li>
+<li><a href="http://bbs.51cto.com/" target="_blank">论坛</a></li>
+<li><a href="http://down.51cto.com/" target="_blank">下载</a></li>
+
+<li><a href="http://selftest.51cto.com/" target="_blank">自测</a></li>
+<li><a href="http://doctor.51cto.com/" target="_blank">门诊</a></li>
+<li><a href="http://blog.51cto.com/newsletter/" target="_blank">周刊</a></li>
+<li><a href="http://book.51cto.com/" target="_blank">读书</a></li>
+<li><a href="http://t.51cto.com/" style="color:red;" target="_blank">题库</a></li>
+<li><a href="http://gaozhao.51cto.com/" target="_blank">招聘</a></li>
+</ul>
+</div>
+<!--简导航end-->
+
+
+
+<div class="headerBox">
+<div class="header">
+<div class="header_l">
+<div class="logo_blogname">
+
+
+<div class="blogLogo">
+<a href="http://blog.51cto.com/blogcommend" target="_blank"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/blogLogo01.png" width="161px;" height="70px;"></a>
+</div>
+
+
+<div class="blogName">
+<a href="http://billhoo.blog.51cto.com/"><h1>Bill_Hoo专栏</h1></a>
+</div>
+</div><!--logo_blogname end-->
+<div class="blogLink">
+
+<a href="http://billhoo.blog.51cto.com/">http://billhoo.blog.51cto.com</a> <input id="txtUser" type="hidden" size="32" value="http://billhoo.blog.51cto.com">   <a href="javascript:void(0);" onclick="copy();">【复制】</a> <a href="http://billhoo.blog.51cto.com/rss.php?uid=2337751" target="_blank"></a><a href="http://billhoo.blog.51cto.com/rss.php?uid=2337751" target="_blank">【订阅】</a>
+
+</div>
+
+
+
+</div><!--header_l end-->
+<div class="header_r">
+<div class="blogInfo"><span><a href="http://billhoo.blog.51cto.com/2337751/o" title="察看Bill_Hoo所有原创文章">原创</a>:55</span><span><a href="http://billhoo.blog.51cto.com/2337751/t" title="察看Bill_Hoo所有翻译文章">翻译</a>:5</span><span><a href="http://billhoo.blog.51cto.com/2337751/c" title="察看Bill_Hoo所有转载文章">转载</a>:6</span></div>
+<div class="blogNav"><a href="http://billhoo.blog.51cto.com/">博 客</a>|<a href="http://blog.51cto.com/user_index.php?action=addblog_new">写博文</a>|<a href="http://51ctoblog.blog.51cto.com/all/26414/4" target="_blank">帮 助</a></div>
+</div>
+</div>
+<!--header end-->
+</div><!--headerBox end-->
+<div class="mainNav">
+<span class="mainNavT"></span>
+<ul>
+<li><a href="http://billhoo.blog.51cto.com/">首页</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-3">心丶灵 净地</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-8">流媒体</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-9">C++11</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-4">C\C++常见错误浅析</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-5">C\C++基础学习</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-6">Android 初学</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-2">转丶在于精</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-1">Rookie</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-7">环境搭建</a></li>|<li><a href="http://billhoo.blog.51cto.com/2337751/d-10">杂项</a></li>
+</ul>
+<span class="mainNavB"></span>
+</div>
+<!--mainNav end-->
+
+
+<style>
+.wrap_box{width:750px;float:left;}
+.box1{width:368px;background: #fff; border: 0px solid #626262;float:left;height: 162px;}
+.mr10{margin-right:10px;}
+</style>
+<script type="text/javascript" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/jquery-1.7.1.min.js.下载"></script>
+<!--[if IE 6]>
+  <script type="text/javascript" src="http://images.watchstor.com/newhomes/png.js"></script>
+  <script>
+    DD_belatedPNG.fix('img,input,ul,li, .get-box, div, .add, .sub, .ui-slider-handle, .footer-chopper');
+  </script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/fck_editorarea.css">
+<script type="text/javascript" charset="gbk" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/shCores.js.下载"></script>
+<link rel="stylesheet" type="text/css" href="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/shCoreDefault.css">
+<script type="text/javascript" charset="gbk" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/uparse.js.下载"></script>
+<script type="text/javascript">
+	uParse('.showContent');
+	$(function(){
+		//SyntaxHighlighter.config.clipboardSwf = 'http://bbs.51cto.com/plugins/syntaxhighlighter/scripts/clipboard.swf'; 
+		//为了在编辑器之外能展示高亮代码
+		SyntaxHighlighter.highlight();
+	}); 
+</script>
+<script type="text/javascript">
+/**
+ * 回复评论需要用的js
+ * 2012-5-14
+ * by:chengtao
+ */
+ jQuery(function(){
+	blogpost.init();//初始化博客回复功能
+ })
+ /**
+  * 处理博文评论功能优化
+  */
+ blogpost={
+	abstruct_list:null,
+	init:function(){
+		blogpost.bind();//绑定一些时间
+		this.abstruct_list=new Array();//初始化保存评论信息的数组
+	},
+	/**
+	 * 博客回复需要绑定的一些事件
+	 */
+	bind:function(){
+		/**
+		 * 点击回复的事件
+		 */
+		jQuery('.repost').live('click',function(){
+			blogpost.repost(jQuery(this).attr('user_name'),jQuery(this).attr('parentid'));
+			return false;
+		});
+		/**
+		 * 点击楼层进行翻页且找到锚点
+		 */
+		jQuery('.anchor_page').live('click',function(){
+			var parentid = $(this).attr('parentid');
+			var tid=$(this).attr('tid');
+			$.get('/comments.php?tid='+tid+'&parentid='+parentid,function(data){
+				$('#artcomment').html(data);
+				window.location.hash=''+parentid;
+			})
+			return false;
+		}),
+		jQuery('.anchor_page').live('mouseover',function(){
+			var parentid = $(this).attr('parentid');
+			if(!blogpost.abstruct_list[parentid]){
+				var this_t = $(this);
+				$.get('/comments.php?cid='+parentid,function(data,textStatus){
+					blogpost.abstruct_list[parentid]=data;
+					this_t.attr('title',this_t.text()+':'+ blogpost.abstruct_list[parentid]);
+				});
+			}else{
+				$(this).attr('title',$(this).text()+':'+blogpost.abstruct_list[parentid]);
+			}
+		})
+	},
+	/**
+	 * @param user_name 用户名
+	 * @param parentid  父评论id
+	 */
+	repost:function(user_name,parentid){
+		window.location.hash='comment';
+		jQuery('#parentid').val(parentid);
+		jQuery('#commentcontent').val('回复 '+user_name+":\n").focus();
+		if(!$.browser.mozilla){
+			var elem = jQuery('#commentcontent')[0];		
+			var caretPos = elem.value.length;
+			if (elem.createTextRange) {
+				var range = elem.createTextRange();
+				range.move('character', caretPos);
+				range.select();
+			}else{
+				elem.setSelectionRange(caretPos, caretPos);	
+			}
+		}
+	},
+	/**
+	 * 发送完毕之后清理表单数据 不是ajax可能用不到
+	 */
+	clean:function(){
+		
+	}
+ }
+</script>
+<script type="text/javascript">
+jQuery(function(){
+	var anchor = document.location.hash;
+	var comment_id=anchor.split('#')[1];
+	if(!isNaN(parseInt(comment_id))){//是整形
+		jQuery.get('/comments.php?tid=411486&parentid='+comment_id,function(data){
+			jQuery('#artcomment').html(data);
+			window.location.hash=''+comment_id;
+		})
+	}
+});
+</script>
+
+
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#favourdiv').mouseover(function(){
+		if(jQuery(this).attr('className') == 'support01')
+		{
+			jQuery(this).attr('className', "support02");
+			jQuery(this).html('+1人');
+			jQuery(this).attr('title', "赞一个，我支持TA");
+		}
+		else if(jQuery(this).attr('className') == 'support03')
+		{
+			jQuery(this).attr('title', "你已经赞了这篇博文！");
+		}
+		
+	});
+	jQuery('#favourdiv').mouseout(function(){
+		if(jQuery(this).attr('className') == 'support02')
+		{
+			jQuery(this).attr('className', "support01");
+			jQuery(this).html("10人");
+		}
+	});
+	jQuery('.blog_match_yq').click(function(){
+		var wind_uid = '';
+		if(!wind_uid){
+			alert("请先登录！");
+			return false;
+		}
+		jQuery.ajax({
+			   type: "POST",
+			   url:"/contest2012/index.php?mod=sendmsg",
+			   dataType: "html",
+			   data: "vuid=" + 2337751,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("查无此人！");
+						return false;
+					}else if(data == 1){
+						alert("请先登录！");
+						return false;
+					}else if(data == 2){
+						alert("不能邀请自己！");
+						return false;
+					}else if(data == 22){  
+						alert("邀请信息已发出！");
+						return false;
+					}
+			   }
+		  });
+	});
+	jQuery('#favourdiv').click(function(){
+			jQuery.ajax({
+			   type: "POST",
+			   url:"/mod/favour.php",
+			   dataType: "html",
+			   data: "tid=" + 411486,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("您还未登录或者已过期，请重新登录");
+						location.href = "http://home.51cto.com/index.php?reback=http%253A%252F%252Fbillhoo.blog.51cto.com%252F2337751%252F411486";
+						return false;
+					}
+					else if(data == '-1')
+					{
+						alert("参数传递错误！");
+						return false;
+					}
+					else if(data == '-2')
+					{
+						alert("该博文已被删除或者不存在！");
+						return false;
+					}
+					else if(data == '-3')
+					{
+						alert("您已经赞过了！");
+						return false;
+					}
+					else if(data == '-4')
+					{
+						alert("赞操作失败！");
+						return false;
+					}
+					else
+					{  
+						//alert("操作成功，你已经赞了这篇博文！");
+						jQuery('#favourdiv').attr('className', "support03");
+
+						var num = 10 + 1 + "人";
+						jQuery('#favourdiv').html(num);
+						jQuery('#favourer').html(data);
+						return false;
+					}
+			   }
+		  });
+	});
+	//Jaydar http://blog.51cto.com/js/header.php?uid=blogdb[uid]&tid=tid
+	jQuery.post('/js/header.php',{uid:2337751,tid:411486},function(data){
+		jQuery('#readNum').html(data[0]);
+		jQuery('#cmtNum').html(data[1]);
+	},'json');
+	
+
+})
+
+jQuery(function(){
+	jQuery('#darid').bind('click',function(){
+		if(confirm("你确定删除此篇文章？")){
+			jQuery.ajax({
+				'type':'post',
+				'url':'user_index.php?action=delarticle',
+				'data':{'job':'del', 'selid':'411486', 'mhash':''},
+				'dataType':'html',
+				'success':function(res){
+					if('ok' == res){
+						location.href="http://.blog.51cto.com";
+					}
+				
+				}
+			});
+		}
+	});
+});
+</script>
+
+
+
+
+<style type="text/css">
+.m_sharelinks{ 
+	line-height:30px; 
+	text-align:left; 
+	padding-left:20px; 
+	//background:url(http://img1.51cto.com/images/share/ico_lb.gif) no-repeat left center;
+	float:left; 
+	width:600px; 
+	height:30px;
+}
+.m_sharelinks a{ margin-left:10px;}
+.m_sharebtn{ height:50px; width:726px; margin:0 auto;}
+.m_sharebtn01{width:520px; float:left;}
+.weibo_51cto{ background:url(http://img1.51cto.com/images/share/ico_mweibo.gif) no-repeat center center; display:block; width:33px; height:33px; float:left; margin:3px 3px 0 0;cursor:pointer;}
+.shareMored {
+    line-height: 30px;
+	float:right; 
+	text-align:right; 
+	width:100px; 
+	height:30px;
+}
+
+.showContent {
+	margin:20px 15px 8px;
+}
+.userImage img {
+    text-align: center;
+	border:0;
+	padding:0;
+}
+.photo_links{ line-height:30px; padding-top:5px; font-size:13px;width:170px; margin:0 auto;}
+.photo_links_blue{ text-align:center;}
+.photo_links_blue a:link,.photo_links_blue a:visited,.photo_links_blue a:hover,.photo_links_blue a:active{ color:#015F91; text-decoration: underline;}
+.photo_links_red{ text-align:left;}
+.photo_links_red a:link,.photo_links_red a:visited,.photo_links_red a:hover,.photo_links_red a:active{ color:#fc4343; text-decoration:underline;}
+.photo_links_red02{ text-align:center;}
+
+.vlist{ margin:10px 10px; height:65px;}
+.vlist img{ float:left; margin-right:10px;}
+.vlist dl{ text-align:left;}
+.vlist dl dt{ height:40px;line-height: 20px; overflow:hidden; padding-top:5px;}
+.vlist dl dt,.vlist dl dt a{ color:#262626;}
+.vlist dl dd,.vlist dl dd a{ color:#777;}
+
+.video-icon{
+    position: relative;
+}
+.video-icon a.i_video {
+    background: url("http://www.51cto.com/images/homepage/Images/eduplay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 25px;
+    left:31px;
+    position: absolute;
+    top:22px;
+    width: 25px;
+    z-index: 10;
+}
+
+.ipadFload{ position:fixed; width:136px; height:194px; background:url("http://bbs.51cto.com/images/IPad-bg.png") left top no-repeat #fff; font-family:"微软雅黑"; padding-left:18px;}
+.ipadClose{ text-align:right; font-size:14px; line-height:20px;}
+.ipadImg{ padding-top:38px;}
+.ipadImg img{ width:105px; height:105px;}
+.iPadair2{ font-size:12px;}
+.iPadair2 a{ color:#659b01; text-decoration:none; background:url("http://bbs.51cto.com/images/51CTO-IPAD-BOTTOM.png") right center no-repeat; display:block; line-height:30px;}
+
+</style>
+<div id="add_sys_type_div" style="width:600px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+<div id="add_sys_type_dvs" style="width:550px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+	
+
+
+
+<div class="blogMain">
+<div class="blogLeft">
+
+
+<div class="box moduleUser">
+<div class="title">
+<h2><strong>Bill_Hoo</strong> 的BLOG  </h2>
+</div>
+<div class="modCon">
+
+<div class="userImage" style="margin: 10px auto 5px;text-align: center;width: 130px;border: 1px solid #D4D4D4;">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td valign="middle" align="center" height="130"><script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/userface.php"></script><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar.php" id="userface"></td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="photo_links">
+</div>
+
+
+
+
+
+
+
+
+
+<div class="crumbs">
+<a href="http://home.51cto.com/index.php?s=/space/2337751#message" class="writeMessage" target="_blank">写留言</a><a href="http://edu.51cto.com/" class="inCircle" target="_blank">去学院学习</a><a href="http://home.51cto.com/index.php?s=/Notify/write/uid/2337751" class="message" target="_blank">发消息</a>
+ <a href="http://billhoo.blog.51cto.com/" onclick="add_flink(2337751);return false" class="joinLinks">加友情链接</a><a href="http://home.51cto.com/index.php?s=/space/2337751" class="joinFriends" target="_blank">进家园 加好友</a>
+</div>
+
+<div style="width:239px;height:64px;display:none;">
+
+
+<div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">2012年度IT博客大赛<br><a target="_blank" href="http://blog.51cto.com/contest2012/#top10000" style="color:#F00; text-decoration:underline;">十大杰出IT博客诞生</a></p></div>
+<div style="float:right;"><a target="_blank" href="http://blog.51cto.com/contest2012/2337751"><img width="57" height="27" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/blog_match_endlook.jpg" style="margin:23px 20px 0 0;"></a></div>
+
+
+
+<div class="clear"></div>
+</div>
+
+
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+<div class="title">
+<h2>博客统计信息</h2>
+</div>
+<div class="modCon">
+<p>
+<span class="infoListHead"><a href="http://blog.51cto.com/blogcommend" target="_blank" class="operlink"><b>51CTO推荐博客</b></a> <br></span>
+用户名：Bill_Hoo<br>
+文章数：66<br>
+评论数：383<br>
+访问量：475136<br>
+<a href="http://home.51cto.com/index.php?s=/Account/credit" target="_blank">无忧币</a>：6615<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客积分</a>：1362<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客等级</a>：5<br>
+注册日期：2010-10-27<br>
+</p>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+	<div class="title">
+		<h2 class="fl">热门专题</h2>
+		<a target="_blank" class="fr" href="http://blog.51cto.com/zt">更多&gt;&gt;</a>
+	</div>
+	<div class="modCon" style="height: 348px;">
+
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/692" target="_blank"><img width="63" height="63" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/wKioL1c5llLwKSo3AAAbx5aBW1Q413.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/692" target="_blank" title="每天5分钟玩转 OpenStack">每天5分钟玩转 OpenStack</a></dt>
+		<dd>阅读量：5863</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/693" target="_blank"><img width="63" height="63" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/wKiom1dVDr7javamAABB79u01lo798.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/693" target="_blank" title="【51CTO三周年】我在学院不得不说的收获">【51CTO三周年】我在学院不得不说的收获</a></dt>
+		<dd>阅读量：12276</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/14" target="_blank"><img width="63" height="63" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/1304672337_index.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/14" target="_blank" title="从菜鸟到老鸟-教你玩转Mac操作系统">从菜鸟到老鸟-教你玩转Mac操作系统</a></dt>
+		<dd>阅读量：354785</dd>
+		</dl>
+		</div>
+	
+		<div class="vlist">
+		  <a href="http://blog.51cto.com/zt/20" target="_blank"><img width="63" height="63" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/1306310178_index.jpg"></a>
+		<dl>
+		<dt>
+		  <a href="http://blog.51cto.com/zt/20" target="_blank" title="QT学习之路：从入门到精通">QT学习之路：从入门到精通</a></dt>
+		<dd>阅读量：1052113</dd>
+		</dl>
+		</div>
+		
+		
+	</div>
+	<span class="modBot"></span>
+</div>
+
+
+<div class="hotArt box">
+<div class="title">
+<h2>热门文章</h2>
+</div>
+<div class="modCon">
+<ul>
+<li><a href="http://billhoo.blog.51cto.com/2337751/411486">【KMP算法详解——适合初..</a></li>
+<li><a href="http://billhoo.blog.51cto.com/2337751/772442">【自定义Android带图片和..</a></li>
+<li><a href="http://billhoo.blog.51cto.com/2337751/761230">【Android开机启动Activi..</a></li>
+<li><a href="http://billhoo.blog.51cto.com/2337751/1213801">【单独编译使用WebRTC的..</a></li>
+<li><a href="http://billhoo.blog.51cto.com/2337751/764788">【Android 如何置底一个V..</a></li>
+<li><a href="http://billhoo.blog.51cto.com/2337751/1125039">【Win7下Android native ..</a></li>
+<li><a href="http://billhoo.blog.51cto.com/2337751/1125559">【如何在Android中使用编..</a></li>
+<li><a href="http://billhoo.blog.51cto.com/2337751/1557646">【基于libRTMP的流媒体直..</a></li>
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+<div class="search box">
+<div class="title"><h2>搜索BLOG文章</h2></div>
+<div class="modCon">
+<form method="post" action="http://billhoo.blog.51cto.com/search.php?" tabindex="99">
+<input type="hidden" name="step" value="2">
+<input type="hidden" name="authorid" value="2337751">
+<input type="hidden" name="sch_area" value="S">
+<input type="text" value="" name="keyword" class="searchInput">
+<input type="submit" value="搜 索" class="searchBtn">
+</form>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="box recentGuests">
+<div class="title">
+<h2>最近访客</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://11955807.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(1).php"></a>
+<p><a href="http://11955807.blog.51cto.com/">wb57a..</a></p>
+
+</li><li><a href="http://9799345.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(2).php"></a>
+<p><a href="http://9799345.blog.51cto.com/">幕枫楚雨</a></p>
+
+</li><li><a href="http://3314750.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(3).php"></a>
+<p><a href="http://3314750.blog.51cto.com/">andersr</a></p>
+
+</li><li><a href="http://2031942.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(4).php"></a>
+<p><a href="http://2031942.blog.51cto.com/">94522..</a></p>
+
+</li><li><a href="http://springyounger.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(5).php"></a>
+<p><a href="http://springyounger.blog.51cto.com/">yangj..</a></p>
+
+</li><li><a href="http://4434354.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(6).php"></a>
+<p><a href="http://4434354.blog.51cto.com/">dg8806</a></p>
+
+</li><li><a href="http://12277809.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(7).php"></a>
+<p><a href="http://12277809.blog.51cto.com/">snowl..</a></p>
+
+</li><li><a href="http://4185573.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(8).php"></a>
+<p><a href="http://4185573.blog.51cto.com/">feiqu..</a></p>
+
+</li><li><a href="http://2670255.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(9).php"></a>
+<p><a href="http://2670255.blog.51cto.com/">liuty..</a></p>
+
+</li><li><a href="http://2325291.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(10).php"></a>
+<p><a href="http://2325291.blog.51cto.com/">hy090..</a></p>
+
+</li><li><a href="http://11729930.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(11).php"></a>
+<p><a href="http://11729930.blog.51cto.com/">Freee..</a></p>
+
+</li><li><a href="http://9193559.blog.51cto.com/"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/avatar(12).php"></a>
+<p><a href="http://9193559.blog.51cto.com/">羡慕逸1</a></p>
+
+</li></ul>
+<span class="clear"></span>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="newComments box">
+<div class="title">
+<h2>最新评论 
+
+</h2>
+
+
+
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://12277809.blog.51cto.com/" class="operlink" target="_blank"><b>snowlighter</b></a>：<a href="http://billhoo.blog.51cto.com/2337751/1325273" target="_blank">博主 你好，你觉得我还有把aecm单独..</a></li>
+
+<li><a href="http://12277387.blog.51cto.com/" class="operlink" target="_blank"><b>wx5823d1f4d18d7</b></a>：<a href="http://billhoo.blog.51cto.com/2337751/411486" target="_blank">不好意思 搞错了 楼主是对的  </a></li>
+
+<li><a href="http://12277387.blog.51cto.com/" class="operlink" target="_blank"><b>wx5823d1f4d18d7</b></a>：<a href="http://billhoo.blog.51cto.com/2337751/411486" target="_blank">失配时候的代码感觉不对  不应该..</a></li>
+
+<li><a href="http://billhoo.blog.51cto.com/" class="operlink" target="_blank"><b>Bill_Hoo</b></a>：<a href="http://billhoo.blog.51cto.com/2337751/1213801" target="_blank">回复 1225435702: 你好，请参见VA..</a></li>
+
+<li><a href="http://billhoo.blog.51cto.com/" class="operlink" target="_blank"><b>Bill_Hoo</b></a>：<a href="http://billhoo.blog.51cto.com/2337751/1213801" target="_blank">回复 Mini_wen: 我已经好久没有单..</a></li>
+
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="hotBlogArt box">
+<div class="title">
+  <h2 class="fl">51CTO推荐博文</h2>
+  <a href="http://blog.51cto.com/artcommend" class="fr">更多&gt;&gt;</a></div>
+<div class="modCon">
+<ul>
+<li><a href="http://wangqingpei557.blog.51cto.com/1009349/1872261" title="聊下 git remote prune origin" target="_blank">聊下 git remote prune origin</a></li>
+<li><a href="http://teny32.blog.51cto.com/8027509/1871379" title="Java及Jquery获取屏幕分辨率的实现代码" target="_blank">Java及Jquery获取屏幕分辨率的实..</a></li>
+<li><a href="http://renzhiyuan.blog.51cto.com/10433137/1870650" title="MyEclipse基本开发环境配置！" target="_blank">MyEclipse基本开发环境配置！</a></li>
+<li><a href="http://beanxyz.blog.51cto.com/5570417/1871039" title="Python 学习笔记 - 操作MySQL" target="_blank">Python 学习笔记 - 操作MySQL</a></li>
+<li><a href="http://ultrasql.blog.51cto.com/9591438/1870982" title="MongoDB报表实例方案选型" target="_blank">MongoDB报表实例方案选型</a></li>
+<li><a href="http://suifu.blog.51cto.com/9167728/1870989" title="10分钟学会MySQL基础教程" target="_blank">10分钟学会MySQL基础教程</a></li>
+<li><a href="http://berniem2m.blog.51cto.com/9203249/1870497" title="python中如何使用pip安装自己的第三方模块" target="_blank">python中如何使用pip安装自己的第..</a></li>
+<li><a href="http://ultrasql.blog.51cto.com/9591438/1870221" title="使用Powershell实现数据库自动化运维" target="_blank">使用Powershell实现数据库自动化运维</a></li>
+<li><a href="http://gaowenlong.blog.51cto.com/451336/1868539" title="SQL Server 2016下SSMS通过FULL备份数据还原指定表信息" target="_blank">SQL Server 2016下SSMS通过FULL备..</a></li>
+<li><a href="http://dgd2010.blog.51cto.com/1539422/1868851" title="Python获取网卡信息（名称、MAC、IP、网关等）" target="_blank">Python获取网卡信息（名称、MAC、..</a></li>
+<li><a href="http://beanxyz.blog.51cto.com/5570417/1869368" title="Python 学习笔记 - Memcached" target="_blank">Python 学习笔记 - Memcached</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="friendLink box">
+<div class="title">
+  <h2>友情链接</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://edu.51cto.com/" title="IT精品课程" target="_blank">IT精品课程</a></li>
+
+<li><a href="http://ticktick.blog.51cto.com/" title="对影成三人" target="_blank">对影成三人</a> <img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/tubiao3.gif" alt="本周内更新"></li>
+
+<li><a href="http://gaozhao.51cto.com/" title="技术人才招聘" target="_blank">技术人才招聘 </a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+
+</div>
+<!--left end-->
+
+<script type="text/javascript">
+    var favor_url = "http://billhoo.blog.51cto.com/2337751/411486";
+    var favor_title = "【KMP算法详解——适合初学KMP算法的朋友】";
+    var favor_fuid = "2337751";
+</script>
+<script type="text/javascript" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/favorbox.js.下载"></script>
+
+
+<div class="blogRight" rel="2337751######KMP 详解 初学 休闲 职场" id="article_edu_void">
+<input type="hidden" value="8" id="edu_jia">
+			
+	<p style="clear:both;" class="edu_insert"><div class="box edu-col-a" style="display:none;"><div class="title">的视频课程</div><div class="vbox" style=""><div class="clear hr10"></div></div></div><div class="box edu-col-b" style=""><div class="title"><a target="_blank" href="http://edu.51cto.com/index.php?do=search&amp;m=course&amp;q=KMP">相关视频课程</a><a href="http://edu.51cto.com/index.php?do=search&amp;m=course&amp;q=KMP" target="_blank" style="float:right;">更多</a></div><div class="vbox" style=""><div class="vlist video-icon" style="margin: 2px 8px;"><a href="http://edu.51cto.com/course/course_id-2.html?edu_recommend_adid=91" target="_blank"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/wKiom1NUhZewWAFjAADuG7ZUdkA826.jpg" height="63" width="86"></a><dl><dt> <a href="http://edu.51cto.com/course/course_id-2.html?edu_recommend_adid=91" target="_blank" title="Linux艰辛之路—双机热备与负载均衡视频课程">Linux艰辛之路—双机热备与负载均衡视频课程(共10课时)</a></dt><dd>8812人学习</dd></dl><a class="i_video" href="http://edu.51cto.com/course/course_id-2.html?edu_recommend_adid=91" target="_blank"></a></div><div class="vlist video-icon" style="margin: 2px 8px;"><a href="http://edu.51cto.com/course/course_id-3.html?edu_recommend_adid=91" target="_blank"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/wKiom1NUhZfBa3NlAADtNuFOLI4110.jpg" height="63" width="86"></a><dl><dt> <a href="http://edu.51cto.com/course/course_id-3.html?edu_recommend_adid=91" target="_blank" title="域控升级从2003到2012实战视频课程">域控升级从2003到2012实战视频课程(共4课时)</a></dt><dd>2648人学习</dd></dl><a class="i_video" href="http://edu.51cto.com/course/course_id-3.html?edu_recommend_adid=91" target="_blank"></a></div><div class="vlist video-icon" style="margin: 2px 8px;"><a href="http://edu.51cto.com/course/course_id-6.html?edu_recommend_adid=91" target="_blank"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/wKioL1NUhW2Cu87FAACYuMIdxDY889.jpg" height="63" width="86"></a><dl><dt> <a href="http://edu.51cto.com/course/course_id-6.html?edu_recommend_adid=91" target="_blank" title="iOS开发那些事-了解iOS开发视频教程">iOS开发那些事-了解iOS开发视频教程(共8课时)</a></dt><dd>15928人学习</dd></dl><a class="i_video" href="http://edu.51cto.com/course/course_id-6.html?edu_recommend_adid=91" target="_blank"></a></div><div class="clear hr10"></div></div></div></p>
+	<style type="text/css">
+.vlist {
+    float: left;
+    padding: 2px 0 0 10px;
+    width: 218px;
+	
+}
+.vlist img {
+    float: left;
+    margin-right: 10px;
+}
+.vlist dl {
+    float: left;
+    text-align: left;
+    width: 122px;
+}
+.vlist dl dt {
+    height: 44px;
+    overflow: hidden;
+    padding-top: 5px;
+}
+.vlist dl dt, .vlist dl dt a {
+    color: #262626;
+}
+.vlist dl dd, .vlist dl dd a {
+    color: #777777;
+}
+.vbox_tit {
+    border-bottom: 1px solid #B3D0E6;
+    color: #666666;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+}
+.video-icon {
+    position: relative;
+}
+.video-icon a.i_video {
+    background: url("http://www.51cto.com/images/homepage/Images/eduplay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 25px;
+    left: 41px;
+    position: absolute;
+    top: 22px;
+    width: 25px;
+    z-index: 10;
+}
+.vbox2 .vlist1{margin:0;}
+.edu-col-a{ float:left;margin-right:6px;}
+.edu-col-b{ float:left;}
+	</style><!--modCon end-->
+	<div class="artShow box" style="margin-top:5px;">
+   	  <div class="share" id="share">
+
+    <div class="shareItem">
+		<div class="m_sharelinks"><a target="_blank" href="http://billhoo.blog.51cto.com/" style="color:red;"></a><a target="_blank" href="http://billhoo.blog.51cto.com/" style="color:blue;"></a><a target="_blank" href="http://billhoo.blog.51cto.com/" style="color:blue;"></a></div>
+		<p class="shareMored"><a href="http://billhoo.blog.51cto.com/all/2337751">博主的更多文章&gt;&gt;</a></p>
+	</div>
+      </div>
+       <div class="modCon">
+   	  <div class="showBox" style="margin:0 0 10px;">
+      <div class="line_hd_r"></div>
+      <div class="art_tj">
+
+      </div>
+
+ 
+    		<div class="showHead">
+    		  <div class="showTitleBOx" style="text-align:center">
+              <div class="showTitle">
+
+             <img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/artType01.jpg">
+
+
+    		    【KMP算法详解——适合初学KMP算法的朋友】
+                </div>
+  		    </div>
+   		    <span class="artTime">2010-10-27 16:22:33</span></div><!--showHead end-->
+    <div class="showTags">标签：<a href="http://blog.51cto.com/tag-KMP%20%E8%AF%A6%E8%A7%A3%20%E5%88%9D%E5%AD%A6.html" target="_blank" class="operlink">KMP 详解 初学</a> <a href="http://blog.51cto.com/tag-%E4%BC%91%E9%97%B2.html" target="_blank" class="operlink">休闲</a> <a href="http://blog.51cto.com/tag-%E8%81%8C%E5%9C%BA.html" target="_blank" class="operlink">职场</a>
+
+	</div>
+
+			<div class="CopyrightStatement lh22">
+            原创作品，允许转载，转载时请务必以超链接形式标明文章 <a href="http://billhoo.blog.51cto.com/2337751/411486" target="_blank" style="text-decoration:underline">原始出处</a> 、作者信息和本声明。否则将追究法律责任。<a href="http://billhoo.blog.51cto.com/2337751/411486">http://billhoo.blog.51cto.com/2337751/411486</a>
+            </div>
+
+
+            <!--正文 begin-->
+    		<div class="showContent">
+    		  <div>相信很多人（包括自己）初识KMP算法的时候始终是丈二和尚摸不着头脑，要么完全不知所云，要么看不懂书上的解释，要么自己觉得好像心里了解KMP算法的意思，却说不出个究竟，所谓知其然不知其所以然是也。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 经过七八个小时地仔细研究，终于感觉自己能说出其所以然了，又觉得数据结构书上写得过于简洁，不易于初学者接受，于是决定把自己的理解拿出来与大家分享，希望能抛砖引玉，这便是Bill写这篇文章想要得到的最好结果了</div>
+<div>-----------------------------------谨以此文，献给刚接触KMP算法的朋友，定有不足之处，望大家指正----------------------------------------</div>
+<div align="center"><strong><font size="4"></font></strong>&nbsp;</div>
+<div align="center"><strong><font size="4"></font></strong>&nbsp;</div>
+<div align="center"><strong><font size="4"></font></strong>&nbsp;</div>
+<div align="center"><strong><font size="4">【KMP算法简介】</font></strong></div>
+<div align="center"><strong><font size="4"></font></strong>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KMP算法是一种改进后的字符串匹配算法，由D.E.Knuth与V.R.Pratt和J.H.Morris同时发现，因此人们称它为克努特——莫里斯——普拉特操作（简称KMP算法）。通过一个辅助函数实现跳过扫描不必要的目标串字符，以达到优化效果。</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div align="center"><strong><font size="4">【传统字符串匹配算法的缺憾】</font></strong></div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bill认为，对于一种优化的算法，既要知道优化的细节，也更应该了解它的前身（至于KMP是否基于传统算法，我不清楚，这里只作语境上的前身），了解是什么原因导致了人们要去优化它，因此加入了这一段：</div>
+<div>请看以下传统字符串匹配的代码：</div>
+<div>C++ code</div>
+<div><br>&nbsp;</div>
+<div>
+<div style="border-right: #cccccc 1px solid; padding-right: 4px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 10pt; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; color: #000000; word-break: break-all; line-height: 16px; padding-top: 4px; border-bottom: #cccccc 1px solid; font-family: verdana,宋体; background-color: #eeeeee">void NativeStrMatching( ElemType Target[], ElemType Pattern[] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register int TarLen = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Length of Target&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register int PatLen = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Length of Pattern&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Compute the length of Pattern&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while( '\0' != Pattern[PatLen] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PatLen++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while( '\0' != Target[TarLen] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int TmpTarLen = TarLen;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int i=0; i&lt;PatLen; i++)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( Target[TmpTarLen++] != Pattern[i] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( i == PatLen-1 )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;"Native String Matching,pattern occurs with shift "&lt;&lt;TarLen&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TarLen++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>}&nbsp;&nbsp;&nbsp;&nbsp;</div></div>
+<div><br>&nbsp;</div>
+<div>【代码思想】</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 传统匹配思想是，从目标串Target的第一个字符开始扫描，逐一与模式串的对应字符进行匹配，若该组字符匹配，则检测下一组字符，如遇失配，则退回到Target的第二个字符，重复上述步骤，直到整个Pattern在Target中找到匹配，或者已经扫描完整个目标串也没能够完成匹配为止。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 这样的算法理解起来很简单，实现起来也容易，但是其中包含了过多不必要的操作，也就是在目标串中，有些字符是可以直接跳过，不必检测的。</div>
+<div>不妨假设我们的目标串</div>
+<div>Target =&nbsp; "a b c d e a b c d e a b c d f"</div>
+<div>需要匹配的模式串</div>
+<div>Pattern = "c d f";</div>
+<div>那么当匹配到如下情况时</div>
+<div>&nbsp;</div>
+<div><img onload="if(this.width&gt;650) this.width=650;" onclick="" http:="" blog.51cto.com="" viewpic.php?refimg=" + this.src)" height="66" alt="" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/201010271288167419015.jpg" width="298" align="left" border="0" onabort="" onblur="" onchange="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div><br>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>由于 'e' != 'f' ，因此失配，那么下次匹配起始位置就是目标串的'd'字符</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div><img onload="if(this.width&gt;650) this.width=650;" onclick="" http:="" blog.51cto.com="" viewpic.php?refimg=" + this.src)" height="78" alt="" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/201010271288167449906.jpg" width="269" align="left" border="0" onabort="" onblur="" onchange="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></div>
+<div><br>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>我们发现这里照样失配，直到运行到下述情况</div>
+<div>&nbsp;</div>
+<div><img onload="if(this.width&gt;650) this.width=650;" onclick="" http:="" blog.51cto.com="" viewpic.php?refimg=" + this.src)" height="84" alt="" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/201010271288167478859.jpg" width="235" align="left" border="0" onabort="" onblur="" onchange="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></div>
+<div><br>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>也就是说，中间的四个字符 d e a b 完全没有必要检测，直接跳转到下一个'c'开始的地方进行检测&nbsp;&nbsp; </div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 由此可见传统算法虽然简单易行，但其中包含了过多的不必要操作，并不能很好地达到实际工作中需要的效率，因此个人认为此方法适合为初识字符串匹配做一个铺垫作用，有抛砖引玉之意。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 说其抛砖引玉并不为过，对KMP算法的理解便可以基于传统模式串匹配算法进行思考。</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div align="center"><strong><font size="4">【KMP算法的引入】</font></strong></div>
+<div align="center"><strong><font size="4"></font></strong>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 既然知道了传统算法的不足之处，就要对症下药，优化这个冗余的检测算法。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; KMP算法就能很好地解决这个冗余问题。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 其主要思想为：</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在失配后，并不简单地从目标串下一个字符开始新一轮的检测，而是依据在检测之前得到的有用信息（稍后详述），直接跳过不必要的检测，从而达到一个较高的检测效率。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 如我们的</div>
+<div>&nbsp;</div>
+<div><img onload="if(this.width&gt;650) this.width=650;" onclick="" http:="" blog.51cto.com="" viewpic.php?refimg=" + this.src)" height="104" alt="" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/201010271288167514265.jpg" width="324" border="0" onabort="" onblur="" onchange="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 当第一次失配后，并不从红色标记字符'd'开始检测，而是通过一些有用信息，直接跳过后几个肯定不可能匹配的冗余字符，而直接让模式串Pattern从目标串的红色标记字符'c'开始新一轮的检测，从而达到了减少循环次数的效果</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div align="center"><font size="4"><strong>【KMP算法思想详述与实现】</strong></font></div>
+<div align="center"><strong><font size="4"></font></strong>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 前面提到，KMP算法通过一个“有用信息”可以知道目标串中下一个字符是否有必要被检测，这个“有用信息”就是用所谓的“前缀函数（一般数据结构书中的next函数）”来存储的。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这个函数能够反映出现失配情况时，系统应该跳过多少无用字符（也即模式串应该向右滑动多长距离）而进行下一次检测，在上例中，这个距离为4.</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 总的来讲，KMP算法有2个难点：</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一是这个前缀函数的求法。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 二是在得到前缀函数之后，怎么运用这个函数所反映的有效信息避免不必要的检测。</div>
+<div>下面分为两个板块分别详述：</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div align="center"><strong><font size="4">【前缀函数的引入及实现】</font></strong></div>
+<div align="center">&nbsp;</div>
+<div align="center">【前缀函数的引入】</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 对于前缀函数，先要理解前缀是什么：</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 简单地说，如字符串A = "abcde"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; B = "ab"</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 那么就称字符串B为A的前缀，记为B &#8847; A(注意那不是"包含于"，Bill把它读作B前缀于A)，说句题外话——"&#8847;"这个符号很形象嘛，封了口的这面相当于头，在头前面的就是前缀了。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 同理可知 C = "e","de" 等都是 A 的后缀，以为C &#8848; A（Bill把它读作C后缀于A）</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div>理解了什么是前、后缀，就来看看什么是前缀函数：</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在这里不打算引用过多的理论来说明，直接引入实例会比较容易理解，看如下示例：</div>
+<div>&nbsp;</div>
+<div><img onload="if(this.width&gt;650) this.width=650;" onclick="" http:="" blog.51cto.com="" viewpic.php?refimg=" + this.src)" height="117" alt="" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/201010271288167607015.jpg" width="429" align="middle" border="0" onabort="" onblur="" onchange="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></div>
+<div></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (下述字符若带下标，则对应于图中画圈字符)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这里模式串 P = “ababaca”,在匹配了 q=5 个字符后失配，因此，下一步就是要考虑将P向右移多少位进行新的一轮匹配检测。传统模式中，直接将P右移1位，也就是将P的首字符'a'去和目标串的'b'字符进行检测，这明显是多余的。通过我们肉眼的观察，可以很简单的知道应该将模式串P右移到下图'a3'处再开始新一轮的检测，直接跳过肯定不匹配的字符'b'，那么我们“肉眼”观察的这一结果怎么把它用语言表示出来呢？</div>
+<div>&nbsp;</div>
+<div><img onload="if(this.width&gt;650) this.width=650;" onclick="" http:="" blog.51cto.com="" viewpic.php?refimg=" + this.src)" height="114" alt="" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/201010271288167630812.jpg" width="365" align="middle" border="0" onabort="" onblur="" onchange="" ondblclick="" onerror="" onfocus="" onkeydown="" onkeypress="" onkeyup="" onmousedown="" onmousemove="" onmouseout="" onmouseover="" onmouseup="" onreset="" onresize="" onselect="" onsubmit="" onunload=""></div>
+<div><br>&nbsp;&nbsp;&nbsp;&nbsp; 我们的观察过程是这样的：</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P的前缀"ab"中'a' != 'b'，又因该前缀已经匹配了T中对应的"ab"，因此，该前缀的字符'a1'肯定不会和T中对应的字串"ab"中的'b'匹配，也就是将P向右滑动一个位移是无意义的。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 接下来考察P的前缀"aba"，发现该前缀自身的前缀'a1'与自身后缀'a2'相等，"a1 b a2" 已经匹配了T中的"a b a3"，因此有 'a2' == 'a3', 故得到 'a1' == 'a3'......</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 利用此思想，可推知在已经匹配 q=5 个字符的情况下，将P向右移 当且仅当 2个位移时，才能满足既没有冗余(如把'a'去和'b'比较)，又不会丢失(如把'a1' 直接与 'a4' 开始比较，则丢失了与'a3'的比较)。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 而前缀函数就是这样一种函数，它决定了q与位移的一一对应关系，通过它就可以间接地求得位移s。</div>
+<div>&nbsp;&nbsp;&nbsp; </div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 通过对各种模式串进行上述分析(大家可以自己多写几个模式串出来自己分析理解)，发现给定一个匹配字符数 q ，则唯一对应一个有效位移，如上述q=5,则对应位移为2.</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 这就形成了一一对应关系，而这种唯一的关系就是由前缀函数决定的。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 这到底是怎样的一种关系呢？</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 通过对诸多模式串实例的研究，我们会找到一个规律（规律的证明及引理详见《算法导论(第二版)》）。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 上例中，P 已经匹配的字符串为"ababa",那么这个字符串中，满足既是自身真后缀(即不等于自身的后缀)，又是自身最长前缀的字符串为"aba"，我们设这个特殊字串的长度为L，显然，L = 3. 故我们要求的 s = q - L = 5 - 3 = 2 ，满足前述分析。</div>
+<div>&nbsp;&nbsp;&nbsp; </div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 根据这个规律，即可得到我们要求的有效位移s，等于已经匹配的字符数 q 减去长度 L。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 即 s = q - L</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 因为这个长度 L 与 q 一一对应，决定于q，因此用一函数来表达这一关系非常恰当，这就是所谓的前缀函数了。</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 因为已经分析得到该关系为一一对应关系，因此用数组来表示该函数是比较恰当的，以数组的下标表示已经匹配的字符数 q，以下标对应的数据存储 L。</div>
+<div>&nbsp;</div>
+<div align="center">【前缀函数的实现】</div>
+<div>&nbsp;&nbsp;&nbsp; </div>
+<div>下面就来分析怎么用代码来表达这种关系。</div>
+<div>这里采用《算法导论(第二版)》中的思想求解。</div>
+<div>不妨以 PrefixFunc[] 表示这个前缀函数，那么我们将得到以下求前缀函数的函数：</div>
+<div>由于 0 个匹配字符数在计算中没有意义，因此PrefixFunc下标从1开始，也就是从已经有一个字符(即首字符)匹配的情况开始</div>
+<div>C++ code</div>
+<div>&nbsp;</div>
+<div>
+<div style="border-right: #cccccc 1px solid; padding-right: 4px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 10pt; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; color: #000000; word-break: break-all; line-height: 16px; padding-top: 4px; border-bottom: #cccccc 1px solid; font-family: verdana,宋体; background-color: #eeeeee">
+<div>// Compute Prefix function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>void CptPfFunc( ElemType Pattern[], int PrefixFunc[] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; register int iLen = 0;&nbsp;&nbsp;&nbsp;&nbsp;// Length of Pattern[]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while( '\0' != Pattern[iLen] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iLen++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int LOLP = 0;&nbsp;&nbsp;&nbsp;&nbsp; // Lenth of longest prefix&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PrefixFunc[1] = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for( int NOCM=2; NOCM&lt;iLen+1; NOCM++ )&nbsp;&nbsp;&nbsp;&nbsp; // NOCM represent the number of characters matched&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while( LOLP&gt;0 &amp;&amp; (Pattern[LOLP] != Pattern[NOCM-1]) )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOLP = PrefixFunc[LOLP];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( Pattern[LOLP] == Pattern[NOCM-1] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOLP++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PrefixFunc[NOCM] = LOLP;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;</div></div></div>
+<div><br>&nbsp;</div>
+<div><br>&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div>&nbsp;对此函数的详解，不妨以一实例带入(建议大家自己手算一下，算完应该就有感觉了)，易于理解：</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div>&nbsp;不妨设模式串Pattern = "a&nbsp; b&nbsp; c&nbsp; c&nbsp; a&nbsp; b&nbsp; c&nbsp; c&nbsp; a&nbsp; b&nbsp; c&nbsp; a"</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pattern 数组编号：&nbsp;0&nbsp; 1&nbsp; 2&nbsp; 3&nbsp; 4 &nbsp;5&nbsp; 6&nbsp; 7&nbsp; 8&nbsp; 9 10 11</div>
+<div>NOCM 表示 已经匹配的字符数</div>
+<div>LOLP 表示 既是自身真后缀又是自身最长前缀的字符串长度</div>
+<div>以下是计算流程：</div>
+<div>PrefixFunc[1] = 0； //只匹配一个字符就失配时，显然该值为零</div>
+<div>LOLP = 0；&nbsp;&nbsp; NOCM = 2；&nbsp;&nbsp; LOLP = 0;&nbsp;&nbsp;&nbsp; PrefixFunc[2] = 0;</div>
+<div>LOLP = 0；&nbsp;&nbsp; NOCM = 3；&nbsp;&nbsp; LOLP = 0;&nbsp;&nbsp;&nbsp; PrefixFunc[3] = 0;</div>
+<div>LOLP = 0；&nbsp;&nbsp; NOCM = 4；&nbsp;&nbsp; LOLP = 0;&nbsp;&nbsp;&nbsp; PrefixFunc[4] = 0;</div>
+<div>LOLP = 0；&nbsp;&nbsp; NOCM = 5；&nbsp;&nbsp; LOLP = 1;&nbsp;&nbsp;&nbsp; PrefixFunc[5] = 1;</div>
+<div>LOLP = 1；&nbsp;&nbsp; NOCM = 6；&nbsp;&nbsp; LOLP = 2;&nbsp;&nbsp;&nbsp; PrefixFunc[6] = 2;</div>
+<div>LOLP = 2；&nbsp;&nbsp; NOCM = 7；&nbsp;&nbsp; LOLP = 3;&nbsp;&nbsp;&nbsp; PrefixFunc[7] = 3;</div>
+<div>LOLP = 3；&nbsp;&nbsp; NOCM = 8；&nbsp;&nbsp; LOLP = 4;&nbsp;&nbsp;&nbsp; PrefixFunc[8] = 4;</div>
+<div>LOLP = 4；&nbsp;&nbsp; NOCM = 9；&nbsp;&nbsp; LOLP = 5;&nbsp;&nbsp;&nbsp; PrefixFunc[9] = 5;</div>
+<div>LOLP = 5；&nbsp;&nbsp; NOCM = 10； LOLP = 6;&nbsp;&nbsp;&nbsp; PrefixFunc[10] = 6;</div>
+<div>LOLP = 6；&nbsp;&nbsp; NOCM = 11； LOLP = 7;&nbsp;&nbsp;&nbsp; PrefixFunc[11] = 7;</div>
+<div>LOLP = 7；&nbsp;&nbsp; NOCM = 12；</div>
+<div><br>---------此时满足条件while( LOLP&gt;0 &amp;&amp; (Pattern[LOLP] != Pattern[NOCM-1]) )-------------</div>
+<div><br>while语句中的执行</div>
+<div>{</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOLP = 7;&nbsp;&nbsp; NOCM = 12;&nbsp; LOLP = PrefixFunc[7] = 3;</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOLP = 3;&nbsp;&nbsp; NOCM = 12;&nbsp; LOLP = PrefixFunc[3] = 0;</div>
+<div>}</div>
+<div><br>LOLP = 0；&nbsp;&nbsp; NOCM = 12； LOLP = 1;&nbsp;&nbsp;&nbsp; PrefixFunc[12] = 1;</div>
+<div>最后我们的前缀函数 PrefixFunc[] = { 0,0,0,0,1,2,3,4,5,6,7,1 }</div>
+<div>其间最精妙的要属失配时的操作</div>
+<div>while( LOLP&gt;0 &amp;&amp; (Pattern[LOLP] != Pattern[NOCM-1]) )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOLP = PrefixFunc[LOLP]; </div>
+<div>其中 LOLP = PrefixFunc[LOLP];&nbsp; 递归调用PrefixFunc函数，直到整个P字串都再无最长前缀或者找到一个之前的满足条件的最长前缀。</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div align="center">&nbsp;<strong><font size="4">【应用前缀函数优化传统匹配算法——KMP算法实现】</font></strong></div>
+<div><br>由以上分析，不难推导KMP算法的实现</div>
+<div>C++ code</div>
+<div>
+<div style="border-right: #cccccc 1px solid; padding-right: 4px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 10pt; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; color: #000000; word-break: break-all; line-height: 16px; padding-top: 4px; border-bottom: #cccccc 1px solid; font-family: verdana,宋体; background-color: #eeeeee">void KMPstrMatching( ElemType Target[], ElemType Pattern[] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int PrefixFunc[MAX_SIZE];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register int TarLen = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register int PatLen = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Compute the length of array Target and Pattern&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while( '\0' != Target[TarLen] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TarLen++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while( '\0' != Pattern[PatLen] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PatLen++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Compute the prefix function of Pattern&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CptPfFunc( Pattern, PrefixFunc );&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int NOCM = 0;&nbsp;&nbsp;&nbsp;&nbsp; // Number of characters matched&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for( int i=0; i&lt;TarLen; i++ )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while( NOCM&gt;0 &amp;&amp; Pattern[NOCM] != Target[i] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOCM = PrefixFunc[NOCM];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( Pattern[NOCM] == Target[i] )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOCM++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( NOCM == PatLen )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;"KMP String Matching,pattern occurs with shift "&lt;&lt;i - PatLen + 1&lt;&lt;endl;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOCM = PrefixFunc[NOCM];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></div></div>
+<div>&nbsp;</div>
+<div>/*</div>
+<div>** 由于时间关系，没能将上述KMP算法的实现细节一一讲清，以后有时间补上</div>
+<div>*/</div>
+<div>【参考文献】</div>
+<div>《Introduction to Algorithms》Second Edition<br>&nbsp;<br>by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford .</div>
+<div><br></div><p>本文出自 “<a href="http://billhoo.blog.51cto.com/">Bill_Hoo专栏</a>” 博客，请务必保留此出处<a href="http://billhoo.blog.51cto.com/2337751/411486">http://billhoo.blog.51cto.com/2337751/411486</a></p>
+    		</div><!--正文 end-->
+<script type="text/javascript">
+	var kevent = 'onabort|onblur|onchange|onclick|ondblclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload';
+	var aevent = kevent.split('|');
+
+	jQuery('.showContent img').each(function(){
+		var nimg = this;
+		jQuery.each(aevent, function(i, n){
+			if (n!='onload') {
+				jQuery(nimg).attr(n, '');
+			} else {
+				if (jQuery(nimg).attr(n) != 'if(this.width>650) this.width=650;') {
+					jQuery(nimg).attr(n, '');
+				}
+			}
+		});
+	});
+</script>
+<script type="text/javascript" charset="utf-8">
+var encodetitle = encodeURI('一篇很棒的博文分享给大家：《【KMP算法详解——适合初学KMP算法的朋友】》');
+
+function show51share(){
+
+	window.open('http://t.51cto.com/index.php?m=share&url=http://billhoo.blog.51cto.com/2337751/411486&type=l&count=&relateUid=&appkey=3843950324&title=' + encodetitle);
+}
+</script>		
+<div class="m_sharebtn clear">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tbody><tr>
+		<td width="11%" height="43" align="center" valign="middle"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/ssk.png" alt="分享至"></td>
+		<td width="77%" align="left" valign="top">
+<!-- 			
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+<script>
+var bds_config = {'wbUid':1706976420};
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false, 'bdPic':'http://blog.51cto.com/attachment/201305/173413310.jpg',"bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+ -->
+
+<div class="bdsharebuttonbox bdshare-button-style1-32" data-bd-bind="1479266197620"><a href="http://billhoo.blog.51cto.com/#" class="bds_more" data-cmd="more"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="http://billhoo.blog.51cto.com/#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2065779340"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"http://blog.51cto.com/img/blog_down0731.jpg","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+	<!-- Baidu Button END --></td>
+		<td width="12%" align="right" valign="middle"><a href="javascript:favorBox(&#39;open&#39;);" title="一键收藏，随时查看，分享好友！"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/favorite_add_small.gif" border="0" alt="一键收藏，随时查看，分享好友！"></a></td>
+	  </tr>
+	</tbody></table>
+
+</div>			
+    		<div class="showBottom">
+            <!--<div class="reviews"><span class="fl" style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">永不退缩的、xiaoaiwhc、comuslxl</a>
+
+            </span><div id="favourdiv" class="support01">10人</div>
+              <span class="fl">了这篇文章</span></div>-->
+              <table width="720" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td align="right"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/icon01.png" width="15" height="16"> <span style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">永不退缩的、xiaoaiwhc、comuslxl</a></span></td>
+    <td width="70" align="left"><div style="line-height:28px;" id="favourdiv" class="support01">10人</div></td>
+    <td width="60" align="left">了这篇文章</td>
+  </tr>
+</tbody></table>
+
+
+
+
+            <div class="showType">类别：<a href="http://billhoo.blog.51cto.com/2337751/d-1" class="operlink">Rookie</a>┆阅读(<span id="readNum">110191</span>)┆评论(<span id="cmtNum">20</span>)
+
+┆
+<a href="http://billhoo.blog.51cto.com/">返回博主首页</a>┆<a href="http://blog.51cto.com/">返回博客首页</a></div>
+            <div class="prevNext">
+
+			上一篇 <a href="http://billhoo.blog.51cto.com/2337751/411476" class="operlink" title="【对于单链表复制错误的反思】">【对于单链表复制错误的反思】</a>
+
+
+			下一篇 <a href="http://billhoo.blog.51cto.com/2337751/519582" class="operlink" title="【C++_typedef_疑难定义收集整理】">【C++_typedef_疑难定义收集整理】</a>
+
+
+            </div>
+
+            </div>
+
+	  </div><!--showBottom end-->
+      </div><!--modCon-->
+    <span class="modBot"></span>
+    </div><!--artShow end-->
+    <span class="blank"></span>
+
+
+<div class="relatedArt box">
+    <div class="title" name="zhuanti" id="zhuanti"><h2>职位推荐</h2></div>
+    <div class="modCon">
+<ul>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-5100.html" target="_blank">c++ 研发工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-4856.html" target="_blank">windows驱动开发全栈工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-3888.html" target="_blank">逆向分析破解工程师（反汇编）</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-4325.html" target="_blank">中科信软招聘TFS软件兼职讲师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-1084.html" target="_blank">高级C++开发工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-1246.html" target="_blank">Linux 无线驱动开发工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-5077.html" target="_blank">C/C++开发工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-5005.html" target="_blank">LinuxC-启明星辰大厦-中级/高级均需</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-4928.html" target="_blank">高级图像识别算法工程师</a></li>
+
+<li><a href="http://gaozhao.51cto.com/job/view/id-4787.html" target="_blank">c++开发工程师</a></li>
+
+
+</ul>
+
+<span class="blank6"></span>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div><!--相关文章 end-->
+
+
+
+
+	<div class="relatedArt box">
+		<a href="http://form.mikecrm.com/wr41wq?banner" target="_blank"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/wKiom1gpaB2yQu23AAB2SCGW-hs010.jpg"></a>
+	</div>
+
+<div class="artComm box">
+    <div class="title"><a name="replay"></a><h2>文章评论</h2></div>
+    <div class="modCon" id="artcomment">
+		<div> <a href="http://billhoo.blog.51cto.com/" onclick="getcomment(411486,1);return false">&nbsp;&lt;&lt;&nbsp;</a>&nbsp;&nbsp;<b>1</b>&nbsp; <a href="http://billhoo.blog.51cto.com/" onclick="getcomment(411486,2);return false">&nbsp;2&nbsp;</a> <input type="text" size="2" id="com_top" name="com_top" style="height: 16px; border:1px solid #E5E5E5;" onkeydown="javascript: if(event.keyCode==13) getcomment(411486,this.value);"> <a href="http://billhoo.blog.51cto.com/" onclick="getcomment(411486,2);return false">&nbsp;&gt;&gt;&nbsp;</a>&nbsp;&nbsp;页数 ( 1/2 ) &nbsp;</div><a name="474452"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid0"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[1楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]51CTO游客</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="474452">回复</a></label></div></div><div align="right">2012-04-22 23:59:19</div><div class="commentcontent">说得好。很详细</div></div><br><a name="494917"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid1"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[2楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]ACMam</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="494917">回复</a></label></div></div><div align="right">2012-07-13 08:52:13</div><div class="commentcontent">楼主讲的很好，感觉特别清晰</div></div><br><a name="517496"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid2"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[3楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]51CTO游客</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="517496">回复</a></label></div></div><div align="right">2012-10-28 04:02:12</div><div class="commentcontent">有效位移不是唯一的，比如ababab，可以移2，也可以移4，需要找最小位移。</div></div><br><a name="520380"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid3"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[4楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]51CTO游客</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="520380">回复</a></label></div></div><div align="right">2012-11-09 20:52:02</div><div class="commentcontent">程序是错的</div></div><br><a name="525952"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid4"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[5楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]51CTO游客</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="525952">回复</a></label></div></div><div align="right">2012-12-06 21:40:48</div><div class="commentcontent">上例中，P 已经匹配的字符串为"ababa",那么这个字符串中，满足既是自身真后缀(即不等于自身的后缀)，又是自身最长前缀的字符串为"aba"。为什么是aba而不是abab呢</div></div><br><a name="526387"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid5"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[6楼]<a href="http://billhoo.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://billhoo.blog.51cto.com/" class="operlink" ref="nofollow"><b>Bill_Hoo</b></a></label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Bill_Hoo" parentid="526387">回复</a></label></div></div><div align="right">2012-12-08 11:35:37</div><div class="commentcontent">回复 51CTO游客:<a href="http://billhoo.blog.51cto.com/#" class="anchor_page" title="加载中....." style="cursor:pointer" tid="411486" parentid="525952">[5楼]</a><br><br>你好，条件是：既是自身真后缀(即不等于自身的后缀)，又是自身最长前缀的字符串，"abab"不是串"ababa"的真后缀。</div></div><br><a name="526389"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid6"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[7楼]<a href="http://billhoo.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://billhoo.blog.51cto.com/" class="operlink" ref="nofollow"><b>Bill_Hoo</b></a></label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Bill_Hoo" parentid="526389">回复</a></label></div></div><div align="right">2012-12-08 11:37:06</div><div class="commentcontent">回复 51CTO游客:<a href="http://billhoo.blog.51cto.com/#" class="anchor_page" title="加载中....." style="cursor:pointer" tid="411486" parentid="520380">[4楼]</a><br><br>你好，程序是当时自己调试了的，当时并没有发现错误，不知你所指的错误是哪里？望指教。（很久没有回博客了，见谅）</div></div><br><a name="526537"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid7"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[8楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]51CTO游客</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="526537">回复</a></label></div></div><div align="right">2012-12-09 14:55:06</div><div class="commentcontent">回复 Bill_Hoo:<a href="http://billhoo.blog.51cto.com/#" class="anchor_page" title="加载中....." style="cursor:pointer" tid="411486" parentid="526389">[7楼]</a><br><br>哦，我之前理解错了。谢谢博主</div></div><br><a name="543352"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid8"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[9楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]hao</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="543352">回复</a></label></div></div><div align="right">2013-03-14 23:20:45</div><div class="commentcontent">very good</div></div><br><a name="550804"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid9"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[10楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]51CTO游客</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="550804">回复</a></label></div></div><div align="right">2013-05-02 00:41:39</div><div class="commentcontent">谢谢，很有用</div></div><br><a name="554841"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid10"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[11楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;[匿名]51CTO游客</label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Array" parentid="554841">回复</a></label></div></div><div align="right">2013-05-22 03:01:36</div><div class="commentcontent">你这个是从CLRS里面copy翻译过来的啊</div></div><br><a name="554855"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid11"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[12楼]<a href="http://billhoo.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://billhoo.blog.51cto.com/" class="operlink" ref="nofollow"><b>Bill_Hoo</b></a></label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="Bill_Hoo" parentid="554855">回复</a></label></div></div><div align="right">2013-05-22 09:06:48</div><div class="commentcontent">回复 51CTO游客:<a href="http://billhoo.blog.51cto.com/#" class="anchor_page" title="加载中....." style="cursor:pointer" tid="411486" parentid="554841">[11楼]</a><br><br>你好，本文为自己大二时学习CLRS中的KMP一节后所写。部分代码和白色截图为CLRS原文，我文后也有所注释。但对于CLRS中本算法的理解确为个人之真实愚见。多谢关注^^</div></div><br><a name="595046"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid12"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[13楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://1384288.blog.51cto.com/" class="operlink" ref="nofollow"><b>一行发誓</b></a></label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="一行发誓" parentid="595046">回复</a></label></div></div><div align="right">2013-11-25 01:56:08</div><div class="commentcontent">你好.前缀函数的实现当中 LOLP = PrefixFunc[LOLP];应该是LOLP = PrefixFunc[LOLP - 1];可以试试"abadabab"</div></div><br><a name="595047"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid13"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[14楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://1384288.blog.51cto.com/" class="operlink" ref="nofollow"><b>一行发誓</b></a></label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="一行发誓" parentid="595047">回复</a></label></div></div><div align="right">2013-11-25 01:58:59</div><div class="commentcontent">不好意思.是我看错了..我忘了你的prefixFunc是从1开始的.</div></div><br><a name="595386"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid14"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[15楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://8276085.blog.51cto.com/" class="operlink" ref="nofollow"><b>wlmmarine</b></a></label><label style="float:right">&nbsp;<a href="http://billhoo.blog.51cto.com/#" class="repost operlink" user_name="wlmmarine" parentid="595386">回复</a></label></div></div><div align="right">2013-11-27 12:05:15</div><div class="commentcontent">感谢楼主.看到你的才真的懂了</div></div><br><div> <a href="http://billhoo.blog.51cto.com/" onclick="getcomment(411486,1);return false">&nbsp;&lt;&lt;&nbsp;</a>&nbsp;&nbsp;<b>1</b>&nbsp; <a href="http://billhoo.blog.51cto.com/" onclick="getcomment(411486,2);return false">&nbsp;2&nbsp;</a> <input type="text" size="2" style="height: 16px; border:1px solid #E5E5E5;" onkeydown="javascript: if(event.keyCode==13) getcomment(411486,this.value);"> <a href="http://billhoo.blog.51cto.com/" onclick="getcomment(411486,2);return false">&nbsp;&gt;&gt;&nbsp;</a>&nbsp;&nbsp;页数 ( 1/2 ) &nbsp;</div>
+    </div><!--modCon-->
+        <span class="modBot"></span>
+</div><!--commBox end-->
+<a href="http://billhoo.blog.51cto.com/" id="com_top_top"></a>
+<!--<div class="artComm box" style="750px;height:90px;">
+<script type="text/javascript">
+    var cpro_id = "u2386995";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>--><form action="http://billhoo.blog.51cto.com/comment.php?" method="post" name="form1" id="form1" onsubmit="return commentSubmit(this,&quot;&quot;);">
+<span class="blank1"></span>
+<div class="box writeComm" style="min-height:30px;">
+<a name="comment"></a>
+<input type="hidden" name="action" value="comment">
+<input id="commenttid" type="hidden" name="tid" value="411486">
+<input type="hidden" name="com_count_ajax" id="com_count_ajax" value="2">
+
+ <div class="title">
+	<h2 class="fl">发表评论&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+	<span class="fl" id="messageTj">
+<script type="text/javascript"><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg2.51cto.com/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=460");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><script type="text/javascript" src="http://gg2.51cto.com/www/delivery/ajs.php?zoneid=460&amp;cb=26830740320&amp;charset=GBK&amp;loc=http%3A//billhoo.blog.51cto.com/2337751/411486&amp;referer=https%3A//www.google.com/"></script>
+</span>
+	<style type="text/css">
+		a.mred:link{ color:#ff0000; text-decoration:underline;}
+		a.mred:visited{color:#ff0000;}
+		a.mred:hover{color:#ff0000;}
+		a.mred:active{color:#ff0000;}
+	</style>
+</div>
+<div style="display:none" rel="" id="ggBox">
+<script type="text/javascript"><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg2.51cto.com/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=460");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><script type="text/javascript" src="http://gg2.51cto.com/www/delivery/ajs.php?zoneid=460&amp;cb=26830740320&amp;charset=GBK&amp;loc=http%3A//billhoo.blog.51cto.com/2337751/411486&amp;referer=https%3A//www.google.com/"></script>
+</div>
+<script>
+document.getElementById("messageTj").innerHTML = document.getElementById("ggBox").innerHTML;
+</script>
+ <div class="modCon">
+
+ <div class="commForm">
+<dl>
+<dt>昵&nbsp;&nbsp;称：</dt>
+<dd>
+
+<input type="text" id="commentusername" name="username" value="" class="commInput fl"><span><a href="http://home.51cto.com/index.php?reback=http%253A%252F%252Fbillhoo.blog.51cto.com%252F2337751%252F411486" style="text-decoration:underline">登录</a>&nbsp;&nbsp;<a href="http://ucenter.51cto.com/reg_01.php?reback=http://blog.51cto.com" target="_blank" style="text-decoration: underline;">快速注册</a></span>
+
+
+
+</dd>
+</dl>
+
+
+
+<dl id="commentyanzheng">
+
+
+<dt>验证码：</dt>
+<dd><input class="code" type="text" value="" id="commentauthnum" name="authnum" onclick="displaysecunum();">
+
+  <img width="78" class="fl" height="29" id="secunum" onclick="refimg()" style="display:none;"><p class="fl"><span style="display:none;" id="spanfont">点击图片可刷新验证码</span><span style="display:inline;" id="clickfont">请点击后输入验证码</span><span class="pl5"><a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank" style="text-decoration: underline;">博客过2级，无需填写验证码</a></span></p></dd>
+</dl>
+<dl>
+<dt>内&nbsp;&nbsp;容：</dt>
+<dd>
+<textarea class="writeCommCon f12" id="commentcontent" name="content"></textarea>
+</dd>
+</dl>
+</div>
+<div class="writeCommBot">
+  <input type="hidden" name="parentid" value="" id="parentid">
+  <input class="commBtn fl" name="submit" type="button" id="commentsubmit" value="" onclick="commentSubmitend2()">
+
+ <p class="fl" style="display:none;"><input class="fl" type="checkbox" name="favour" id="favour" checked="" value="1"><span class="fl">同时赞一个</span></p>
+
+</div>
+<span class="blank"></span>
+
+</div><!--modCon-->
+<span class="modBot"></span>
+</div>
+</form>
+<iframe id="iframe1" name="iframe1" width="0" height="0" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/saved_resource.html"></iframe>
+<!--发表评论 end-->
+</div>
+</div>
+<div id="f_close_box" style="width:150px; height:300px; position:fixed; top:42%;left:0; z-index:100; _position:absolute; _margin-top: 0; _top:expression(documentElement.scrollTop+(documentElement.clientHeight-this.offsetHeight)/2+50);">
+
+	<img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/wKioL1VHFCjRwiyNAAB-jIackwQ674.jpg" border="0" usemap="#Map1">
+    <map name="Map1" id="Map1">
+      <area shape="rect" coords="124,7,143,25" href="javascript:void(0);" onclick="document.getElementById(&#39;f_close_box&#39;).style.display=&#39;none&#39;;">
+    </map>
+    
+</div>
+<script language="javascript">
+	function refimg(){
+		var randval = Math.random();
+		document.getElementById("secunum").src="/seccode.php?rnum="+randval;
+	}
+	function displaysecunum()
+	{
+		var displaystr = document.getElementById("secunum").style.display;
+		if(displaystr == 'none')
+		{
+			refimg();
+			document.getElementById("clickfont").style.display = 'none';
+			document.getElementById("secunum").style.display = 'inline';
+			document.getElementById("spanfont").style.display = 'inline';
+		}
+	}
+
+	function showMsn(){
+		document.getElementById("c02").style.display = "none";
+		document.getElementById("c01").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+	function showBBS(){
+		document.getElementById("c01").style.display = "none";
+		document.getElementById("c02").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+
+	//资源页面，分享按钮
+	function copyShareUrl(title){
+
+		if (window.clipboardData){
+
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				copy = "推荐：" + title + "http://billhoo.blog.51cto.com/2337751/411486";
+				var alertText = "复制成功，你可以粘贴到MSN或QQ中发给好友。";
+			}
+			else
+			{
+				copy = "[url=" + "http://billhoo.blog.51cto.com/2337751/411486" + "][u]" + title + "[/u][/url]";
+				var alertText = "复制成功，你可以粘贴到论坛分享给坛友。";
+			}
+			window.clipboardData.clearData();
+			window.clipboardData.setData("Text", copy);
+			alert(alertText);
+		}
+		else if (window.netscape){
+			alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。");
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				document.getElementById("shareTextQM").value = "推荐：" + title + "http://billhoo.blog.51cto.com/2337751/411486";
+				document.getElementById("shareTextQM").select();
+			}
+			else
+			{
+				document.getElementById("shareTextBBS").value = "[url=" + "http://billhoo.blog.51cto.com/2337751/411486" + "][u]" + title + "[/u][/url]";
+                document.getElementById("shareTextBBS").select();
+			}
+		}
+		return false;
+	}
+	function select_login(){
+		document.getElementById('fixed').style.display='';
+	}
+	function commentcheck()
+	{
+		if(document.form1.content.value == "")
+		{
+			alert("评论内容为空!");
+			document.form1.content.focus();
+			return false;
+		}
+	}
+	function changename(){
+
+	var memberid=0;
+	memberid="";
+
+	if(document.getElementById('commentniming').checked){
+		document.getElementById('commentusername').disabled=false;
+		document.getElementById('commentusername').value='';
+		document.getElementById("indexhidden").style.display="none";
+		document.getElementById("commentindex").value='';
+		document.getElementById("commentyanzheng").style.display="";
+	}else{
+		document.getElementById('commentusername').disabled=true;
+		document.getElementById('commentusername').value="";
+		document.getElementById("indexhidden").style.display="";
+		document.getElementById("commentindex").value="http://.blog.51cto.com";
+		if(memberid>8)
+		{
+			document.getElementById("commentyanzheng").style.display="none";
+		}
+	}
+	}
+	function openFavoulist()
+	{
+		window.open ('http://blog.51cto.com/mod/favourlist.php?tid=411486','newwindow','height=300,width=500,top=400,left=400,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no,z-look=yes');
+	}
+
+	var e_zti = document.getElementById('zti');//有专题锚点
+	var maodian = window.location.href;//锚点
+	if (e_zti) {
+		//e_zti.href= (/[#]+/.test(maodian)) ? maodian : maodian + "#zhuanti";
+	}
+</script>
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/jquery-1.7.1.min.js.下载"></script>
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/jquery.cookie.js.下载"></script>
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/jquery.top.js.下载"></script>
+<link href="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/blog_top.css" rel="stylesheet" type="text/css">
+<!-- <script src="http://blog.51cto.com/js/blog_top_list.php" type="text/javascript" language="javascript"></script> -->
+<script type="text/javascript" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/edu_search.js.下载"></script>
+<div id="message" class="blogpop" style="background-color: rgb(255, 255, 255); z-index: 100; width: 389px; height: 196px; position: absolute; bottom: 0px; right: 0px; overflow: hidden; top: 6239px; display: none;"><iframe style="width:800px;height:536px;top:0px;left:0px;position:absolute;visibility:inherit;z-index:-1;" frameborder="0" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/saved_resource(1).html"></iframe>
+<div style="height:36px;background:url(http://blog.51cto.com/image/blog_top/popbgx.jpg) repeat-x; position:relative;width:387px;border-right-color:#2668B7;border-right-width:2px;border-right-style:solid 2px #2668B7;"><span style="right:10px;padding:12px 0 0;position:absolute;top:0"><span style="margin-right:80px;color:#828282;width:190px;padding:10px 0 0 10px;font-size:14px">每日博报 精彩不止一点</span><img title="关闭" id="message_close" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/close.jpg" alt="关闭"></span><div style="width:387px;height:36px;left:0;overflow:hidden; text-indent:-999em;background:url(http://blog.51cto.com/image/blog_top/hdtit.jpg) no-repeat;border-right:solid 2px #2668B7;"><a style="display: block; height: 36px;width:138px;" target="_blank" href="http://blog.51cto.com/"></a>
+</div>
+<div style="clear:both;"></div>
+</div>
+	<div id="message_content" style="border-top:none;font-family:Microsoft YaHei;font-size:12px;width:389px;height:160pxpx;text-align:left;overflow:hidden;">
+	<script type="text/javascript"><!--//<![CDATA[
+	   var m3_u = (location.protocol=='https:'?'https://gg.51cto.com/www/delivery/ajs.php':'http://gg3.51cto.com/www/delivery/ajs.php');
+	   var m3_r = Math.floor(Math.random()*99999999999);
+	   if (!document.MAX_used) document.MAX_used = ',';
+	   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+	   document.write ("?zoneid=454");
+	   document.write ('&amp;cb=' + m3_r);
+	   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+	   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+	   document.write ("&amp;loc=" + escape(window.location));
+	   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+	   if (document.context) document.write ("&context=" + escape(document.context));
+	   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+	   document.write ("'><\/scr"+"ipt>");
+	//]]>--></script><script type="text/javascript" src="http://gg3.51cto.com/www/delivery/ajs.php?zoneid=454&amp;cb=54375988913&amp;charset=GBK&amp;loc=http%3A//billhoo.blog.51cto.com/2337751/411486&amp;referer=https%3A//www.google.com/"></script>
+	</div>
+</div>
+<style>
+.backToTop {
+    display: none;
+	WIDTH: 45px;
+	height:45px;
+	BOTTOM: 20px;
+     position: fixed;
+    _position: absolute;
+    right: 140px;
+    bottom: 10px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=60);
+	text-indent:-9999px;
+}
+.tops { background:url(/images/tops.jpg) no-repeat center center; }
+</style>
+<script>
+(function() {
+	  $('#showMessagerDim').show();
+	   var _html = $("#addTop").html();
+	  if(get_cookie('blog_top')==''){
+//		 show_pop();
+	     jQuery.messager.showblogtop('', _html);
+	     $("#message").find("#adTop").show();
+	     var date=new Date();
+	     var test = date.getTime();
+	     document.cookie="blog_top=yes;domain=.blog.51cto.com;expires="+date.toGMTString()+";path=/;";
+	     }
+	    $("#showMessagerDim").click(function(){
+	    	jQuery.messager.showblogtop('', _html);
+			$("#message").find("#adTop").show();
+			//removeIframe();
+		});
+		
+		function get_cookie(Name) {
+		    var search = Name + "=";
+		    var returnvalue = "";
+		    if (document.cookie.length > 0) {
+		        offset = document.cookie.indexOf(search);
+		        if (offset != -1) {
+		            offset += search.length;
+
+		            end1 = document.cookie.indexOf(";", offset);
+
+		            if (end1 == -1)
+		            end1 = document.cookie.length;
+		            returnvalue=unescape(document.cookie.substring(offset, end1));
+		        }
+		    }
+		    return returnvalue;
+		}
+	})();
+
+</script>
+<script type="text/javascript">
+(function() {
+    var backToTopTxt = "返回顶部", backToTopEle = $('<div class="backToTop tops"></div>').appendTo($("body"))
+        .text(backToTopTxt).attr("title", backToTopTxt).click(function() {
+            $("html, body").animate({ scrollTop: 0 }, 520);
+    }), backToTopFun = function() {
+        var st = $(document).scrollTop(), winh = $(window).height();
+        (st > 0)? backToTopEle.show(): backToTopEle.hide();    
+        //IE6下的定位
+        if (!window.XMLHttpRequest) {
+            backToTopEle.css("top", st + winh - 60);    
+        }
+    };
+    $(window).bind("scroll", backToTopFun);
+    $(function() { backToTopFun(); });
+})();
+</script><div class="backToTop tops" title="返回顶部" style="display: block;">返回顶部</div>
+
+
+
+
+
+
+<div class="clear"></div>
+<!-- <script>
+jQuery(function(){
+	var html= "<div id=\"sogou_se_tgbar\" style=\"text-align:center;margin:0px auto 2px auto;clear:both;background:url(http://home.51cto.com/public/images/notice/sogou_se_tgbar_bg_final1.gif) repeat-x;width:950px;color:#000;font-size:13px;height:36px;z-index:21474836471\"><div style=\"float:left;cursor:pointer;width:910px;text-align:center;border-left:solid #efbf00 1px;height:32px; line-height:32px;txt-align:center;\"><span style=\"\">	<a href=\"http://51ctoblog.blog.51cto.com/26414/1093282\">【新年祝福征集】51CTO社区年底嘉年华活动正在征集博主祝福语，祝福以红包的形式随机的赠送给访问51CTO的网友 点此送祝福>></a></span></div><div onclick=\"document.getElementById('sogou_se_tgbar').style.display = 'none';\" style=\"float:right;width:20px;cursor:pointer;height:28px;padding:4px 8px 0px 8px;border-right:solid #efbf00 1px\"><img style=\"border:none;margin:4px 0px 0px 0px;\" src=\"http://home.51cto.com/public/images/notice/sogou_se_tgbar_close_final1.gif\"></div></div>"
+	jQuery('body').prepend(html);
+})
+</script> -->
+
+<div id="footer">
+  <div id="innerFooter">
+	<center>
+		<small>
+			Copyright By 51CTO.COM 版权所有<br><br>
+			<a href="http://blog.51cto.com/" target="_blank"><img src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/copyright.jpg"></a>
+	  </small>
+	</center>
+  </div>
+</div>
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/index.php" charset="utf-8"></script>
+<div style="display:none">
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/count.js.下载"></script><script src="http://logs.51cto.com/rizhi2/count/count.php?&amp;counturl=http://logs.51cto.com/rizhi2&amp;pageurl=http%3A//billhoo.blog.51cto.com/2337751/411486&amp;referer=https%3A//www.google.com/&amp;language=zh-CN&amp;color=24&amp;screensize=1600*900&amp;debug=undefined&amp;firsttime=116-11-15-20-34-39&amp;lasttime=116-11-15-22-16-35&amp;type=1&amp;charset=GBK&amp;timezone=5&amp;return1=3"></script><script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/scroll.js.下载"></script>
+
+<div style="display:none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2283d46608159c3b39fc9f1178809c21' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=2283d46608159c3b39fc9f1178809c21" target="_blank"><img border="0" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/21.gif" width="20" height="20"></a>
+
+
+
+</div>
+<iframe frameborder="0" scrolling="no" width="0" height="0" src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/pageview.html"></iframe>
+</div>
+
+<script src="./【KMP算法详解——适合初学KMP算法的朋友】 - Bill_Hoo专栏 - 51CTO技术博客_files/poptop.js.下载"></script>
+
+
+
+</body></html>

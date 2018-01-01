@@ -1,0 +1,194 @@
+.markdown-body {
+    font-size: 14px;
+}
+
+.markdown-body .author{
+    font-size:15px;
+    color:#999;
+    margin-bottom:35px;
+}
+
+.markdown-body img {
+    display:block;
+    max-width: 100%;
+}
+
+.markdown-body table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    word-break: normal;
+    word-break: keep-all;
+    margin: 10px 0 10px 0;
+}
+
+.markdown-body table tr {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+}
+
+.markdown-body table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+
+.markdown-body blockquote {
+    font-size: 14px;
+    color: #999;
+}
+
+.markdown-body blockquote p {
+    font-size: 14px;
+    color: #999;
+}
+
+.markdown-body h1 {
+    margin: 5px 0 20px 0;
+    font-size: 26px;
+    line-height: 1.2;
+}
+
+.markdown-body h2 {
+    padding-bottom: .3em;
+    font-size: 18px;
+    line-height: 1.225;
+    margin: 5px 0;
+}
+
+.markdown-body h3 {
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.markdown-body h4,
+h5,
+h6 {
+    font-size: 14px;
+}
+
+.markdown-body p {
+    font-size: 14px;
+    color: #666;
+    line-height: 26px;
+    margin: 0 0 10px;
+}
+
+.markdown-body strong {
+    color: #333;
+    line-height: 26px;
+}
+
+.markdown-body h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #333;
+}
+
+.markdown-body a {
+    color: #2d85ca;
+}
+
+.markdown-body code {
+    color: #2d85ca;
+}
+
+.markdown-body pre code {
+    font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 14px;
+}
+
+.markdown-body pre code * {
+    font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 14px;
+}
+
+.markdown-body ul li {
+    font-size: 14px;
+}
+
+.markdown-body ul {
+    margin-left:20px;
+}
+
+.previous-and-next {
+    height: 20px;
+    font-size: 14px;
+    color: #999;
+    margin: 20px 0;
+}
+
+.previous-and-next .tooltip-inner,
+.book_select .tooltip-inner {
+    white-space: pre;
+    max-width: none;
+}
+
+
+/*与评论冲突的样式重写*/
+
+#jkcomments {
+    /*clear: both;*/
+    margin-bottom: 30px;
+}
+
+#jkcomments ul li .txt .txt-content pre {
+    background-color: white!important;
+    border: none!important;
+}
+
+#jkcomments ul li .txt .txt-oter .txt-reply {
+    box-sizing: content-box!important;
+}
+
+#jkcomments #pager ul.pages li.pagenow #gotoval {
+    line-height: 20px!important;
+}
+
+#jkcomments span.emotion {
+    box-sizing: content-box;
+}
+
+.breadcrumb{
+    width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    font-size: 24px;
+    padding-left: 0;
+}
+
+.breadcrumb>li+li:before{
+    padding:0;
+    color:#333;
+    content:'>';
+}
+
+.breadcrumb a{
+    color:#333;
+}
+
+.breadcrumb a:hover{
+    text-decoration: none;
+    color:#35b558;
+}
+
+.breadcrumb .active{
+    color:#999;
+    cursor:default;
+}
+
+.breadcrumb .active:hover{
+    color:#999;
+    text-decoration:none;
+}
+
+.editor-layout .greenbtn{
+    width:15% !important;
+}

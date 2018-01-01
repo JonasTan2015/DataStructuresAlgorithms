@@ -1,0 +1,4153 @@
+<!DOCTYPE html>
+<!-- saved from url=(0119)https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html -->
+<html lang="java"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Best Time to Buy and Sell Stock with Cooldown | 算法精粹</title>
+        
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        <meta name="author" content="soulmachine">
+        
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/style.css">
+    
+        
+        <link rel="stylesheet" href="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/katex.min.css">
+        
+    
+        
+        <link rel="stylesheet" href="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/image-captions.css">
+        
+    
+        
+        <link rel="stylesheet" href="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/website(1).css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/interleaving-string.html">
+    
+    
+    <link rel="prev" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-iv.html">
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book without-animation with-summary font-size-2 font-family-1" data-level="12.9" data-chapter-title="Best Time to Buy and Sell Stock with Cooldown" data-filepath="dp/best-time-to-buy-and-sell-stock-with-cooldown.md" data-basepath=".." data-revision="Tue Apr 26 2016 17:43:52 GMT+0000 (UTC)" data-innerlanguage="java">
+    
+
+<div class="book-summary"><div class="book-search" role="search"><input type="text" class="form-control" placeholder="Type to search"></div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+                
+                <li>
+                    <a href="https://www.gitbook.com/book/soulmachine/algorithm-essentials" target="blank" class="custom-link">算法精粹</a>
+                </li>
+            
+            
+
+            
+            <li class="divider"></li>
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        介绍
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="linear-list/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        线性表
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="linear-list/array/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        数组
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="linear-list/array/remove-duplicates-from-sorted-array.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/remove-duplicates-from-sorted-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.1.</b>
+                        
+                        Remove Duplicates from Sorted Array
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="linear-list/array/remove-duplicates-from-sorted-array-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/remove-duplicates-from-sorted-array-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.2.</b>
+                        
+                        Remove Duplicates from Sorted Array II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.3" data-path="linear-list/array/longest-consecutive-sequence.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/longest-consecutive-sequence.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.3.</b>
+                        
+                        Longest Consecutive Sequence
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.4" data-path="linear-list/array/two-sum.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/two-sum.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.4.</b>
+                        
+                        Two Sum
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.5" data-path="linear-list/array/3sum.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/3sum.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.5.</b>
+                        
+                        3Sum
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.6" data-path="linear-list/array/3sum-closest.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/3sum-closest.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.6.</b>
+                        
+                        3Sum Closest
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.7" data-path="linear-list/array/4sum.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/4sum.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.7.</b>
+                        
+                        4Sum
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.8" data-path="linear-list/array/remove-element.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/remove-element.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.8.</b>
+                        
+                        Remove Element
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.9" data-path="linear-list/array/move-zeroes.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/move-zeroes.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.9.</b>
+                        
+                        Move Zeroes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.10" data-path="linear-list/array/next-permutation.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/next-permutation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.10.</b>
+                        
+                        Next Permutation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.11" data-path="linear-list/array/permutation-sequence.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/permutation-sequence.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.11.</b>
+                        
+                        Permutation Sequence
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.12" data-path="linear-list/array/valid-sudoku.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/valid-sudoku.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.12.</b>
+                        
+                        Valid Sudoku
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.13" data-path="linear-list/array/trapping-rain-water.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/trapping-rain-water.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.13.</b>
+                        
+                        Trapping Rain Water
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.14" data-path="linear-list/array/rotate-image.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/rotate-image.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.14.</b>
+                        
+                        Rotate Image
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.15" data-path="linear-list/array/plus-one.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/plus-one.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.15.</b>
+                        
+                        Plus One
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.16" data-path="linear-list/array/climbing-stairs.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/climbing-stairs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.16.</b>
+                        
+                        Climbing Stairs
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.17" data-path="linear-list/array/set-matrix-zeroes.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/set-matrix-zeroes.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.17.</b>
+                        
+                        Set Matrix Zeroes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.18" data-path="linear-list/array/gas-station.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/gas-station.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.18.</b>
+                        
+                        Gas Station
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.19" data-path="linear-list/array/candy.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/candy.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.19.</b>
+                        
+                        Candy
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.20" data-path="linear-list/array/majority-element.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/majority-element.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.20.</b>
+                        
+                        Majority Element
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.21" data-path="linear-list/array/rotate-array.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/rotate-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.21.</b>
+                        
+                        Rotate Array
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.22" data-path="linear-list/array/contains-duplicate.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/contains-duplicate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.22.</b>
+                        
+                        Contains Duplicate
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.23" data-path="linear-list/array/contains-duplicate-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/contains-duplicate-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.23.</b>
+                        
+                        Contains Duplicate II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.24" data-path="linear-list/array/contains-duplicate-iii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/contains-duplicate-iii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.24.</b>
+                        
+                        Contains Duplicate III
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.25" data-path="linear-list/array/product-of-array-except-self.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/product-of-array-except-self.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.25.</b>
+                        
+                        Product of Array Except Self
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.26" data-path="linear-list/array/game-of-life.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/game-of-life.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.26.</b>
+                        
+                        Game of Life
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.27" data-path="linear-list/array/increasing-triplet-subsequence.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/increasing-triplet-subsequence.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.27.</b>
+                        
+                        Increasing Triplet Subsequence
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="linear-list/linked-list/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        单链表
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="linear-list/linked-list/reverse-linked-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/reverse-linked-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.1.</b>
+                        
+                        Reverse Linked List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="linear-list/linked-list/odd-even-linked-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/odd-even-linked-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.2.</b>
+                        
+                        Odd Even Linked List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="linear-list/linked-list/add-two-numbers.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/add-two-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.3.</b>
+                        
+                        Add Two Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="linear-list/linked-list/reverse-linked-list-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/reverse-linked-list-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.4.</b>
+                        
+                        Reverse Linked List II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="linear-list/linked-list/partition-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/partition-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.5.</b>
+                        
+                        Partition List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="linear-list/linked-list/remove-duplicates-from-sorted-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/remove-duplicates-from-sorted-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.6.</b>
+                        
+                        Remove Duplicates from Sorted List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="linear-list/linked-list/remove-duplicates-from-sorted-list-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/remove-duplicates-from-sorted-list-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.7.</b>
+                        
+                        Remove Duplicates from Sorted List II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="linear-list/linked-list/rotate-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/rotate-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.8.</b>
+                        
+                        Rotate List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="linear-list/linked-list/remove-nth-node-from-end-of-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/remove-nth-node-from-end-of-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.9.</b>
+                        
+                        Remove Nth Node From End of List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="linear-list/linked-list/swap-nodes-in-pairs.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/swap-nodes-in-pairs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.10.</b>
+                        
+                        Swap Nodes in Pairs
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="linear-list/linked-list/reverse-nodes-in-k-group.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/reverse-nodes-in-k-group.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.11.</b>
+                        
+                        Reverse Nodes in k-Group
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="linear-list/linked-list/copy-list-with-random-pointer.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/copy-list-with-random-pointer.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.12.</b>
+                        
+                        Copy List with Random Pointer
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="linear-list/linked-list/linked-list-cycle.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/linked-list-cycle.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.13.</b>
+                        
+                        Linked List Cycle
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="linear-list/linked-list/linked-list-cycle-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/linked-list-cycle-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.14.</b>
+                        
+                        Linked List Cycle II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="linear-list/linked-list/reorder-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/reorder-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.15.</b>
+                        
+                        Reorder List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="linear-list/linked-list/lru-cache.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/lru-cache.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.16.</b>
+                        
+                        LRU Cache
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="linear-list/linked-list/palindrome-linked-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/linked-list/palindrome-linked-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.17.</b>
+                        
+                        Palindrome Linked List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="string/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        字符串
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="string/valid-palindrome.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/valid-palindrome.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Valid Palindrome
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="string/strstr.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/strstr.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Implement strStr()
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="string/atoi.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/atoi.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        String to Integer (atoi)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="string/add-binary.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/add-binary.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Add Binary
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="string/longest-palindromic-substring.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/longest-palindromic-substring.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        Longest Palindromic Substring
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="string/regular-expression-matching.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/regular-expression-matching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Regular Expression Matching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="string/wildcard-matching.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/wildcard-matching.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.7.</b>
+                        
+                        Wildcard Matching
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="string/longest-common-prefix.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/longest-common-prefix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.8.</b>
+                        
+                        Longest Common Prefix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="string/valid-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/valid-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.9.</b>
+                        
+                        Valid Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="string/integer-to-roman.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/integer-to-roman.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.10.</b>
+                        
+                        Integer to Roman
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="string/roman-to-integer.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/roman-to-integer.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.11.</b>
+                        
+                        Roman to Integer
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="string/count-and-say.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/count-and-say.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.12.</b>
+                        
+                        Count and Say
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="string/anagrams.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/anagrams.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.13.</b>
+                        
+                        Anagrams
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="string/valid-anagram.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/valid-anagram.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.14.</b>
+                        
+                        Valid Anagram
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="string/simplify-path.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/simplify-path.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.15.</b>
+                        
+                        Simplify Path
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.16" data-path="string/length-of-last-word.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/length-of-last-word.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.16.</b>
+                        
+                        Length of Last Word
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.17" data-path="string/isomorphic-strings.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/isomorphic-strings.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.17.</b>
+                        
+                        Isomorphic Strings
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.18" data-path="string/word-pattern.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/word-pattern.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.18.</b>
+                        
+                        Word Pattern
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="stack-and-queue/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        栈和队列
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="stack-and-queue/stack/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        栈
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="stack-and-queue/stack/min-stack.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/min-stack.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.1.</b>
+                        
+                        Min Stack
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="stack-and-queue/stack/valid-parentheses.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/valid-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.2.</b>
+                        
+                        Valid Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="stack-and-queue/stack/longest-valid-parentheses.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/longest-valid-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.3.</b>
+                        
+                        Longest Valid Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="stack-and-queue/stack/largest-rectangle-in-histogram.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/largest-rectangle-in-histogram.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.4.</b>
+                        
+                        Largest Rectangle in Histogram
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="stack-and-queue/stack/evaluate-reverse-polish-notation.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/evaluate-reverse-polish-notation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.5.</b>
+                        
+                        Evaluate Reverse Polish Notation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.6" data-path="stack-and-queue/stack/implement-stack-using-queues.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/implement-stack-using-queues.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.6.</b>
+                        
+                        Implement Stack using Queues
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="stack-and-queue/queue/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/queue/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        队列
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.2.1" data-path="stack-and-queue/queue/implement-queue-using-stacks.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/queue/implement-queue-using-stacks.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.1.</b>
+                        
+                        Implement Queue using Stacks
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="binary-tree/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        二叉树
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="binary-tree/traversal/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        二叉树的遍历
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="binary-tree/traversal/binary-tree-preorder-traversal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-tree-preorder-traversal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.1.</b>
+                        
+                        Binary Tree Preorder Traversal
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="binary-tree/traversal/binary-tree-inorder-traversal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-tree-inorder-traversal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.2.</b>
+                        
+                        Binary Tree Inorder Traversal
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="binary-tree/traversal/binary-tree-postorder-traversal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-tree-postorder-traversal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.3.</b>
+                        
+                        Binary Tree Postorder Traversal
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.4" data-path="binary-tree/traversal/binary-tree-level-order-traversal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-tree-level-order-traversal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.4.</b>
+                        
+                        Binary Tree Level Order Traversal
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.5" data-path="binary-tree/traversal/binary-tree-level-order-traversal-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-tree-level-order-traversal-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.5.</b>
+                        
+                        Binary Tree Level Order Traversal II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.6" data-path="binary-tree/traversal/binary-tree-right-side-view.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-tree-right-side-view.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.6.</b>
+                        
+                        Binary Tree Right Side View
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.7" data-path="binary-tree/traversal/invert-binary-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/invert-binary-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.7.</b>
+                        
+                        Invert Binary Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.8" data-path="binary-tree/traversal/binary-search-tree-iterator.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-search-tree-iterator.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.8.</b>
+                        
+                        Binary Search Tree Iterator
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.9" data-path="binary-tree/traversal/binary-tree-zigzag-level-order-traversal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/binary-tree-zigzag-level-order-traversal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.9.</b>
+                        
+                        Binary Tree Zigzag Level Order Traversal
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.10" data-path="binary-tree/traversal/recover-binary-search-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/recover-binary-search-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.10.</b>
+                        
+                        Recover Binary Search Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.11" data-path="binary-tree/traversal/same-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/same-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.11.</b>
+                        
+                        Same Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.12" data-path="binary-tree/traversal/symmetric-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/symmetric-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.12.</b>
+                        
+                        Symmetric Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.13" data-path="binary-tree/traversal/balanced-binary-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/balanced-binary-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.13.</b>
+                        
+                        Balanced Binary Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.14" data-path="binary-tree/traversal/flatten-binary-tree-to-linked-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/flatten-binary-tree-to-linked-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.14.</b>
+                        
+                        Flatten Binary Tree to Linked List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.15" data-path="binary-tree/traversal/populating-next-right-pointers-in-each-node-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/traversal/populating-next-right-pointers-in-each-node-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.15.</b>
+                        
+                        Populating Next Right Pointers in Each Node II
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="binary-tree/construction/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/construction/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        二叉树的构建
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="binary-tree/construction/construct-binary-tree-from-preorder-and-inorder-traversal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/construction/construct-binary-tree-from-preorder-and-inorder-traversal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.1.</b>
+                        
+                        Construct Binary Tree from Preorder and Inorder Traversal
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="binary-tree/construction/construct-binary-tree-from-inorder-and-postorder-traversal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/construction/construct-binary-tree-from-inorder-and-postorder-traversal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.2.</b>
+                        
+                        Construct Binary Tree from Inorder and Postorder Traversal
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="binary-tree/bst/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        二叉查找树
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="binary-tree/bst/unique-binary-search-trees.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/unique-binary-search-trees.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.1.</b>
+                        
+                        Unique Binary Search Trees
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="binary-tree/bst/unique-binary-search-trees-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/unique-binary-search-trees-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.2.</b>
+                        
+                        Unique Binary Search Trees II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="binary-tree/bst/validate-binary-search-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/validate-binary-search-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.3.</b>
+                        
+                        Validate Binary Search Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.4" data-path="binary-tree/bst/convert-sorted-array-to-binary-search-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/convert-sorted-array-to-binary-search-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.4.</b>
+                        
+                        Convert Sorted Array to Binary Search Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.5" data-path="binary-tree/bst/convert-sorted-list-to-binary-search-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/convert-sorted-list-to-binary-search-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.5.</b>
+                        
+                        Convert Sorted List to Binary Search Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.6" data-path="binary-tree/bst/lca-of-bst.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/lca-of-bst.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.6.</b>
+                        
+                        LCA of BST
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.7" data-path="binary-tree/bst/kth-smallest-element-in-a-bst.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/bst/kth-smallest-element-in-a-bst.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.7.</b>
+                        
+                        Kth Smallest Element in a BST
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="binary-tree/recursion/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        二叉树的递归
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.4.1" data-path="binary-tree/recursion/minimum-depth-of-binary-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/minimum-depth-of-binary-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.1.</b>
+                        
+                        Minimum Depth of Binary Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.2" data-path="binary-tree/recursion/maximum-depth-of-binary-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/maximum-depth-of-binary-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.2.</b>
+                        
+                        Maximum Depth of Binary Tree
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.3" data-path="binary-tree/recursion/path-sum.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/path-sum.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.3.</b>
+                        
+                        Path Sum
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.4" data-path="binary-tree/recursion/path-sum-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/path-sum-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.4.</b>
+                        
+                        Path Sum II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.5" data-path="binary-tree/recursion/binary-tree-maximum-path-sum.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/binary-tree-maximum-path-sum.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.5.</b>
+                        
+                        Binary Tree Maximum Path Sum
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.6" data-path="binary-tree/recursion/populating-next-right-pointers-in-each-node.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/populating-next-right-pointers-in-each-node.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.6.</b>
+                        
+                        Populating Next Right Pointers in Each Node
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.7" data-path="binary-tree/recursion/sum-root-to-leaf-numbers.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/sum-root-to-leaf-numbers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.7.</b>
+                        
+                        Sum Root to Leaf Numbers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.8" data-path="binary-tree/recursion/lca-of-binary-tree.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/recursion/lca-of-binary-tree.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.8.</b>
+                        
+                        LCA of Binary Tree
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="binary-tree/segment-tree/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/segment-tree/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        线段树
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.5.1" data-path="binary-tree/segment-tree/range-sum-query-mutable.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/binary-tree/segment-tree/range-sum-query-mutable.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.1.</b>
+                        
+                        Range Sum Query - Mutable
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="sorting/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        排序
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="sorting/insertion-sort/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/insertion-sort/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        插入排序
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="sorting/insertion-sort/insertion-sort-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/insertion-sort/insertion-sort-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.1.</b>
+                        
+                        Insertion Sort List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="sorting/merge-sort/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/merge-sort/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        归并排序
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.2.1" data-path="sorting/merge-sort/merge-two-sorted-arrays.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/merge-sort/merge-two-sorted-arrays.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.1.</b>
+                        
+                        Merge Two Sorted Arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.2" data-path="sorting/merge-sort/merge-two-sorted-lists.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/merge-sort/merge-two-sorted-lists.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.2.</b>
+                        
+                        Merge Two Sorted Lists
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.3" data-path="sorting/merge-sort/merge-k-sorted-lists.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/merge-sort/merge-k-sorted-lists.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.3.</b>
+                        
+                        Merge k Sorted Lists
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.4" data-path="sorting/merge-sort/sort-list.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/merge-sort/sort-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.4.</b>
+                        
+                        Sort List
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="sorting/quick-sort/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/quick-sort/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        快速排序
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.3.1" data-path="sorting/quick-sort/sort-colors.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/quick-sort/sort-colors.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.1.</b>
+                        
+                        Sort Colors
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3.2" data-path="sorting/quick-sort/kth-largest-element-in-an-array.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/quick-sort/kth-largest-element-in-an-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.2.</b>
+                        
+                        Kth Largest Element in an Array
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="sorting/bucket-sort/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/bucket-sort/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        桶排序
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.4.1" data-path="sorting/bucket-sort/first-missing-positive.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/bucket-sort/first-missing-positive.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.1.</b>
+                        
+                        First Missing Positive
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="sorting/counting-sort/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/counting-sort/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        计数排序
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.5.1" data-path="sorting/counting-sort/h-index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/counting-sort/h-index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.1.</b>
+                        
+                        H-Index
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="sorting/radix-sort/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/radix-sort/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.6.</b>
+                        
+                        基数排序
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.6.1" data-path="sorting/radix-sort/maximum-gap.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/radix-sort/maximum-gap.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.6.1.</b>
+                        
+                        Maximum Gap
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.7" data-path="sorting/other/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/other/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.7.</b>
+                        
+                        其他
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.7.1" data-path="sorting/other/largest-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/other/largest-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.7.1.</b>
+                        
+                        Largest Number
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.8" data-path="sorting/summary.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/summary.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.8.</b>
+                        
+                        小结
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="search/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        查找
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="search/search-for-a-range.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-for-a-range.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Search for a Range
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="search/search-insert-position.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-insert-position.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Search Insert Position
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="search/search-in-rotated-sorted-array.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-in-rotated-sorted-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        Search in Rotated Sorted Array
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="search/search-in-rotated-sorted-array-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-in-rotated-sorted-array-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        Search in Rotated Sorted Array II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="search/search-a-2d-matrix.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-a-2d-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.5.</b>
+                        
+                        Search a 2D Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="search/search-a-2d-matrix-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-a-2d-matrix-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.6.</b>
+                        
+                        Search a 2D Matrix II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="search/find-minimum-in-rotated-sorted-array.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/find-minimum-in-rotated-sorted-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.7.</b>
+                        
+                        Find Minimum in Rotated Sorted Array
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.8" data-path="search/find-minimum-in-rotated-sorted-array-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/find-minimum-in-rotated-sorted-array-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.8.</b>
+                        
+                        Find Minimum in Rotated Sorted Array II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.9" data-path="search/median-of-two-sorted-arrays.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/median-of-two-sorted-arrays.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.9.</b>
+                        
+                        Median of Two Sorted Arrays
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.10" data-path="search/h-index-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/h-index-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.10.</b>
+                        
+                        H-Index II
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="brute-force/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/brute-force/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        暴力枚举法
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="brute-force/subsets.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/brute-force/subsets.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Subsets
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="brute-force/subsets-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/brute-force/subsets-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.2.</b>
+                        
+                        Subsets II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="brute-force/permutations.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/brute-force/permutations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.3.</b>
+                        
+                        Permutations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="brute-force/permutations-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/brute-force/permutations-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.4.</b>
+                        
+                        Permutations II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="brute-force/combinations.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/brute-force/combinations.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.5.</b>
+                        
+                        Combinations
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="brute-force/letter-combinations-of-a-phone-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/brute-force/letter-combinations-of-a-phone-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.6.</b>
+                        
+                        Letter Combinations of a Phone Number
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="bfs/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bfs/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        广度优先搜索
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="bfs/word-ladder.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bfs/word-ladder.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        Word Ladder
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="bfs/word-ladder-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bfs/word-ladder-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        Word Ladder II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="bfs/surrounded-regions.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bfs/surrounded-regions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        Surrounded Regions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="bfs/bfs-summary.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bfs/bfs-summary.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        总结
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="dfs/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        深度优先搜索
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="dfs/additive-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/additive-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Additive Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="dfs/palindrome-partitioning.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/palindrome-partitioning.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        Palindrome Partitioning
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="dfs/unique-paths.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/unique-paths.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        Unique Paths
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="dfs/unique-paths-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/unique-paths-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.4.</b>
+                        
+                        Unique Paths II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="dfs/n-queens.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/n-queens.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.5.</b>
+                        
+                        N-Queens
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.6" data-path="dfs/n-queens-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/n-queens-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.6.</b>
+                        
+                        N-Queens II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.7" data-path="dfs/restore-ip-addresses.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/restore-ip-addresses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.7.</b>
+                        
+                        Restore IP Addresses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.8" data-path="dfs/combination-sum.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/combination-sum.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.8.</b>
+                        
+                        Combination Sum
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.9" data-path="dfs/combination-sum-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/combination-sum-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.9.</b>
+                        
+                        Combination Sum II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.10" data-path="dfs/combination-sum-iii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/combination-sum-iii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.10.</b>
+                        
+                        Combination Sum III
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.11" data-path="dfs/generate-parentheses.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/generate-parentheses.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.11.</b>
+                        
+                        Generate Parentheses
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.12" data-path="dfs/sudoku-solver.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/sudoku-solver.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.12.</b>
+                        
+                        Sudoku Solver
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.13" data-path="dfs/word-search.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/word-search.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.13.</b>
+                        
+                        Word Search
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.14" data-path="dfs/dfs-summary.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/dfs-summary.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.14.</b>
+                        
+                        总结
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="divide-and-conquer/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/divide-and-conquer/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        分治法
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1" data-path="divide-and-conquer/pow.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/divide-and-conquer/pow.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.1.</b>
+                        
+                        Pow(x,n)
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="divide-and-conquer/sqrt.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/divide-and-conquer/sqrt.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.2.</b>
+                        
+                        Sqrt(x)
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="greedy/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        贪心法
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="11.1" data-path="greedy/jump-game.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/jump-game.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.1.</b>
+                        
+                        Jump Game
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="greedy/jump-game-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/jump-game-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.2.</b>
+                        
+                        Jump Game II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="greedy/best-time-to-buy-and-sell-stock.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/best-time-to-buy-and-sell-stock.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.3.</b>
+                        
+                        Best Time to Buy and Sell Stock
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.4" data-path="greedy/best-time-to-buy-and-sell-stock-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/best-time-to-buy-and-sell-stock-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.4.</b>
+                        
+                        Best Time to Buy and Sell Stock II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.5" data-path="greedy/longest-substring-without-repeating-characters.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/longest-substring-without-repeating-characters.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.5.</b>
+                        
+                        Longest Substring Without Repeating Characters
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.6" data-path="greedy/container-with-most-water.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/container-with-most-water.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.6.</b>
+                        
+                        Container With Most Water
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.7" data-path="greedy/patching-array.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/patching-array.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.7.</b>
+                        
+                        Patching Array
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="dp/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        动态规划
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.1" data-path="dp/triangle.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/triangle.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.1.</b>
+                        
+                        Triangle
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" data-path="dp/maximum-subarray.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/maximum-subarray.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.</b>
+                        
+                        Maximum Subarray
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" data-path="dp/maximum-product-subarray.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/maximum-product-subarray.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.</b>
+                        
+                        Maximum Product Subarray
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4" data-path="dp/longest-increasing-subsequence.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/longest-increasing-subsequence.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.4.</b>
+                        
+                        Longest Increasing Subsequence
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5" data-path="dp/palindrome-partitioning-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/palindrome-partitioning-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.</b>
+                        
+                        Palindrome Partitioning II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.6" data-path="dp/maximal-rectangle.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/maximal-rectangle.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.6.</b>
+                        
+                        Maximal Rectangle
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.7" data-path="dp/best-time-to-buy-and-sell-stock-iii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-iii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.7.</b>
+                        
+                        Best Time to Buy and Sell Stock III
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.8" data-path="dp/best-time-to-buy-and-sell-stock-iv.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-iv.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.8.</b>
+                        
+                        Best Time to Buy and Sell Stock IV
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="12.9" data-path="dp/best-time-to-buy-and-sell-stock-with-cooldown.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.</b>
+                        
+                        Best Time to Buy and Sell Stock with Cooldown
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.10" data-path="dp/interleaving-string.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/interleaving-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.10.</b>
+                        
+                        Interleaving String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.11" data-path="dp/scramble-string.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/scramble-string.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.11.</b>
+                        
+                        Scramble String
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.12" data-path="dp/minimum-path-sum.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/minimum-path-sum.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.12.</b>
+                        
+                        Minimum Path Sum
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.13" data-path="dp/edit-distance.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/edit-distance.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.13.</b>
+                        
+                        Edit Distance
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.14" data-path="dp/decode-ways.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/decode-ways.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.14.</b>
+                        
+                        Decode Ways
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.15" data-path="dp/distinct-subsequences.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/distinct-subsequences.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.15.</b>
+                        
+                        Distinct Subsequences
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.16" data-path="dp/word-break.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/word-break.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.16.</b>
+                        
+                        Word Break
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.17" data-path="dp/word-break-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/word-break-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.17.</b>
+                        
+                        Word Break II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.18" data-path="dp/dungeon-game.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/dungeon-game.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.18.</b>
+                        
+                        Dungeon Game
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.19" data-path="dp/house-robber.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/house-robber.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.19.</b>
+                        
+                        House Robber
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.20" data-path="dp/house-robber-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/house-robber-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.20.</b>
+                        
+                        House Robber II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.21" data-path="dp/house-robber-iii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/house-robber-iii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.21.</b>
+                        
+                        House Robber III
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.22" data-path="dp/range-sum-query-immutable.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/range-sum-query-immutable.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.22.</b>
+                        
+                        Range Sum Query - Immutable
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.23" data-path="dp/range-sum-query-2d-immutable.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/range-sum-query-2d-immutable.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.23.</b>
+                        
+                        Range Sum Query 2D - Immutable
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="graph/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/graph/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.1" data-path="graph/clone-graph.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/graph/clone-graph.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.</b>
+                        
+                        Clone Graph
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="bitwise-operations/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        位操作
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.1" data-path="bitwise-operations/reverse-bits.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/reverse-bits.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.1.</b>
+                        
+                        Reverse Bits
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="bitwise-operations/repeated-dna-sequences.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/repeated-dna-sequences.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.2.</b>
+                        
+                        Repeated DNA Sequences
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="bitwise-operations/number-of-1-bits.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/number-of-1-bits.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.3.</b>
+                        
+                        Number of 1 Bits
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.4" data-path="bitwise-operations/gray-code.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/gray-code.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.4.</b>
+                        
+                        Gray Code
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5" data-path="bitwise-operations/single-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/single-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.5.</b>
+                        
+                        Single Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.6" data-path="bitwise-operations/single-number-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/single-number-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.6.</b>
+                        
+                        Single Number II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.7" data-path="bitwise-operations/single-number-iii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/single-number-iii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.7.</b>
+                        
+                        Single Number III
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.8" data-path="bitwise-operations/power-of-two.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/power-of-two.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.8.</b>
+                        
+                        Power of Two
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.9" data-path="bitwise-operations/missing-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/missing-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.9.</b>
+                        
+                        Missing Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.10" data-path="bitwise-operations/maximum-product-of-word-lengths.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/maximum-product-of-word-lengths.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.10.</b>
+                        
+                        Maximum Product of Word Lengths
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.11" data-path="bitwise-operations/bitwise-and-of-numbers-range.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/bitwise-operations/bitwise-and-of-numbers-range.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.11.</b>
+                        
+                        Bitwise AND of Numbers Range
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.12" data-path="simulation/power-of-three.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/power-of-three.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.12.</b>
+                        
+                        Power of Three
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.13" data-path="simulation/rectangle-area.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/rectangle-area.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.13.</b>
+                        
+                        Rectangle Area
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="number-theory/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        数论
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="15.1" data-path="number-theory/happy-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/happy-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.1.</b>
+                        
+                        Happy Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" data-path="number-theory/ugly-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/ugly-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.2.</b>
+                        
+                        Ugly Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.3" data-path="number-theory/ugly-number-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/ugly-number-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.3.</b>
+                        
+                        Ugly Number II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.4" data-path="number-theory/super-ugly-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/super-ugly-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.4.</b>
+                        
+                        Super Ugly Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.5" data-path="number-theory/fraction-to-recurring-decimal.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/fraction-to-recurring-decimal.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.5.</b>
+                        
+                        Fraction to Recurring Decimal
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.6" data-path="number-theory/factorial-trailing-zeroes.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/factorial-trailing-zeroes.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.6.</b>
+                        
+                        Factorial Trailing Zeroes
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.7" data-path="number-theory/nim-game.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/number-theory/nim-game.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.7.</b>
+                        
+                        Nim Game
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="simulation/index.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        模拟
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.1" data-path="simulation/reverse-integer.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/reverse-integer.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.1.</b>
+                        
+                        Reverse Integer
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.2" data-path="simulation/palindrome-number.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/palindrome-number.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.2.</b>
+                        
+                        Palindrome Number
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.3" data-path="simulation/insert-interval.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/insert-interval.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.3.</b>
+                        
+                        Insert Interval
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.4" data-path="simulation/merge-intervals.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/merge-intervals.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.4.</b>
+                        
+                        Merge Intervals
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.5" data-path="simulation/minimum-window-substring.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/minimum-window-substring.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.5.</b>
+                        
+                        Minimum Window Substring
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.6" data-path="simulation/multiply-strings.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/multiply-strings.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.6.</b>
+                        
+                        Multiply Strings
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.7" data-path="simulation/substring-with-concatenation-of-all-words.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/substring-with-concatenation-of-all-words.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.7.</b>
+                        
+                        Substring with Concatenation of All Words
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.8" data-path="simulation/pascal-s-triangle.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/pascal-s-triangle.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.8.</b>
+                        
+                        Pascal's Triangle
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.9" data-path="simulation/pascal-s-triangle-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/pascal-s-triangle-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.9.</b>
+                        
+                        Pascal's Triangle II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.10" data-path="simulation/spiral-matrix.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/spiral-matrix.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.10.</b>
+                        
+                        Spiral Matrix
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.11" data-path="simulation/spiral-matrix-ii.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/spiral-matrix-ii.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.11.</b>
+                        
+                        Spiral Matrix II
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.12" data-path="simulation/zigzag-conversion.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/zigzag-conversion.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.12.</b>
+                        
+                        ZigZag Conversion
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.13" data-path="simulation/divide-two-integers.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/divide-two-integers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.13.</b>
+                        
+                        Divide Two Integers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.14" data-path="simulation/text-justification.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/text-justification.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.14.</b>
+                        
+                        Text Justification
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.15" data-path="simulation/max-points-on-a-line.html">
+            
+                
+                    <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/max-points-on-a-line.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.15.</b>
+                        
+                        Max Points on a Line
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com/" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <a class="btn pull-left js-toolbar-action" aria-label="" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html#"><i class="fa fa-align-justify"></i></a><a class="btn pull-right js-toolbar-action" aria-label="GitHub" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html#"><i class="fa fa-github"></i></a><a class="btn pull-left js-toolbar-action" aria-label="Search" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html#"><i class="fa fa-search"></i></a><div class="dropdown pull-right  js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Share" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html#"><i class="fa fa-share-alt"></i></a><div class="dropdown-menu dropdown-left"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-5 ">Facebook</button><button class="button size-5 ">Google+</button><button class="button size-5 ">Twitter</button><button class="button size-5 ">Weibo</button><button class="button size-5 ">Instapaper</button></div></div></div><a class="btn pull-right js-toolbar-action" aria-label="" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html#"><i class="fa fa-facebook"></i></a><a class="btn pull-right js-toolbar-action" aria-label="" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html#"><i class="fa fa-twitter"></i></a><div class="dropdown pull-left font-settings js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Font Settings" href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-with-cooldown.html#"><i class="fa fa-font"></i></a><div class="dropdown-menu dropdown-right"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-2 font-reduce">A</button><button class="button size-2 font-enlarge">A</button></div><div class="buttons"><button class="button size-2 ">Serif</button><button class="button size-2 ">Sans</button></div><div class="buttons"><button class="button size-3 ">White</button><button class="button size-3 ">Sepia</button><button class="button size-3 ">Night</button></div></div></div><h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/">算法精粹</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="best-time-to-buy-and-sell-stock-with-cooldown">Best Time to Buy and Sell Stock with Cooldown</h2>
+<h3 id="描述">描述</h3>
+<p class="comments-section">Almost the ame as <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/best-time-to-buy-and-sell-stock-ii.html">Best Time to Buy and Sell Stock II</a> but with one restriction: after you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day).<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section"><strong>Example</strong>:<div class="comments-icon"><div class="marker">+</div></div></p>
+<pre><code>prices = [1, 2, 3, 0, 2]
+maxProfit = 3
+transactions = [buy, sell, cooldown, buy, sell]
+</code></pre><h3 id="分析">分析</h3>
+<p class="comments-section">这题比<a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/best-time-to-buy-and-sell-stock-ii.html">Best Time to Buy and Sell Stock II</a>多了一个cooldown的条件，就变得麻烦多了。这题是一个多阶段优化问题，首先范围缩小到广搜，贪心或者动规。因为每步之间互相牵连，贪心显然不行。广搜固然可以，不过是<code>O(2^n)</code>复杂度，所以我们先考虑用动规。<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">对于每一天，有三种动作，buy, sell, cooldown, sell 和 cooldown 可以合并成一种状态，因为手里最终没有股票。最终需要的结果是 sell，即手里股票卖了获得最大利润。我们可以用两个数组来记录当前持股和未持股的状态，令<code>sell[i]</code> 表示第i天未持股时，获得的最大利润，<code>buy[i]</code>表示第i天持有股票时，获得的最大利润。<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">对于<code>sell[i]</code>，最大利润有两种可能，一是今天没动作跟昨天未持股状态一样，二是今天卖了股票，所以状态转移方程如下：<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section"><code>sell[i] = max{sell[i - 1], buy[i-1] + prices[i-1]}</code><div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">对于<code>buy[i]</code>，最大利润有两种可能，一是今天没动作跟昨天持股状态一样，二是前天卖了股票，今天买了股票，因为 cooldown 只能隔天交易，所以今天买股票要追溯到前天的状态。状态转移方程如下：<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section"><code>buy[i] = max{buy[i-1], sell[i-2] - prices[i]}</code><div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">最终我们要求的结果是<code>sell[n - 1]</code>，表示最后一天结束时，手里没有股票时的最大利润。<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">这个算法的空间复杂度是<code>O(n)</code>，不过由于<code>sell[i]</code>仅仅依赖前一项，<code>buy[i]</code>仅仅依赖前两项，所以可以优化到<code>O(1)</code>，具体见第二种代码实现。<div class="comments-icon"><div class="marker">+</div></div></p>
+<h3 id="代码1-on空间">代码1 O(n)空间</h3>
+<p></p><pre><code class="lang-java"><span class="hljs-comment">// Best Time to Buy and Sell Stock with Cooldown</span>
+<span class="hljs-comment">// Time Complexity: O(n), Space Complexity: O(n)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>{
+        <span class="hljs-keyword">if</span> (prices == <span class="hljs-keyword">null</span> || prices.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">int</span>[] sell = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[prices.length];
+        <span class="hljs-keyword">int</span>[] buy = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[prices.length];
+        sell[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+        buy[<span class="hljs-number">0</span>] = -prices[<span class="hljs-number">0</span>];
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; prices.length; ++i) {
+            sell[i] = Math.max(sell[i - <span class="hljs-number">1</span>], buy[i - <span class="hljs-number">1</span>] + prices[i]);
+            buy[i] = Math.max(buy[i - <span class="hljs-number">1</span>], (i &gt; <span class="hljs-number">1</span> ? sell[i - <span class="hljs-number">2</span>] : <span class="hljs-number">0</span>) - prices[i]);
+        }
+        <span class="hljs-keyword">return</span> sell[prices.length - <span class="hljs-number">1</span>];
+    }
+}</code></pre><p></p>
+<h3 id="代码2-o1空间">代码2 O(1)空间</h3>
+<p></p><pre><code class="lang-java"><span class="hljs-comment">// Best Time to Buy and Sell Stock with Cooldown</span>
+<span class="hljs-comment">// Time Complexity: O(n), Space Complexity: O(1)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>{
+        <span class="hljs-keyword">if</span> (prices == <span class="hljs-keyword">null</span> || prices.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">int</span> curSell = <span class="hljs-number">0</span>;   <span class="hljs-comment">// sell[i]</span>
+        <span class="hljs-keyword">int</span> prevSell = <span class="hljs-number">0</span>;  <span class="hljs-comment">// sell[i-2]</span>
+        <span class="hljs-keyword">int</span> buy = -prices[<span class="hljs-number">0</span>]; <span class="hljs-comment">// buy[i]</span>
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; prices.length; ++i) {
+            <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> tmp = curSell;
+            curSell = Math.max(curSell, buy + prices[i]);
+            buy = Math.max(buy, (i &gt; <span class="hljs-number">1</span> ? prevSell : <span class="hljs-number">0</span>) - prices[i]);
+            prevSell = tmp;
+        }
+        <span class="hljs-keyword">return</span> curSell;
+    }
+}</code></pre><p></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/best-time-to-buy-and-sell-stock-iv.html" class="navigation navigation-prev " aria-label="Previous page: Best Time to Buy and Sell Stock IV"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dp/interleaving-string.html" class="navigation navigation-next " aria-label="Next page: Interleaving String" style="margin-right: 17px;"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/app.js.下载"></script>
+
+    
+    <script src="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/plugin.js.下载"></script>
+    
+
+    
+    <script src="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/plugin.js(1).下载"></script>
+    
+
+    
+    <script src="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/lunr.min.js.下载"></script>
+    
+
+    
+    <script src="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/search.js.下载"></script>
+    
+
+    
+    <script src="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/buttons.js.下载"></script>
+    
+
+    
+    <script src="./Best Time to Buy and Sell Stock with Cooldown _ 算法精粹_files/buttons.js(1).下载"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"github":{"url":"https://www.github.com/soulmachine/algorithm-essentials"},"katex":{},"codesnippet":{},"image-captions":{"variable_name":"_pictures"},"comment":{"highlightCommented":true},"autocover":{},"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    
+    
+
+</body></html>

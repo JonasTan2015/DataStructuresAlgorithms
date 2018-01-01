@@ -1,0 +1,48 @@
+public class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        
+        /*思路: Greedy. 如果连续几个数字升序，选最大一个；如果连续降序选最小一个*/
+       if(nums.length < 2) return nums.length;
+       int k=1;
+       int result=0;
+       while(k<nums.length&&nums[k]==nums[k-1])k++;
+       if(k==nums.length)
+       {result=1;return result;}
+       else
+       result=2;
+       
+       boolean isIncreasing=nums[k]>nums[k-1];
+       int temp=nums[k];
+       for(int i=k+1;i<nums.length;i++)
+       {
+           if(isIncreasing) 
+           {
+               if(nums[i] < temp)
+               {
+                result++;
+                isIncreasing = false;
+                temp=nums[i];
+               }
+               else
+               {
+                   temp=Math.max(temp,nums[i]);
+               }
+            } 
+            else //if(!isIncreasing )
+            { 
+                if(nums[i] > temp)
+                {
+                result++;
+                isIncreasing = true;
+                temp=nums[i];
+                }
+                else
+                {
+                    temp=Math.min(temp,nums[i]);
+                }
+            }
+       }
+       return result;
+       
+    }
+}

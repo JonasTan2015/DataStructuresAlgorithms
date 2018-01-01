@@ -1,0 +1,31 @@
+public class Solution {
+    public String removeKdigits(String num, int k) {
+        if (k == num.length()) return "0";
+        else if(num.length()==1)return num;
+        
+        //search for the 1st element dividing a non-descending sequence and then a decreasing sequence, then delete the edge.
+        //if the whole sequence is a non-descending sequence, it simply keeps removing the last element until only targetlen elements left
+        
+        //if the whole sequence is a non-increasing sequence, it keeps removing the first element
+        // Finally deal with the leading zeros. If the whole string are '0's, remove all but the last one.
+       StringBuffer sb=new StringBuffer(num);
+       int targetlen=num.length()-k;
+       while(sb.length()>targetlen)
+       {
+           int i=1;
+           while(i<sb.length()&&sb.charAt(i)>=sb.charAt(i-1))
+           {
+               i++;
+           }
+           sb.deleteCharAt(i-1);
+       }
+       
+       // remove the leading zeros
+       while(sb.length()>1&&sb.charAt(0)=='0')
+       {
+           sb.deleteCharAt(0);
+       }
+       return sb.toString();
+        
+    }
+}

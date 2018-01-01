@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://www.hrwhisper.me/leetcode-coin-change/ -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>leetcode Coin Change - 细语呢喃</title>
+
+<!-- This site is optimized with the Yoast SEO plugin v3.8 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="leetcode Coin Change">
+<meta name="robots" content="noodp">
+<link rel="canonical" href="https://www.hrwhisper.me/leetcode-coin-change/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode Coin Change - 细语呢喃">
+<meta property="og:description" content="leetcode Coin Change">
+<meta property="og:url" content="https://www.hrwhisper.me/leetcode-coin-change/">
+<meta property="og:site_name" content="细语呢喃">
+<meta property="article:tag" content="dynamic programming">
+<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="算法">
+<meta property="article:section" content="Leetcode">
+<meta property="article:published_time" content="2015-12-27T10:31:00+08:00">
+<meta property="article:modified_time" content="2016-11-25T19:09:58+08:00">
+<meta property="og:updated_time" content="2016-11-25T19:09:58+08:00">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://www.hrwhisper.me/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="细语呢喃 » Feed" href="https://www.hrwhisper.me/feed/">
+<link rel="alternate" type="application/rss+xml" title="细语呢喃 » Comments Feed" href="https://www.hrwhisper.me/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="细语呢喃 » leetcode Coin Change Comments Feed" href="https://www.hrwhisper.me/leetcode-coin-change/feed/">
+		<script src="./leetcode Coin Change - 细语呢喃_files/hm.js.下载"></script><script async="" src="./leetcode Coin Change - 细语呢喃_files/analytics.js.下载"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.hrwhisper.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./leetcode Coin Change - 细语呢喃_files/wp-emoji-release.min.js.下载" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="crayon-css" href="./leetcode Coin Change - 细语呢喃_files/crayon.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-github-copy-css" href="./leetcode Coin Change - 细语呢喃_files/github-copy.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-droid-sans-mono-css" href="./leetcode Coin Change - 细语呢喃_files/droid-sans-mono.css" type="text/css" media="all">
+<link rel="stylesheet" id="dazzling-bootstrap-css" href="./leetcode Coin Change - 细语呢喃_files/bootstrap-font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="dazzling-style-css" href="./leetcode Coin Change - 细语呢喃_files/style.css" type="text/css" media="all">
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/jquery.js.下载"></script>
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/jquery-migrate.min.js.下载"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/www.hrwhisper.me\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/crayon.min.js.下载"></script>
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/bootstrap.min.js.下载"></script>
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/main.js.下载"></script>
+<link rel="https://api.w.org/" href="https://www.hrwhisper.me/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.hrwhisper.me/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.hrwhisper.me/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.6.1">
+<link rel="shortlink" href="https://www.hrwhisper.me/?p=2811">
+<link rel="alternate" type="application/json+oembed" href="https://www.hrwhisper.me/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.hrwhisper.me%2Fleetcode-coin-change%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://www.hrwhisper.me/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.hrwhisper.me%2Fleetcode-coin-change%2F&amp;format=xml">
+<style type="text/css">.entry-content {font-family: Helvetica Neue; font-size:14px; font-weight: normal; color:#6B6B6B;}</style><style type="text/css">
+/* <![CDATA[ */
+img.latex { vertical-align: middle; border: none; }
+/* ]]> */
+</style>
+<!--[if lt IE 9]>
+<script src="https://www.hrwhisper.me/wp-content/themes/dazzling/inc/js/html5shiv.min.js"></script>
+<script src="https://www.hrwhisper.me/wp-content/themes/dazzling/inc/js/respond.min.js"></script>
+<![endif]-->
+<meta name="applicable-device" content="pc,mobile">
+<meta name="keywords" content="c,c++,java,python,leetcode,algorithm,reading,life,moods,machine-learning,data-mining">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.hrwhisper.me/xmlrpc.php">
+<script src="./leetcode Coin Change - 细语呢喃_files/share.js.下载"></script><script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script><link rel="stylesheet" href="./leetcode Coin Change - 细语呢喃_files/share_style1_24.css"></head>
+
+<body class="single single-post postid-2811 single-format-standard">
+
+<div id="page" class="hfeed site">
+    
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+			    <span class="sr-only">Toggle navigation</span>
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			  </button>
+
+				
+				
+					<div id="logo">
+						<span class="site-name"><a class="navbar-brand" href="https://www.hrwhisper.me/" title="细语呢喃" rel="home">细语呢喃</a></span>
+					</div><!-- end of #logo -->
+
+				
+			</div>
+				<div class="collapse navbar-collapse navbar-ex1-collapse"><ul id="menu-hearder" class="nav navbar-nav"><li id="menu-item-2947" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2947"><a title="Blog建设" href="https://www.hrwhisper.me/blog-building/">Blog建设</a></li>
+<li id="menu-item-2694" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2694"><a title="Leetcode 题解" href="https://www.hrwhisper.me/leetcode-algorithm-solution/">Leetcode 题解</a></li>
+<li id="menu-item-24" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24"><a title="留言板" rel="nofollow" href="https://www.hrwhisper.me/messageboard/">留言板</a></li>
+<li id="menu-item-1564" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1564"><a title="关于…" rel="nofollow" href="https://www.hrwhisper.me/about-me/">关于…</a></li>
+</ul></div>		</div>
+	</nav><!-- .site-navigation -->
+<div id="content" class="site-content container">
+	<div id="primary" class="content-area col-sm-12  pull-left">
+		<main id="main" class="site-main">
+
+		
+			
+<article id="post-2811" class="post-2811 post type-post status-publish format-standard hentry category-leetcode tag-dynamic-programming tag-leetcode tag-algorithm">
+
+	<header class="entry-header page-header">
+		
+		
+		<h1 class="entry-title ">leetcode Coin Change</h1>
+
+		<div class="entry-meta">
+			<span class="posted-on"><i class="fa fa-calendar"></i> <a href="https://www.hrwhisper.me/leetcode-coin-change/" rel="bookmark"><time class="entry-date published" datetime="2015-12-27T10:31:00+00:00">2015年12月27日</time><time class="updated" datetime="2016-11-25T19:09:58+00:00">2016年11月25日</time></a></span><span class="byline"> <i class="fa fa-user"></i> <span class="author vcard"><a class="url fn n" href="https://www.hrwhisper.me/author/hrsay/">hrwhisper</a></span></span>              <span class="comments-link"><i class="fa fa-comment-o"></i><a href="https://www.hrwhisper.me/leetcode-coin-change/#comments" rel="nofollow">5 Comments</a></span>
+            6,635 views            
+		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+	
+	<div class="entry-content">
+		<blockquote>
+<h3>leetcode Coin Change</h3>
+<p>You are given coins of different denominations and a total amount of money <i>amount</i>. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return <code>-1</code>.</p>
+<p><b>Example 1:</b><br>
+coins = <code>[1, 2, 5]</code>, amount = <code>11</code><br>
+return <code>3</code> (11 = 5 + 5 + 1)</p>
+<p><b>Example 2:</b><br>
+coins = <code>[2]</code>, amount = <code>3</code><br>
+return <code>-1</code>.</p>
+<p><b>Note</b>:<br>
+You may assume that you have an infinite number of each kind of coin.</p></blockquote>
+<p><span id="more-2811"></span></p>
+<p>题目地址 ：&nbsp;<a href="https://leetcode.com/problems/coin-change/" target="_blank" rel="nofollow">leetcode Coin Change</a></p>
+<p>题意：</p>
+<p>零钱兑换，让你用最少的零钱数换取目标的数量。如有零钱1,2,5，换成11最少的为5+5+1 ，3个硬币</p>
+<p>思路：</p>
+<p>dp，设dp[i] 为兑换目标i最少的硬币数。</p>
+<p>则有：dp[i + coins[j] ] = min(dp[i + coins[j] ] , dp[i] + 1）</p>
+<p>或者 dp[i] = min(dp[i – coins[j]] + 1,dp[i])</p>
+<p>说白了就是用当前的硬币能组合成啥，取最小。</p>
+<p>第一个A此题=v= 水啊~</p>
+<p>&nbsp;</p>
+<h3><strong>Code</strong></h3>
+<p><strong>java </strong>22ms</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-583847e855e38903467996" class="crayon-syntax crayon-theme-github-copy crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px !important; line-height: 24px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 13px !important; height: 19.5px !important; line-height: 19.5px !important; margin-top: -20px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 13px !important; line-height: 24px !important; z-index: 0; opacity: 0; overflow: hidden;">public class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int dp[] = new int[amount + 1];
+        final int INF = 0x7fffffff;
+        for (int i = 1; i &lt;= amount; i++) dp[i] = INF;
+        for (int i = 0; i &lt;= amount; i++) {
+            for (int j = 0; j &lt; coins.length; j++) {
+                if (coins[j] != INF &amp;&amp; i + coins[j] &lt;= amount &amp;&amp; dp[i]!= INF)
+                    dp[i + coins[j]] = Math.min(dp[i + coins[j]], dp[i] + 1);
+            }
+        }
+        return dp[amount] == INF ? -1 : dp[amount];
+    }
+}</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-583847e855e38903467996-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e38903467996-2">2</div><div class="crayon-num" data-line="crayon-583847e855e38903467996-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e38903467996-4">4</div><div class="crayon-num" data-line="crayon-583847e855e38903467996-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e38903467996-6">6</div><div class="crayon-num" data-line="crayon-583847e855e38903467996-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e38903467996-8">8</div><div class="crayon-num" data-line="crayon-583847e855e38903467996-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e38903467996-10">10</div><div class="crayon-num" data-line="crayon-583847e855e38903467996-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e38903467996-12">12</div><div class="crayon-num" data-line="crayon-583847e855e38903467996-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e38903467996-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-583847e855e38903467996-1"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">Solution</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e38903467996-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-e">coinChange</span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-sy">[</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-583847e855e38903467996-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">]</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e38903467996-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-m">final</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0x7fffffff</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e38903467996-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e38903467996-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-583847e855e38903467996-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">j</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">j</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">.</span><span class="crayon-v">length</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">j</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e38903467996-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-583847e855e38903467996-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Math</span><span class="crayon-sy">.</span><span class="crayon-e">min</span><span class="crayon-sy">(</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e38903467996-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-583847e855e38903467996-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e38903467996-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-i">INF</span><span class="crayon-h"> </span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e38903467996-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e38903467996-14"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0083 seconds] -->
+<p><strong>C++</strong> 120ms</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-583847e855e4a770150639" class="crayon-syntax crayon-theme-github-copy crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px !important; line-height: 24px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 13px !important; height: 19.5px !important; line-height: 19.5px !important; margin-top: -20px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 13px !important; line-height: 24px !important; z-index: 0; opacity: 0; overflow: hidden;">class Solution {
+public:
+	int coinChange(vector&lt;int&gt;&amp; coins, int amount) {
+		const int INF = 0x7fffffff;
+		vector&lt;int&gt; dp(amount + 1, INF);
+		dp[0] = 0;
+		for (int i = 0; i &lt;= amount; i++) {
+			for (int j = 0; j&lt;coins.size(); j++) {
+				if (coins[j] != INF &amp;&amp; i + coins[j] &lt;= amount &amp;&amp; dp[i] != INF &amp;&amp; dp[i + coins[j]] &gt; dp[i] + 1)
+					dp[i + coins[j]] = dp[i] + 1;
+			}
+		}
+		return dp[amount] == INF ? -1 : dp[amount];
+	}
+};</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-583847e855e4a770150639-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e4a770150639-2">2</div><div class="crayon-num" data-line="crayon-583847e855e4a770150639-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e4a770150639-4">4</div><div class="crayon-num" data-line="crayon-583847e855e4a770150639-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e4a770150639-6">6</div><div class="crayon-num" data-line="crayon-583847e855e4a770150639-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e4a770150639-8">8</div><div class="crayon-num" data-line="crayon-583847e855e4a770150639-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e4a770150639-10">10</div><div class="crayon-num" data-line="crayon-583847e855e4a770150639-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e4a770150639-12">12</div><div class="crayon-num" data-line="crayon-583847e855e4a770150639-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e4a770150639-14">14</div><div class="crayon-num" data-line="crayon-583847e855e4a770150639-15">15</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-583847e855e4a770150639-1"><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">Solution</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e4a770150639-2"><span class="crayon-m">public</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-583847e855e4a770150639-3"><span class="crayon-h">	</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-e">coinChange</span><span class="crayon-sy">(</span><span class="crayon-v">vector</span><span class="crayon-o">&lt;</span><span class="crayon-t">int</span><span class="crayon-o">&gt;</span><span class="crayon-o">&amp;</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e4a770150639-4"><span class="crayon-h">		</span><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0x7fffffff</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e4a770150639-5"><span class="crayon-h">		</span><span class="crayon-v">vector</span><span class="crayon-o">&lt;</span><span class="crayon-t">int</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-e">dp</span><span class="crayon-sy">(</span><span class="crayon-v">amount</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e4a770150639-6"><span class="crayon-h">		</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e4a770150639-7"><span class="crayon-h">		</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e4a770150639-8"><span class="crayon-h">			</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">j</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">j</span><span class="crayon-o">&lt;</span><span class="crayon-v">coins</span><span class="crayon-sy">.</span><span class="crayon-e">size</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">j</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-583847e855e4a770150639-9"><span class="crayon-h">				</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e4a770150639-10"><span class="crayon-h">					</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">[</span><span class="crayon-v">j</span><span class="crayon-sy">]</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e4a770150639-11"><span class="crayon-h">			</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e4a770150639-12"><span class="crayon-h">		</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-583847e855e4a770150639-13"><span class="crayon-h">		</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-i">INF</span><span class="crayon-h"> </span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e4a770150639-14"><span class="crayon-h">	</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-583847e855e4a770150639-15"><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0076 seconds] -->
+<p><strong>python&nbsp;</strong></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-583847e855e52384634219" class="crayon-syntax crayon-theme-github-copy crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px !important; line-height: 24px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 13px !important; height: 19.5px !important; line-height: 19.5px !important; margin-top: -20px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 13px !important; line-height: 24px !important; z-index: 0; opacity: 0; overflow: hidden;">class Solution(object):
+    def coinChange(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        INF = 0x7ffffffe
+        dp = [0] + [INF] * amount 
+        for i in xrange(amount + 1):
+            for coin in coins:
+                if i + coin &lt;= amount:
+                    dp[i+coin] = min(dp[i+coin],dp[i] + 1)
+        return dp[amount] if dp[amount] != INF else -1</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-583847e855e52384634219-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e52384634219-2">2</div><div class="crayon-num" data-line="crayon-583847e855e52384634219-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e52384634219-4">4</div><div class="crayon-num" data-line="crayon-583847e855e52384634219-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e52384634219-6">6</div><div class="crayon-num" data-line="crayon-583847e855e52384634219-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e52384634219-8">8</div><div class="crayon-num" data-line="crayon-583847e855e52384634219-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e52384634219-10">10</div><div class="crayon-num" data-line="crayon-583847e855e52384634219-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e52384634219-12">12</div><div class="crayon-num" data-line="crayon-583847e855e52384634219-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e52384634219-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-583847e855e52384634219-1"><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">Solution</span><span class="crayon-sy">(</span><span class="crayon-k ">object</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e52384634219-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">coinChange</span><span class="crayon-sy">(</span><span class="crayon-r">self</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-583847e855e52384634219-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"""</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e52384634219-4"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:type coins: List[int]</span></div><div class="crayon-line" id="crayon-583847e855e52384634219-5"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:type amount: int</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e52384634219-6"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:rtype: int</span></div><div class="crayon-line" id="crayon-583847e855e52384634219-7"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"""</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e52384634219-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0x7ffffffe</span></div><div class="crayon-line" id="crayon-583847e855e52384634219-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">dp</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-v">INF</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-e">amount </span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e52384634219-10"><span class="crayon-e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-k ">xrange</span><span class="crayon-sy">(</span><span class="crayon-v">amount</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-583847e855e52384634219-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">coin </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e52384634219-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-v">coin</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-583847e855e52384634219-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-o">+</span><span class="crayon-v">coin</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">min</span><span class="crayon-sy">(</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-o">+</span><span class="crayon-v">coin</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e52384634219-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-e">INF </span><span class="crayon-st">else</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">1</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0054 seconds] -->
+<p>&nbsp;</p>
+<p>方法二：</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-583847e855e59858272593" class="crayon-syntax crayon-theme-github-copy crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 13px !important; line-height: 24px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 13px !important; height: 19.5px !important; line-height: 19.5px !important; margin-top: -20px; display: none; position: absolute; z-index: 2;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly="" style="tab-size: 4; font-size: 13px !important; line-height: 24px !important; z-index: 0; opacity: 0; overflow: hidden;">class Solution {
+public:
+	int coinChange(vector&lt;int&gt;&amp; coins, int amount) {
+		const int INF = 0x7fffffff;
+		vector&lt;int&gt; dp(amount + 1, INF);
+		dp[0] = 0;
+		for (int i = 0; i &lt;= amount; i++) {
+			for (int coin:coins) {
+				if (i - coin &gt;= 0 &amp;&amp; dp[i - coin] != INF &amp;&amp; dp[i - coin] + 1 &lt; dp[i]) {
+					dp[i] = dp[i - coin] + 1;
+				}
+			}
+		}
+		return dp[amount] == INF ? -1 : dp[amount];
+	}
+};</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-583847e855e59858272593-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-2">2</div><div class="crayon-num" data-line="crayon-583847e855e59858272593-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-4">4</div><div class="crayon-num" data-line="crayon-583847e855e59858272593-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-6">6</div><div class="crayon-num" data-line="crayon-583847e855e59858272593-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-8">8</div><div class="crayon-num" data-line="crayon-583847e855e59858272593-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-10">10</div><div class="crayon-num" data-line="crayon-583847e855e59858272593-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-12">12</div><div class="crayon-num" data-line="crayon-583847e855e59858272593-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-14">14</div><div class="crayon-num" data-line="crayon-583847e855e59858272593-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-583847e855e59858272593-16">16</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-583847e855e59858272593-1"><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">Solution</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-2"><span class="crayon-m">public</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-583847e855e59858272593-3"><span class="crayon-h">	</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-e">coinChange</span><span class="crayon-sy">(</span><span class="crayon-v">vector</span><span class="crayon-o">&lt;</span><span class="crayon-t">int</span><span class="crayon-o">&gt;</span><span class="crayon-o">&amp;</span><span class="crayon-h"> </span><span class="crayon-v">coins</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-4"><span class="crayon-h">		</span><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0x7fffffff</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e59858272593-5"><span class="crayon-h">		</span><span class="crayon-v">vector</span><span class="crayon-o">&lt;</span><span class="crayon-t">int</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-e">dp</span><span class="crayon-sy">(</span><span class="crayon-v">amount</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-6"><span class="crayon-h">		</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e59858272593-7"><span class="crayon-h">		</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-v">amount</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-8"><span class="crayon-h">			</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">coin</span><span class="crayon-o">:</span><span class="crayon-v">coins</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-583847e855e59858272593-9"><span class="crayon-h">				</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">coin</span><span class="crayon-h"> </span><span class="crayon-o">&gt;=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">coin</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-v">INF</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">coin</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-10"><span class="crayon-h">					</span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">coin</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e59858272593-11"><span class="crayon-h">				</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-12"><span class="crayon-h">			</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-583847e855e59858272593-13"><span class="crayon-h">		</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-14"><span class="crayon-h">		</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-i">INF</span><span class="crayon-h"> </span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">dp</span><span class="crayon-sy">[</span><span class="crayon-v">amount</span><span class="crayon-sy">]</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-583847e855e59858272593-15"><span class="crayon-h">	</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-583847e855e59858272593-16"><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0069 seconds] -->
+<p>&nbsp;</p>
+		<blockquote><i>本博客若无特殊说明则由 <a href="https://www.hrwhisper.me/" title="hrwhisper">hrwhisper</a> 原创发布<br>转载请点名出处：<a href="https://www.hrwhisper.me/" title="细语呢喃">细语呢喃</a> &gt; <a href="https://www.hrwhisper.me/leetcode-coin-change/" title="leetcode Coin Change">leetcode Coin Change</a><br>本文地址：<a href="https://www.hrwhisper.me/leetcode-coin-change/" title="leetcode Coin Change">https://www.hrwhisper.me/leetcode-coin-change/</a><br></i></blockquote>		
+			<!-- <a class="support_me"  data-toggle="modal" data-target="#myModal">打赏</a> -->
+	</div><!-- .entry-content -->	
+	<footer class="entry-meta">
+		   <div class="row text-center" style="padding: 50px 0;border-top: 1px dashed #E7E7E7;">
+		   <b><p style="font-size:18px;">您的支持将鼓励我继续创作！ </p></b>
+			<button data-toggle="modal" data-target="#myModal" class="btn btn-default btn-lg" style="padding:10px 20px;font-weight:bold;">打赏</button>
+	</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+		  <div class="modal-content">
+			 <div class="modal-body">
+			 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<ul id="myTab" class="nav nav-tabs">
+				   <li class="active"> <a href="https://www.hrwhisper.me/leetcode-coin-change/#wechat_pay_div" data-toggle="tab"> 微信支付 </a> </li>
+				   <li><a href="https://www.hrwhisper.me/leetcode-coin-change/#alipay_div" data-toggle="tab"> 支付宝 </a></li>
+			   </ul>
+				<div id="myTabContent" class="tab-content">
+				   <div class="tab-pane fade in active" id="wechat_pay_div">
+					 <img src="./leetcode Coin Change - 细语呢喃_files/wechat_pay.png" alt="wechat_pay" data-bd-imgshare-binded="1">
+				   </div>
+				   <div class="tab-pane fade" id="alipay_div">
+					  <img src="./leetcode Coin Change - 细语呢喃_files/alipay.jpg" alt="alipay" data-bd-imgshare-binded="1">
+				   </div>
+				</div>
+			 </div>
+		  </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>	<div class="bdsharebuttonbox bdshare-button-style1-24" data-bd-bind="1480083455165"><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_more" data-cmd="more"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script> 
+<i class="fa fa-folder-open-o"></i> <a href="https://www.hrwhisper.me/category/code/leetcode/" rel="category tag">Leetcode</a> <i class="fa fa-tags"></i> <a href="https://www.hrwhisper.me/tag/dynamic-programming/" rel="tag">dynamic programming</a>, <a href="https://www.hrwhisper.me/tag/leetcode/" rel="tag">leetcode</a>, <a href="https://www.hrwhisper.me/tag/algorithm/" rel="tag">算法</a>. <i class="fa fa-link"></i> <a href="https://www.hrwhisper.me/leetcode-coin-change/" rel="bookmark">permalink</a>.       
+						
+	</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+			
+				<nav class="navigation post-navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="https://www.hrwhisper.me/how-to-apply-for-github-student-pack/" rel="prev"><i class="fa fa-chevron-left"></i> Github student pack 申请</a></div><div class="nav-next"><a href="https://www.hrwhisper.me/leetcode-wiggle-sort-ii/" rel="next">leetcode Wiggle Sort II <i class="fa fa-chevron-right"></i></a></div>		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+				<hr class="section-divider">
+			
+			
+<div id="comments" class="comments-area">
+
+	
+			<h3 class="comments-title">
+			5 thoughts on “<span>leetcode Coin Change</span>”		</h3>
+
+		
+		<ol class="comment-list">
+			
+	<li id="comment-3174" class="comment even thread-even depth-1 parent">
+		<article id="div-comment-3174" class="comment-body">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt="" src="./leetcode Coin Change - 细语呢喃_files/a4c24e508803927dbf77ec06c61702eb" srcset="https://secure.gravatar.com/avatar/a4c24e508803927dbf77ec06c61702eb?s=100&amp;r=g 2x" class="avatar avatar-50 photo" height="50" width="50" data-bd-imgshare-binded="1">					<cite class="fn">nanjiwubing</cite> <span class="says">says:</span>				</div><!-- .comment-author -->
+
+				<div class="comment-metadata">
+					<a href="https://www.hrwhisper.me/leetcode-coin-change/#comment-3174">
+						<time datetime="2016-11-25T17:33:00+00:00">
+							2016年11月25日 at pm5:33						</time>
+					</a>
+									</div><!-- .comment-metadata -->
+
+							</footer><!-- .comment-meta -->
+
+			<div class="comment-content">
+				<p>该方法报错。</p>
+			</div><!-- .comment-content -->
+
+			<div class="reply"><a rel="nofollow" class="comment-reply-link btn btn-default" href="https://www.hrwhisper.me/leetcode-coin-change/?replytocom=3174#respond" onclick="return addComment.moveForm( &quot;div-comment-3174&quot;, &quot;3174&quot;, &quot;respond&quot;, &quot;2811&quot; )" aria-label="Reply to nanjiwubing">Reply</a></div>		</article><!-- .comment-body -->
+
+	<ul class="children">
+
+	<li id="comment-3176" class="comment byuser comment-author-hrsay bypostauthor odd alt depth-2">
+		<article id="div-comment-3176" class="comment-body">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt="" src="./leetcode Coin Change - 细语呢喃_files/ed6b79237a2f6da0b2f055fadadc69c4" srcset="https://secure.gravatar.com/avatar/ed6b79237a2f6da0b2f055fadadc69c4?s=100&amp;r=g 2x" class="avatar avatar-50 photo" height="50" width="50" data-bd-imgshare-binded="1">					<cite class="fn"><a href="https://www.hrwhisper.me/" rel="external nofollow" class="url">hrwhisper</a></cite> <span class="says">says:</span>				</div><!-- .comment-author -->
+
+				<div class="comment-metadata">
+					<a href="https://www.hrwhisper.me/leetcode-coin-change/#comment-3176">
+						<time datetime="2016-11-25T19:10:40+00:00">
+							2016年11月25日 at pm7:10						</time>
+					</a>
+									</div><!-- .comment-metadata -->
+
+							</footer><!-- .comment-meta -->
+
+			<div class="comment-content">
+				<p>感谢提出已修改   leetcode又加数据了- -|</p>
+			</div><!-- .comment-content -->
+
+			<div class="reply"><a rel="nofollow" class="comment-reply-link btn btn-default" href="https://www.hrwhisper.me/leetcode-coin-change/?replytocom=3176#respond" onclick="return addComment.moveForm( &quot;div-comment-3176&quot;, &quot;3176&quot;, &quot;respond&quot;, &quot;2811&quot; )" aria-label="Reply to hrwhisper">Reply</a></div>		</article><!-- .comment-body -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+
+	<li id="comment-2023" class="pingback even thread-odd thread-alt depth-1">
+		<div class="comment-body">
+			Pingback: <a href="https://www.hrwhisper.me/leetcode-combination-sum-iv/" rel="external nofollow" class="url">leetcode Combination Sum IV - 细语呢喃</a> 		</div>
+
+	</li><!-- #comment-## -->
+
+	<li id="comment-1403" class="comment odd alt thread-even depth-1 parent">
+		<article id="div-comment-1403" class="comment-body">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt="" src="./leetcode Coin Change - 细语呢喃_files/18be5c80f0a79eb6768d54e34cdd0dcc" srcset="https://secure.gravatar.com/avatar/18be5c80f0a79eb6768d54e34cdd0dcc?s=100&amp;r=g 2x" class="avatar avatar-50 photo" height="50" width="50" data-bd-imgshare-binded="1">					<cite class="fn">Tom</cite> <span class="says">says:</span>				</div><!-- .comment-author -->
+
+				<div class="comment-metadata">
+					<a href="https://www.hrwhisper.me/leetcode-coin-change/#comment-1403">
+						<time datetime="2016-05-24T14:56:29+00:00">
+							2016年5月24日 at pm2:56						</time>
+					</a>
+									</div><!-- .comment-metadata -->
+
+							</footer><!-- .comment-meta -->
+
+			<div class="comment-content">
+				<p>Hi,<br>
+Your Java code does not handle the following input:<br>
+[2147483647]<br>
+1</p>
+			</div><!-- .comment-content -->
+
+			<div class="reply"><a rel="nofollow" class="comment-reply-link btn btn-default" href="https://www.hrwhisper.me/leetcode-coin-change/?replytocom=1403#respond" onclick="return addComment.moveForm( &quot;div-comment-1403&quot;, &quot;1403&quot;, &quot;respond&quot;, &quot;2811&quot; )" aria-label="Reply to Tom">Reply</a></div>		</article><!-- .comment-body -->
+
+	<ul class="children">
+
+	<li id="comment-1407" class="comment byuser comment-author-hrsay bypostauthor even depth-2">
+		<article id="div-comment-1407" class="comment-body">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<img alt="" src="./leetcode Coin Change - 细语呢喃_files/ed6b79237a2f6da0b2f055fadadc69c4" srcset="https://secure.gravatar.com/avatar/ed6b79237a2f6da0b2f055fadadc69c4?s=100&amp;r=g 2x" class="avatar avatar-50 photo" height="50" width="50" data-bd-imgshare-binded="1">					<cite class="fn"><a href="https://www.hrwhisper.me/" rel="external nofollow" class="url">hrwhisper</a></cite> <span class="says">says:</span>				</div><!-- .comment-author -->
+
+				<div class="comment-metadata">
+					<a href="https://www.hrwhisper.me/leetcode-coin-change/#comment-1407">
+						<time datetime="2016-05-24T21:06:28+00:00">
+							2016年5月24日 at pm9:06						</time>
+					</a>
+									</div><!-- .comment-metadata -->
+
+							</footer><!-- .comment-meta -->
+
+			<div class="comment-content">
+				<p>You are right.<br>
+I just guess the max number will not greater than 0x7ffffffe(2147483646), so if the number greater than it(2147483647), it wil be overflow.<br>
+Now, I use 0x7fffffff(2147483647) as maximum number, and add dp[i]!= INF for condition judge.<br>
+Thanks~</p>
+			</div><!-- .comment-content -->
+
+			<div class="reply"><a rel="nofollow" class="comment-reply-link btn btn-default" href="https://www.hrwhisper.me/leetcode-coin-change/?replytocom=1407#respond" onclick="return addComment.moveForm( &quot;div-comment-1407&quot;, &quot;1407&quot;, &quot;respond&quot;, &quot;2811&quot; )" aria-label="Reply to hrwhisper">Reply</a></div>		</article><!-- .comment-body -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+					<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://www.hrwhisper.me/leetcode-coin-change/#respond" style="display:none;">Cancel reply</a></small></h3>				<form action="https://www.hrwhisper.me/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea><div id="loading" style="display: none;"><img src="./leetcode Coin Change - 细语呢喃_files/submit_loading.gif" style="vertical-align:middle;" alt="" data-bd-imgshare-binded="1"> The form is being submitted, please wait a moment...</div><div id="error" style="display: none;">#</div></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit btn btn-default" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="2811" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="17908559a9"></p><p style="display: none;"></p>				<input type="hidden" id="ak_js" name="ak_js" value="1480083453625"></form>
+					</div><!-- #respond -->
+		
+</div><!-- #comments -->		
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+   	<div class="scroll-to-sidebar" title="打开侧边栏"><i class="fa fa-angle-left"></i></div><!-- .scroll-to-top -->	
+	
+	<div id="secondary" class="widget-area col-sm-12 col-md-4" role="complementary" style="display: none;">
+				<aside id="search-3" class="widget widget_search"><form method="get" class="form-search" action="https://www.hrwhisper.me/">
+	<div class="form-group">
+		<div class="input-group">
+	  		<span class="screen-reader-text">Search for:</span>
+	    	<input type="text" class="form-control search-query" placeholder="Search..." value="" name="s">
+	    	<span class="input-group-btn">
+	      		<button type="submit" class="btn btn-default" name="submit" id="searchsubmit" value="Search"><span class="glyphicon glyphicon-search"></span></button>
+	    	</span>
+	    </div>
+	</div>
+</form></aside><aside id="text-2" class="widget widget_text"><h3 class="widget-title">My way and my heart :)</h3>			<div class="textwidget"><p>踮脚张望的时光 :)<br>
+( 793KM)<br>
+<span style="float:right;">------------------------2016/11/08<br>
+ </span></p>
+</div>
+		</aside><aside id="calendar-3" class="widget widget_calendar"><h3 class="widget-title">日历</h3><div id="calendar_wrap" class="calendar_wrap"><table id="wp-calendar" class="table table-striped">
+	<caption>November 2016</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="Monday">M</th>
+		<th scope="col" title="Tuesday">T</th>
+		<th scope="col" title="Wednesday">W</th>
+		<th scope="col" title="Thursday">T</th>
+		<th scope="col" title="Friday">F</th>
+		<th scope="col" title="Saturday">S</th>
+		<th scope="col" title="Sunday">S</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev"><a href="https://www.hrwhisper.me/2016/10/">« Oct</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next" class="pad">&nbsp;</td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="1" class="pad">&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
+	</tr>
+	<tr>
+		<td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td>
+	</tr>
+	<tr>
+		<td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td>
+	</tr>
+	<tr>
+		<td>21</td><td>22</td><td>23</td><td><a href="https://www.hrwhisper.me/2016/11/24/" aria-label="Posts published on November 24, 2016">24</a></td><td id="today">25</td><td>26</td><td>27</td>
+	</tr>
+	<tr>
+		<td>28</td><td>29</td><td>30</td>
+		<td class="pad" colspan="4">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-8"><a href="https://www.hrwhisper.me/category/code/">codes</a> (115)
+<ul class="children">
+	<li class="cat-item cat-item-9"><a href="https://www.hrwhisper.me/category/code/leetcode/" title="本博客所有的leetcode 题解见： https://www.hrwhisper.me/leetcode-algorithm-solution/ ">Leetcode</a> (110)
+</li>
+	<li class="cat-item cat-item-14"><a href="https://www.hrwhisper.me/category/code/othercodes/">OtherCodes</a> (5)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-17"><a href="https://www.hrwhisper.me/category/others/">其他</a> (14)
+<ul class="children">
+	<li class="cat-item cat-item-58"><a href="https://www.hrwhisper.me/category/others/evaluation-of-something-fun/">一些东东评测</a> (1)
+</li>
+	<li class="cat-item cat-item-61"><a href="https://www.hrwhisper.me/category/others/website-experience/">建站经验</a> (10)
+</li>
+	<li class="cat-item cat-item-60"><a href="https://www.hrwhisper.me/category/others/problem-solve/">问题解决</a> (4)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-25"><a href="https://www.hrwhisper.me/category/study/">学习</a> (23)
+<ul class="children">
+	<li class="cat-item cat-item-26"><a href="https://www.hrwhisper.me/category/study/python-learning/" title="python大法好。喜欢py简洁而优雅的风格。">python learning</a> (9)
+</li>
+	<li class="cat-item cat-item-38"><a href="https://www.hrwhisper.me/category/study/secure-knowledge/">信息安全</a> (3)
+</li>
+	<li class="cat-item cat-item-53"><a href="https://www.hrwhisper.me/category/study/algorithm-notes/">算法笔记</a> (5)
+</li>
+	<li class="cat-item cat-item-62"><a href="https://www.hrwhisper.me/category/study/fundamentals-of-computer/">计算机基础</a> (2)
+</li>
+	<li class="cat-item cat-item-28"><a href="https://www.hrwhisper.me/category/study/booknotes/" title="好记性不如烂笔头">读书笔记</a> (1)
+</li>
+	<li class="cat-item cat-item-47"><a href="https://www.hrwhisper.me/category/study/curriculum-design/">课程设计</a> (3)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-32"><a href="https://www.hrwhisper.me/category/develop/" title="开发环境的配置和开发工具的使用心得">开发环境/开发工具</a> (7)
+</li>
+	<li class="cat-item cat-item-10"><a href="https://www.hrwhisper.me/category/easier-life/" title="让技术解决一些繁琐的事情。 Let&#39;s make things simple and cool :)">技术改变生活</a> (5)
+</li>
+	<li class="cat-item cat-item-70"><a href="https://www.hrwhisper.me/category/productivity/">生产力</a> (2)
+</li>
+	<li class="cat-item cat-item-6"><a href="https://www.hrwhisper.me/category/whisper/" title="你听，我的呢喃。你听，这是否写得情真意切。
+我从肺腑掏出拼成一字一句从舌尖滚落。">风吟梦呓</a> (24)
+<ul class="children">
+	<li class="cat-item cat-item-7"><a href="https://www.hrwhisper.me/category/whisper/essay/" title="小小的纸片上，却承载着你的爱恨情愁。">一纸闲愁</a> (12)
+</li>
+	<li class="cat-item cat-item-1"><a href="https://www.hrwhisper.me/category/whisper/diary/" title="那些努力向上的日子和生命中那些温暖而美好的事.....">沙海拾贝</a> (3)
+</li>
+	<li class="cat-item cat-item-27"><a href="https://www.hrwhisper.me/category/whisper/murmured/" title="你听，那是谁的呢喃，却找不到聆听的琴声。岁月里，我曾这样想过.....">谁的呢喃</a> (9)
+</li>
+</ul>
+</li>
+		</ul>
+</aside>
+        <div class="widget tabbed">
+            <div class="tabs-wrapper">
+                <ul class="nav nav-tabs">
+					<li class="active"><a href="https://www.hrwhisper.me/leetcode-coin-change/#recent" data-toggle="tab">Recent</a></li>
+                      <li><a href="https://www.hrwhisper.me/leetcode-coin-change/#popular-posts" data-toggle="tab">Popular</a></li>
+                      <li><a href="https://www.hrwhisper.me/leetcode-coin-change/#messages" data-toggle="tab"><i class="fa fa-comments tab-comment"></i></a></li>
+                </ul>
+
+            <div class="tab-content">
+                <ul id="popular-posts" class="tab-pane">
+
+                    
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/leetcode-length-of-last-word/" rel="bookmark" title="leetcode Length of Last Word">leetcode Length of Last Word</a>
+                                <i>
+                                    Feb 15, 2015                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/postgraduate-recommendation-summer-campus/" rel="bookmark" title="保研夏令营">保研夏令营</a>
+                                <i>
+                                    Jul 26, 2015                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/ocr-procedure/" rel="bookmark" title="ocr 识别">ocr 识别</a>
+                                <i>
+                                    Jun 21, 2015                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/chrome-plugin-vimium/" rel="bookmark" title="Chrome Vimium 插件">Chrome Vimium 插件</a>
+                                <i>
+                                    Nov 28, 2015                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/today-i-am-twenty-one/" rel="bookmark" title="这一天我二十又一">这一天我二十又一</a>
+                                <i>
+                                    May 10, 2015                                </i>
+                            </div>
+                        </li>
+                    
+                </ul>
+                
+                <ul id="recent" class="tab-pane active">
+
+                    
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/introduction-to-simplex-algorithm/" rel="bookmark" title="线性规划-单纯形算法详解">线性规划-单纯形算法详解</a>
+                                <i>
+                                    Nov 24, 2016                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/say-goodbye-to-the-past/" rel="bookmark" title="往事如烟">往事如烟</a>
+                                <i>
+                                    Oct 18, 2016                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/understanding-stack-frame-of-function-call-and-buffer-overflow-attack/" rel="bookmark" title="C语言函数调用过程 | 缓冲区溢出攻击">C语言函数调用过程 | 缓冲区溢出攻击</a>
+                                <i>
+                                    Oct 4, 2016                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/leetcode-389-399-solution/" rel="bookmark" title="leetcode 389~399 solution">leetcode 389~399 solution</a>
+                                <i>
+                                    Sep 20, 2016                                </i>
+                            </div>
+                        </li>
+                                            <li>
+                                                        <div class="content">
+                                <a class="tab-entry" href="https://www.hrwhisper.me/leetcode-contest-5-solution/" rel="bookmark" title="leetcode contest 5 solution">leetcode contest 5 solution</a>
+                                <i>
+                                    Sep 19, 2016                                </i>
+                            </div>
+                        </li>
+                                    </ul>
+                
+                <ul id="messages" class="tab-pane">
+
+                                
+                    <li>
+                        <div class="content">
+                            hrwhisper on                            <a href="https://www.hrwhisper.me/leetcode-coin-change/" rel="bookmark" title="leetcode Coin Change">
+                                leetcode Coin Change                            </a>
+                            <p>
+                            感谢提出已修改   leetcode又加数据了-                                                        </p>
+                        </div>
+                    </li>
+
+
+                 
+                    <li>
+                        <div class="content">
+                            nanjiwubing on                            <a href="https://www.hrwhisper.me/leetcode-coin-change/" rel="bookmark" title="leetcode Coin Change">
+                                leetcode Coin Change                            </a>
+                            <p>
+                                                                                    </p>
+                        </div>
+                    </li>
+
+
+                 
+                    <li>
+                        <div class="content">
+                            hrwhisper on                            <a href="https://www.hrwhisper.me/baidu-share-not-support-https-solution/" rel="bookmark" title="百度分享不支持https的解决方案">
+                                百度分享不支持https的解决方案                            </a>
+                            <p>
+                            抱歉还没有 这是之前的文件有问题                                                        </p>
+                        </div>
+                    </li>
+
+
+                 
+                    <li>
+                        <div class="content">
+                            蛋腚 on                            <a href="https://www.hrwhisper.me/baidu-share-not-support-https-solution/" rel="bookmark" title="百度分享不支持https的解决方案">
+                                百度分享不支持https的解决方案                            </a>
+                            <p>
+                                                                                    </p>
+                        </div>
+                    </li>
+
+
+                 
+                    <li>
+                        <div class="content">
+                            jojo on                            <a href="https://www.hrwhisper.me/baidu-share-not-support-https-solution/" rel="bookmark" title="百度分享不支持https的解决方案">
+                                百度分享不支持https的解决方案                            </a>
+                            <p>
+                                                                                    </p>
+                        </div>
+                    </li>
+
+
+                 
+                </ul>
+                </div>
+            </div>
+        </div>
+
+		<aside id="tag_cloud-3" class="widget widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="https://www.hrwhisper.me/tag/android/" class="tag-link-33 tag-link-position-1" title="1 topic" style="font-size: 8pt;">android</a>
+<a href="https://www.hrwhisper.me/tag/bit-manipulation/" class="tag-link-41 tag-link-position-2" title="2 topics" style="font-size: 9.448275862069pt;">Bit Manipulation</a>
+<a href="https://www.hrwhisper.me/tag/book/" class="tag-link-29 tag-link-position-3" title="1 topic" style="font-size: 8pt;">book</a>
+<a href="https://www.hrwhisper.me/tag/bow/" class="tag-link-50 tag-link-position-4" title="1 topic" style="font-size: 8pt;">bow</a>
+<a href="https://www.hrwhisper.me/tag/c/" class="tag-link-11 tag-link-position-5" title="78 topics" style="font-size: 20.873563218391pt;">c++</a>
+<a href="https://www.hrwhisper.me/tag/centos/" class="tag-link-76 tag-link-position-6" title="5 topics" style="font-size: 11.862068965517pt;">centos</a>
+<a href="https://www.hrwhisper.me/tag/cool/" class="tag-link-22 tag-link-position-7" title="10 topics" style="font-size: 13.954022988506pt;">cool</a>
+<a href="https://www.hrwhisper.me/tag/data-structure/" class="tag-link-30 tag-link-position-8" title="9 topics" style="font-size: 13.632183908046pt;">Data Structure</a>
+<a href="https://www.hrwhisper.me/tag/dynamic-programming/" class="tag-link-20 tag-link-position-9" title="5 topics" style="font-size: 11.862068965517pt;">dynamic programming</a>
+<a href="https://www.hrwhisper.me/tag/fundamentals-of-computer/" class="tag-link-63 tag-link-position-10" title="2 topics" style="font-size: 9.448275862069pt;">fundamentals-of-computer</a>
+<a href="https://www.hrwhisper.me/tag/graph/" class="tag-link-52 tag-link-position-11" title="1 topic" style="font-size: 8pt;">graph</a>
+<a href="https://www.hrwhisper.me/tag/heap/" class="tag-link-54 tag-link-position-12" title="1 topic" style="font-size: 8pt;">heap</a>
+<a href="https://www.hrwhisper.me/tag/java/" class="tag-link-66 tag-link-position-13" title="32 topics" style="font-size: 17.816091954023pt;">java</a>
+<a href="https://www.hrwhisper.me/tag/javascript/" class="tag-link-64 tag-link-position-14" title="2 topics" style="font-size: 9.448275862069pt;">javascript</a>
+<a href="https://www.hrwhisper.me/tag/jsp/" class="tag-link-67 tag-link-position-15" title="1 topic" style="font-size: 8pt;">jsp</a>
+<a href="https://www.hrwhisper.me/tag/kindle/" class="tag-link-21 tag-link-position-16" title="2 topics" style="font-size: 9.448275862069pt;">kindle</a>
+<a href="https://www.hrwhisper.me/tag/knn/" class="tag-link-49 tag-link-position-17" title="1 topic" style="font-size: 8pt;">knn</a>
+<a href="https://www.hrwhisper.me/tag/leetcode/" class="tag-link-12 tag-link-position-18" title="109 topics" style="font-size: 22pt;">leetcode</a>
+<a href="https://www.hrwhisper.me/tag/linux/" class="tag-link-68 tag-link-position-19" title="6 topics" style="font-size: 12.425287356322pt;">linux</a>
+<a href="https://www.hrwhisper.me/tag/lumia/" class="tag-link-57 tag-link-position-20" title="1 topic" style="font-size: 8pt;">lumia</a>
+<a href="https://www.hrwhisper.me/tag/machine-learning/" class="tag-link-51 tag-link-position-21" title="2 topics" style="font-size: 9.448275862069pt;">Machine Learning</a>
+<a href="https://www.hrwhisper.me/tag/math/" class="tag-link-31 tag-link-position-22" title="1 topic" style="font-size: 8pt;">math</a>
+<a href="https://www.hrwhisper.me/tag/matplotlib/" class="tag-link-40 tag-link-position-23" title="1 topic" style="font-size: 8pt;">matplotlib</a>
+<a href="https://www.hrwhisper.me/tag/mongodb/" class="tag-link-73 tag-link-position-24" title="1 topic" style="font-size: 8pt;">mongodb</a>
+<a href="https://www.hrwhisper.me/tag/nosql/" class="tag-link-74 tag-link-position-25" title="1 topic" style="font-size: 8pt;">nosql</a>
+<a href="https://www.hrwhisper.me/tag/php/" class="tag-link-46 tag-link-position-26" title="1 topic" style="font-size: 8pt;">php</a>
+<a href="https://www.hrwhisper.me/tag/priority-queue/" class="tag-link-55 tag-link-position-27" title="1 topic" style="font-size: 8pt;">priority-queue</a>
+<a href="https://www.hrwhisper.me/tag/python/" class="tag-link-15 tag-link-position-28" title="108 topics" style="font-size: 22pt;">python</a>
+<a href="https://www.hrwhisper.me/tag/python-package/" class="tag-link-39 tag-link-position-29" title="2 topics" style="font-size: 9.448275862069pt;">python库</a>
+<a href="https://www.hrwhisper.me/tag/reading-notes/" class="tag-link-69 tag-link-position-30" title="1 topic" style="font-size: 8pt;">reading notes</a>
+<a href="https://www.hrwhisper.me/tag/seo/" class="tag-link-75 tag-link-position-31" title="2 topics" style="font-size: 9.448275862069pt;">SEO</a>
+<a href="https://www.hrwhisper.me/tag/sort/" class="tag-link-18 tag-link-position-32" title="1 topic" style="font-size: 8pt;">sort</a>
+<a href="https://www.hrwhisper.me/tag/svm/" class="tag-link-48 tag-link-position-33" title="2 topics" style="font-size: 9.448275862069pt;">svm</a>
+<a href="https://www.hrwhisper.me/tag/tree/" class="tag-link-23 tag-link-position-34" title="1 topic" style="font-size: 8pt;">tree</a>
+<a href="https://www.hrwhisper.me/tag/win32com/" class="tag-link-43 tag-link-position-35" title="1 topic" style="font-size: 8pt;">win32com</a>
+<a href="https://www.hrwhisper.me/tag/windows10/" class="tag-link-59 tag-link-position-36" title="3 topics" style="font-size: 10.413793103448pt;">windows10</a>
+<a href="https://www.hrwhisper.me/tag/windwos10-mobile/" class="tag-link-56 tag-link-position-37" title="2 topics" style="font-size: 9.448275862069pt;">windwos10 mobile</a>
+<a href="https://www.hrwhisper.me/tag/wordpress/" class="tag-link-65 tag-link-position-38" title="8 topics" style="font-size: 13.229885057471pt;">wordpress</a>
+<a href="https://www.hrwhisper.me/tag/image-processing/" class="tag-link-36 tag-link-position-39" title="1 topic" style="font-size: 8pt;">图像处理</a>
+<a href="https://www.hrwhisper.me/tag/moods/" class="tag-link-44 tag-link-position-40" title="19 topics" style="font-size: 16.045977011494pt;">心情</a>
+<a href="https://www.hrwhisper.me/tag/crawler/" class="tag-link-35 tag-link-position-41" title="6 topics" style="font-size: 12.425287356322pt;">爬虫</a>
+<a href="https://www.hrwhisper.me/tag/running-environment/" class="tag-link-34 tag-link-position-42" title="2 topics" style="font-size: 9.448275862069pt;">环境配置</a>
+<a href="https://www.hrwhisper.me/tag/life/" class="tag-link-45 tag-link-position-43" title="4 topics" style="font-size: 11.218390804598pt;">生活</a>
+<a href="https://www.hrwhisper.me/tag/algorithm/" class="tag-link-37 tag-link-position-44" title="99 topics" style="font-size: 21.67816091954pt;">算法</a>
+<a href="https://www.hrwhisper.me/tag/football/" class="tag-link-71 tag-link-position-45" title="1 topic" style="font-size: 8pt;">足球</a></div>
+</aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">Archives</h3>		<ul>
+			<li><a href="https://www.hrwhisper.me/2016/11/">November 2016</a>&nbsp;(1)</li>
+	<li><a href="https://www.hrwhisper.me/2016/10/">October 2016</a>&nbsp;(2)</li>
+	<li><a href="https://www.hrwhisper.me/2016/09/">September 2016</a>&nbsp;(4)</li>
+	<li><a href="https://www.hrwhisper.me/2016/08/">August 2016</a>&nbsp;(8)</li>
+	<li><a href="https://www.hrwhisper.me/2016/07/">July 2016</a>&nbsp;(9)</li>
+	<li><a href="https://www.hrwhisper.me/2016/06/">June 2016</a>&nbsp;(9)</li>
+	<li><a href="https://www.hrwhisper.me/2016/05/">May 2016</a>&nbsp;(2)</li>
+	<li><a href="https://www.hrwhisper.me/2016/04/">April 2016</a>&nbsp;(3)</li>
+	<li><a href="https://www.hrwhisper.me/2016/03/">March 2016</a>&nbsp;(2)</li>
+	<li><a href="https://www.hrwhisper.me/2016/02/">February 2016</a>&nbsp;(4)</li>
+	<li><a href="https://www.hrwhisper.me/2016/01/">January 2016</a>&nbsp;(14)</li>
+	<li><a href="https://www.hrwhisper.me/2015/12/">December 2015</a>&nbsp;(19)</li>
+	<li><a href="https://www.hrwhisper.me/2015/11/">November 2015</a>&nbsp;(16)</li>
+	<li><a href="https://www.hrwhisper.me/2015/10/">October 2015</a>&nbsp;(6)</li>
+	<li><a href="https://www.hrwhisper.me/2015/09/">September 2015</a>&nbsp;(2)</li>
+	<li><a href="https://www.hrwhisper.me/2015/08/">August 2015</a>&nbsp;(1)</li>
+	<li><a href="https://www.hrwhisper.me/2015/07/">July 2015</a>&nbsp;(4)</li>
+	<li><a href="https://www.hrwhisper.me/2015/06/">June 2015</a>&nbsp;(5)</li>
+	<li><a href="https://www.hrwhisper.me/2015/05/">May 2015</a>&nbsp;(7)</li>
+	<li><a href="https://www.hrwhisper.me/2015/04/">April 2015</a>&nbsp;(6)</li>
+	<li><a href="https://www.hrwhisper.me/2015/03/">March 2015</a>&nbsp;(26)</li>
+	<li><a href="https://www.hrwhisper.me/2015/02/">February 2015</a>&nbsp;(26)</li>
+	<li><a href="https://www.hrwhisper.me/2014/12/">December 2014</a>&nbsp;(12)</li>
+		</ul>
+		</aside><aside id="nav_menu-2" class="widget widget_nav_menu"><h3 class="widget-title">小伙伴们（排名不分先后）</h3><div class="menu-%e5%8f%8b%e6%83%85%e9%93%be%e6%8e%a5-container"><ul id="menu-%e5%8f%8b%e6%83%85%e9%93%be%e6%8e%a5" class="menu"><li id="menu-item-702" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-702"><a title="舍友JY Blog" rel="friend" href="https://iamjohnnyzhuang.github.io/">永不冷场的人生、</a></li>
+<li id="menu-item-2791" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2791"><a title="栖迟於一丘" rel="friend" href="https://www.hongweipeng.com/">栖迟於一丘</a></li>
+<li id="menu-item-3440" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3440"><a title="Steven`s Notes" rel="friend" href="http://www.steven7.top/">Steven`s Notes</a></li>
+<li id="menu-item-2933" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2933"><a title="雄雄的blog" rel="friend" href="https://shixiong.name/">雄雄的blog</a></li>
+<li id="menu-item-2603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2603"><a title="B1uew01f" rel="friend" href="https://www.b1uew01f.net/">B1uew01f</a></li>
+<li id="menu-item-2605" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2605"><a title="暮光博客" rel="friend" href="http://muguang.me/">暮光博客</a></li>
+<li id="menu-item-2463" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2463"><a title="Findspace" href="http://www.findspace.name/">Findspace</a></li>
+<li id="menu-item-2471" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2471"><a title="冰翼博客" href="http://blog.icewingcc.com/">冰翼博客</a></li>
+<li id="menu-item-2476" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2476"><a title="翼帆远航" href="http://www.ipeld.net/">翼帆远航</a></li>
+<li id="menu-item-2568" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2568"><a title="祥磊部落" href="https://www.bxl.me/">祥磊部落</a></li>
+<li id="menu-item-2604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2604"><a title="Sky’s自留地" href="http://www.03sec.com/">Sky’s自留地</a></li>
+<li id="menu-item-2432" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2432"><a title="Anotherhome" href="https://www.anotherhome.net/">Anotherhome</a></li>
+<li id="menu-item-3563" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3563"><a title="蓝猫的博客" href="https://lanmaowz.com/">蓝猫的博客</a></li>
+</ul></div></aside>	</div><!-- #secondary -->
+	</div><!-- #content -->
+
+	<div id="footer-area">
+		<div class="container footer-inner">
+			
+			</div>
+
+		<footer id="colophon" class="site-footer">
+			<div class="site-info container">
+				<div id="social" class="social"><ul><li><a href="http://weibo.com/murmured" class="social-icon weibo" title="Follow me on weibo" target="_blank" rel="nofollow noreferrer"><i class="social_icon fa fa-weibo"></i></a></li><li><a href="https://twitter.com/hrwhisper" class="social-icon twitter" title="Follow me on twitter" target="_blank" rel="nofollow noreferrer"><i class="social_icon fa fa-twitter"></i></a></li><li><a href="https://instagram.com/hr_say/" class="social-icon instagram" title="Follow me on instagram" target="_blank" rel="nofollow noreferrer"><i class="social_icon fa fa-instagram"></i></a></li><li><a href="https://github.com/hrwhisper" class="social-icon github" title="Follow me on github" target="_blank" rel="nofollow noreferrer"><i class="social_icon fa fa-github"></i></a></li><li><a href="https://www.hrwhisper.me/feed" class="social-icon rss" title="Follow me on rss" target="_blank" rel="nofollow noreferrer"><i class="social_icon fa fa-rss"></i></a></li></ul></div>				<nav>
+					<ul id="menu-contact" class="nav footer-nav clearfix"><li id="menu-item-1540" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1540"><a href="http://blog.csdn.net/murmured">Csdn</a></li>
+<li id="menu-item-2444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2444"><a href="http://www.cnblogs.com/murmured/">博客园</a></li>
+<li id="menu-item-1541" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1541"><a rel="nofollow noreferrer" href="http://hrsay.lofter.com/">Lofter</a></li>
+<li id="menu-item-2269" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2269"><a rel="nofollow noreferrer" href="http://www.zhihu.com/people/hrwhisper">知 乎</a></li>
+<li id="menu-item-1542" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1542"><a href="http://www.douban.com/people/hrwhisper/">豆瓣</a></li>
+</ul>				</nav>
+				<div class="copyright col-md-6">
+               
+                    努力的人本身就有奇迹 | 快乐是我们共同的信仰 <br>
+                    <i>by hrwhipser.me</i>
+                
+				</div>
+			</div><!-- .site-info -->
+		<div class="scroll-to-wrap">
+            <div class="scroll-to-top" style="display: block;"><i class="fa fa-angle-up"></i></div><!-- .scroll-to-top -->
+            <div class="scroll-to-down"><i class="fa fa-angle-down"></i></div><!-- .scroll-to-down -->
+        </div>  
+		</footer><!-- #colophon -->
+	</div>
+</div><!-- #page -->
+
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/form.js.下载"></script>
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/comment-reply.min.js.下载"></script>
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/wp-embed.min.js.下载"></script>
+
+<script type="text/javascript" src="./leetcode Coin Change - 细语呢喃_files/comments-ajax.js.下载"></script>
+
+
+<div style="display:none;visable:hidden">
+	<!-- google analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-69270533-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+	<!-- baidu analytics -->
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "//hm.baidu.com/hm.js?d6a8cb42bd9ae728375b6726daa75e95";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+</div>
+
+
+<div id="bdimgshare_1480083455153" class="sr-bdimgshare sr-bdimgshare-list sr-bdimgshare-16 sr-bdimgshare-black" style="height:36px;line-height:26px;font-size:12px;width:autopx;display:none;" data-bd-bind="1480083455149"><div class="bdimgshare-bg"></div><div class="bdimgshare-content bdsharebuttonbox bdshare-button-style1-24" data-bd-bind="1480083455165"><label class="bdimgshare-lbl">分享到：</label><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_fbook" data-cmd="fbook" hidefocus="" title="分享到Facebook"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_twi" data-cmd="twi" hidefocus="" title="分享到Twitter"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_linkedin" data-cmd="linkedin" hidefocus="" title="分享到linkedin"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_qzone" data-cmd="qzone" hidefocus="" title="分享到QQ空间"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_tsina" data-cmd="tsina" hidefocus="" title="分享到新浪微博"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_douban" data-cmd="douban" hidefocus="" title="分享到豆瓣网"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_weixin" data-cmd="weixin" hidefocus="" title="分享到微信"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_evernotecn" data-cmd="evernotecn" hidefocus="" title="分享到印象笔记"></a><a href="https://www.hrwhisper.me/leetcode-coin-change/#" onclick="return false;" class="bds_more" data-cmd="more" hidefocus=""></a></div></div></body></html>

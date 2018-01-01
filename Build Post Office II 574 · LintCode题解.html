@@ -1,0 +1,4530 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)https://zhengyang2015.gitbooks.io/lintcode/build_post_office_ii_573.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        
+        <title>Build Post Office II 574 · LintCode题解</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="zhengyang2015">
+        
+        
+    
+    <link rel="stylesheet" href="./Build Post Office II 574 · LintCode题解_files/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="./Build Post Office II 574 · LintCode题解_files/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="./Build Post Office II 574 · LintCode题解_files/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="./Build Post Office II 574 · LintCode题解_files/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="./Build Post Office II 574 · LintCode题解_files/website(1).css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://zhengyang2015.gitbooks.io/lintcode/gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="https://zhengyang2015.gitbooks.io/lintcode/gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="https://zhengyang2015.gitbooks.io/lintcode/post_office_problem_435.html">
+    
+    
+    <link rel="prev" href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_573.html">
+    
+
+    </head>
+    <body>
+        
+<div class="book without-animation with-summary font-size-2 font-family-1">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.gitbook.com/book/zhengyang2015/lintcode" target="_blank" class="custom-link">LintCode题解</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="dynamic_programming.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/dynamic_programming.html">
+            
+                    
+                    Dynamic Programming
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="backpack.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backpack.html">
+            
+                    
+                    BackPack
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="backpack_i_92.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backpack_i_92.html">
+            
+                    
+                    Backpack I 92
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="backpack_ii_125.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backpack_ii_125.html">
+            
+                    
+                    Backpack II 125
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="backpack_iii_440.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backpack_iii_440.html">
+            
+                    
+                    Backpack III 440
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="backpack_iv_562.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backpack_iv_562.html">
+            
+                    
+                    Backpack IV 562
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="backpack_v_563.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backpack_v_563.html">
+            
+                    
+                    Backpack V 563
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="backpack_vi_564.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backpack_vi_564.html">
+            
+                    
+                    Backpack VI 564
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="house_robber_392.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/house_robber_392.html">
+            
+                    
+                    House Robber 392
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="house_robber_ii_534.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/house_robber_ii_534.html">
+            
+                    
+                    House Robber II 534
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="house_robber_iii_535.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/house_robber_iii_535.html">
+            
+                    
+                    House Robber III 535
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="paint_fence_514.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/paint_fence_514.html">
+            
+                    
+                    Paint Fence 514
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="paint_house_515.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/paint_house_515.html">
+            
+                    
+                    Paint House 515
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="paint_house_ii_516.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/paint_house_ii_516.html">
+            
+                    
+                    Paint House II 516
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="coins_in_a_line_394.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/coins_in_a_line_394.html">
+            
+                    
+                    Coins in a Line 394
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="coins_in_a_line_ii_395.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/coins_in_a_line_ii_395.html">
+            
+                    
+                    Coins in a Line II 395
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="coins_in_a_line_iii_396.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/coins_in_a_line_iii_396.html">
+            
+                    
+                    Coins in a Line III 396
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="longest_increasing_continuous_subsequence_397.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_increasing_continuous_subsequence_397.html">
+            
+                    
+                    Longest Increasing Continuous Subsequence 397
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="longest_increasing_continuous_subsequence_ii_398.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_increasing_continuous_subsequence_ii_398.html">
+            
+                    
+                    Longest Increasing Continuous subsequence II 398
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.13" data-path="rolling_array.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/rolling_array.html">
+            
+                    
+                    Maximal Square
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.14" data-path="maximal_rectangle_510.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/maximal_rectangle_510.html">
+            
+                    
+                    Maximal Rectangle 510
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.15" data-path="unique_binary_search_trees_163.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/unique_binary_search_trees_163.html">
+            
+                    
+                    Unique Binary Search Trees 163
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.16" data-path="unique_binary_search_trees_ii_164.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/unique_binary_search_trees_ii_164.html">
+            
+                    
+                    Unique Binary Search Trees II 164
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.17" data-path="unique_paths_114.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/unique_paths_114.html">
+            
+                    
+                    Unique Paths 114
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.18" data-path="unique_paths_ii_115.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/unique_paths_ii_115.html">
+            
+                    
+                    Unique Paths II 115
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.19" data-path="build_post_office_573.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_573.html">
+            
+                    
+                    Build Post Office 573
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.20" data-path="build_post_office_ii_573.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_ii_573.html">
+            
+                    
+                    Build Post Office II 574
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.21" data-path="post_office_problem_435.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/post_office_problem_435.html">
+            
+                    
+                    Post Office Problem 435
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.22" data-path="perfect_squares_513.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/perfect_squares_513.html">
+            
+                    
+                    Perfect Squares 513
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.23" data-path="longest_palindromic_substring_200.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_palindromic_substring_200.html">
+            
+                    
+                    Longest Palindromic Substring 200
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.24" data-path="stone_game_476.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/stone_game_476.html">
+            
+                    
+                    Stone Game 476
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.25" data-path="bomb_enemy_553.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/bomb_enemy_553.html">
+            
+                    
+                    Bomb Enemy 553
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.26" data-path="burst_balloons_168.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/burst_balloons_168.html">
+            
+                    
+                    Burst Balloons 168
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.27" data-path="scramble_string_430.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/scramble_string_430.html">
+            
+                    
+                    Scramble String 430
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.28" data-path="copy_books_437.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/copy_books_437.html">
+            
+                    
+                    Copy Books 437
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.29" data-path="maximum_gap_400.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/maximum_gap_400.html">
+            
+                    
+                    Maximum Gap 400
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.30" data-path="longest_common_subsequence_77.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_common_subsequence_77.html">
+            
+                    
+                    Longest Common Subsequence 77
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.31" data-path="interleaving_string_29.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/interleaving_string_29.html">
+            
+                    
+                    Interleaving String 29
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.32" data-path="edit_distance_119.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/edit_distance_119.html">
+            
+                    
+                    Edit Distance 119
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.33" data-path="distinct_subsequences_118.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/distinct_subsequences_118.html">
+            
+                    
+                    Distinct Subsequences 118
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.34" data-path="dices_sum_20.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/dices_sum_20.html">
+            
+                    
+                    Dices Sum 20
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.35" data-path="maximum_subarray_iii_43.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/maximum_subarray_iii_43.html">
+            
+                    
+                    Maximum Subarray III 43
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.36" data-path="best_time_to_buy_and_sell_stock_iv_393.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/best_time_to_buy_and_sell_stock_iv_393.html">
+            
+                    
+                    Best Time to Buy and Sell Stock IV 393
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.37" data-path="k_sum_89.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/k_sum_89.html">
+            
+                    
+                    k Sum 89
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.38" data-path="minimum_adjustment_cost_91.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/minimum_adjustment_cost_91.html">
+            
+                    
+                    Minimum Adjustment Cost 91
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.39" data-path="binary_tree_maximum_path_sum_94.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_tree_maximum_path_sum_94.html">
+            
+                    
+                    Binary Tree Maximum Path Sum 94
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.40" data-path="word_break_107.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/word_break_107.html">
+            
+                    
+                    Word Break 107
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.41" data-path="palindrome_partitioning_ii_108.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/palindrome_partitioning_ii_108.html">
+            
+                    
+                    Palindrome Partitioning II 108
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.42" data-path="triangle_109.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/triangle_109.html">
+            
+                    
+                    Triangle 109
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.43" data-path="minimum_path_sum_110.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/minimum_path_sum_110.html">
+            
+                    
+                    Minimum Path Sum 110
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.44" data-path="climbing_stairs_111.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/climbing_stairs_111.html">
+            
+                    
+                    Climbing Stairs 111
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.45" data-path="jump_game_116.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/jump_game_116.html">
+            
+                    
+                    Jump Game 116
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.46" data-path="jump_game_ii_117.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/jump_game_ii_117.html">
+            
+                    
+                    Jump Game II 117
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.47" data-path="maximum_product_subarray_191.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/maximum_product_subarray_191.html">
+            
+                    
+                    Maximum Product Subarray 191
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.48" data-path="wildcard_matching_192.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/wildcard_matching_192.html">
+            
+                    
+                    Wildcard Matching 192
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.49" data-path="decode_ways_512.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/decode_ways_512.html">
+            
+                    
+                    Decode Ways 512
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.50" data-path="regular_expression_matching_154.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/regular_expression_matching_154.html">
+            
+                    
+                    Regular Expression Matching 154
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.51" data-path="longest_valid_parentheses_32leetcode.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_valid_parentheses_32leetcode.html">
+            
+                    
+                    Longest Valid Parentheses 32(LeetCode)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="searchrecursionbacktracking.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/searchrecursionbacktracking.html">
+            
+                    
+                    Search\/Recursion\/Backtracking
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="divide_and_conquer.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/divide_and_conquer.html">
+            
+                    
+                    Divide and Conquer
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="fast_power_140.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/fast_power_140.html">
+            
+                    
+                    Fast Power 140
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="median_of_two_sorted_arrays_65.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/median_of_two_sorted_arrays_65.html">
+            
+                    
+                    Median of two Sorted Arrays 65
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="maximum_depth_of_binary_tree_97.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/maximum_depth_of_binary_tree_97.html">
+            
+                    
+                    Maximum Depth of Binary Tree 97
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="balanced_binary_tree_93.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/balanced_binary_tree_93.html">
+            
+                    
+                    Balanced Binary Tree 93
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.5" data-path="powx,_n_428.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/powx,_n_428.html">
+            
+                    
+                    Pow(x, n) 428
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.6" data-path="find_minimum_in_rotated_sorted_array_ii_160.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/find_minimum_in_rotated_sorted_array_ii_160.html">
+            
+                    
+                    Find Minimum in Rotated Sorted Array II 160
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.7" data-path="merge_k_sorted_lists_104.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/merge_k_sorted_lists_104.html">
+            
+                    
+                    Merge k Sorted Lists 104
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="dfs.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/dfs.html">
+            
+                    
+                    DFS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="nested_list_weight_sum_551.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/nested_list_weight_sum_551.html">
+            
+                    
+                    Nested List Weight Sum 551
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="route_between_two_nodes_in_graph_176.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/route_between_two_nodes_in_graph_176.html">
+            
+                    
+                    Route Between Two Nodes in Graph 176
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="recursion.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/recursion.html">
+            
+                    
+                    Recursion
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="print_numbers_by_recursion_371.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/print_numbers_by_recursion_371.html">
+            
+                    
+                    Print Numbers by Recursion 371
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="restore_ip_addresses_426.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/restore_ip_addresses_426.html">
+            
+                    
+                    Restore IP Addresses 426
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="generate_parentheses_427.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/generate_parentheses_427.html">
+            
+                    
+                    Generate Parentheses 427
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="letter_combinations_of_a_phone_number_425.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/letter_combinations_of_a_phone_number_425.html">
+            
+                    
+                    Letter Combinations of a Phone Number 425
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="backtracking.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/backtracking.html">
+            
+                    
+                    Backtracking
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="word_search_123.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/word_search_123.html">
+            
+                    
+                    Word Search 123
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.2" data-path="word_ladder_ii_121.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/word_ladder_ii_121.html">
+            
+                    
+                    Word Ladder II 121
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.3" data-path="combination_sum_135.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/combination_sum_135.html">
+            
+                    
+                    Combination Sum 135
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.4" data-path="combination_sum_ii_153.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/combination_sum_ii_153.html">
+            
+                    
+                    Combination Sum II 153
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.5" data-path="combinations_152.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/combinations_152.html">
+            
+                    
+                    Combinations 152
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="binary_search.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_search.html">
+            
+                    
+                    Binary Search
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="search_in_rotated_sorted_array_62.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/search_in_rotated_sorted_array_62.html">
+            
+                    
+                    Search in Rotated Sorted Array 62
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5.2" data-path="search_in_rotated_sorted_array_ii_63.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/search_in_rotated_sorted_array_ii_63.html">
+            
+                    
+                    Search in Rotated Sorted Array II 63
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5.3" data-path="search_for_a_range_61.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/search_for_a_range_61.html">
+            
+                    
+                    Search for a Range 61
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5.4" data-path="search_insert_position_60.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/search_insert_position_60.html">
+            
+                    
+                    Search Insert Position 60
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="bfs.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/bfs.html">
+            
+                    
+                    BFS
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.6.1" data-path="word_ladder_120.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/word_ladder_120.html">
+            
+                    
+                    Word Ladder 120
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6.2" data-path="number-of-islands-433.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/number-of-islands-433.html">
+            
+                    
+                    Number of Islands 433
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="chapter1.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/chapter1.html">
+            
+                    
+                    Data Structure
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="tree.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/tree.html">
+            
+                    
+                    Tree
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="guaguagua.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/guaguagua.html">
+            
+                    
+                    Heap
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1.1" data-path="top_k_largest_numbers_ii_545.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/top_k_largest_numbers_ii_545.html">
+            
+                    
+                    Top k largest numbers II 545
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.1.2" data-path="kth_smallest_number_in_sorted_matrix_401.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/kth_smallest_number_in_sorted_matrix_401.html">
+            
+                    
+                    Kth Smallest Number in Sorted Matrix 401
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.1.3" data-path="super_ugly_number_518.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/super_ugly_number_518.html">
+            
+                    
+                    Super Ugly Number 518
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.1.4" data-path="kth_largest_in_n_arrays_543.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/kth_largest_in_n_arrays_543.html">
+            
+                    
+                    Kth Largest in N Arrays 543
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.1.5" data-path="kth_smallest_sum_in_two_sorted_arrays_465.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/kth_smallest_sum_in_two_sorted_arrays_465.html">
+            
+                    
+                    Kth Smallest Sum In Two Sorted Arrays 465
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.1.6" data-path="trapping_rain_water_ii_364.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/trapping_rain_water_ii_364.html">
+            
+                    
+                    Trapping Rain Water II 364
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.1.7" data-path="building_outline_131.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/building_outline_131.html">
+            
+                    
+                    Building Outline 131
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.1.8" data-path="sliding_window_median_360.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/sliding_window_median_360.html">
+            
+                    
+                    Sliding Window Median 360
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="priority_queue.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/priority_queue.html">
+            
+                    
+                    Priority Queue
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.2.1" data-path="ugly_number_ii_4.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/ugly_number_ii_4.html">
+            
+                    
+                    Ugly Number II 4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2.2" data-path="data_stream_median_81.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/data_stream_median_81.html">
+            
+                    
+                    Data Stream Median 81
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.3" data-path="trie.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/trie.html">
+            
+                    
+                    Trie
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.3.1" data-path="word_search_ii_132.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/word_search_ii_132.html">
+            
+                    
+                    Word Search II 132
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.3.2" data-path="implement_trie_442.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/implement_trie_442.html">
+            
+                    
+                    Implement Trie 442
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.3.3" data-path="add_and_search_word_473.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/add_and_search_word_473.html">
+            
+                    
+                    Add and Search Word 473
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.4" data-path="binary_tree.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_tree.html">
+            
+                    
+                    Binary Tree
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.4.1" data-path="subtree_245.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/subtree_245.html">
+            
+                    
+                    Subtree 245
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.4.2" data-path="flatten_binary_tree_to_linked_list_453.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/flatten_binary_tree_to_linked_list_453.html">
+            
+                    
+                    Flatten Binary Tree to Linked List 453
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.4.3" data-path="binary_tree_paths_480.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_tree_paths_480.html">
+            
+                    
+                    Binary Tree Paths 480
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.4.4" data-path="binary_tree_maximum_path_sum_ii_475.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_tree_maximum_path_sum_ii_475.html">
+            
+                    
+                    Binary Tree Maximum Path Sum II 475
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5" data-path="union_find.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/union_find.html">
+            
+                    
+                    Union Find
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.5.1" data-path="graph_valid_tree_178.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/graph_valid_tree_178.html">
+            
+                    
+                    Graph Valid Tree 178
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5.2" data-path="surrounded_regions_477.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/surrounded_regions_477.html">
+            
+                    
+                    Surrounded Regions 477
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5.3" data-path="number_of_islands_433.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/number_of_islands_433.html">
+            
+                    
+                    Number of Islands 433
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5.4" data-path="find_the_connected_component_in_the_undirected_gra.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/find_the_connected_component_in_the_undirected_gra.html">
+            
+                    
+                    Find the Connected Component in the Undirected Graph 431
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5.5" data-path="find_the_weak_connected_component_in_the_directed_.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/find_the_weak_connected_component_in_the_directed_.html">
+            
+                    
+                    Find the Weak Connected Component in the Directed Graph 432
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5.6" data-path="number_of_islands_ii_434.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/number_of_islands_ii_434.html">
+            
+                    
+                    Number of Islands II 434
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6" data-path="binary_search_tree.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_search_tree.html">
+            
+                    
+                    Binary Search Tree
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.6.1" data-path="validate_binary_search_tree_95.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/validate_binary_search_tree_95.html">
+            
+                    
+                    Validate Binary Search Tree 95
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6.2" data-path="insert_node_in_a_binary_search_tree_85.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/insert_node_in_a_binary_search_tree_85.html">
+            
+                    
+                    Insert Node in a Binary Search Tree 85
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6.3" data-path="search_range_in_binary_search_tree_11.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/search_range_in_binary_search_tree_11.html">
+            
+                    
+                    Search Range in Binary Search Tree 11
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6.4" data-path="binary_search_tree_iterator_86.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_search_tree_iterator_86.html">
+            
+                    
+                    Binary Search Tree Iterator 86
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6.5" data-path="remove_node_in_binary_search_tree_87.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/remove_node_in_binary_search_tree_87.html">
+            
+                    
+                    Remove Node in Binary Search Tree 87
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6.6" data-path="inorder_successor_in_bst.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/inorder_successor_in_bst.html">
+            
+                    
+                    Inorder Successor in BST
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7" data-path="segment_tree.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/segment_tree.html">
+            
+                    
+                    Segment Tree
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.7.1" data-path="segment_tree_build_201.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/segment_tree_build_201.html">
+            
+                    
+                    Segment Tree Build 201
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.2" data-path="segment_tree_build_ii_439.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/segment_tree_build_ii_439.html">
+            
+                    
+                    Segment Tree Build II 439
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.3" data-path="segment_tree_query_202.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/segment_tree_query_202.html">
+            
+                    
+                    Segment Tree Query 202
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.4" data-path="segment_tree_query_ii_247.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/segment_tree_query_ii_247.html">
+            
+                    
+                    Segment Tree Query II 247
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.5" data-path="segment_tree_modify_203.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/segment_tree_modify_203.html">
+            
+                    
+                    Segment Tree Modify 203
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.6" data-path="interval_minimum_number_205.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/interval_minimum_number_205.html">
+            
+                    
+                    Interval Minimum Number 205
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.7" data-path="interval_sum_206.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/interval_sum_206.html">
+            
+                    
+                    Interval Sum 206
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.8" data-path="interval_sum_ii_207.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/interval_sum_ii_207.html">
+            
+                    
+                    Interval Sum II 207
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7.9" data-path="count_of_smaller_number_before_itself_249.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/count_of_smaller_number_before_itself_249.html">
+            
+                    
+                    Count of Smaller Number before itself 249
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="linear.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/linear.html">
+            
+                    
+                    Linear
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.1" data-path="array.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/array.html">
+            
+                    
+                    Array
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.1.1" data-path="median_80.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/median_80.html">
+            
+                    
+                    Median 80
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.2" data-path="remove_duplicates_from_sorted_array_100.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/remove_duplicates_from_sorted_array_100.html">
+            
+                    
+                    Remove Duplicates from Sorted Array 100
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.3" data-path="merge_intervals_156.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/merge_intervals_156.html">
+            
+                    
+                    Merge Intervals 156
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.4" data-path="first_missing_positive_189.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/first_missing_positive_189.html">
+            
+                    
+                    First Missing Positive 189
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.5" data-path="partition_array_by_odd_and_even_373.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/partition_array_by_odd_and_even_373.html">
+            
+                    
+                    Partition Array by Odd and Even 373
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.6" data-path="trapping_rain_water_363.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/trapping_rain_water_363.html">
+            
+                    
+                    Trapping Rain Water 363
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.7" data-path="move_zeroes_539.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/move_zeroes_539.html">
+            
+                    
+                    Move Zeroes 539
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.8" data-path="spiral_matrix_374.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/spiral_matrix_374.html">
+            
+                    
+                    Spiral Matrix 374
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.9" data-path="spiral_matrix_ii_381.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/spiral_matrix_ii_381.html">
+            
+                    
+                    Spiral Matrix II 381
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.10" data-path="plus_one_407.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/plus_one_407.html">
+            
+                    
+                    Plus One 407
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.11" data-path="container_with_most_water_383.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/container_with_most_water_383.html">
+            
+                    
+                    Container With Most Water 383
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.12" data-path="the_smallest_difference_387.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/the_smallest_difference_387.html">
+            
+                    
+                    The Smallest Difference 387
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.13" data-path="permutation_sequence_388.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/permutation_sequence_388.html">
+            
+                    
+                    Permutation Sequence 388
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.14" data-path="number_of_airplanes_in_the_sky_391.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/number_of_airplanes_in_the_sky_391.html">
+            
+                    
+                    Number of Airplanes in the Sky 391
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.15" data-path="minimum_size_subarray_sum_406.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/minimum_size_subarray_sum_406.html">
+            
+                    
+                    Minimum Size Subarray Sum 406
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.16" data-path="wiggle_sort_508.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/wiggle_sort_508.html">
+            
+                    
+                    Wiggle Sort 508
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.17" data-path="reverse_pairs_532.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/reverse_pairs_532.html">
+            
+                    
+                    Reverse Pairs 532
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.18" data-path="load_balancer_526.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/load_balancer_526.html">
+            
+                    
+                    Load Balancer 526
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.19" data-path="candy_412.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/candy_412.html">
+            
+                    
+                    Candy 412
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.20" data-path="merge_k_sorted_arrays_486.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/merge_k_sorted_arrays_486.html">
+            
+                    
+                    Merge k sorted Arrays 486
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.21" data-path="continuous_subarray_sum_402.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/continuous_subarray_sum_402.html">
+            
+                    
+                    Continuous Subarray Sum 402
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.22" data-path="continuous_subarray_sum_ii_403.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/continuous_subarray_sum_ii_403.html">
+            
+                    
+                    Continuous Subarray Sum II 403
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.23" data-path="largest_rectangle_in_histogram_122.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/largest_rectangle_in_histogram_122.html">
+            
+                    
+                    Largest Rectangle in Histogram 122
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.1.24" data-path="rotate-array-leetcode-189.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/rotate-array-leetcode-189.html">
+            
+                    
+                    Rotate Array (LeetCode) 189
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.2" data-path="linked_list.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/linked_list.html">
+            
+                    
+                    Linked List
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.2.1" data-path="swap_two_nodes_in_linked_list_511.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/swap_two_nodes_in_linked_list_511.html">
+            
+                    
+                    Swap Two Nodes in Linked List 511
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.2.2" data-path="intersection_of_two_linked_lists_380.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/intersection_of_two_linked_lists_380.html">
+            
+                    
+                    Intersection of Two Linked Lists 380
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.2.3" data-path="reverse_nodes_in_k-group_450.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/reverse_nodes_in_k-group_450.html">
+            
+                    
+                    Reverse Nodes in k-Group 450
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3" data-path="stack.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/stack.html">
+            
+                    
+                    Stack
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.3.1" data-path="flatten_nested_list_iterator_528.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/flatten_nested_list_iterator_528.html">
+            
+                    
+                    Flatten Nested List Iterator 528
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3.2" data-path="valid_parentheses_423.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/valid_parentheses_423.html">
+            
+                    
+                    Valid Parentheses 423
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3.3" data-path="evaluate_reverse_polish_notation_424.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/evaluate_reverse_polish_notation_424.html">
+            
+                    
+                    Evaluate Reverse Polish Notation 424
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3.4" data-path="simplify_path_421.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/simplify_path_421.html">
+            
+                    
+                    Simplify Path 421
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3.5" data-path="max_tree_126.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/max_tree_126.html">
+            
+                    
+                    Max Tree 126
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3.6" data-path="expression_tree_build_367.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/expression_tree_build_367.html">
+            
+                    
+                    Expression Tree Build 367
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3.7" data-path="mock_hanoi_tower_by_stacks_227.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/mock_hanoi_tower_by_stacks_227.html">
+            
+                    
+                    Mock Hanoi Tower by Stacks 227
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4" data-path="hash_table.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/hash_table.html">
+            
+                    
+                    Hash Table
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.4.1" data-path="happy_number_488.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/happy_number_488.html">
+            
+                    
+                    Happy Number 488
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.2" data-path="intersection_of_two_arrays_547.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/intersection_of_two_arrays_547.html">
+            
+                    
+                    Intersection of Two Arrays 547
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.3" data-path="intersection_of_two_arrays_ii_548.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/intersection_of_two_arrays_ii_548.html">
+            
+                    
+                    Intersection of Two Arrays II 548
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.4" data-path="minimum_window_substring_32.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/minimum_window_substring_32.html">
+            
+                    
+                    Minimum Window Substring 32
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.5" data-path="max_points_on_a_line_186.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/max_points_on_a_line_186.html">
+            
+                    
+                    Max Points on a Line 186
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.6" data-path="longest_substring_without_repeating_characters_384.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_substring_without_repeating_characters_384.html">
+            
+                    
+                    Longest Substring Without Repeating Characters 384
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.7" data-path="substring_with_concatenation_of_all_words_30leetco.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/substring_with_concatenation_of_all_words_30leetco.html">
+            
+                    
+                    Substring with Concatenation of All Words 30(LeetCode)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.8" data-path="group_anagrams_49_leetcode.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/group_anagrams_49_leetcode.html">
+            
+                    
+                    Group Anagrams 49 （LeetCode）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.9" data-path="contains-duplicate-leetcode-217.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/contains-duplicate-leetcode-217.html">
+            
+                    
+                    Contains Duplicate (LeetCode) 217
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.10" data-path="contains-duplicate-ii-letcode-219.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/contains-duplicate-ii-letcode-219.html">
+            
+                    
+                    Contains Duplicate II (LetCode) 219
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4.11" data-path="contains-duplicate-iii-leetcode-220.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/contains-duplicate-iii-leetcode-220.html">
+            
+                    
+                    Contains Duplicate III (LeetCode) 220
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.5" data-path="deque.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/deque.html">
+            
+                    
+                    Deque
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.5.1" data-path="sliding_window_maximum_362.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/sliding_window_maximum_362.html">
+            
+                    
+                    Sliding Window Maximum 362
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6" data-path="matrix.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/matrix.html">
+            
+                    
+                    Matrix
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.6.1" data-path="matrix_zigzag_traversal_185.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/matrix_zigzag_traversal_185.html">
+            
+                    
+                    Matrix Zigzag Traversal 185
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.2" data-path="valid_sudoku_389.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/valid_sudoku_389.html">
+            
+                    
+                    Valid Sudoku 389
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.3" data-path="rotate_image_161.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/rotate_image_161.html">
+            
+                    
+                    Rotate Image 161
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.4" data-path="search_a_2d_matrix_ii_38.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/search_a_2d_matrix_ii_38.html">
+            
+                    
+                    Search a 2D Matrix II 38
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.5" data-path="set_matrix_zeroes_162.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/set_matrix_zeroes_162.html">
+            
+                    
+                    Set Matrix Zeroes 162
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.6" data-path="sliding_window_matrix_maximum_558.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/sliding_window_matrix_maximum_558.html">
+            
+                    
+                    Sliding Window Matrix Maximum 558
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.7" data-path="submatrix_sum_405.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/submatrix_sum_405.html">
+            
+                    
+                    Submatrix Sum 405
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.8" data-path="find_peak_element_ii_390.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/find_peak_element_ii_390.html">
+            
+                    
+                    Find Peak Element II 390
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.6.9" data-path="sudoku_solver_37_leetcode.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/sudoku_solver_37_leetcode.html">
+            
+                    
+                    Sudoku Solver 37 (LeetCode)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="max_tree.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/max_tree.html">
+            
+                    
+                    Max Tree 126
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="top_k_frequent_words_471.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/top_k_frequent_words_471.html">
+            
+                    
+                    Top K Frequent Words 471
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="implement_stack_495.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/implement_stack_495.html">
+            
+                    
+                    Implement Stack 495
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="implement_stack_by_two_queues_494.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/implement_stack_by_two_queues_494.html">
+            
+                    
+                    Implement stack by two queues 494
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="implement_queue_by_linked_list_ii_493.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/implement_queue_by_linked_list_ii_493.html">
+            
+                    
+                    Implement Queue by Linked List II 493
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="implement_queue_by_linked_list_492.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/implement_queue_by_linked_list_492.html">
+            
+                    
+                    Implement Queue by Linked List 492
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="stack_sorting_229.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/stack_sorting_229.html">
+            
+                    
+                    Stack Sorting 229
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="animal_shelter_230.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/animal_shelter_230.html">
+            
+                    
+                    Animal Shelter 230
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="lfu_chache_24.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/lfu_chache_24.html">
+            
+                    
+                    LFU Chache 24
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="lru_cache.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/lru_cache.html">
+            
+                    
+                    LRU Cache 134
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="graph_&amp;_search.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/graph_&amp;_search.html">
+            
+                    
+                    Graph &amp; Search
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="clone_graph_137.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/clone_graph_137.html">
+            
+                    
+                    Clone Graph 137
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="copy_list_with_random_pointer_105.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/copy_list_with_random_pointer_105.html">
+            
+                    
+                    Copy List with Random Pointer 105
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="topological_sorting_127.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/topological_sorting_127.html">
+            
+                    
+                    Topological Sorting 127
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="permutations_15.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/permutations_15.html">
+            
+                    
+                    Permutations 15
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="permutations_16.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/permutations_16.html">
+            
+                    
+                    Permutations 16
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="subsets_17.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/subsets_17.html">
+            
+                    
+                    Subsets 17
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="subsets_ii_18.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/subsets_ii_18.html">
+            
+                    
+                    Subsets II 18
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="n-queens_33.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/n-queens_33.html">
+            
+                    
+                    N-Queens 33
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="n-queens_ii_34.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/n-queens_ii_34.html">
+            
+                    
+                    N-Queens II 34
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.10" data-path="palindrome_partitioning_136.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/palindrome_partitioning_136.html">
+            
+                    
+                    Palindrome Partitioning 136
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.11" data-path="string_permutation_ii_10.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/string_permutation_ii_10.html">
+            
+                    
+                    String Permutation II 10
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12" data-path="k_sum_ii_90.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/k_sum_ii_90.html">
+            
+                    
+                    k Sum II 90
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="two_pointers.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/two_pointers.html">
+            
+                    
+                    Two Pointers
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="two_sum_ii_443.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/two_sum_ii_443.html">
+            
+                    
+                    Two Sum II 443
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="remove_element_172.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/remove_element_172.html">
+            
+                    
+                    Remove Element 172
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="triangle_count_382.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/triangle_count_382.html">
+            
+                    
+                    Triangle Count 382
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="valid_palindrome_415.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/valid_palindrome_415.html">
+            
+                    
+                    Valid Palindrome 415
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="linked_list_cycle_ii_103.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/linked_list_cycle_ii_103.html">
+            
+                    
+                    Linked List Cycle II 103
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="longest_substring_with_at_most_k_distinct_characte.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_substring_with_at_most_k_distinct_characte.html">
+            
+                    
+                    Longest Substring with At Most K Distinct Characters 386
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="subarray_sum_ii_404.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/subarray_sum_ii_404.html">
+            
+                    
+                    Subarray Sum II 404
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="4_sum.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/4_sum.html">
+            
+                    
+                    4 Sum
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.9" data-path="remove_nth_node_from_end_of_list_174.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/remove_nth_node_from_end_of_list_174.html">
+            
+                    
+                    Remove Nth Node From End of List 174
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="allsort.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/allsort.html">
+            
+                    
+                    Sort
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="quicksortmd.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/quicksortmd.html">
+            
+                    
+                    Quick Sort
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1.1" data-path="nuts_&amp;_bolts_problem_399.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/nuts_&amp;_bolts_problem_399.html">
+            
+                    
+                    Nuts &amp; Bolts Problem 399
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.1.2" data-path="kth_largest_element_5.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/kth_largest_element_5.html">
+            
+                    
+                    Kth Largest Element 5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.1.3" data-path="wiggle_sort_ii_507.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/wiggle_sort_ii_507.html">
+            
+                    
+                    Wiggle Sort II 507
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="largest_number_184.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/largest_number_184.html">
+            
+                    
+                    Largest Number 184
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="sort_integers_ii_464.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/sort_integers_ii_464.html">
+            
+                    
+                    Sort Integers II 464
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="bit_manipulation.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/bit_manipulation.html">
+            
+                    
+                    Bit Manipulation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="a_+_b_problem_1.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/a_+_b_problem_1.html">
+            
+                    
+                    A + B Problem 1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="count_1_in_binary_365.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/count_1_in_binary_365.html">
+            
+                    
+                    Count 1 in Binary 365
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="o1_check_power_of_2_142.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/o1_check_power_of_2_142.html">
+            
+                    
+                    O(1) Check Power of 2 142
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="flip_bits_181.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/flip_bits_181.html">
+            
+                    
+                    Flip Bits 181
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.5" data-path="update_bits.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/update_bits.html">
+            
+                    
+                    Update Bits 179
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.6" data-path="binary_representation_180.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/binary_representation_180.html">
+            
+                    
+                    Binary Representation 180
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.7" data-path="divide_two_integers_414.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/divide_two_integers_414.html">
+            
+                    
+                    Divide Two Integers 414
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.8" data-path="gray_code_411.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/gray_code_411.html">
+            
+                    
+                    Gray Code 411
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.9" data-path="bitwise-and-of-numbers-range-leetcode-201.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/bitwise-and-of-numbers-range-leetcode-201.html">
+            
+                    
+                    Bitwise AND of Numbers Range (LeetCode) 201
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="permutation.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/permutation.html">
+            
+                    
+                    Permutation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="permutation_index_197.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/permutation_index_197.html">
+            
+                    
+                    Permutation Index 197
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="permutation_index_ii_198.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/permutation_index_ii_198.html">
+            
+                    
+                    Permutation Index II 198
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="next_permutation_52.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/next_permutation_52.html">
+            
+                    
+                    Next Permutation 52
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="next_permutation_ii_190.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/next_permutation_ii_190.html">
+            
+                    
+                    Next Permutation II 190
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="previous_permutation_51.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/previous_permutation_51.html">
+            
+                    
+                    Previous Permutation 51
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="greedy.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/greedy.html">
+            
+                    
+                    Greedy
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="delete_digits_182.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/delete_digits_182.html">
+            
+                    
+                    Delete Digits 182
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="find_the_missing_number_196.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/find_the_missing_number_196.html">
+            
+                    
+                    Find the Missing Number 196
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="gas_station_187.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/gas_station_187.html">
+            
+                    
+                    Gas Station 187
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="string.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/string.html">
+            
+                    
+                    String
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="roman_to_integer_419.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/roman_to_integer_419.html">
+            
+                    
+                    Roman to Integer 419
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="integer_to_roman_418.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/integer_to_roman_418.html">
+            
+                    
+                    Integer to Roman 418
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="length_of_last_word_422.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/length_of_last_word_422.html">
+            
+                    
+                    Length of Last Word 422
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="space_replacement_212.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/space_replacement_212.html">
+            
+                    
+                    Space Replacement 212
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.5" data-path="two_strings_are_anagrams_158.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/two_strings_are_anagrams_158.html">
+            
+                    
+                    Two Strings Are Anagrams 158
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.6" data-path="string_to_integer_leetcode_8.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/string_to_integer_leetcode_8.html">
+            
+                    
+                    String to Integer (Leetcode 8)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.7" data-path="strstr_13.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/strstr_13.html">
+            
+                    
+                    strStr 13
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.8" data-path="multiply_strings_43_leetcode.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/multiply_strings_43_leetcode.html">
+            
+                    
+                    Multiply Strings 43 (LeetCode)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="enumeration.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/enumeration.html">
+            
+                    
+                    Enumeration
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="digit_counts_3.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/digit_counts_3.html">
+            
+                    
+                    Digit Counts 3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="longest_common_prefix_78.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_common_prefix_78.html">
+            
+                    
+                    Longest Common Prefix 78
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="longest_words_133.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/longest_words_133.html">
+            
+                    
+                    Longest Words 133
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="fizz_buzz_9.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/fizz_buzz_9.html">
+            
+                    
+                    Fizz Buzz 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="mathematics.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/mathematics.html">
+            
+                    
+                    Mathematics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="ugly_number_517.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/ugly_number_517.html">
+            
+                    
+                    Ugly Number 517
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="zigzag_conversion_leetcode_6.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/zigzag_conversion_leetcode_6.html">
+            
+                    
+                    ZigZag Conversion (LeetCode 6)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="palindrome_number_leetcode_9.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/palindrome_number_leetcode_9.html">
+            
+                    
+                    Palindrome Number (Leetcode 9)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.4" data-path="count-primes-leetcode-204.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/count-primes-leetcode-204.html">
+            
+                    
+                    Count Primes (LeetCode) 204
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.5" data-path="rectangle-area-leetcode-223.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/rectangle-area-leetcode-223.html">
+            
+                    
+                    Rectangle Area (LeetCode) 223
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="others.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/others.html">
+            
+                    
+                    Others
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="google.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/google.html">
+            
+                    
+                    Google
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1.1" data-path="zigzag_iterator_540.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/zigzag_iterator_540.html">
+            
+                    
+                    Zigzag Iterator 540
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.1.2" data-path="zigzag_iterator_ii_541.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/zigzag_iterator_ii_541.html">
+            
+                    
+                    Zigzag Iterator II 541
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.1.3" data-path="insert_interval_30.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/insert_interval_30.html">
+            
+                    
+                    Insert Interval 30
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="facebook.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/facebook.html">
+            
+                    
+                    FaceBook
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.2.1" data-path="add_binary_408.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/add_binary_408.html">
+            
+                    
+                    Add Binary 408
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2.2" data-path="count_and_say_420.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/count_and_say_420.html">
+            
+                    
+                    Count and Say 420
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="no_tag.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/no_tag.html">
+            
+                    
+                    No Tag
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.3.1" data-path="left_pad_524.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/left_pad_524.html">
+            
+                    
+                    Left Pad 524
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.2" data-path="reverse_integer_413.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/reverse_integer_413.html">
+            
+                    
+                    Reverse Integer 413
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.3" data-path="cosine_similarity_445.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/cosine_similarity_445.html">
+            
+                    
+                    Cosine Similarity 445
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.4" data-path="word_count_map_reduce_499.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/word_count_map_reduce_499.html">
+            
+                    
+                    Word Count (Map Reduce) 499
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.5" data-path="product_of_array_exclude_itself_50.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/product_of_array_exclude_itself_50.html">
+            
+                    
+                    Product of Array Exclude Itself 50
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.6" data-path="shape_factory_497.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/shape_factory_497.html">
+            
+                    
+                    Shape Factory 497
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.7" data-path="toy_factory_496.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/toy_factory_496.html">
+            
+                    
+                    Toy Factory 496
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.8" data-path="singleton_204.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/singleton_204.html">
+            
+                    
+                    Singleton 204
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="qi_ta_wen_ti.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/qi_ta_wen_ti.html">
+            
+                    
+                    其他问题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="use_dynamic_circulate_array_to_implement_deque.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/use_dynamic_circulate_array_to_implement_deque.html">
+            
+                    
+                    Use Dynamic Circulate Array to Implement Deque
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="random_generator.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/random_generator.html">
+            
+                    
+                    Random Generator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="array_monotonic.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/array_monotonic.html">
+            
+                    
+                    Array Monotonic
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="dai_jie_jue.html">
+            
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/dai_jie_jue.html">
+            
+                    
+                    待解决
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com/" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <a class="btn pull-left js-toolbar-action" aria-label="" href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_ii_573.html#"><i class="fa fa-align-justify"></i></a><div class="dropdown pull-right js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Share" href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_ii_573.html#"><i class="fa fa-share-alt"></i></a><div class="dropdown-menu dropdown-left"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-5 ">Facebook</button><button class="button size-5 ">Google+</button><button class="button size-5 ">Twitter</button><button class="button size-5 ">Weibo</button><button class="button size-5 ">Instapaper</button></div></div></div><a class="btn pull-right js-toolbar-action" aria-label="" href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_ii_573.html#"><i class="fa fa-facebook"></i></a><a class="btn pull-right js-toolbar-action" aria-label="" href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_ii_573.html#"><i class="fa fa-twitter"></i></a><div class="dropdown pull-left font-settings js-toolbar-action"><a class="btn toggle-dropdown" aria-label="Font Settings" href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_ii_573.html#"><i class="fa fa-font"></i></a><div class="dropdown-menu dropdown-right"><div class="dropdown-caret"><span class="caret-outer"></span><span class="caret-inner"></span></div><div class="buttons"><button class="button size-2 font-reduce">A</button><button class="button size-2 font-enlarge">A</button></div><div class="buttons"><button class="button size-2 ">Serif</button><button class="button size-2 ">Sans</button></div><div class="buttons"><button class="button size-3 ">White</button><button class="button size-3 ">Sepia</button><button class="button size-3 ">Night</button></div></div></div><h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="https://zhengyang2015.gitbooks.io/lintcode/">Build Post Office II 574</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="build-post-office-ii-574">Build Post Office II 574</h1>
+<h2 id="question">Question</h2>
+<p class="comments-section">Given a 2D grid, each cell is either a wall 2, an house 1 or empty 0 (the number zero, one, two), find the place to build a post office, the distance that post office to all the house sum is smallest. Return the smallest distance. Return -1 if it is not possible.<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">Notice<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">You cannot pass through wall and house, but can pass through empty.<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">You only build post office on an empty.<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">Example<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">Given a grid:<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">0 1 0 0 0
+1 0 0 2 1
+0 1 0 0 0<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">return 8, You can build at (1,1). (Placing a post office at (1,1), the distance that post office to all the house sum is smallest.)<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">Challenge<div class="comments-icon"><div class="marker">+</div></div></p>
+<p class="comments-section">Solve this problem within O(n^3) time.<div class="comments-icon"><div class="marker">+</div></div></p>
+<h2 id="solution">Solution</h2>
+<p class="comments-section">这道题和I比较类似，但是因为不能穿过wall和house，所以必须用bfs的方法搜索最近距离，而不能直接计算几何距离。<div class="comments-icon"><div class="marker">+</div></div></p>
+<ol>
+<li><p class="comments-section">将数组扫描一遍找到所有房子。<div class="comments-icon"><div class="marker">+</div></div></p>
+</li>
+<li><p class="comments-section">为每一个房子建立一个距离矩阵，计算该房子到所有0点的距离。即distance[i][j][k]为k房子到grid[i][j]上的点的距离。计算距离的时候用bfs搜索。<div class="comments-icon"><div class="marker">+</div></div></p>
+</li>
+<li><p class="comments-section">然后遍历图上所有为0的点，查询k张距离矩阵，将所有房子到该点的距离加起来即为在该点建邮局的距离总和。若在查询过程中遇到某个点在某张距离矩阵上的值为无穷大，则说明该点无法到达该房子，直接停止搜索即可。<div class="comments-icon"><div class="marker">+</div></div></p>
+</li>
+<li><p class="comments-section">选3中距离最小的点即可。<div class="comments-icon"><div class="marker">+</div></div></p>
+</li>
+</ol>
+<p class="comments-section">代码如下：<div class="comments-icon"><div class="marker">+</div></div></p>
+<pre><code>public class Solution {
+    /**
+     * @param grid a 2D grid
+     * @return an integer
+     */
+    class Node{
+        int x;
+        int y;
+        int dis;
+        public Node(int x, int y, int dis){
+            this.x = x;
+            this.y = y;
+            this.dis = dis;
+        }
+    }
+
+    public int shortestDistance(int[][] grid) {
+        // Write your code here
+        if(grid == null || grid.length == 0 || grid[0].length == 0){
+            return -1;
+        }
+
+        int n = grid.length;
+        int m = grid[0].length;
+        ArrayList&lt;Node&gt; house = new ArrayList&lt;Node&gt;();
+        //find house position
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; m; j++){
+                if(grid[i][j] == 1){
+                    house.add(new Node(i, j, 0));
+                }
+            }
+        }
+        //no empty place
+        int k = house.size();
+        if(k == n * m){
+            return -1;
+        }
+
+        int[][][] distance = new int[k][n][m];
+        for(int i = 0; i &lt; k; i++){
+            for(int j = 0; j &lt; n; j++){
+                Arrays.fill(distance[i][j], Integer.MAX_VALUE);
+            }
+        }
+
+        for(int i = 0; i &lt; k; i++){
+            getDistance(house.get(i), distance, i, grid);
+        }
+
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i &lt; n; i++){
+            for(int j = 0; j &lt; m; j++){
+                if(grid[i][j] == 0){
+                    int sum = 0;
+                    for(int l = 0; l &lt; k; l++){
+                        if(distance[l][i][j] == Integer.MAX_VALUE){
+                            sum = Integer.MAX_VALUE;
+                            break;
+                        }
+                        sum += distance[l][i][j];
+                    }
+                    min = Math.min(min, sum);
+                }
+            }
+        }
+
+        if(min == Integer.MAX_VALUE){
+            return -1;
+        }
+        return min;
+    }
+
+    int[] dx = {-1, 1, 0, 0};
+    int[] dy = {0, 0, -1, 1};
+    //BFS search for shortest path
+    private void getDistance(Node curt, int[][][] distance, int k, int[][] grid){
+        int n = grid.length;
+        int m = grid[0].length;
+        Queue&lt;Node&gt; queue = new LinkedList&lt;Node&gt;();
+        boolean[][] visited = new boolean[n][m];
+        queue.offer(curt);
+        visited[curt.x][curt.y] = true;
+
+        while(!queue.isEmpty()){
+            Node now = queue.poll();
+            for(int i = 0; i &lt; 4; i++){
+                int nextX = now.x + dx[i];
+                int nextY = now.y + dy[i];
+                if(nextX &gt;= 0 &amp;&amp; nextX &lt; n &amp;&amp; nextY &gt;= 0 &amp;&amp; nextY &lt; m &amp;&amp; grid[nextX][nextY] == 0 &amp;&amp; !visited[nextX][nextY]){
+                    distance[k][nextX][nextY] = now.dis + 1;
+                    queue.add(new Node(nextX, nextY, now.dis + 1));
+                    visited[nextX][nextY] = true;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/build_post_office_573.html" class="navigation navigation-prev " aria-label="Previous page: Build Post Office 573">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="https://zhengyang2015.gitbooks.io/lintcode/post_office_problem_435.html" class="navigation navigation-next " aria-label="Next page: Post Office Problem 435" style="margin-right: 0px;">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script async="" src="./Build Post Office II 574 · LintCode题解_files/analytics.js.下载"></script><script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Build Post Office II 574","level":"1.2.20","depth":2,"next":{"title":"Post Office Problem 435","level":"1.2.21","depth":2,"path":"post_office_problem_435.md","ref":"post_office_problem_435.md","articles":[]},"previous":{"title":"Build Post Office 573","level":"1.2.19","depth":2,"path":"build_post_office_573.md","ref":"build_post_office_573.md","articles":[]},"dir":"ltr"},"config":{"plugins":["comment"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"comment":{"highlightCommented":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"zhengyang2015","pdf":{"pageNumbers":true,"fontSize":16,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"LintCode题解","language":"en","links":{"sidebar":{"LintCode题解":"https://www.gitbook.com/book/zhengyang2015/lintcode"},"gitbook":true},"gitbook":"*","description":"记录LintCode刷题过程，归纳总结"},"file":{"path":"build_post_office_ii_573.md","mtime":"2016-12-17T04:57:00.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-12-17T04:56:39.140Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="./Build Post Office II 574 · LintCode题解_files/gitbook.js.下载"></script>
+    <script src="./Build Post Office II 574 · LintCode题解_files/theme.js.下载"></script>
+    
+        
+        <script src="./Build Post Office II 574 · LintCode题解_files/plugin.js.下载"></script>
+        
+    
+        
+        <script src="./Build Post Office II 574 · LintCode题解_files/search-engine.js.下载"></script>
+        
+    
+        
+        <script src="./Build Post Office II 574 · LintCode题解_files/search.js.下载"></script>
+        
+    
+        
+        <script src="./Build Post Office II 574 · LintCode题解_files/lunr.min.js.下载"></script>
+        
+    
+        
+        <script src="./Build Post Office II 574 · LintCode题解_files/search-lunr.js.下载"></script>
+        
+    
+        
+        <script src="./Build Post Office II 574 · LintCode题解_files/buttons.js.下载"></script>
+        
+    
+        
+        <script src="./Build Post Office II 574 · LintCode题解_files/fontsettings.js.下载"></script>
+        
+    
+
+    
+<div><script style="display: none;" type="application/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57505611-7', 'auto', {name: 'microcdn'});
+  ga('microcdn.send', 'pageview');
+
+  var _cdn_prev_loc = window.location.pathname;
+  window.setInterval(function () {
+    if (window.location.pathname !== _cdn_prev_loc) {
+      _cdn_prev_loc = window.location.pathname;
+      ga('microcdn.send', 'pageview');
+    }
+  }, 100);
+
+</script></div>
+
+
+
+</body></html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.cnblogs.com/grandyang/p/4800552.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[LeetCode] Perfect Squares 完全平方数 - Grandyang - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./[LeetCode] Perfect Squares 完全平方数 - Grandyang - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./[LeetCode] Perfect Squares 完全平方数 - Grandyang - 博客园_files/bundle-UnlimitedSunlight.css">
+<link id="mobile-style" media="only screen and (max-device-width: 980px)" type="text/css" rel="stylesheet" href="./[LeetCode] Perfect Squares 完全平方数 - Grandyang - 博客园_files/bundle-UnlimitedSunlight-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/grandyang/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/grandyang/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/grandyang/wlwmanifest.xml">
+<script src="./[LeetCode] Perfect Squares 完全平方数 - Grandyang - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'grandyang', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./[LeetCode] Perfect Squares 完全平方数 - Grandyang - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/grandyang/"><img id="blogLogo" src="./[LeetCode] Perfect Squares 完全平方数 - Grandyang - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/grandyang/">Grandyang</a></h1>
+<h2>选择泥泞的路，才会留下脚印...</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/grandyang/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Grandyang">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/grandyang/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/grandyang/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 878&nbsp; </span>
+<span id="stats_article_count">文章 - 1&nbsp; </span>
+<span id="stats-comment_count">评论 - 310</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/grandyang/p/4800552.html">[LeetCode] Perfect Squares 完全平方数</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp;</p>
+<p>Given a positive integer <em>n</em>, find the least number of perfect square numbers (for example, <code>1, 4, 9, 16, ...</code>) which sum to <em>n</em>.</p>
+<p>For example, given <em>n</em> = <code>12</code>, return <code>3</code> because <code>12 = 4 + 4 + 4</code>; given <em>n</em> = <code>13</code>, return <code>2</code> because <code>13 = 4 + 9</code>.</p>
+<p><strong>Credits:</strong><br>Special thanks to <a href="https://leetcode.com/discuss/user/jianchao.li.fighter">@jianchao.li.fighter</a> for adding this problem and creating all test cases.</p>
+<p>&nbsp;</p>
+<p>又是超哥一个人辛苦的更新题目，一个人托起LeetCode免费题的一片天空啊，赞一个~ 这道题说是给我们一个正整数，求它最少能由几个完全平方数组成。这道题是考察<a href="https://zh.wikipedia.org/wiki/%E5%9B%9B%E5%B9%B3%E6%96%B9%E5%92%8C%E5%AE%9A%E7%90%86" target="_blank">四平方和定理</a>，to be honest, 这是我第一次听说这个定理，天啦撸，我的数学是语文老师教的么?! 闲话不多扯，回来做题。先来看第一种很高效的方法，根据四平方和定理，任意一个正整数均可表示为4个整数的平方和，其实是可以表示为4个以内的平方数之和，那么就是说返回结果只有1,2,3或4其中的一个，首先我们将数字化简一下，由于一个数如果含有因子4，那么我们可以把4都去掉，并不影响结果，比如2和8,3和12等等，返回的结果都相同，读者可自行举更多的栗子。还有一个可以化简的地方就是，如果一个数除以8余7的话，那么肯定是由4个完全平方数组成，这里就不证明了，因为我也不会证明，读者可自行举例验证。那么做完两步后，一个很大的数有可能就会变得很小了，大大减少了运算时间，下面我们就来尝试的将其拆为两个平方数之和，如果拆成功了那么就会返回1或2，因为其中一个平方数可能为0. (注：由于输入的n是正整数，所以不存在两个平方数均为0的情况)。注意下面的<span style="color: #ff0000;">!!a + !!b</span>这个表达式，可能很多人不太理解这个的意思，其实很简单，感叹号<span style="color: #ff0000;">!</span>表示逻辑取反，那么一个正整数逻辑取反为0，再取反为1，所以用两个感叹号<span style="color: #ff0000;">!!</span>的作用就是看a和b是否为正整数，都为正整数的话返回2，只有一个是正整数的话返回1，参见代码如下：</p>
+<p>&nbsp;</p>
+<p>解法一：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span> numSquares(<span style="color: #0000ff;">int</span><span style="color: #000000;"> n) {
+        </span><span style="color: #0000ff;">while</span> (n % <span style="color: #800080;">4</span> == <span style="color: #800080;">0</span>) n /= <span style="color: #800080;">4</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span> (n % <span style="color: #800080;">8</span> == <span style="color: #800080;">7</span>) <span style="color: #0000ff;">return</span> <span style="color: #800080;">4</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> a = <span style="color: #800080;">0</span>; a * a &lt;= n; ++<span style="color: #000000;">a) {
+            </span><span style="color: #0000ff;">int</span> b = sqrt(n - a *<span style="color: #000000;"> a);
+            </span><span style="color: #0000ff;">if</span> (a * a + b * b ==<span style="color: #000000;"> n) {
+                </span><span style="color: #0000ff;">return</span> !!a + !!<span style="color: #000000;">b;
+            }
+        }
+        </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">3</span><span style="color: #000000;">;
+    }
+};</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>这道题远不止这一种解法，我们还可以用动态规划Dynamic Programming来做，我们建立一个长度为n+1的一维dp数组，将第一个值初始化为0，其余值都初始化为INT_MAX, i从0循环到n，j从1循环到i+j*j &lt;= n的位置，然后每次更新dp[i+j*j]的值，动态更新dp数组，其中dp[i]表示正整数i能少能由多个完全平方数组成，那么我们求n，就是返回dp[n]即可，也就是dp数组的最后一个数字，参见代码如下：</p>
+<p>&nbsp;</p>
+<p>解法二：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">//</span><span style="color: #008000;"> DP</span>
+<span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span> numSquares(<span style="color: #0000ff;">int</span><span style="color: #000000;"> n) {
+        vector</span>&lt;<span style="color: #0000ff;">int</span>&gt; dp(n + <span style="color: #800080;">1</span><span style="color: #000000;">, INT_MAX);
+        dp[</span><span style="color: #800080;">0</span>] = <span style="color: #800080;">0</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt;= n; ++<span style="color: #000000;">i) {
+            </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> j = <span style="color: #800080;">1</span>; i + j * j &lt;= n; ++<span style="color: #000000;">j) {
+                dp[i </span>+ j * j] = min(dp[i + j * j], dp[i] + <span style="color: #800080;">1</span><span style="color: #000000;">);
+            }
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> dp.back();
+    }
+};</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>下面再来看一种DP解法，这种解法跟上面有些不同，上面那种解法是初始化了整个长度为n+1的dp数字，但是初始化的顺序不定的，而这个种方法只初始化了第一个值为0，那么在循环里计算，每次增加一个dp数组的长度，里面那个for循环一次循环结束就算好下一个数由几个完全平方数组成，直到增加到第n+1个，返回即可，想更直观的看这两种DP方法的区别，建议每次循环后都打印出dp数字的值来观察其更新的顺序，参见代码如下：</p>
+<p>&nbsp;</p>
+<p>解法三：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">//</span><span style="color: #008000;"> DP</span>
+<span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span> numSquares(<span style="color: #0000ff;">int</span><span style="color: #000000;"> n) {
+        vector</span>&lt;<span style="color: #0000ff;">int</span>&gt; dp(<span style="color: #800080;">1</span>, <span style="color: #800080;">0</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">while</span> (dp.size() &lt;=<span style="color: #000000;"> n) {
+            </span><span style="color: #0000ff;">int</span> m = dp.size(), val =<span style="color: #000000;"> INT_MAX;
+            </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i * i &lt;= m; ++<span style="color: #000000;">i) {
+                val </span>= min(val, dp[m - i * i] + <span style="color: #800080;">1</span><span style="color: #000000;">);
+            }
+            dp.push_back(val);
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> dp.back();
+    }
+};</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>最后我们来介绍一种递归Recursion的解法，这种方法的好处是写法简洁，但是运算效率不敢恭维。我们的目的是遍历所有比n小的完全平方数，然后对n与完全平方数的差值递归调用函数，目的是不断更新最终结果，知道找到最小的那个，参见代码如下：</p>
+<p>&nbsp;</p>
+<p>解法四：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">//</span><span style="color: #008000;"> Recrusion</span>
+<span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span> numSquares(<span style="color: #0000ff;">int</span><span style="color: #000000;"> n) {
+        </span><span style="color: #0000ff;">int</span> res = n, num = <span style="color: #800080;">2</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">while</span> (num * num &lt;=<span style="color: #000000;"> n) {
+            </span><span style="color: #0000ff;">int</span> a = n / (num * num), b = n % (num *<span style="color: #000000;"> num);
+            res </span>= min(res, a +<span style="color: #000000;"> numSquares(b));
+            </span>++<span style="color: #000000;">num;
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> res;
+    }
+};</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>PS：解法二三四的运算效率真的不高，强推解法一，高效又易懂，如果想强行优化后三个算法，可以将解法一的前两个if判断加到后三个的算法的开头，能很大的提高运算效率。</p>
+<p>&nbsp;</p>
+<p>参考资料：</p>
+<p><a href="https://leetcode.com/discuss/56983/simple-java-dp-solution" target="_blank">https://leetcode.com/discuss/56983/simple-java-dp-solution</a><br><a href="https://leetcode.com/discuss/56993/static-dp-c-12-ms-python-172-ms-ruby-384-ms" target="_blank">https://leetcode.com/discuss/56993/static-dp-c-12-ms-python-172-ms-ruby-384-ms</a><br><a href="https://leetcode.com/discuss/57089/my-recursive-solution-java" target="_blank">https://leetcode.com/discuss/57089/my-recursive-solution-java</a><br><a href="http://bookshadow.com/weblog/2015/09/09/leetcode-perfect-squares/" target="_blank">http://bookshadow.com/weblog/2015/09/09/leetcode-perfect-squares/</a></p>
+<p>&nbsp;</p>
+<p><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/grandyang/p/4606334.html">LeetCode All in One 题目讲解汇总(持续更新中...)</a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-09-11 12:06</span> <a href="http://www.cnblogs.com/grandyang/">Grandyang</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4800552" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/grandyang/p/4800552.html#" onclick="AddToWz(4800552);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=198221,cb_entryId=4800552,cb_blogApp=currentBlogApp,cb_blogUserGuid='02affae8-0e77-e111-aa3f-842b2b196315',cb_entryCreatedDate='2015/9/11 12:06:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/grandyang/p/4800552.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/grandyang/p/4800552.html#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 Grandyang
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.cnblogs.com/TenosDoIt/p/3440022.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="http://web2.pdfonline.com/pdfonline/pdfonline.js?_=1483577769585"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeetCode:Distinct Subsequences - tenos - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./LeetCode_Distinct Subsequences - tenos - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./LeetCode_Distinct Subsequences - tenos - 博客园_files/bundle-iMetro_HD.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./LeetCode_Distinct Subsequences - tenos - 博客园_files/bundle-iMetro_HD-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/TenosDoIt/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/TenosDoIt/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/TenosDoIt/wlwmanifest.xml">
+<script type="text/javascript" src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/encoder.js.下载"></script><script src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'TenosDoIt', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true } },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<br><font color="#FC0606"> 本博客rss订阅地址: http://feed.cnblogs.com/blog/u/147990/rss </font><br>
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/TenosDoIt/"><img id="blogLogo" src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/TenosDoIt/">JustDoIT</a></h1>
+<h2>LIVE FOR CODING</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/TenosDoIt/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/tenos">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/TenosDoIt/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/TenosDoIt/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 209&nbsp; </span>
+<span id="stats_article_count">文章 - 2&nbsp; </span>
+<span id="stats-comment_count">评论 - 165</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/TenosDoIt/p/3440022.html">LeetCode:Distinct Subsequences</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><a href="http://www.cnblogs.com/TenosDoIt/p/3434579.html" target="_blank">我的LeetCode解题报告索引</a></p>
+<p><a href="http://oj.leetcode.com/problems/distinct-subsequences/" target="_blank">题目链接</a></p>
+<p>Given a string&nbsp;<strong>S</strong>&nbsp;and a string&nbsp;<strong>T</strong>, count the number of distinct subsequences of&nbsp;<strong>T</strong>&nbsp;in&nbsp;<strong>S</strong>.</p>
+<p>A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie,&nbsp;<code>"ACE"</code>&nbsp;is a subsequence of&nbsp;<code>"ABCDE"</code>&nbsp;while&nbsp;<code>"AEC"</code>&nbsp;is not).</p>
+<p>Here is an example:<br><strong>S</strong>&nbsp;=&nbsp;<code>"rabbbit"</code>,&nbsp;<strong>T</strong>&nbsp;=&nbsp;<code>"rabbit"</code></p>
+<p>Return&nbsp;<code>3</code>.</p>
+<p>题目大意：删除S中某些位置的字符可以得到T，总共有几种不同的删除方法</p>
+<p>设S的长度为lens，T的长度为lent</p>
+<p><strong>算法1</strong>：递归解法，首先，从个字符串S的尾部开始扫描，找到第一个和T最后一个字符相同的位置k，那么有下面两种匹配：a. T的最后一个字符和S[k]匹配，b. T的最后一个字符不和S[k]匹配。a相当于子问题:从S[0...lens-2]中删除几个字符得到T[0...lent-2]，b相当于子问题：从S[0...lens-2]中删除几个字符得到T[0...lent-1]。那么总的删除方法等于a、b两种情况的删除方法的和。递归解法代码如下，但是通过大数据会超时：</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;4f88f277-e037-418f-a374-d7a985fe0a6e&#39;)"><img id="code_img_closed_4f88f277-e037-418f-a374-d7a985fe0a6e" class="code_img_closed" src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_4f88f277-e037-418f-a374-d7a985fe0a6e" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;4f88f277-e037-418f-a374-d7a985fe0a6e&#39;,event)" src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_4f88f277-e037-418f-a374-d7a985fe0a6e" class="cnblogs_code_hide">
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">int</span> numDistinct(<span style="color: #0000ff;">string</span> S, <span style="color: #0000ff;">string</span><span style="color: #000000;"> T) {
+</span><span style="color: #008080;"> 4</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> IMPORTANT: Please reset any member data you declared, as
+</span><span style="color: #008080;"> 5</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> the same Solution instance will be reused for each test case.</span>
+<span style="color: #008080;"> 6</span>         <span style="color: #0000ff;">return</span> numDistanceRecur(S, S.length()-<span style="color: #800080;">1</span>, T, T.length()-<span style="color: #800080;">1</span><span style="color: #000000;">);
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">int</span> numDistanceRecur(<span style="color: #0000ff;">string</span> &amp;S, <span style="color: #0000ff;">int</span> send, <span style="color: #0000ff;">string</span> &amp;T, <span style="color: #0000ff;">int</span><span style="color: #000000;"> tend)
+</span><span style="color: #008080;"> 9</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">if</span>(tend &lt; <span style="color: #800080;">0</span>)<span style="color: #0000ff;">return</span> <span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">11</span>         <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>(send &lt; <span style="color: #800080;">0</span>)<span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">while</span>(send &gt;= <span style="color: #800080;">0</span> &amp;&amp; S[send] != T[tend])send--<span style="color: #000000;">;
+</span><span style="color: #008080;">13</span>         <span style="color: #0000ff;">if</span>(send &lt; <span style="color: #800080;">0</span>)<span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">14</span>         <span style="color: #0000ff;">return</span> numDistanceRecur(S,send-<span style="color: #800080;">1</span>,T,tend-<span style="color: #800080;">1</span>) + numDistanceRecur(S,send-<span style="color: #800080;">1</span><span style="color: #000000;">,T,tend);
+</span><span style="color: #008080;">15</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">16</span> };</pre>
+</div>
+<span class="cnblogs_code_collapse">View Code </span></div>
+<p><strong>算法2</strong>：动态规划，设dp[i][j]是从字符串S[0...i]中删除几个字符得到字符串T[0...j]的不同的删除方法种类，有上面递归的分析可知，动态规划方程如下</p>
+<ul>
+<li>如果S[i] = T[j], dp[i][j] = dp[i-1][j-1]+dp[i-1][j]</li>
+<li>如果S[i] 不等于 T[j], dp[i][j] = dp[i-1][j]</li>
+<li>初始条件：当T为空字符串时，从任意的S删除几个字符得到T的方法为1</li>
+</ul>
+<p>代码如下： &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #99ccff;"><a href="http://www.cnblogs.com/TenosDoIt/p/3440022.html"><span style="color: #99ccff;">本文地址</span></a></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #008080;"> 2</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 3</span>     <span style="color: #0000ff;">int</span> numDistinct(<span style="color: #0000ff;">string</span> S, <span style="color: #0000ff;">string</span><span style="color: #000000;"> T) {
+</span><span style="color: #008080;"> 4</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> IMPORTANT: Please reset any member data you declared, as
+</span><span style="color: #008080;"> 5</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> the same Solution instance will be reused for each test case.</span>
+<span style="color: #008080;"> 6</span>         <span style="color: #0000ff;">int</span> lens = S.length(), lent =<span style="color: #000000;"> T.length();
+</span><span style="color: #008080;"> 7</span>         <span style="color: #0000ff;">if</span>(lent == <span style="color: #800080;">0</span>)<span style="color: #0000ff;">return</span> <span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 8</span>         <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>(lens == <span style="color: #800080;">0</span>)<span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 9</span>         <span style="color: #0000ff;">int</span> dp[lens+<span style="color: #800080;">1</span>][lent+<span style="color: #800080;">1</span><span style="color: #000000;">];
+</span><span style="color: #008080;">10</span>         memset(dp, <span style="color: #800080;">0</span> , <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(dp));
+</span><span style="color: #008080;">11</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt;= lens; i++)dp[i][<span style="color: #800080;">0</span>] = <span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">12</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt;= lens; i++<span style="color: #000000;">)
+</span><span style="color: #008080;">13</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">14</span>             <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j = <span style="color: #800080;">1</span>; j &lt;= lent; j++<span style="color: #000000;">)
+</span><span style="color: #008080;">15</span> <span style="color: #000000;">            {
+</span><span style="color: #008080;">16</span>                 <span style="color: #0000ff;">if</span>(S[i-<span style="color: #800080;">1</span>] == T[j-<span style="color: #800080;">1</span><span style="color: #000000;">])
+</span><span style="color: #008080;">17</span>                     dp[i][j] = dp[i-<span style="color: #800080;">1</span>][j-<span style="color: #800080;">1</span>]+dp[i-<span style="color: #800080;">1</span><span style="color: #000000;">][j];
+</span><span style="color: #008080;">18</span>                 <span style="color: #0000ff;">else</span> dp[i][j] = dp[i-<span style="color: #800080;">1</span><span style="color: #000000;">][j];
+</span><span style="color: #008080;">19</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">20</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">21</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> dp[lens][lent];
+</span><span style="color: #008080;">22</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">23</span> };</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>【版权声明】转载请注明出处：<a href="http://www.cnblogs.com/TenosDoIt/p/3440022.html">http://www.cnblogs.com/TenosDoIt/p/3440022.html</a></strong></p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/TenosDoIt/category/527785.html" target="_blank">LeetCode</a>,<a href="http://www.cnblogs.com/TenosDoIt/category/507376.html" target="_blank">OJ</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/TenosDoIt/tag/leetcode/">leetcode</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3440022,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;af85eed1-89a5-e211-83e8-90b11c0b17d6&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/TenosDoIt/" target="_blank"><img src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/20131103184957.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/TenosDoIt/">tenos</a><br>
+            <a href="http://home.cnblogs.com/u/TenosDoIt/followees">关注 - 10</a><br>
+            <a href="http://home.cnblogs.com/u/TenosDoIt/followers">粉丝 - 155</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;af85eed1-89a5-e211-83e8-90b11c0b17d6&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3440022,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(3440022,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/TenosDoIt/p/3437497.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/TenosDoIt/p/3437497.html" title="发布于2013-11-22 14:24">LeetCode:Populating Next Right Pointers in Each Node I II</a><br><a href="http://www.cnblogs.com/TenosDoIt/p/3440032.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/TenosDoIt/p/3440032.html" title="发布于2013-11-24 14:57">LeetCode:Flatten Binary Tree to Linked List</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-11-24 14:50</span> <a href="http://www.cnblogs.com/TenosDoIt/">tenos</a> 阅读(<span id="post_view_count">1964</span>) 评论(<span id="post_comment_count">1</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3440022" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/TenosDoIt/p/3440022.html#" onclick="AddToWz(3440022);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=147990,cb_entryId=3440022,cb_blogApp=currentBlogApp,cb_blogUserGuid='af85eed1-89a5-e211-83e8-90b11c0b17d6',cb_entryCreatedDate='2013/11/24 14:50:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/TenosDoIt/p/3440022.html#3246171" class="layer">#1楼</a><a name="3246171" id="comment_anchor_3246171"></a><span id="comment-maxId" style="display:none;">3246171</span><span id="comment-maxDate" style="display:none;">2015/8/12 11:32:06</span>  <span class="comment_date">2015-08-12 11:32</span> <a id="a_comment_author_3246171" href="http://www.cnblogs.com/yueyanglou/" target="_blank">岳阳楼</a> <a href="http://msg.cnblogs.com/send/%E5%B2%B3%E9%98%B3%E6%A5%BC" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3246171" class="blog_comment_body">博主，谢谢您的分享和讲解！<br>不过在dp的讲解中<br>您这里是不是笔误了：<br>：动态规划，设dp[i][j]是从字符串S[0...i]中删除几个字符得到字符串T[0...j]的不同的删除方法种类<br><br>dp[i][j]应该是从S[0,....,i-1]中删除字符得到T[0,...,j-1]的删除方法种类数<br>吧</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3246171,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3246171,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/TenosDoIt/p/3440022.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/TenosDoIt/p/3440022.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://arcapp.anruichina.com/arctrac/trac?tid=smb_azure_1212_CNBlog" target="_blank">【福利】微软Azure给博客园的你专属双重好礼</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank">【推荐】BPM免费下载</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/24442-20161115165230123-1587531896.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/560370/" target="_blank">联想在CES发布智能家庭核心设备和ThinkPad系列新品</a><br> ·  <a href="http://news.cnblogs.com/n/560369/" target="_blank">微信公众号赞赏资金将调整为7天后结算</a><br> ·  <a href="http://news.cnblogs.com/n/560367/" target="_blank">摩拜再融2.15亿美元，共享单车的终局会是什么？</a><br> ·  <a href="http://news.cnblogs.com/n/560349/" target="_blank">光计算技术发展的一个里程碑</a><br> ·  <a href="http://news.cnblogs.com/n/560365/" target="_blank">继苹果之后 高通拟参投软银1千亿美元新科技基金</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank"><img width="468" height="60" src="./LeetCode_Distinct Subsequences - tenos - 博客园_files/35695-20161213142353073-1602158633.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/556770/" target="_blank">写给未来的程序媛</a><br> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><p>
+</p>
+<div style="display: none" id="__document_write_ajax_div-2"></div>
+<p></p>
+
+
+访问量：<!-- Start of StatCounter Code for Default Guide -->
+<div style="display: none" id="__document_write_ajax_div-3"></div>
+<noscript>&lt;div class="statcounter"&gt;&lt;a title="free hit
+counter" href="http://statcounter.com/" target="_blank"&gt;&lt;img
+class="statcounter"
+src="http://c.statcounter.com/9356454/0/c667a8d5/0/"
+alt="free hit counter"&gt;&lt;/a&gt;&lt;/div&gt;</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+<p>
+<a style="color:#FC0606" href="http://yibo.iyiyun.com/js/yibo404/key/1" target="_blank">公益页面-寻找遗失儿童</a>
+</p><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/TenosDoIt/">tenos</a><br>园龄：<a href="http://home.cnblogs.com/u/TenosDoIt/" title="入园时间：2013-04-15">3年8个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/TenosDoIt/followers/">155</a><br>关注：<a href="http://home.cnblogs.com/u/TenosDoIt/followees/">10</a><div id="p_b_follow"></div><div style="display: none" id="__document_write_ajax_div-4"></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/12/01&#39;);return false;">&lt;</a></td><td align="center">2017年1月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/02/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td></tr><tr><td class="CalWeekendDay" align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalTodayDay" align="center">5</td><td align="center">6</td><td class="CalWeekendDay" align="center">7</td></tr><tr><td class="CalWeekendDay" align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td class="CalWeekendDay" align="center">14</td></tr><tr><td class="CalWeekendDay" align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td class="CalWeekendDay" align="center">21</td></tr><tr><td class="CalWeekendDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td class="CalWeekendDay" align="center">28</td></tr><tr><td class="CalWeekendDay" align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/TenosDoIt/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/TenosDoIt/tag/leetcode/">leetcode</a>(119)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/c%2B%2B/">c++</a>(17)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/dp/">dp</a>(8)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/pat/">pat</a>(5)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>(4)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/zoj/">zoj</a>(4)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/oj/">oj</a>(3)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/stl/">stl</a>(3)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/yacc/">yacc</a>(2)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/%E8%83%8C%E5%8C%85%E4%B9%9D%E8%AE%B2/">背包九讲</a>(2)</li><li><a href="http://www.cnblogs.com/TenosDoIt/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(317)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/TenosDoIt/category/493554.html">c/c++ 基础(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/TenosDoIt/category/560659.html">c/c++进阶(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/TenosDoIt/category/528386.html">HDOJ(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/TenosDoIt/category/470892.html">IT基础(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/TenosDoIt/category/527785.html">LeetCode(121)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/TenosDoIt/category/560661.html">linux编程</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/TenosDoIt/category/493555.html">machine learning(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/TenosDoIt/category/507376.html">OJ(85)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/TenosDoIt/category/616508.html">Python(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/TenosDoIt/category/470893.html">STL(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/TenosDoIt/category/560660.html">windows编程(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/TenosDoIt/category/528388.html">ZJU-PAT(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/TenosDoIt/category/528387.html">ZOJ(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/TenosDoIt/category/507375.html">编程之美(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/TenosDoIt/category/470907.html">编译原理(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/TenosDoIt/category/613449.html">代码优化(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/TenosDoIt/category/623319.html">概率问题(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/TenosDoIt/category/623318.html">计算几何学(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/TenosDoIt/category/470894.html">经验分享(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/TenosDoIt/category/542530.html">庞果英雄会(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/TenosDoIt/category/566106.html">设计模式(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/TenosDoIt/category/529668.html">树(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/TenosDoIt/category/470906.html">数据库(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/TenosDoIt/category/582133.html">数学(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/TenosDoIt/category/470890.html">算法与数据结构(33)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/TenosDoIt/category/529667.html">图论(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/TenosDoIt/category/470905.html">网络编程(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/TenosDoIt/category/529669.html">字符串</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(209)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/TenosDoIt/archive/2014/12.html">2014年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/TenosDoIt/archive/2014/10.html">2014年10月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/TenosDoIt/archive/2014/09.html">2014年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/TenosDoIt/archive/2014/07.html">2014年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/TenosDoIt/archive/2014/06.html">2014年6月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/TenosDoIt/archive/2014/05.html">2014年5月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/TenosDoIt/archive/2014/04.html">2014年4月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/TenosDoIt/archive/2014/03.html">2014年3月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/TenosDoIt/archive/2014/02.html">2014年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/TenosDoIt/archive/2013/12.html">2013年12月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/TenosDoIt/archive/2013/11.html">2013年11月 (53)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/TenosDoIt/archive/2013/10.html">2013年10月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/TenosDoIt/archive/2013/08.html">2013年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/TenosDoIt/archive/2013/07.html">2013年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/TenosDoIt/archive/2013/06.html">2013年6月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/TenosDoIt/archive/2013/04.html">2013年4月 (27)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	234498
+	</li>
+	<li class="liRank">
+		排名 -	690
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/TenosDoIt/p/3712590.html#3558982">1. Re:机器学习算法中的偏差-方差权衡(Bias-Variance Tradeoff)</a></li>
+        <li class="recent_comment_body">棒棒哒</li>
+        <li class="recent_comment_author">--zrh</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/TenosDoIt/p/3712590.html#3558758">2. Re:机器学习算法中的偏差-方差权衡(Bias-Variance Tradeoff)</a></li>
+        <li class="recent_comment_body">我更喜欢这幅图(我把原图解释了一下)</li>
+        <li class="recent_comment_author">--data_miner</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/TenosDoIt/p/3771122.html#3535054">3. Re:LeetCode:Longest Valid Parentheses</a></li>
+        <li class="recent_comment_body">很深刻的教训，动态规划是用来优化一些用重复子问题的暴力遍历。<br>扫描大法就能解决的问题，还是不要dp的好。</li>
+        <li class="recent_comment_author">--机智炫酷</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/TenosDoIt/p/3453089.html#3533043">4. Re:一步一步理解线段树</a></li>
+        <li class="recent_comment_body">@linjapyc谢谢指出错误！...</li>
+        <li class="recent_comment_author">--tenos</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/TenosDoIt/p/3453089.html#3533042">5. Re:一步一步理解线段树</a></li>
+        <li class="recent_comment_body">@zack Lu谢谢指出错误...</li>
+        <li class="recent_comment_author">--tenos</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/TenosDoIt/p/3456704.html">1. c++ 智能指针用法详解(12340)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3453089.html">2. 一步一步理解线段树(11878)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3203137.html">3. lib 和 dll 的区别、生成以及使用详解(8975)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3444086.html">4. LeetCode:Max Points on a Line(8635)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3675788.html">5. LeetCode:Longest Palindromic Substring 最长回文子串(7860)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/TenosDoIt/p/3747946.html">1. 选择爱人的数学方法（经典秘书问题）(11)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/4024413.html">2. 二维平面上判断点是否在三角形内(11)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3242910.html">3. 编程之美 1.1 让cpu占用率曲线听你指挥（多核处理器）(10)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3444086.html">4. LeetCode:Max Points on a Line(8)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3590491.html">5. C++ 内存对齐(8)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/TenosDoIt/p/3456704.html">1. c++ 智能指针用法详解(6)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/4025221.html">2. 均匀的生成圆和三角形内的随机点(6)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3203137.html">3. lib 和 dll 的区别、生成以及使用详解(5)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3747946.html">4. 选择爱人的数学方法（经典秘书问题）(5)</a></li><li><a href="http://www.cnblogs.com/TenosDoIt/p/3436457.html">5. LeetCode:Best Time to Buy and Sell Stock I II III(4)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 tenos
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<br><font color="#FC0606"> 本博客rss订阅地址: http://feed.cnblogs.com/blog/u/147990/rss </font><br>
+<p>
+<a style="color:#FC0606" href="http://yibo.iyiyun.com/js/yibo404/key/1" target="_blank">公益页面-寻找遗失儿童</a>
+</p>
+<!--PageEndHtml Block End-->
+
+
+</body></html>

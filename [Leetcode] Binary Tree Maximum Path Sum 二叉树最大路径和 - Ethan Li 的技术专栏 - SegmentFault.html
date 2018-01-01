@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://segmentfault.com/a/1190000003554858 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta property="qc:admins" content="15317273575564615446375"><meta property="og:image" content="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/img/touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"><meta name="apple-itunes-app" content="app-id=958101793, app-argument="><title>[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault</title><meta name="description" content="Binary Tree Maximum Path Sum Given a binary tree, find the maximum path sum. The path may start and end at any node in the tree. For example: Given the below binary tree, {代码...} Return 6. 栈迭代..."><meta name="keywords" content="leetcode,算法,java"><link rel="search" type="application/opensearchdescription+xml" href="https://segmentfault.com/opensearch.xml" title="SegmentFault"><link rel="shortcut icon" href="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/img/favicon.ico"><link rel="apple-touch-icon" href="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/img/touch-icon.png"><meta name="msapplication-TileColor" content="#009a61"><meta name="msapplication-square150x150logo" content="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/img/touch-icon.png"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新问题" href="https://segmentfault.com/feeds/questions"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新文章" href="https://segmentfault.com/feeds/blogs"><link rel="stylesheet" href="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/global.css"><link rel="stylesheet" href="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/blog.css"><link rel="stylesheet" href="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/responsive.css"><!--[if lt IE 9]><link rel="stylesheet" href="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/css/ie.css"/><script src="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/script/html5shiv.js"></script><script src="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/script/respond.js"></script><![endif]--><script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script></head><body data-mod="blog" class="blog-post "><!--[if lt IE 9]><div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div><![endif]--><img id="icon4weChat" style="height: 0;width: 0;" data-src="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/img/touch-icon-512.png"><img id="icon4weChat" data-src="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/img/touch-icon-512.png"><div class="global-nav sf-header"><nav class="container nav"><div class="hidden-sm hidden-lg hidden-md"><div class="sf-header__logo sf-header__logo--response"><h1><a></a></h1></div><div class="dropdown m-menu"><a href="javascript:void(0);" id="dLabel" class="visible-xs-block m-toptools" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span><span class="mobile-menu__unreadpoint"></span></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li class="mobile-menu__item"><a href="https://segmentfault.com/news">头条</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/questions/newest">问答</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/blogs">文章</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/user/note">笔记</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/jobs">职位</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/events">活动</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/tags">标签</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/users">榜单</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/sites">子站</a></li></ul></div><a href="https://segmentfault.com/user/login" class="visible-xs-block pull-right m-ask m-toptools"><span class="glyphicon glyphicon-log-in"></span></a></div><div class="row hidden-xs"><div class="col-sm-10 col-md-8 col-lg-7"><div class="sf-header__logo"><h1><a href="https://segmentfault.com/">SegmentFault</a></h1></div><ul class="menu list-inline pull-left hidden-xs"><li class="menu__item menu__item--new menu__item--new-show"><a href="https://segmentfault.com/news">头条</a></li><li class="menu__item"><a href="https://segmentfault.com/questions">问答</a></li><li class="menu__item"><a href="https://segmentfault.com/blogs">专栏</a></li><li class="menu__item"><a href="https://segmentfault.com/jobs">职位</a></li><li class="menu__item"><a href="https://segmentfault.com/events">活动</a></li><li class="menu__item menu__item-sfdc--new hide menu__item--new-show"><a href="https://segmentfault.com/sfdc-2016/hz">SFDC</a></li></ul></div><div class="col-sm-2 col-md-4 col-lg-5 text-right"><form action="https://segmentfault.com/search" class="header-search  hidden-sm hidden-xs mr20"><button class="btn btn-link"><span class="sr-only">搜索</span><span class="glyphicon glyphicon-search"></span></button><input id="searchBox" name="q" type="text" placeholder="输入关键字搜索" class="form-control" value=""></form><ul class="opts list-inline hidden-xs"><li class="opts__item message has-unread"><a target="_blank" href="https://segmentfault.com/tour"><span class="sr-only">消息</span><span id="messageCount" class="fa fa-hand-peace-o"></span></a></li><li class="opts__item"><a href="https://segmentfault.com/user/login" class="SFLogin em ml10" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;Button&#39;, &#39;Click&#39;, &#39;Login&#39;]);">注册 ·
+                                        登录</a></li></ul></div></div></nav></div><div class="global-navTags"><div class="container"><nav class=" nav"><ul class="nav__list"><li class="nav__item"><a href="https://segmentfault.com/"><i class="fa fa-home"></i>home
+                            </a></li><li class="nav__item"><a href="https://segmentfault.com/timeline"><i class="fa fa-list-alt"></i>feed
+                            </a></li><li class="nav__item nav__item--split"><a><span class="split"></span></a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/javascript">javascript</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/php">php</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/python">python</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/java">java</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/mysql">mysql</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/ios">ios</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/android">android</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/node.js">node.js</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/html5">html5</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/linux">linux</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/c%2B%2B">c++</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/css3">css3</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/git">git</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/golang">golang</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/ruby">ruby</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/vim">vim</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/docker">docker</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/mongodb">mongodb</a></li><li class="nav__item nav__item--more" data-open="0"><a class="nav__item--more-link" href="https://segmentfault.com/tags"><div class="tag__more"><i class="tag__more--icon"></i><i class="tag__more--icon"></i><i class="tag__more--icon"></i></div></a></li></ul><div class="tag-mgr__box hide"><input class="tag-mgr__query" type="text" placeholder="搜索关注的标签" data-tags="null"><div class="mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" data-mcs-theme="minimal-dark" style="position: relative; overflow: visible;"><div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" style="max-height: 0px;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr"><ul class="tag-mgr__list"></ul></div></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div><a href="https://segmentfault.com/tags" class="btn btn-primary btn-sm tag-mgr__btn">标签管理</a></div></nav></div></div>
+    <div class="wrap">
+    <div class="post-topheader custom-">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <span class="post-topheader__title--icon-symbol">文</span>
+
+                    <div class="post-topheader__info" data-username="ethannnli" data-userslug="ethannnli" data-useravatar="https://sfault-avatar.b0.upaiyun.com/305/429/3054294820-55a47af3a5de8_big64">
+
+                        <h1 class="h3 post-topheader__info--title" id="articleTitle" data-id="1190000003554858">
+
+                            <a href="https://segmentfault.com/a/1190000003554858"> [Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和</a>
+                        </h1>
+
+                        <ul class="taglist--inline inline-block article__title--tag mr10">
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/leetcode/blogs" data-toggle="popover" data-img="" data-placement="top" data-original-title="leetcode" data-id="1040000000372409">leetcode</a></li>
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/%E7%AE%97%E6%B3%95/blogs" data-toggle="popover" data-img="https://sfault-avatar.b0.upaiyun.com/307/849/3078499334-1040000000089524_huge256" data-placement="top" data-original-title="算法" data-id="1040000000089524">算法</a></li>
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/java/blogs" data-toggle="popover" data-img="https://sfault-avatar.b0.upaiyun.com/512/342/51234253-1040000000089449_huge256" data-placement="top" data-original-title="java" data-id="1040000000089449">java</a></li>
+                                                    </ul>
+
+                        <div class="article__author">
+                            <a href="https://segmentfault.com/u/ethannnli" class="mr5 "><strong>ethannnli</strong></a>
+                            2015年08月30日发布
+                                                                                </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 hidden-xs">
+                    <ul class="post-topheader__side list-unstyled">
+                        <li>
+                                                                                                <button type="button" class="btn btn-success btn-sm" data-id="1190000003554858" id="sideLike">推荐
+                                    </button>
+                                                                                        <strong id="sideLiked">0</strong> 推荐
+                        </li>
+                        <li>
+                                                                                                <button type="button" id="sideBookmark" class="btn btn-default btn-sm" data-id="1190000003554858" data-type="article">收藏
+                                    </button>
+                                                                                        <strong id="sideBookmarked">1</strong> 收藏，<strong class="no-stress">1.6k</strong> 浏览
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- end .post-topheader -->
+
+    <div class="container mt30">
+        <div class="row">
+            <div class="col-xs-12 col-md-9 main ">
+
+                
+                <div class="article fmt article__content" data-id="1190000003554858" data-license="cc">
+                    
+<h1 id="articleHeader0">Binary Tree Maximum Path Sum</h1>
+<blockquote>
+<p>Given a binary tree, find the maximum path sum.</p>
+<p>The path may start and end at any node in the tree.</p>
+<p>For example: Given the below binary tree,</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="   1
+  / \
+ 2   3
+" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre class="hljs"><code>   1
+  / \
+ 2   3
+</code></pre>
+<p>Return 6.</p>
+</blockquote>
+<h2 id="articleHeader1">栈迭代</h2>
+<h3 id="articleHeader2">复杂度</h3>
+<p>时间 O(b^(h+1)-1) 空间 O(h) 递归栈空间 对于二叉树b=2</p>
+<h3 id="articleHeader3">思路</h3>
+<p>首先我们分析一下对于指定某个节点为根时，最大的路径和有可能是哪些情况。第一种是左子树的路径加上当前节点，第二种是右子树的路径加上当前节点，第三种是左右子树的路径加上当前节点（相当于一条横跨当前节点的路径），第四种是只有自己的路径。乍一看似乎以此为条件进行自下而上递归就行了，然而这四种情况只是用来计算以当前节点根的最大路径，如果当前节点上面还有节点，那它的父节点是不能累加第三种情况的。所以我们要计算两个最大值，一个是当前节点下最大路径和，另一个是如果要连接父节点时最大的路径和。我们用前者更新全局最大量，用后者返回递归值就行了。</p>
+<h3 id="articleHeader4">代码</h3>
+<div class="widget-codetool" style="display: block;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="public class Solution {
+    
+    private int max = Integer.MIN_VALUE;
+    
+    public int maxPathSum(TreeNode root) {
+        helper(root);
+        return max;
+    }
+    
+    public int helper(TreeNode root) {
+        if(root == null) return 0;
+        int left = helper(root.left);
+        int right = helper(root.right);
+        //连接父节点的最大路径是一、二、四这三种情况的最大值
+        int currSum = Math.max(Math.max(left + root.val, right + root.val), root.val);
+        //当前节点的最大路径是一、二、三、四这四种情况的最大值
+        int currMax = Math.max(currSum, left + right + root.val);
+        //用当前最大来更新全局最大
+        max = Math.max(currMax, max);
+        return currSum;
+    }
+}" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre class="hljs cs"><code><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> {
+    
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> max = Integer.MIN_VALUE;
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxPathSum</span><span class="hljs-params">(TreeNode root)</span> </span>{
+        helper(root);
+        <span class="hljs-keyword">return</span> max;
+    }
+    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">helper</span><span class="hljs-params">(TreeNode root)</span> </span>{
+        <span class="hljs-keyword">if</span>(root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> left = helper(root.left);
+        <span class="hljs-keyword">int</span> right = helper(root.right);
+        <span class="hljs-comment">//连接父节点的最大路径是一、二、四这三种情况的最大值</span>
+        <span class="hljs-keyword">int</span> currSum = Math.max(Math.max(left + root.val, right + root.val), root.val);
+        <span class="hljs-comment">//当前节点的最大路径是一、二、三、四这四种情况的最大值</span>
+        <span class="hljs-keyword">int</span> currMax = Math.max(currSum, left + right + root.val);
+        <span class="hljs-comment">//用当前最大来更新全局最大</span>
+        max = Math.max(currMax, max);
+        <span class="hljs-keyword">return</span> currSum;
+    }
+}</code></pre>
+
+                </div>
+                                                
+                <div class="clearfix mt10">
+
+                    <ul class="article-operation list-inline pull-left">
+                        <li><a href="https://segmentfault.com/a/1190000003554858" class="text-muted">2015年08月30日发布</a></li>
+                                                                                                                            <li class="dropdown js__content-ops" data-module="article" data-id="1190000003554858" data-typetext="文章">
+                                <a href="javascript:void(0);" class="dropdown-toggle text-muted" data-toggle="dropdown">更多<b class="caret"></b></a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="https://segmentfault.com/a/1190000003554858#911" data-toggle="modal" data-target="#911" data-action="report">举报</a></li>
+                                                                            
+                                                                                                                        
+                                        
+                                                                    </ul>
+                            </li>
+                                            </ul>
+                </div>
+                <div class="mt10 text-center"><button type="button" id="mainLike" data-id="1190000003554858" class="btn btn-success btn-lg mr15 ">
+                                0 推荐
+                            </button><button type="button" id="mainBookmark" data-type="article" data-id="1190000003554858" class="btn btn-default btn-lg mr15 ">
+                                收藏
+                            </button></div>
+                                    <div class="recommend-post pt30 mt40 mb30 border-top">
+                        <div class="row">
+                            <div class="col-md-8">
+                                                                    <h4 class="mt0">你可能感兴趣的文章</h4>
+                                    <ul class="widget-links list-unstyled">
+                                                                                    <li class="widget-links__item">
+                                                <a href="https://segmentfault.com/a/1190000002694229" title="Binary Tree Maximum Path Sum@LeetCode">Binary Tree Maximum Path Sum@LeetCode</a>
+                                                <small class="text-muted">
+                                                    1 收藏，690
+                                                    浏览
+                                                </small>
+                                            </li>
+                                                                                    <li class="widget-links__item">
+                                                <a href="https://segmentfault.com/a/1190000002710060" title="Binary Tree Preorder/Postorder Traversal">Binary Tree Preorder/Postorder Traversal</a>
+                                                <small class="text-muted">
+                                                    531
+                                                    浏览
+                                                </small>
+                                            </li>
+                                                                                    <li class="widget-links__item">
+                                                <a href="https://segmentfault.com/a/1190000007531370" title="[Leetcode-Tree]Binary Tree Maximum Path Sum">[Leetcode-Tree]Binary Tree Maximum Path Sum</a>
+                                                <small class="text-muted">
+                                                    76
+                                                    浏览
+                                                </small>
+                                            </li>
+                                                                            </ul>
+                                                            </div>
+                            <div class="col-md-4">
+                                                                    <div class="article-license">
+                                                                                                                            <img class="mb5" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/creativecommons-cc.png" height="24"><br>
+                                                                                <div class="license-item text-muted">
+                                            本文采用 <a href="http://creativecommons.org/licenses/by/3.0/cn" target="_blank" class="alert-link">署名-相同方式共享 3.0 中国大陆许可协议</a>，分享、演绎需署名且使用相同方式共享
+                                            。
+                                        </div>
+
+                                    </div>
+                                                            </div>
+                        </div>
+
+                    </div>
+                                <!-- <ul class="list-unstyled text-muted mt30">
+                                        <li>上一篇：<a href="/a/1190000003554851">[Leetcode] Path Sum 路径和</a></li>
+                                                            <li class="mt5">下一篇：<a href="/a/1190000003692629">[Leetcode] Copy List with Random Pointer 复制随机指针</a></li>
+                                    </ul> -->
+
+                <h2 class="h4 post-comment-title">讨论区</h2>
+                <div class="widget-comments" id="comment-1190000003554858" data-id="1190000003554858">
+                    <div class="widget-comments__form row">
+            
+                            <form class="clearfix SFLogin" method="POST">
+                    <div class="form-group mb0 widget-comments__form--input">
+                        <input name="id" type="hidden" value="1190000003554858">
+                        <textarea rows="1" name="text" class="SFLogin form-control mono" id="commentText-1190000003554858" data-id="1190000003554858" placeholder="使用评论询问更多信息或提出修改意见，请不要在评论里回答问题" style="overflow: hidden; word-wrap: break-word; height: 35px;"></textarea>
+
+                    </div>
+                    <div class="widget-comments__btn">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-default postComment" data-id="1190000003554858">提交评论
+                            </button>
+                            <span class="widget-comments__btn--tips"><a href="javascript:void(0);" class="toggle-comment-helper" title="语法提示">
+                            <i class="fa fa-question-circle"></i>
+                        </a></span>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible mb0 mt10 fmt comment-helper" data-rank="" style="" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="right:0;"><span aria-hidden="true">×</span></button>
+                        评论支持部分 Markdown 语法：<code>**bold**</code> <code>_italic_</code>
+                        <code>[link](http://example.com)</code> <code>&gt; 引用</code> <code>`code`</code> <code>-
+                        列表</code>。<br>同时，被你 @ 的用户也会收到通知
+                    </div>
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+                                    
+                
+            </div><!-- /.main -->
+
+
+            <div class="col-xs-12 col-md-3 side">
+                <div class="sfad-sidebar">
+      <div class="sfad-item">
+    <ins data-revive-zoneid="2" data-revive-block="1" data-revive-target="_blank" data-revive-ct0="1481906595" data-revive-id="0042ddc520dc895b7aa784fe6f9339bd" id="revive-0-0"></ins>
+    <button class="close" type="button" aria-hidden="true">×</button>
+</div>
+
+  </div>
+
+
+                <div class="widget-box widget-box--blog-info">
+                    <div class="blog__sidebar-author">
+                                                        <button type="button" class="btn btn-sm btn-success follow-user ml10 pull-right" data-do="follow" data-type="user" data-id="1030000002983334">关注作者
+                                </button>
+                            
+                        <div class="article__widget--author">
+                        <a href="https://segmentfault.com/u/ethannnli">
+                            <img class="avatar-40" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/3054294820-55a47af3a5de8_big64" alt="ethannnli">
+                        </a>
+                        <a class="article__widget-author-name" href="https://segmentfault.com/u/ethannnli">
+                            <strong>ethannnli</strong>
+                        </a>
+                        <p class="article__widget-author-text-muted mb0">
+                            <span>604 声望</span>
+
+                        </p>
+
+
+
+
+
+                    </div>
+
+
+
+                    </div>
+                    <div class="blog__sidebar-blog-name">
+                        <p class="article__widget-author-text-muted mt15 mb5">发布于专栏</p>
+
+                        <h4 class="fz16"><a href="https://segmentfault.com/blog/ethanli">Ethan Li 的技术专栏</a></h4>
+                        <p class="article__widget-author-desc">全栈工程师的修炼旅途</p>
+
+                        <p>
+                            <span class="article__widget-author-text-muted">97 人关注</span>
+                            
+                                                                    <button type="button mb20" class="btn btn-sm btn-default follow-article pull-right" data-do="follow" data-type="blog" data-id="1200000002986081">关注专栏
+                                    </button>
+                                
+                                                </p>
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+
+
+                                    <div class="widget-box">
+                        <h2 class="h4 widget-box__title">系列文章</h2>
+                        <ul class="widget-links list-unstyled">
+                                                            <li class="widget-links__item"><a title="[Leetcode] Minimum Size Subarray Sum 最短子串和" href="https://segmentfault.com/a/1190000003922961">[Leetcode] Minimum Size Subarray Sum 最短子串和</a>
+                                    <small class="text-muted">
+                                                                                1.5k 浏览
+                                    </small>
+                                </li>
+                                                            <li class="widget-links__item"><a title="[Leetcode] Binary Tree Longest Consecutive Sequence 二叉搜索树最长序列" href="https://segmentfault.com/a/1190000003957798">[Leetcode] Binary Tree Longest Consecutive Sequence 二叉搜索树最长序列</a>
+                                    <small class="text-muted">
+                                                                                    1 收藏，
+                                                                                3.9k 浏览
+                                    </small>
+                                </li>
+                                                    </ul>
+                    </div>
+                
+                    <div data-type="widget" data-api="/api/bookmarkArchive/hots" data-api-overwrite="/api/bookmarkArchive/1190000003554858/related">
+        <script src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/hm.js.下载"></script><script async="" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/analytics.js.下载"></script><script type="text/template">
+            <div class="widget-box widget-box--bookmark no-border">
+                <h4 class="widget-box__title">相关收藏夹 <a id="widgetBookmarkRefresh" class="userstab pull-right"
+                                                          href="javascript:;">换一组</a></h4>
+                <ul class="widget-links list-unstyled media">
+                    <% _.each(data,function(d){ %>
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-<%= d.id%19 %> mr10" src="https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84/global/img/pattern/<%= d.id%10 ? d.id%10 : 10 %>.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="<%- d.url %>"><%= d.name %></a>
+                            <p class="mb0">
+                                <span><%- d.num %></span> 个条目 <span class="division">|</span> <span><%- d.followers %></span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </script>
+    
+            <div class="widget-box widget-box--bookmark no-border">
+                <h4 class="widget-box__title">相关收藏夹 <a id="widgetBookmarkRefresh" class="userstab pull-right" href="javascript:;">换一组</a></h4>
+                <ul class="widget-links list-unstyled media">
+                    
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-17 mr10" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/2.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="https://segmentfault.com/bookmark/1230000002762462">java相关</a>
+                            <p class="mb0">
+                                <span>6</span> 个条目 <span class="division">|</span> <span>1</span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-2 mr10" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/10.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="https://segmentfault.com/bookmark/1230000006972980">java相关</a>
+                            <p class="mb0">
+                                <span>24</span> 个条目 <span class="division">|</span> <span>0</span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-3 mr10" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/2.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="https://segmentfault.com/bookmark/1230000006024102">Java并发</a>
+                            <p class="mb0">
+                                <span>7</span> 个条目 <span class="division">|</span> <span>1</span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+
+                <div class="widget-share__full" data-text="[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和" data-url="https://segmentfault.com/a/1190000003554858" data-shorturl="http://sfau.lt/b5o4WA"><div style="margin-bottom:10px;">分享扩散：</div><div class="widget-share-network sharer-0" style="display: block;"><ul class="sn-inline"><li data-network="weibo"><a href="javascript:void(0);" class="entypo-weibo icon-sn-weibo share-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至新浪微博">新浪微博</a></li><li data-network="wechart"><a href="javascript:void(0);" class="entypo-wechart icon-sn-weixin share-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至微信">微信</a></li><li data-network="twitter"><a href="javascript:void(0);" class="entypo-twitter icon-sn-twitter share-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至 Twitter">Twitter</a></li><li data-network="facebook"><a href="javascript:void(0);" class="entypo-facebook icon-sn-facebook share-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至 Facebook">Facebook</a></li></ul></div><a type="button" class="btn btn-sm shareMore btn-sn-more" data-toggle="popover" data-placement="top" data-url="https://segmentfault.com/a/1190000003554858" data-shorturl="http://sfau.lt/b5o4WA"><span class="icon-sn-dotted" data-original-title="" title=""></span><strong class="visible-xs-inline">•••</strong></a></div>
+
+                <div class="post-nav hidden-xs side-outline hidden-sm fixed" style="display: block; width: 255px; top: 0px;">
+                    <div class="panel panel-default widget-outline">
+                        <div class="panel-heading">文章目录</div>
+                        <div class="panel-body">
+                            <div class="nav-body" style="top: 0px;">
+                                <div class="highlight-title" style="display: block; top: 107.2px; height: 27px;"></div>
+                                <ul class="articleIndex"><li class=""><a href="https://segmentfault.com/a/1190000003554858#articleHeader0">Binary Tree Maximum Path Sum</a></li><li style="list-style:none;"><ul><li class=""><a href="https://segmentfault.com/a/1190000003554858#articleHeader1">栈迭代</a></li><li style="list-style:none;"><ul><li class=""><a href="https://segmentfault.com/a/1190000003554858#articleHeader2">复杂度</a></li><li class=""><a href="https://segmentfault.com/a/1190000003554858#articleHeader3">思路</a></li><li class="active"><a href="https://segmentfault.com/a/1190000003554858#articleHeader4">代码</a></li></ul></li></ul></li></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.side -->
+        </div>
+    </div>
+</div>
+
+<div id="shareToWeiboModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">分享</h4>
+            </div>
+            <div class="modal-body">
+                <p class="sfModal-content">
+                    分享到微博？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default dont-likeweibo" data-dismiss="modal">取消</button>
+                <a href="https://segmentfault.com/a/1190000003554858" id="shareLink" class="btn btn-primary done-btn" target="_blank" onclick="$(&#39;#shareToWeiboModal&#39;).modal(&#39;hide&#39;)">分享</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+<script type="text/template" id="regNext">
+        <div class="row flex-vertical-center">
+        <div class="col-md-12">
+            <p class="mb0" style="font-size: 14px; margin-right:50px; font-family: Source Code Pro,Consolas,Menlo,Monaco,Courier New,monospace;">
+                    空两格 or 空四格，这里有和你一样有趣的开发者
+            </p>
+            <button class="btn btn-primary SFLogin mr10"
+                    onclick='ga("send", "event", "join button", "clicked", "footer welcome popup");'>投入组织怀抱
+            </button>
+            <button class="btn  btn-default  tomorrow">我用 Python</button>
+        </div>
+
+    </div>
+</script>
+
+<div class="widget-register widget-welcome-question mt20 hidden-xs hidden-sm widget-welcome widget-register-slideUp">
+    <div class="container">
+        <div class="row flex-vertical-center">
+            <div class="col-sm-12 col-md-8">
+                <p class="mb0">
+                                                                技术专栏，帮你记录编程中的点滴，提升你对技术的理解<br>收藏感兴趣的文章，丰富自己的知识库
+                                    </p>
+
+            </div>
+            <div class="col-sm-12 col-lg-3 col-lg-offset-1 col-md-4">
+                <button class="btn btn-primary btn-lg SFLogin  mr10" onclick="ga(&quot;send&quot;, &quot;event&quot;, &quot;join button&quot;, &quot;clicked&quot;, &quot;footer welcome popup&quot;);">立即注册
+                </button>
+                <button class="btn btn-lg btn-default  tomorrow">明天提醒我</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal widget-911" id="911" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title"><span data-model="action"></span><span data-model="type"></span></h4>
+      </div>
+      <div class="modal-body">
+        <form id="reportForm">
+          <!-- 后台返回信息 -->
+          <p class="alert alert-warning" data-model="returnMsg"></p>
+          <div data-role="base">
+            <p>
+              <strong class="required">我要<span data-model="action"></span>该<span data-model="type"></span>，理由是：</strong>
+            </p>
+            <ul class="list-unstyled" data-model="list"></ul>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default pull-left" type="button" data-role="back" style="display:none">返回重选</button>
+                <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+        <button class="btn btn-primary" data-role="submit" type="button">提交</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<footer id="footer">
+    <div class="container">
+        <div class="row hidden-xs">
+            <dl class="col-sm-2 site-link">
+                <dt>网站相关</dt>
+                <dd><a href="https://segmentfault.com/about">关于我们</a></dd>
+                <dd><a href="https://segmentfault.com/tos">服务条款</a></dd>
+                <dd><a href="https://segmentfault.com/faq">帮助中心</a></dd>
+                <dd><a href="https://segmentfault.com/repu">声望与权限</a></dd>
+                <dd><a href="https://segmentfault.com/markdown">编辑器语法</a></dd>
+                <dd><a href="https://weekly.segmentfault.com/">每周精选</a></dd>
+                <dd><a href="https://segmentfault.com/app">App 下载</a></dd>
+                <dd><a href="https://segmentfault.com/community">社区服务中心</a></dd>
+            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>联系合作</dt>
+                <dd><a href="https://segmentfault.com/contact">联系我们</a></dd>
+                <dd><a href="https://segmentfault.com/hiring">加入我们</a></dd>
+                <dd><a href="https://segmentfault.com/link">合作伙伴</a></dd>
+                <dd><a href="https://segmentfault.com/press">媒体报道</a></dd>
+                <dd><a href="https://board.segmentfault.com/">建议反馈</a></dd>
+                            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>常用链接</dt>
+                                                <dd><a href="https://chrome.google.com/webstore/detail/segmentfault-%E7%AC%94%E8%AE%B0/pjklfdmleagfaekibdccmhlhellefcfo" target="_blank">笔记插件: Chrome</a></dd>
+                                                                <dd><a href="https://addons.mozilla.org/zh-CN/firefox/addon/sf-note-ext/" target="_blank">笔记插件: Firefox</a></dd>
+                                                                <dd>订阅：<a href="https://segmentfault.com/feeds">问答</a> / <a href="https://segmentfault.com/feeds/blogs">文章</a></dd>
+                                                                <dd><a href="https://mirrors.segmentfault.com/" target="_blank">文档镜像</a></dd>
+                                                                <dd><a href="https://segmentfault.com/blog/interview" target="_blank">社区访谈</a></dd>
+                                                                <dd><a href="https://segmentfault.com/d-day" target="_blank">D-DAY 技术沙龙</a></dd>
+                                                                <dd><a href="https://segmentfault.com/hackathon" target="_blank">黑客马拉松 Hackathon</a></dd>
+                                                                <dd><a href="https://namebeta.com/" target="_blank">域名搜索注册</a></dd>
+                                            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>关注我们</dt>
+                                <dd><a href="https://github.com/SegmentFault" target="_blank">Github</a></dd>
+                                <dd><a href="https://twitter.com/segment_fault" target="_blank">Twitter</a></dd>
+                                <dd><a href="http://weibo.com/segmentfault" target="_blank">新浪微博</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault_team" target="_blank">团队日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault" target="_blank">产品技术日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/community_admin" target="_blank">社区运营日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault_news" target="_blank">市场运营日志</a></dd>
+                            </dl>
+            <dl class="col-sm-4 site-link" id="license">
+                <dt>内容许可</dt>
+                <dd>除特别说明外，用户内容均采用 <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/cn/">知识共享署名-相同方式共享 3.0 中国大陆许可协议</a> 进行许可
+                </dd>
+                <dd>本站由 <a target="_blank" href="https://www.upyun.com/?utm_source=segmentfault&amp;utm_medium=link&amp;utm_campaign=upyun&amp;md=segmentfault">又拍云</a> 提供 CDN 存储服务
+                </dd>
+            </dl>
+        </div>
+        <div class="copyright">
+            Copyright © 2011-2016 SegmentFault. 当前呈现版本 16.12.14<br>
+            <a href="http://www.miibeian.gov.cn/" rel="nofollow">浙ICP备 15005796号-2</a> &nbsp;
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602002000" rel="nofollow">浙公网安备 33010602002000号</a>
+        </div>
+        <p class="text-center">
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="mobile" href="javascript:;">移动版</a>
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="desktop" href="javascript:;">桌面版</a>
+        </p>
+    </div>
+</footer>
+
+<div id="fixedTools" class="hidden-xs hidden-sm">
+    <a id="backtop" class="border-bottom" href="https://segmentfault.com/a/1190000003554858#">回顶部</a>
+
+    <div class="qrcodeWraper">
+        <a href="https://segmentfault.com/app#qrcode"><span class="glyphicon glyphicon-qrcode"></span></a>
+        <img id="qrcode" class="border" alt="sf-wechat" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/appQrcode.png">
+
+        <p class="qrcode-text">扫扫下载 App</p>
+    </div>
+</div>
+
+<div class="app-promotion-bar">
+    <a href="javascript:;"><i class="fa fa-close close"></i></a>
+    <div class="icon"></div>
+    <h5 class="title h5">SegmentFault</h5>
+    <p class="describe">一起探索更多未知</p>
+    <a class="download-btn btn btn-sm btn-primary" href="https://segmentfault.com/app#qrcode">下载 App</a>
+</div>
+
+<script id="loginModal" type="text/template">
+    <div class="row bg-white login-modal">
+        <div class="col-md-4 col-sm-12 col-md-push-7 login-wrap">
+            <h1 class="h4 text-muted login-title">用户登录</h1>
+            <form action="/api/user/login" method="POST" role="form" class="mt30">
+                <div class="form-group">
+                    <label for="username" class="control-label">手机号 或 Email</label>
+                    <input type="text" class="form-control" name="username" required placeholder="11 位手机号 或 Email"
+                           autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">密码</label><span class="pull-right"><a
+                                href="/user/forgot">忘记密码</a></span>
+                    <input type="password" class="form-control" name="password" required placeholder="密码">
+                </div>
+                <div class="form-group clearfix">
+                    <div class="checkbox pull-left">
+                        <label><input name="remember" type="checkbox" value="1" checked> 记住登录状态</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right pl20 pr20"
+                            onclick='ga("send", "event", "email login button", "clicked", "login modal");'>登录
+                    </button>
+                </div>
+            </form>
+            <p class="h4 text-muted visible-xs-block h4">快速登录</p>
+            <div class="widget-login mt30">
+                <p class="text-muted mt5 mr10 pull-left hidden-xs">快速登录</p>
+                <a href="/user/oauth/google" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "google"});'><span
+                            class="icon-sn-google"></span> <strong class="visible-xs-inline">Google 账号</strong></a>
+                <a href="/user/oauth/github" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "github"});");'><span
+                            class="icon-sn-github"></span> <strong class="visible-xs-inline">Github 账号</strong></a>
+                <a href="/user/oauth/weibo" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "weibo"});'><span
+                            class="icon-sn-weibo"></span> <strong class="visible-xs-inline">新浪微博账号</strong></a>
+                <a href="/user/oauth/qq" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "qq"});'><span
+                            class="icon-sn-qq"></span> <strong class="visible-xs-inline">QQ 账号</strong></a>
+                <a href="/user/oauth/weixin" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "qq"});'><span
+                            class="icon-sn-weixin"></span> <strong class="visible-xs-inline">微信账号</strong></a>
+                <a href="/user/oauth/linkedin" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "linkedin"});'><span
+                            class="icon-sn-linkedin"></span> <strong class="visible-xs-inline">LinkedIn 账号</strong></a>
+                <span id="loginShowMore" style="cursor: pointer" class="mb5"><span class="icon-sn-dotted"></span><strong
+                            class="visible-xs-inline">•••</strong></span>
+                <a href="/user/oauth/twitter" class=" hidden"
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "twitter"});'><span
+                            class="icon-sn-twitter"></span> <strong class="visible-xs-inline">Twitter 账号</strong></a>
+                <a href="/user/oauth/facebook" class=" hidden"
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "facebook"});'><span
+                            class="icon-sn-facebook"></span> <strong class="visible-xs-inline">Facebook 账号</strong></a>
+                <a href="/user/oauth/douban" class=" hidden"
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "douban"});'><span
+                            class="icon-sn-douban"></span> <strong class="visible-xs-inline">豆瓣账号</strong></a>
+            </div>
+        </div>
+        <div class="login-vline hidden-xs hidden-sm"></div>
+        <div class="col-md-4 col-md-pull-3 col-sm-12 login-wrap">
+            <h1 class="h4 text-muted login-title">注册新账号</h1>
+            <form action="/api/user/phone/register" method="POST" role="form" class="mt30">
+                <div class="form-group">
+                    <label for="name" class="control-label">名字</label>
+                    <input type="text" class="form-control" name="name" required placeholder="真实姓名或常用昵称">
+                </div>
+
+
+                <div class="form-group js-register-switch-box">
+                    <div class="mb10">
+                        <label class="radio-inline">
+                            <input type="radio" name="register_type" value="phone" checked> 用手机号注册
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="register_type" value="mail"> 用 Email 注册
+                        </label>
+                    </div>
+                    <div class="js-register-switch-content">
+                        <input type="phone" class="form-control mb15" name="phone" required placeholder="仅支持大陆手机号"
+                               autocomplete="off">
+                        <div class="input-group"><input name="code" type="text"
+                                                        class="form-control js-user-login__phone-code-value"
+                                                        placeholder="短信验证码">
+                            <span class="input-group-btn"><button class="btn btn-default js-user-login__phone-vaild-btn"
+                                                                  style="width:96px;" type="button">获取验证码</button></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password" class="control-label">密码</label>
+                    <input type="password" class="form-control" name="password" required placeholder="不少于 6 位">
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label class="required control-label">验证码</label>
+                    <input type="text" class="form-control" id="captcha" name="captcha" placeholder="请输入下方的验证码">
+                    <div class="mt10"><a id="loginReloadCaptcha" href="javascript:void(0)"><img
+                                    data-src="/user/captcha?w=240&h=50" class="captcha" width="240" height="50"/></a>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="checkbox pull-left">
+                        同意并接受<a href="/tos" target="_blank">《服务条款》</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary pl20 pr20 pull-right"
+                            onclick='ga("send", "event", "email register button", "clicked", "login modal");'>注册
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="text-center text-muted mt30">
+    </div>
+</script>
+
+
+
+<script>
+    (function (w) {
+        w.SF = {
+            staticUrl: "https://dfnjy7g2qaazm.cloudfront.net/v-5853ba84"
+        };
+        w.SF.token = (function () {
+    var _C8QaF = '5'//'rlL'
++'a'//'Z'
++//'6eI'
+'4b4'+'5d'//'JEg'
++/* '7A'//'7A' */''+//'E'
+'E'+//'Fmi'
+'341'+//'N5'
+'N5'+'7'//'t'
++//'CV9'
+'fc'+//'Y3'
+'c0'+'f81'//'fX'
++//'x'
+'122'+//'qP'
+'qP'+'b'//'KRl'
++'e9'//'5E'
++'01'//'rIG'
++'60b'//'8h'
++//'ru'
+'1'+'c'//'q'
++'S'//'S'
++'9'//'6Y'
+, _7h0fEhK = [[7,8],[10,12],[21,23],[31,32]];
+
+    for (var i = 0; i < _7h0fEhK.length; i ++) {
+        _C8QaF = _C8QaF.substring(0, _7h0fEhK[i][0]) + _C8QaF.substring(_7h0fEhK[i][1]);
+    }
+
+    return _C8QaF;
+})();;
+    })(window);
+
+                var lock = {
+        type: "",
+        text: '',
+        table: {"ban_post":[1,"\u4f60\u5df2\u7ecf\u88ab\u7981\u8a00, \u65e0\u6cd5\u8fdb\u884c\u6b64\u64cd\u4f5c, \u5982\u6709\u7591\u4e49\u8bf7\u63d0\u4ea4\u7533\u8bc9, \u6216\u8005\u53d1\u90ae\u4ef6\u5230pr@segmentfault.com"]}
+    };
+</script>
+
+    <script crossorigin="" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/assets.js.下载"></script>
+    <script crossorigin="" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/post.min.js.下载"></script>
+
+<script async="" src="./[Leetcode] Binary Tree Maximum Path Sum 二叉树最大路径和 - Ethan Li 的技术专栏 - SegmentFault_files/asyncjs.php"></script>
+
+<script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-918487-8']);
+    _gaq.push(['_trackPageview']);
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            
+        
+
+            
+
+    ga('create', 'UA-918487-8', 'auto', {
+        'userID'
+    : 0,
+        'createdTime'
+    : 0,
+        'now'
+    : 1481906595 });
+    ga('set', 'dimension1', 'guest');
+    ga('send', 'pageview');
+
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e23800c454aa573c0ccb16b52665ac26";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<div id="noteWidget" class="noteWidget hidden hidden-xs">
+    <div class="noteWidget-header clearfix">
+        <h2 class="h4 pull-left">记笔记</h2>
+        <ul class="list-inline pull-right mb0">
+            <li id="noteWidgetMinimize"><span class="icon-minimize"></span></li><li id="noteWidgetZoom"><span class="icon-zoom"></span></li><li id="noteWidgetClose"><span class="icon-close"></span></li>
+        </ul>
+    </div>
+    <form method="POST" action="https://segmentfault.com/api/notes/add" role="form">
+        <div class="form-group">
+            <label for="title" class="sr-only">标题</label>
+            <input type="hidden" value="" id="draftId">
+            <input type="text" name="title" data-error="" autocomplete="off" class="form-control" placeholder="笔记描述" value="">
+        </div>
+        <div class="editor-config clearfix">
+            <select name="lang" class="form-control pull-left input-sm">
+                <optgroup label="文本语法">
+                    <option value="text" data-mode="text">纯文本</option>
+                    <option value="markdown" data-mode="markdown">Markdown</option>
+                    <option value="javascript" data-mode="javascript">Javascript</option>
+                    <option value="css" data-mode="css">CSS</option>
+                    <option value="html5" data-mode="htmlmixed">HTML</option>
+                    <option value="php" data-mode="php">PHP</option>
+                    <option value="python" data-mode="python">Python</option>
+                    <option value="ruby" data-mode="ruby">Ruby</option>
+                    <option value="go" data-mode="go">Go</option>
+                    <option value="c" data-mode="clike">C/C++</option>
+                    <option value="java" data-mode="java">Java</option>
+                    <option value="bash" data-mode="shell">Shell/Bash</option>
+                </optgroup>
+            </select>
+            <div class="pull-right hidden-xs">
+                <select name="indentWithTabs" class="form-control inline-block input-sm">
+                    <optgroup label="缩进模式">
+                        <option value="false">空格缩进</option>
+                        <option value="true">Tabs 缩进</option>
+                    </optgroup>
+                </select>
+                <select name="tabSize" class="form-control inline-block input-sm">
+                    <optgroup label="缩进大小">
+                        <option value="2">2</option>
+                        <option value="4" selected="">4</option>
+                    </optgroup>
+                </select>
+                <select name="lineWrap" class="form-control inline-block input-sm">
+                    <optgroup label="换行方式">
+                        <option value="true">自动换行</option>
+                        <option value="false">不换行</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <textarea id="codeMirror" class="form-control" style="display: none;"></textarea><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code"></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+        <div class="mt20 clearfix">
+            <div class="pull-right">
+                <span class="text-muted hidden" id="editorStatus">已保存</span>
+                <a id="dropIt" href="javascript:void(0);" class="mr10 hidden">[舍弃]</a>
+                <button data-type="note" id="publishIt2" class="btn btn-default ml10" data-id="" data-do="add" data-url="" data-text="保存私密笔记" data-name="">保存私密笔记</button>
+                <button data-type="note" id="publishIt" class="btn btn-primary ml10" data-id="" data-do="add" data-url="" data-text="保存公开笔记" data-name="">保存公开笔记</button>
+                </div>
+            </div>
+        </form></div>
+    
+<div id="atwho-container"><div id="atwho-ground-commentText-1190000003554858"><div class="atwho-view" id="at-view-64"><ul class="atwho-view-ul"></ul></div></div></div><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; white-space: pre-wrap; line-height: 21px; width: 651px;" class="autosizejs" id="autosizejs"></textarea></body></html>

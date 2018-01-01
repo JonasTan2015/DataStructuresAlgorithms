@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2 -->
+<html lang="en-US" data-dir="ltr" class=" " style="direction: ltr;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>O(n log k) Java Solution using TreeMap | LeetCode Discuss</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="content-type" content="text/html; charset=UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta property="og:site_name" content="LeetCode Discuss">
+	<meta name="keywords">
+	<meta name="msapplication-badge" content="frequency=30; polling-uri=https://discuss.leetcode.com/sitemap.xml">
+	<meta name="msapplication-square150x150logo" content="/uploads/system/site-logo.png">
+	<meta name="title" content="Contains Duplicate III">
+	<meta property="og:title" content="Contains Duplicate III">
+	<meta name="description" content="No decsciption available">
+	<meta property="og:type" content="website">
+	<link rel="stylesheet" type="text/css" href="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/stylesheet.css">
+	
+	<link rel="icon" type="image/x-icon" href="https://discuss.leetcode.com/favicon.ico?45d35af5-aa64-469c-9cdf-e8fc46461687">
+	<link rel="manifest" href="https://discuss.leetcode.com/manifest.json">
+	<link rel="apple-touch-icon" href="https://discuss.leetcode.com/apple-touch-icon">
+	<link rel="icon" sizes="36x36" href="https://discuss.leetcode.com/uploads/system/touchicon-36.png">
+	<link rel="icon" sizes="48x48" href="https://discuss.leetcode.com/uploads/system/touchicon-48.png">
+	<link rel="icon" sizes="72x72" href="https://discuss.leetcode.com/uploads/system/touchicon-72.png">
+	<link rel="icon" sizes="96x96" href="https://discuss.leetcode.com/uploads/system/touchicon-96.png">
+	<link rel="icon" sizes="144x144" href="https://discuss.leetcode.com/uploads/system/touchicon-144.png">
+	<link rel="icon" sizes="192x192" href="https://discuss.leetcode.com/uploads/system/touchicon-192.png">
+	<link rel="stylesheet" href="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/github.css">
+	<link rel="alternate" type="application/rss+xml" href="https://discuss.leetcode.com/category/228.rss">
+	<link rel="up" href="https://discuss.leetcode.com/">
+	<link rel="next" href="https://discuss.leetcode.com/category/228/contains-duplicate-iii?page=2">
+
+	<!--[if lt IE 9]>
+  		<script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.3.0/es5-shim.min.js"></script>
+  		<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  		<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+  		<script>__lt_ie_9__ = 1;</script>
+	<![endif]-->
+
+	<script async="" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/analytics.js.下载"></script><script>
+		var RELATIVE_PATH = "";
+		var config = JSON.parse('{"relative_path":"","version":"1.1.0","siteTitle":"LeetCode Discuss","browserTitle":"LeetCode Discuss","titleLayout":"&#123;pageTitle&#125; | &#123;browserTitle&#125;","showSiteTitle":false,"minimumTitleLength":"3","maximumTitleLength":"255","minimumPostLength":"12","maximumPostLength":"32767","minimumTagsPerTopic":"0","maximumTagsPerTopic":"5","minimumTagLength":"3","maximumTagLength":"30","hasImageUploadPlugin":false,"useOutgoingLinksPage":false,"allowGuestSearching":false,"allowGuestUserSearching":false,"allowGuestHandles":true,"allowFileUploads":true,"allowTopicsThumbnail":false,"usePagination":false,"disableChat":false,"socketioTransports":["websocket"],"websocketAddress":"","maxReconnectionAttempts":"3","reconnectionDelay":"1500","topicsPerPage":"20","postsPerPage":"20","maximumFileSize":"2048","theme:id":"nodebb-theme-leetcode","theme:src":"","defaultLang":"en_US","userLang":"en_US","loggedIn":false,"cache-buster":"45d35af5-aa64-469c-9cdf-e8fc46461687","requireEmailConfirmation":false,"topicPostSort":"oldest_to_newest","categoryTopicSort":"newest_to_oldest","csrf_token":"k4agiaNI-nGu9qJ6Vf14BGLpktiYtn4FevSg","searchEnabled":true,"bootswatchSkin":"default","hideSubCategories":true,"hideCategoryLastPost":true,"composer-default":{"composeRouteEnabled":"off","defaultPlaceHolder":"If you want to include code in your post,\\r\\nplease surround your code block with 3 backticks ```. \\r\\nFor example:\\r\\n```\\r\\ndef helloWorld():\\r\\n    pass\\r\\n````"},"markdown":{"highlight":1,"theme":"github.css"}}');
+		var app = {
+			template: "category",
+			user: JSON.parse('{"uid":0,"username":"Guest","userslug":"","email":"","picture":"","status":"offline","banned":false,"reputation":0,"email:confirmed":false,"isAdmin":false,"isGlobalMod":false}')
+		};
+	</script>
+	<script src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/nodebb.min.js.下载"></script>
+<script>
+	require.config({
+		baseUrl: "/src/modules",
+		waitSeconds: 3,
+		urlArgs: "45d35af5-aa64-469c-9cdf-e8fc46461687",
+		paths: {
+			'forum': '../client',
+			'admin': '../admin',
+			'vendor': '../../vendor',
+			'plugins': '../../plugins'
+		}
+	});
+</script>
+
+	
+
+	
+		<style type="text/css">.topic .posts .content pre{max-height:600px;font-size:12px}.topic .posts .content blockquote{font-size:14px;font-style:italic;background-color:#f8f8f8}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}</style>
+<link rel="stylesheet" href="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/js-enabled.css"><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/formatting" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/formatting.js.下载"></script><script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="buzz" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/buzz.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="mousetrap" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/mousetrap.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/chats/recent" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/recent.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/chats/search" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/search.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/chats/messages" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/messages.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/controls" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/controls.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/preview" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/preview.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/composer.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/uploads" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/uploads.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/drafts" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/drafts.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/tags" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/tags.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/categoryList" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/categoryList.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/resize" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/resize.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/autocomplete" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/autocomplete.js.下载"></script><style type="text/css" id="styles-emoji-extended">.emoji { display: inline-block; }
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="postSelect" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/postSelect.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/topic/delete-posts" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/delete-posts.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="highlight" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/highlight.js.下载"></script></head>
+
+<body class="skin-default page-topic page-topic-65760 page-topic-o-n-log-k-java-solution-using-treemap">
+	<nav id="menu" class=" slideout-menu">
+		<section class="menu-profile">
+			
+		</section>
+
+		<section class="menu-section" data-section="navigation">
+			<h3 class="menu-section-title">Navigation</h3>
+			<ul class="menu-section-list">
+															<li class="">
+						<a href="https://discuss.leetcode.com/categories" title="" data-original-title="Categories">
+														<i class="fa fa-fw fa-list"></i>
+
+														<span class="visible-xs-inline">Categories</span>
+						</a>
+					</li>
+									
+														<li class="">
+						<a href="https://discuss.leetcode.com/recent" title="" data-original-title="Recent">
+														<i class="fa fa-fw fa-clock-o"></i>
+
+														<span class="visible-xs-inline">Recent</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/popular" title="" data-original-title="Popular">
+														<i class="fa fa-fw fa-fire"></i>
+
+														<span class="visible-xs-inline">Popular</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/users" title="" data-original-title="Users">
+														<i class="fa fa-fw fa-user"></i>
+
+														<span class="visible-xs-inline">Users</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/groups" title="" data-original-title="Groups">
+														<i class="fa fa-fw fa-group"></i>
+
+														<span class="visible-xs-inline">Groups</span>
+						</a>
+					</li>
+									
+				
+						<a href="https://discuss.leetcode.com/search">
+							<i class="fa fa-search fa-fw"></i> Search
+						</a>
+					
+					
+					<li>
+						<a href="https://discuss.leetcode.com/login">
+							<i class="fa fa-sign-in visible-xs-inline"></i>
+							<span>Login</span>
+						</a>
+					</li>
+				</ul>
+		</section>
+
+		
+	</nav>
+
+	<main id="panel" class=" slideout-panel">
+		<nav class="navbar navbar-default navbar-fixed-top header" id="header-menu" component="navbar">
+			<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" id="mobile-menu">
+					<span component="notifications/icon" class="notification-icon fa fa-fw fa-bell-o" data-content="0"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+				<a href="https://discuss.leetcode.com/">
+					<img alt="" class=" forum-logo" src="./O(n log k) Java Solution using TreeMap _ LeetCode Discuss_files/site-logo.png">
+				</a>
+				
+
+				<div component="navbar/title" class="visible-xs hidden">
+					<span class="">O(n log k) Java Solution using TreeMap</span>
+				</div>
+			</div>
+
+			<div id="nav-dropdown" class="hidden-xs">
+												<ul id="logged-out-menu" class="nav navbar-nav navbar-right">
+					
+					<li>
+						<a href="https://discuss.leetcode.com/login">
+							<i class="fa fa-sign-in visible-xs-inline"></i>
+							<span>Login</span>
+						</a>
+					</li>
+				</ul>
+								<ul class="nav navbar-nav navbar-right">
+					<li data-original-title="" title="">
+						<form id="search-form" class="navbar-form navbar-right hidden-xs" role="search" method="GET" action="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2">
+							<button id="search-button" type="button" class="btn btn-link"><i class="fa fa-search fa-fw" title="Search"></i></button>
+							<div class="hidden" id="search-fields">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search" name="query" value="">
+									<a href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#"><i class="fa fa-gears fa-fw advanced-search-link"></i></a>
+								</div>
+								<button type="submit" class="btn btn-default hide">Search</button>
+							</div>
+						</form>
+					</li>
+					<li class="visible-xs" id="search-menu">
+						<a href="https://discuss.leetcode.com/search">
+							<i class="fa fa-search fa-fw"></i> Search
+						</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right hidden-xs">
+					<li>
+						<a href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" id="reconnect" class="hide" title="" data-original-title="Connection to LeetCode Discuss has been lost, attempting to reconnect...">
+							<i class="fa fa-check"></i>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right pagination-block visible-lg visible-md ready">
+					<li class="dropdown">
+						<i class="fa fa-angle-double-up pointer fa-fw pagetop"></i>
+						<i class="fa fa-angle-up pointer fa-fw pageup"></i>
+
+						<a href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="pagination-text">2 out of 2</span>
+						</a>
+
+						<i class="fa fa-angle-down pointer fa-fw pagedown"></i>
+						<i class="fa fa-angle-double-down pointer fa-fw pagebottom"></i>
+
+						<div class="progress-container">
+							<div class="progress-bar" style="width: 100%;"></div>
+						</div>
+
+						<ul class="dropdown-menu" role="menu">
+  							<input type="text" class="form-control" id="indexInput" placeholder="Enter index">
+  						</ul>
+					</li>
+				</ul>
+
+				<ul id="main-nav" class="nav navbar-nav">
+															<li class="">
+						<a href="https://discuss.leetcode.com/categories" title="" data-original-title="Categories">
+														<i class="fa fa-fw fa-list"></i>
+
+														<span class="visible-xs-inline">Categories</span>
+						</a>
+					</li>
+									
+														<li class="">
+						<a href="https://discuss.leetcode.com/recent" title="" data-original-title="Recent">
+														<i class="fa fa-fw fa-clock-o"></i>
+
+														<span class="visible-xs-inline">Recent</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/popular" title="" data-original-title="Popular">
+														<i class="fa fa-fw fa-fire"></i>
+
+														<span class="visible-xs-inline">Popular</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/users" title="" data-original-title="Users">
+														<i class="fa fa-fw fa-user"></i>
+
+														<span class="visible-xs-inline">Users</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/groups" title="" data-original-title="Groups">
+														<i class="fa fa-fw fa-group"></i>
+
+														<span class="visible-xs-inline">Groups</span>
+						</a>
+					</li>
+									
+				</ul>
+			</div>
+
+			</div>
+		</nav>
+		<div class="container" id="content"><ol class="breadcrumb">
+		<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="https://discuss.leetcode.com/" itemprop="url">
+			<span itemprop="title">
+				Home
+				
+			</span>
+		</a>
+	</li>
+	<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="https://discuss.leetcode.com/category/8/oj" itemprop="url">
+			<span itemprop="title">
+				OJ
+				
+			</span>
+		</a>
+	</li>
+	<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="https://discuss.leetcode.com/category/228/contains-duplicate-iii" itemprop="url">
+			<span itemprop="title">
+				Contains Duplicate III
+				
+			</span>
+		</a>
+	</li>
+	<li component="breadcrumb/current" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb" class="active">
+		
+			<span itemprop="title">
+				O(n log k) Java Solution using TreeMap
+												<a target="_blank" href="https://discuss.leetcode.com/topic/65760.rss"><i class="fa fa-rss-square"></i></a>
+			</span>
+		
+	</li>
+</ol>
+<div widget-area="header"><div class="alert alert-info">New users please <a href="https://discuss.leetcode.com/topic/22/welcome-new-users-please-read-this-before-posting"><font color="red"><b><u>read the instructions</u></b></font></a> to <i>format your code</i> properly.
+
+Discuss is a place to <a href="https://discuss.leetcode.com/category/5/interview-questions"><b>post interview questions</b></a> or share solutions / ask questions related to <a href="https://leetcode.com/problems">OJ problems</a>.
+
+<br><br>
+<b><u>IMPORTANT:</u></b> To sort the solutions by <b>highest votes</b>, <font color="red"><b><u><a href="https://discuss.leetcode.com/login">you must login first</a></u></b></font>.</div></div>
+<div class="row">
+	<div class="topic col-lg-12 col-sm-12" no-widget-class="topic col-lg-12 col-sm-12" no-widget-target="sidebar">
+
+		<h1 component="post/header" class="hidden-xs" itemprop="name">
+
+			<i class="pull-left fa fa-thumb-tack hidden"></i> <i class="pull-left fa fa-lock hidden"></i> <span class="topic-title" component="topic/title">O(n log k) Java Solution using TreeMap</span>
+
+			<span class="browsing-users hidden hidden-xs hidden-sm pull-right">
+				<span>browsing</span>
+				<div component="topic/browsing/list" class="thread_active_users active-users inline-block"></div>
+				<small class="hidden">
+					<i class="fa fa-users"></i> <span component="topic/browsing/count" class="user-count"></span>
+				</small>
+			</span>
+		</h1>
+
+		<div component="topic/deleted/message" class="alert alert-warning hidden">This topic has been deleted. Only users with topic management privileges can see it.</div>
+
+	<hr class="visible-xs" style="margin-bottom: 0">
+
+		<ul component="topic" class="posts" data-tid="65760" data-cid="228">
+							<li component="post" class="" data-index="0" data-pid="144082" data-uid="62953" data-timestamp="1477968468866" data-username="Mino De" data-userslug="mino-de" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="0" name="0"></a>
+
+					<meta itemprop="datePublished" content="2016-11-01T02:47:48.866Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/mino-de">
+										<div component="user/picture" data-uid="62953" class="user-icon" style="background-color: #9c27b0;" data-original-title="" title="">M</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/mino-de" itemprop="author" data-username="Mino De" data-uid="62953">Mino De</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+					
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="6" data-uid="62953" class="formatted-number reputation">6</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p>Have seen a lot of solutions with buckets. Here is a TreeMap variant.<br>
+The solutions is inspired from <a href="https://discuss.leetcode.com/topic/46887/java-solution-using-treemap-real-o-logn-per-adding">https://discuss.leetcode.com/topic/46887/java-solution-using-treemap-real-o-logn-per-adding</a></p>
+<p>We have only the last K elements at a time in a list and before we add a new element we check the lower and upper keys of an element in order to determine if there is an element that satisfies the value of t.</p>
+<p>This runs slower than the buckets solution as insert, delete, lowerKey, upperKey takes O(log n) time.<br>
+This is O(n logk) because at a time there are only k elements in the Tree.</p>
+<pre class="markdown-highlight"><code class="hljs cpp"> <span class="hljs-function"><span class="hljs-keyword">public</span> boolean <span class="hljs-title">containsNearbyAlmostDuplicate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> t)</span> </span>{
+        <span class="hljs-keyword">if</span>(nums==null || nums.length==<span class="hljs-number">0</span>){
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+        TreeMap&lt;Integer,Integer&gt; <span class="hljs-built_in">map</span> = <span class="hljs-keyword">new</span> TreeMap&lt;&gt;();
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;nums.length; i++){
+            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">map</span>.containsKey(nums[i]) &amp;&amp; <span class="hljs-number">0</span>&lt;=t &amp;&amp; i-<span class="hljs-built_in">map</span>.get(nums[i])&lt;=k) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            Integer l = <span class="hljs-built_in">map</span>.lowerKey(nums[i]);
+            Integer h = <span class="hljs-built_in">map</span>.higherKey(nums[i]);
+            <span class="hljs-keyword">if</span>(l!=null &amp;&amp; i-<span class="hljs-built_in">map</span>.get(l)&lt;=k){
+                <span class="hljs-keyword">if</span>(Math.<span class="hljs-built_in">abs</span>((<span class="hljs-keyword">long</span>)nums[i]-(<span class="hljs-keyword">long</span>)l)&lt;=t){
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                }
+            }
+            <span class="hljs-keyword">if</span>(h!=null &amp;&amp; i-<span class="hljs-built_in">map</span>.get(h)&lt;=k){
+                <span class="hljs-keyword">if</span>(Math.<span class="hljs-built_in">abs</span>((<span class="hljs-keyword">long</span>)nums[i]-(<span class="hljs-keyword">long</span>)h)&lt;=t){
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                }
+            }
+            <span class="hljs-keyword">if</span>(i&gt;k){
+                <span class="hljs-built_in">map</span>.remove(nums[i-k<span class="hljs-number">-1</span>]);
+            }
+            <span class="hljs-built_in">map</span>.put(nums[i],i);
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+</code></pre>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/144082"><span class="timeago" title="Mon Oct 31 2016 22:47:48 GMT-0400 (东部夏令时)">22 days ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+										<div class="post-bar">
+<div class="clearfix with-space">
+	<div class="tags pull-left">
+		
+	</div>
+
+	<div class="topic-main-buttons pull-right">
+		<span class="loading-indicator btn pull-left hidden" done="0">
+			<span class="hidden-xs">Loading More Posts</span> <i class="fa fa-refresh fa-spin"></i>
+		</span>
+
+<div class="stats hidden-xs">
+	<span component="topic/post-count" class="human-readable-number" title="2">2</span><br>
+	<small>Posts</small>
+</div>
+<div class="stats hidden-xs">
+	<span class="human-readable-number" title="142">142</span><br>
+	<small>Views</small>
+</div>
+
+<div component="topic/reply/container" class="btn-group action-bar hidden">
+	<button class="btn btn-primary" component="topic/reply">Reply</button>
+	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu pull-right" role="menu">
+		<li><a href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" component="topic/reply-as-topic">Reply as topic</a></li>
+	</ul>
+</div>
+
+<a href="https://discuss.leetcode.com/login" class="btn btn-primary">Log in to reply</a>
+
+<a class="btn btn-info" id="back_to_leetcode" href="https://leetcode.com/problems/contains-duplicate-iii" style="">
+	<span class="visible-sm-inline visible-md-inline visible-lg-inline">Back To Leetcode</span>
+</a>
+<script>
+    if ('1' == '1') {
+        $('#back_to_leetcode').show();
+    }
+</script>
+
+		
+
+
+
+
+
+
+	</div>
+</div>
+<hr class="no-space">
+
+		</div>
+				</li>
+						<li component="post" class="" data-index="1" data-pid="149505" data-uid="1241" data-timestamp="1479525443186" data-username="mgispk" data-userslug="mgispk" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="1" name="1"></a>
+
+					<meta itemprop="datePublished" content="2016-11-19T03:17:23.186Z">
+					<meta itemprop="dateModified" content="2016-11-19T04:17:48.802Z">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/mgispk">
+										<div component="user/picture" data-uid="1241" class="user-icon" style="background-color: #1b5e20;" data-original-title="" title="">M</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/mgispk" itemprop="author" data-username="mgispk" data-uid="1241">mgispk</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+					
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="8" data-uid="1241" class="formatted-number reputation">8</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p>For the element removal part</p>
+<pre class="markdown-highlight"><code class="hljs cpp"><span class="hljs-keyword">if</span>(i&gt;k){
+    <span class="hljs-built_in">map</span>.remove(nums[i-k<span class="hljs-number">-1</span>]);
+}
+</code></pre>
+<p>I think it should be</p>
+<pre class="markdown-highlight"><code class="hljs cpp"><span class="hljs-keyword">if</span>(i&gt;=k){
+    <span class="hljs-built_in">map</span>.remove(nums[i-k]);
+}
+</code></pre>
+<p>Think the case: [100, 10, 11, 9], k = 1, t = 2. With your code, when i = 2, the tree map will be [100, 10], while actually, 100 is already out of scope. With the modification I suggested, you don't need to check whether the previous number is within k distance or not. What's more, as the numbers in the map is assured to be safe, there is no need to use TreeMap any more. Just use TreeSet.</p>
+<p>The following is the code based on your implementation with some modification:</p>
+<pre class="markdown-highlight"><code class="hljs cpp"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Solution {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> boolean <span class="hljs-title">containsNearbyAlmostDuplicate</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> t)</span> </span>{
+        TreeSet&lt;Integer&gt; <span class="hljs-built_in">set</span> = <span class="hljs-keyword">new</span> TreeSet&lt;&gt;();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i ++) {
+            Integer f = <span class="hljs-built_in">set</span>.<span class="hljs-built_in">floor</span>(nums[i]);
+            Integer c = <span class="hljs-built_in">set</span>.ceiling(nums[i]);
+            <span class="hljs-keyword">if</span> (f != null &amp;&amp; Math.<span class="hljs-built_in">abs</span>((<span class="hljs-keyword">long</span>)nums[i] - (<span class="hljs-keyword">long</span>)f) &lt;= t) {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            }
+            <span class="hljs-keyword">if</span> (c != null &amp;&amp; Math.<span class="hljs-built_in">abs</span>((<span class="hljs-keyword">long</span>)nums[i] - (<span class="hljs-keyword">long</span>)c) &lt;= t) {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            }
+            <span class="hljs-built_in">set</span>.add(nums[i]);
+            <span class="hljs-keyword">if</span> (i &gt;= k) {
+                <span class="hljs-built_in">set</span>.remove(nums[i - k]);
+            }
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+}
+</code></pre>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/149505"><span class="timeago" title="Fri Nov 18 2016 22:17:23 GMT-0500 (东部标准时间)">4 days ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon" title="" data-original-title="last edited by mgispk 3 days ago"></i>
+
+			<small data-editor="mgispk" component="post/editor" class="hidden">last edited by mgispk <span class="timeago" title="Fri Nov 18 2016 23:17:48 GMT-0500 (东部标准时间)">3 days ago</span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+		</ul>
+
+		<div class="post-bar">
+<div class="clearfix with-space">
+	<div class="tags pull-left">
+		
+	</div>
+
+	<div class="topic-main-buttons pull-right">
+		<span class="loading-indicator btn pull-left hidden" done="0">
+			<span class="hidden-xs">Loading More Posts</span> <i class="fa fa-refresh fa-spin"></i>
+		</span>
+
+<div class="stats hidden-xs">
+	<span component="topic/post-count" class="human-readable-number" title="2">2</span><br>
+	<small>Posts</small>
+</div>
+<div class="stats hidden-xs">
+	<span class="human-readable-number" title="142">142</span><br>
+	<small>Views</small>
+</div>
+
+<div component="topic/reply/container" class="btn-group action-bar hidden">
+	<button class="btn btn-primary" component="topic/reply">Reply</button>
+	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu pull-right" role="menu">
+		<li><a href="https://discuss.leetcode.com/topic/65760/o-n-log-k-java-solution-using-treemap/2#" component="topic/reply-as-topic">Reply as topic</a></li>
+	</ul>
+</div>
+
+<a href="https://discuss.leetcode.com/login" class="btn btn-primary">Log in to reply</a>
+
+<a class="btn btn-info" id="back_to_leetcode" href="https://leetcode.com/problems/contains-duplicate-iii" style="">
+	<span class="visible-sm-inline visible-md-inline visible-lg-inline">Back To Leetcode</span>
+</a>
+<script>
+    if ('1' == '1') {
+        $('#back_to_leetcode').show();
+    }
+</script>
+
+		
+
+
+
+
+
+
+	</div>
+</div>
+<hr class="no-space">
+
+		</div>
+
+		
+
+		<div class="visible-xs visible-sm pagination-block text-center ready">
+			<div class="progress-bar" style="width: 100%;"></div>
+			<div class="wrapper">
+				<i class="fa fa-2x fa-angle-double-up pointer fa-fw pagetop"></i>
+				<i class="fa fa-2x fa-angle-up pointer fa-fw pageup"></i>
+				<span class="pagination-text">2 out of 2</span>
+				<i class="fa fa-2x fa-angle-down pointer fa-fw pagedown"></i>
+				<i class="fa fa-2x fa-angle-double-down pointer fa-fw pagebottom"></i>
+			</div>
+		</div>
+	</div>
+	<div widget-area="sidebar" class="col-lg-3 col-sm-12 hidden"></div>
+</div>
+<div widget-area="footer" class="hidden"></div>
+
+<noscript>
+&lt;div component="pagination" class="text-center pagination-container hidden"&gt;
+	&lt;ul class="pagination hidden-xs"&gt;
+		&lt;li class="previous pull-left disabled"&gt;
+			&lt;a href="?" data-page="1"&gt;&lt;i class="fa fa-chevron-left"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+
+		&lt;li class="next pull-right disabled"&gt;
+			&lt;a href="?" data-page="1"&gt; &lt;i class="fa fa-chevron-right"&gt;&lt;/i&gt;&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+
+	&lt;ul class="pagination hidden-sm hidden-md hidden-lg"&gt;
+		&lt;li class="first disabled"&gt;
+			&lt;a href="?page=1" data-page="1"&gt;&lt;i class="fa fa-fast-backward"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+		
+		&lt;li class="previous disabled"&gt;
+			&lt;a href="?" data-page="1"&gt;&lt;i class="fa fa-chevron-left"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+
+		&lt;li component="pagination/select-page" class="page select-page"&gt;
+			&lt;a href="#"&gt;1 / 1&lt;/a&gt;
+		&lt;/li&gt;
+		
+		&lt;li class="next disabled"&gt;
+			&lt;a href="?" data-page="1"&gt; &lt;i class="fa fa-chevron-right"&gt;&lt;/i&gt;&lt;/a&gt;
+		&lt;/li&gt;
+		
+		&lt;li class="last disabled"&gt;
+			&lt;a href="?page=1" data-page="1"&gt;&lt;i class="fa fa-fast-forward"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</noscript>
+</div><!-- END container -->
+	</main>
+
+	<div class="hide">
+<script type="text/tpl" data-template="500">
+<div class="alert alert-danger">
+	<strong>Internal error.</strong>
+	<p>Oops! Looks like something went wrong!</p>
+	<p></p>
+	
+
+</div>
+</script>
+	</div>
+
+
+	<div class="topic-search hidden">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default count"></button>
+			<button type="button" class="btn btn-default prev"><i class="fa fa-fw fa-angle-up"></i></button>
+			<button type="button" class="btn btn-default next"><i class="fa fa-fw fa-angle-down"></i></button>
+		</div>
+	</div>
+	<div component="toaster/tray" class="alert-window"></div>
+
+	<script>
+		require(['forum/footer']);
+	</script>
+
+
+<div id="taskbar" class="taskbar navbar-fixed-bottom">
+	<div class="navbar-inner"><ul class="nav navbar-nav pull-right"></ul></div>
+</div></body></html>

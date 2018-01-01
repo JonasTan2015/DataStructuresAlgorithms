@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://discuss.leetcode.com/topic/51358/java-dp-solution -->
+<html lang="en-US" data-dir="ltr" style="direction: ltr;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Java DP solution | LeetCode Discuss</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="content-type" content="text/html; charset=UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta property="og:site_name" content="LeetCode Discuss">
+	<meta name="keywords">
+	<meta name="msapplication-badge" content="frequency=30; polling-uri=https://discuss.leetcode.com/sitemap.xml">
+	<meta name="msapplication-square150x150logo" content="/uploads/system/site-logo.png">
+	<meta name="title" content="Java DP solution">
+	<meta name="description" content="Definition of dp[i][j]: minimum number of money to guarantee win for subproblem [i, j]. Target: dp[1][n] Corner case: dp[i][i] = 0 (because the only element must be correct) Equation: we can choose k (i&lt;=k&lt;=j) as our guess, and pay price k. After our gues...">
+	<meta property="og:title" content="Java DP solution">
+	<meta property="og:description" content="Definition of dp[i][j]: minimum number of money to guarantee win for subproblem [i, j]. Target: dp[1][n] Corner case: dp[i][i] = 0 (because the only element must be correct) Equation: we can choose k (i&lt;=k&lt;=j) as our guess, and pay price k. After our gues...">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://discuss.leetcode.com/topic/51358/java-dp-solution">
+	<meta property="og:image" content="https://discuss.leetcode.com/uploads/system/site-logo.png">
+	<meta property="og:image:url" content="https://discuss.leetcode.com/uploads/system/site-logo.png">
+	<meta property="article:published_time" content="2016-07-16T03:51:07.545Z">
+	<meta property="article:modified_time" content="2016-09-25T14:49:11.164Z">
+	<meta property="article:section" content="Guess Number Higher or Lower II">
+	<link rel="stylesheet" type="text/css" href="./Guess Number Higher or Lower II _ LeetCode Discuss_files/stylesheet.css">
+	
+	<link rel="icon" type="image/x-icon" href="https://discuss.leetcode.com/favicon.ico?b615916e-1bb4-4c9d-9c15-abbb135cd134">
+	<link rel="manifest" href="https://discuss.leetcode.com/manifest.json">
+	<link rel="apple-touch-icon" href="https://discuss.leetcode.com/apple-touch-icon">
+	<link rel="icon" sizes="36x36" href="https://discuss.leetcode.com/uploads/system/touchicon-36.png">
+	<link rel="icon" sizes="48x48" href="https://discuss.leetcode.com/uploads/system/touchicon-48.png">
+	<link rel="icon" sizes="72x72" href="https://discuss.leetcode.com/uploads/system/touchicon-72.png">
+	<link rel="icon" sizes="96x96" href="https://discuss.leetcode.com/uploads/system/touchicon-96.png">
+	<link rel="icon" sizes="144x144" href="https://discuss.leetcode.com/uploads/system/touchicon-144.png">
+	<link rel="icon" sizes="192x192" href="https://discuss.leetcode.com/uploads/system/touchicon-192.png">
+	<link rel="stylesheet" href="./Guess Number Higher or Lower II _ LeetCode Discuss_files/github.css">
+	<link rel="alternate" type="application/rss+xml" href="https://discuss.leetcode.com/topic/51358.rss">
+	<link rel="up" href="https://discuss.leetcode.com/category/495/guess-number-higher-or-lower-ii">
+
+	<!--[if lt IE 9]>
+  		<script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.3.0/es5-shim.min.js"></script>
+  		<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+  		<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+  		<script>__lt_ie_9__ = 1;</script>
+	<![endif]-->
+
+	<script async="" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/analytics.js.下载"></script><script>
+		var RELATIVE_PATH = "";
+		var config = JSON.parse('{"relative_path":"","version":"1.1.0","siteTitle":"LeetCode Discuss","browserTitle":"LeetCode Discuss","titleLayout":"&#123;pageTitle&#125; | &#123;browserTitle&#125;","showSiteTitle":false,"minimumTitleLength":"3","maximumTitleLength":"255","minimumPostLength":"12","maximumPostLength":"32767","minimumTagsPerTopic":"0","maximumTagsPerTopic":"5","minimumTagLength":"3","maximumTagLength":"30","hasImageUploadPlugin":false,"useOutgoingLinksPage":false,"allowGuestSearching":false,"allowGuestUserSearching":false,"allowGuestHandles":true,"allowFileUploads":true,"allowTopicsThumbnail":false,"usePagination":false,"disableChat":false,"socketioTransports":["websocket"],"websocketAddress":"","maxReconnectionAttempts":"3","reconnectionDelay":"1500","topicsPerPage":"20","postsPerPage":"20","maximumFileSize":"2048","theme:id":"nodebb-theme-leetcode","theme:src":"","defaultLang":"en_US","userLang":"en_US","loggedIn":false,"cache-buster":"b615916e-1bb4-4c9d-9c15-abbb135cd134","requireEmailConfirmation":false,"topicPostSort":"oldest_to_newest","categoryTopicSort":"newest_to_oldest","csrf_token":"1LXw18Vw-HFTBYBfdmvTSdRL5U48b9SOL2fg","searchEnabled":true,"bootswatchSkin":"default","hideSubCategories":true,"hideCategoryLastPost":true,"composer-default":{"composeRouteEnabled":"off","defaultPlaceHolder":"If you want to include code in your post,\\r\\nplease surround your code block with 3 backticks ```. \\r\\nFor example:\\r\\n```\\r\\ndef helloWorld():\\r\\n    pass\\r\\n````"},"markdown":{"highlight":1,"theme":"github.css"}}');
+		var app = {
+			template: "topic",
+			user: JSON.parse('{"uid":0,"username":"Guest","userslug":"","email":"","picture":"","status":"offline","banned":false,"reputation":0,"email:confirmed":false,"isAdmin":false,"isGlobalMod":false}')
+		};
+	</script>
+	<script src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/nodebb.min.js.下载"></script>
+<script>
+	require.config({
+		baseUrl: "/src/modules",
+		waitSeconds: 3,
+		urlArgs: "b615916e-1bb4-4c9d-9c15-abbb135cd134",
+		paths: {
+			'forum': '../client',
+			'admin': '../admin',
+			'vendor': '../../vendor',
+			'plugins': '../../plugins'
+		}
+	});
+</script>
+
+	
+
+	
+		<style type="text/css">.topic .posts .content pre{max-height:600px;font-size:12px}.topic .posts .content blockquote{font-size:14px;font-style:italic;background-color:#f8f8f8}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}</style>
+<link rel="stylesheet" href="./Guess Number Higher or Lower II _ LeetCode Discuss_files/js-enabled.css"><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/formatting" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/formatting.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="buzz" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/buzz.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="mousetrap" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/mousetrap.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/chats/recent" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/recent.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/chats/search" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/search.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/chats/messages" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/messages.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="postSelect" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/postSelect.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="forum/topic/delete-posts" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/delete-posts.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/composer.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/controls" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/controls.js.下载"></script><style type="text/css" id="styles-emoji-extended">.emoji { display: inline-block; }
+</style><script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/preview" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/preview.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/uploads" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/uploads.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/drafts" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/drafts.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/tags" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/tags.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/categoryList" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/categoryList.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/resize" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/resize.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="composer/autocomplete" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/autocomplete.js.下载"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="highlight" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/highlight.js.下载"></script></head>
+
+<body class="page-topic page-topic-51358 page-topic-java-dp-solution skin-default">
+	<nav id="menu" class=" slideout-menu">
+		<section class="menu-profile">
+			
+		</section>
+
+		<section class="menu-section" data-section="navigation">
+			<h3 class="menu-section-title">Navigation</h3>
+			<ul class="menu-section-list">
+															<li class="">
+						<a href="https://discuss.leetcode.com/categories" title="" data-original-title="Categories">
+														<i class="fa fa-fw fa-list"></i>
+
+														<span class="visible-xs-inline">Categories</span>
+						</a>
+					</li>
+									
+														<li class="">
+						<a href="https://discuss.leetcode.com/recent" title="" data-original-title="Recent">
+														<i class="fa fa-fw fa-clock-o"></i>
+
+														<span class="visible-xs-inline">Recent</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/popular" title="" data-original-title="Popular">
+														<i class="fa fa-fw fa-fire"></i>
+
+														<span class="visible-xs-inline">Popular</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/users" title="" data-original-title="Users">
+														<i class="fa fa-fw fa-user"></i>
+
+														<span class="visible-xs-inline">Users</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/groups" title="" data-original-title="Groups">
+														<i class="fa fa-fw fa-group"></i>
+
+														<span class="visible-xs-inline">Groups</span>
+						</a>
+					</li>
+									
+				
+						<a href="https://discuss.leetcode.com/search">
+							<i class="fa fa-search fa-fw"></i> Search
+						</a>
+					
+					
+					<li>
+						<a href="https://discuss.leetcode.com/login">
+							<i class="fa fa-sign-in visible-xs-inline"></i>
+							<span>Login</span>
+						</a>
+					</li>
+				</ul>
+		</section>
+
+		
+	</nav>
+
+	<main id="panel" class=" slideout-panel">
+		<nav class="navbar navbar-default navbar-fixed-top header" id="header-menu" component="navbar">
+			<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" id="mobile-menu">
+					<span component="notifications/icon" class="notification-icon fa fa-fw fa-bell-o" data-content="0"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+				<a href="https://discuss.leetcode.com/">
+					<img alt="" class=" forum-logo" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/site-logo.png">
+				</a>
+				
+
+				<div component="navbar/title" class="visible-xs hidden">
+					<span class="">Java DP solution</span>
+				</div>
+			</div>
+
+			<div id="nav-dropdown" class="hidden-xs">
+												<ul id="logged-out-menu" class="nav navbar-nav navbar-right">
+					
+					<li>
+						<a href="https://discuss.leetcode.com/login">
+							<i class="fa fa-sign-in visible-xs-inline"></i>
+							<span>Login</span>
+						</a>
+					</li>
+				</ul>
+								<ul class="nav navbar-nav navbar-right">
+					<li data-original-title="" title="">
+						<form id="search-form" class="navbar-form navbar-right hidden-xs" role="search" method="GET" action="https://discuss.leetcode.com/topic/51358/java-dp-solution">
+							<button id="search-button" type="button" class="btn btn-link"><i class="fa fa-search fa-fw" title="Search"></i></button>
+							<div class="hidden" id="search-fields">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search" name="query" value="">
+									<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#"><i class="fa fa-gears fa-fw advanced-search-link"></i></a>
+								</div>
+								<button type="submit" class="btn btn-default hide">Search</button>
+							</div>
+						</form>
+					</li>
+					<li class="visible-xs" id="search-menu">
+						<a href="https://discuss.leetcode.com/search">
+							<i class="fa fa-search fa-fw"></i> Search
+						</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right hidden-xs">
+					<li>
+						<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" id="reconnect" class="hide" title="" data-original-title="Connection to LeetCode Discuss has been lost, attempting to reconnect...">
+							<i class="fa fa-check"></i>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right pagination-block visible-lg visible-md ready">
+					<li class="dropdown">
+						<i class="fa fa-angle-double-up pointer fa-fw pagetop"></i>
+						<i class="fa fa-angle-up pointer fa-fw pageup"></i>
+
+						<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="pagination-text">1 out of 13</span>
+						</a>
+
+						<i class="fa fa-angle-down pointer fa-fw pagedown"></i>
+						<i class="fa fa-angle-double-down pointer fa-fw pagebottom"></i>
+
+						<div class="progress-container">
+							<div class="progress-bar" style="width: 7.69231%;"></div>
+						</div>
+
+						<ul class="dropdown-menu" role="menu">
+  							<input type="text" class="form-control" id="indexInput" placeholder="Enter index">
+  						</ul>
+					</li>
+				</ul>
+
+				<ul id="main-nav" class="nav navbar-nav">
+															<li class="">
+						<a href="https://discuss.leetcode.com/categories" title="" data-original-title="Categories">
+														<i class="fa fa-fw fa-list"></i>
+
+														<span class="visible-xs-inline">Categories</span>
+						</a>
+					</li>
+									
+														<li class="">
+						<a href="https://discuss.leetcode.com/recent" title="" data-original-title="Recent">
+														<i class="fa fa-fw fa-clock-o"></i>
+
+														<span class="visible-xs-inline">Recent</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/popular" title="" data-original-title="Popular">
+														<i class="fa fa-fw fa-fire"></i>
+
+														<span class="visible-xs-inline">Popular</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/users" title="" data-original-title="Users">
+														<i class="fa fa-fw fa-user"></i>
+
+														<span class="visible-xs-inline">Users</span>
+						</a>
+					</li>
+														<li class="">
+						<a href="https://discuss.leetcode.com/groups" title="" data-original-title="Groups">
+														<i class="fa fa-fw fa-group"></i>
+
+														<span class="visible-xs-inline">Groups</span>
+						</a>
+					</li>
+									
+				</ul>
+			</div>
+
+			</div>
+		</nav>
+		<div class="container" id="content">
+	<noscript>
+		&lt;div class="alert alert-danger"&gt;
+			&lt;p&gt;
+				Your browser does not seem to support JavaScript. As a result, your viewing experience will be diminished, and you have been placed in &lt;strong&gt;read-only mode&lt;/strong&gt;.
+			&lt;/p&gt;
+			&lt;p&gt;
+				Please download a browser that supports JavaScript, or enable it if it's disabled (i.e. NoScript).
+			&lt;/p&gt;
+		&lt;/div&gt;
+	</noscript>
+<ol class="breadcrumb">
+		<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="https://discuss.leetcode.com/" itemprop="url">
+			<span itemprop="title">
+				Home
+				
+			</span>
+		</a>
+	</li>
+	<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="https://discuss.leetcode.com/category/8/oj" itemprop="url">
+			<span itemprop="title">
+				OJ
+				
+			</span>
+		</a>
+	</li>
+	<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="https://discuss.leetcode.com/category/495/guess-number-higher-or-lower-ii" itemprop="url">
+			<span itemprop="title">
+				Guess Number Higher or Lower II
+				
+			</span>
+		</a>
+	</li>
+	<li component="breadcrumb/current" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb" class="active">
+		
+			<span itemprop="title">
+				Java DP solution
+												<a target="_blank" href="https://discuss.leetcode.com/topic/51358.rss"><i class="fa fa-rss-square"></i></a>
+			</span>
+		
+	</li>
+</ol>
+<div widget-area="header"><div class="alert alert-info">New users please <a href="https://discuss.leetcode.com/topic/22/welcome-new-users-please-read-this-before-posting"><font color="red"><b><u>read the instructions</u></b></font></a> to <i>format your code</i> properly.
+
+Discuss is a place to <a href="https://discuss.leetcode.com/category/5/interview-questions"><b>post interview questions</b></a> or share solutions / ask questions related to <a href="https://leetcode.com/problems">OJ problems</a>.</div></div>
+<div class="row">
+	<div class="topic col-lg-12 col-sm-12" no-widget-class="topic col-lg-12 col-sm-12" no-widget-target="sidebar">
+
+		<h1 component="post/header" class="hidden-xs" itemprop="name">
+
+			<i class="pull-left fa fa-thumb-tack hidden"></i> <i class="pull-left fa fa-lock hidden"></i> <span class="topic-title" component="topic/title">Java DP solution</span>
+
+			<span class="browsing-users hidden hidden-xs hidden-sm pull-right">
+				<span>browsing</span>
+				<div component="topic/browsing/list" class="thread_active_users active-users inline-block"></div>
+				<small class="hidden">
+					<i class="fa fa-users"></i> <span component="topic/browsing/count" class="user-count"></span>
+				</small>
+			</span>
+		</h1>
+
+		<div component="topic/deleted/message" class="alert alert-warning hidden">This topic has been deleted. Only users with topic management privileges can see it.</div>
+
+	<hr class="visible-xs" style="margin-bottom: 0">
+
+		<ul component="topic" class="posts" data-tid="51358" data-cid="495">
+							<li component="post" class="" data-index="0" data-pid="114370" data-uid="4834" data-timestamp="1468641067579" data-username="dachuan.huang" data-userslug="dachuan-huang" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="0" name="0"></a>
+
+					<meta itemprop="datePublished" content="2016-07-16T03:51:07.579Z">
+					<meta itemprop="dateModified" content="2016-07-16T17:59:24.448Z">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="38">38</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/dachuan-huang">
+										<div component="user/picture" data-uid="4834" class="user-icon" style="background-color: #607d8b;" data-original-title="" title="">D</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/dachuan-huang" itemprop="author" data-username="dachuan.huang" data-uid="4834">dachuan.huang</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+					
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="140" data-uid="4834" class="formatted-number reputation">140</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p>Definition of <code>dp[i][j]</code>: minimum number of money to guarantee win for subproblem <code>[i, j]</code>.</p>
+<p>Target: <code>dp[1][n]</code></p>
+<p>Corner case: <code>dp[i][i] = 0</code> (because the only element must be correct)</p>
+<p>Equation: we can choose <code>k (i&lt;=k&lt;=j)</code> as our guess, and pay price <code>k</code>. After our guess, the problem is divided into two subproblems. Notice we do not need to pay the money for both subproblems. We only need to pay the worst case (because the system will tell us which side we should go) to guarantee win. So <code>dp[i][j] = min (i&lt;=k&lt;=j) { k + max(dp[i][k-1], dp[k+1][j]) }</code></p>
+<pre class="markdown-highlight"><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMoneyAmount</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> jminusi = <span class="hljs-number">1</span>; jminusi &lt; n; jminusi++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i + jminusi &lt;= n; i++) {
+                <span class="hljs-keyword">int</span> j = i + jminusi;
+                dp[i][j] = Integer.MAX_VALUE;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = i; k &lt;= j; k++) {
+                    dp[i][j] = Math.min(dp[i][j],
+                                        k + Math.max(k - <span class="hljs-number">1</span> &gt;= i ? dp[i][k - <span class="hljs-number">1</span>] : <span class="hljs-number">0</span>,
+                                                     j &gt;= k + <span class="hljs-number">1</span> ? dp[k + <span class="hljs-number">1</span>][j] : <span class="hljs-number">0</span>));
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">1</span>][n];
+    }
+}
+</code></pre>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/114370"><span class="timeago" title="Fri Jul 15 2016 23:51:07 GMT-0400 (东部夏令时)">5 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon" title="" data-original-title="last edited by dachuan.huang 5 months ago"></i>
+
+			<small data-editor="dachuan-huang" component="post/editor" class="hidden">last edited by dachuan.huang <span class="timeago" title="Sat Jul 16 2016 13:59:24 GMT-0400 (东部夏令时)">5 months ago</span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+										<div class="post-bar">
+<div class="clearfix with-space">
+	<div class="tags pull-left">
+		
+	</div>
+
+	<div class="topic-main-buttons pull-right">
+		<span class="loading-indicator btn pull-left hidden" done="0">
+			<span class="hidden-xs">Loading More Posts</span> <i class="fa fa-refresh fa-spin"></i>
+		</span>
+
+<div class="stats hidden-xs">
+	<span component="topic/post-count" class="human-readable-number" title="13">13</span><br>
+	<small>Posts</small>
+</div>
+<div class="stats hidden-xs">
+	<span class="human-readable-number" title="4924">4.9k</span><br>
+	<small>Views</small>
+</div>
+
+<div component="topic/reply/container" class="btn-group action-bar hidden">
+	<button class="btn btn-primary" component="topic/reply">Reply</button>
+	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu pull-right" role="menu">
+		<li><a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" component="topic/reply-as-topic">Reply as topic</a></li>
+	</ul>
+</div>
+
+<a href="https://discuss.leetcode.com/login" class="btn btn-primary">Log in to reply</a>
+
+<a class="btn btn-info" id="back_to_leetcode" href="https://leetcode.com/problems/guess-number-higher-or-lower-ii" style="">
+	<span class="visible-sm-inline visible-md-inline visible-lg-inline">Back To Leetcode</span>
+</a>
+<script>
+    if ('1' == '1') {
+        $('#back_to_leetcode').show();
+    }
+</script>
+
+		
+
+
+
+
+
+
+	</div>
+</div>
+<hr class="no-space">
+
+		</div>
+				</li>
+						<li component="post" class="deleted" data-index="1" data-pid="115139" data-uid="1011" data-timestamp="1468945605831" data-username="larrywang2014" data-userslug="larrywang2014" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="1" name="1"></a>
+
+					<meta itemprop="datePublished" content="2016-07-19T16:26:45.831Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/larrywang2014">
+										<div component="user/picture" data-uid="1011" class="user-icon" style="background-color: #009688;" data-original-title="" title="">L</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/larrywang2014" itemprop="author" data-username="larrywang2014" data-uid="1011">larrywang2014</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+					
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="394" data-uid="1011" class="formatted-number reputation">394</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			This post is deleted!
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/115139"><span class="timeago" title="Tue Jul 19 2016 12:26:45 GMT-0400 (东部夏令时)">5 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="2" data-pid="116486" data-uid="6612" data-timestamp="1469459095460" data-username="fhqplzj" data-userslug="fhqplzj" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="2" name="2"></a>
+
+					<meta itemprop="datePublished" content="2016-07-25T15:04:55.460Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="7">7</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/fhqplzj">
+										<div component="user/picture" data-uid="6612" class="user-icon" style="background-color: #ff5722;" data-original-title="" title="">F</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/fhqplzj" itemprop="author" data-username="fhqplzj" data-uid="6612">fhqplzj</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+					
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="90" data-uid="6612" class="formatted-number reputation">90</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p>Thanks for your idea, I rewrite the code using your idea:</p>
+<pre class="markdown-highlight"><code class="hljs java">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMoneyAmount</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">2</span>][n + <span class="hljs-number">2</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> l = <span class="hljs-number">1</span>; l &lt; n; l++)
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n - l; i++) {
+                <span class="hljs-keyword">int</span> j = i + l;
+                dp[i][j] = Integer.MAX_VALUE;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = i; k &lt;= j; k++)
+                    dp[i][j] = Math.min(dp[i][j], k + Math.max(dp[i][k - <span class="hljs-number">1</span>], dp[k + <span class="hljs-number">1</span>][j]));
+            }
+        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">1</span>][n];
+    }</code></pre>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/116486"><span class="timeago" title="Mon Jul 25 2016 11:04:55 GMT-0400 (东部夏令时)">5 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="3" data-pid="127057" data-uid="53375" data-timestamp="1472916208273" data-username="cdai" data-userslug="cdai" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="3" name="3"></a>
+
+					<meta itemprop="datePublished" content="2016-09-03T15:23:28.273Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="14">14</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/cdai">
+										<div class="user-img">
+						<img component="user/picture" data-uid="53375" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/53375-profileimg.jpg" align="left" itemprop="image">
+					</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/cdai" itemprop="author" data-username="cdai" data-uid="53375">cdai</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="116486"><i class="fa fa-reply"></i> @fhqplzj</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="125" data-uid="53375" class="formatted-number reputation">125</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/6612">@fhqplzj</a> Elegant bottom-up approach! I made some change on variable name to make it more readable. Thanks for your sharing!</p>
+<pre class="markdown-highlight"><code class="language-java hljs">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMoneyAmount</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>{
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n + <span class="hljs-number">2</span>][n + <span class="hljs-number">2</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> len = <span class="hljs-number">1</span>; len &lt; n; len++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> from = <span class="hljs-number">1</span>, to = from + len; to &lt;= n; from++, to++) {
+                dp[from][to] = Integer.MAX_VALUE;
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = from; k &lt;= to; k++)
+                    dp[from][to] = Math.min(dp[from][to], k + Math.max(dp[from][k - <span class="hljs-number">1</span>], dp[k + <span class="hljs-number">1</span>][to]));
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">1</span>][n];
+    }
+</code></pre>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/127057"><span class="timeago" title="Sat Sep 03 2016 11:23:28 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="4" data-pid="127309" data-uid="37716" data-timestamp="1472970028170" data-username="ysx0605hotmail.com" data-userslug="ysx0605hotmail-com" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="4" name="4"></a>
+
+					<meta itemprop="datePublished" content="2016-09-04T06:20:28.170Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/ysx0605hotmail-com">
+										<div component="user/picture" data-uid="37716" class="user-icon" style="background-color: #33691e;" data-original-title="" title="">Y</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/ysx0605hotmail-com" itemprop="author" data-username="ysx0605hotmail.com" data-uid="37716">ysx0605hotmail.com</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="127057"><i class="fa fa-reply"></i> @cdai</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="2" data-uid="37716" class="formatted-number reputation">2</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/53375">@cdai</a> Nice! Could you explain why should we create an array dp of n+2 length? I tried n+1 and met compile error, but I don't know why n+2 works.</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/127309"><span class="timeago" title="Sun Sep 04 2016 02:20:28 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="5" data-pid="127393" data-uid="53375" data-timestamp="1472995085253" data-username="cdai" data-userslug="cdai" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="5" name="5"></a>
+
+					<meta itemprop="datePublished" content="2016-09-04T13:18:05.253Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/cdai">
+										<div class="user-img">
+						<img component="user/picture" data-uid="53375" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/53375-profileimg.jpg" align="left" itemprop="image">
+					</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/cdai" itemprop="author" data-username="cdai" data-uid="53375">cdai</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="127309"><i class="fa fa-reply"></i> @ysx0605hotmail.com</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="125" data-uid="53375" class="formatted-number reputation">125</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/37716">@ysx0605hotmail.com</a> Please note that in the innermost loop we reach dp[from][k-1] and dp[to][k+1] where dp[0] and dp[n+1] are required. So we create array of n+2 length;</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/127393"><span class="timeago" title="Sun Sep 04 2016 09:18:05 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="6" data-pid="127403" data-uid="37716" data-timestamp="1473000128649" data-username="ysx0605hotmail.com" data-userslug="ysx0605hotmail-com" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="6" name="6"></a>
+
+					<meta itemprop="datePublished" content="2016-09-04T14:42:08.649Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/ysx0605hotmail-com">
+										<div component="user/picture" data-uid="37716" class="user-icon" style="background-color: #33691e;" data-original-title="" title="">Y</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/ysx0605hotmail-com" itemprop="author" data-username="ysx0605hotmail.com" data-uid="37716">ysx0605hotmail.com</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="127393"><i class="fa fa-reply"></i> @cdai</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="2" data-uid="37716" class="formatted-number reputation">2</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/53375">@cdai</a> Uh I missed k+1, thank you!</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/127403"><span class="timeago" title="Sun Sep 04 2016 10:42:08 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="7" data-pid="127408" data-uid="53375" data-timestamp="1473001266949" data-username="cdai" data-userslug="cdai" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="7" name="7"></a>
+
+					<meta itemprop="datePublished" content="2016-09-04T15:01:06.949Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/cdai">
+										<div class="user-img">
+						<img component="user/picture" data-uid="53375" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/53375-profileimg.jpg" align="left" itemprop="image">
+					</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/cdai" itemprop="author" data-username="cdai" data-uid="53375">cdai</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="127403"><i class="fa fa-reply"></i> @ysx0605hotmail.com</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="125" data-uid="53375" class="formatted-number reputation">125</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/37716">@ysx0605hotmail.com</a> :)</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/127408"><span class="timeago" title="Sun Sep 04 2016 11:01:06 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="8" data-pid="130916" data-uid="41192" data-timestamp="1473918519982" data-username="shenrf22" data-userslug="shenrf22" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="8" name="8"></a>
+
+					<meta itemprop="datePublished" content="2016-09-15T05:48:39.982Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/shenrf22">
+										<div component="user/picture" data-uid="41192" class="user-icon" style="background-color: #3f51b5;" data-original-title="" title="">S</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/shenrf22" itemprop="author" data-username="shenrf22" data-uid="41192">shenrf22</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+					
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="7" data-uid="41192" class="formatted-number reputation">7</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p>What's the complexity of this method?</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/130916"><span class="timeago" title="Thu Sep 15 2016 01:48:39 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="9" data-pid="131018" data-uid="4834" data-timestamp="1473960125178" data-username="dachuan.huang" data-userslug="dachuan-huang" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="9" name="9"></a>
+
+					<meta itemprop="datePublished" content="2016-09-15T17:22:05.178Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/dachuan-huang">
+										<div component="user/picture" data-uid="4834" class="user-icon" style="background-color: #607d8b;" data-original-title="" title="">D</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/dachuan-huang" itemprop="author" data-username="dachuan.huang" data-uid="4834">dachuan.huang</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="130916"><i class="fa fa-reply"></i> @shenrf22</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="140" data-uid="4834" class="formatted-number reputation">140</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/41192">@shenrf22</a> It looks like the complexity is <code>O(n^3)</code> because there are <code>n^2</code> subproblems, and each subproblem takes <code>O(n)</code> time to compute.</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/131018"><span class="timeago" title="Thu Sep 15 2016 13:22:05 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="deleted" data-index="10" data-pid="131119" data-uid="41345" data-timestamp="1473992961931" data-username="keZhenxu" data-userslug="kezhenxu" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="10" name="10"></a>
+
+					<meta itemprop="datePublished" content="2016-09-16T02:29:21.931Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/kezhenxu">
+										<div class="user-img">
+						<img component="user/picture" data-uid="41345" src="./Guess Number Higher or Lower II _ LeetCode Discuss_files/41345-profileimg.png" align="left" itemprop="image">
+					</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/kezhenxu" itemprop="author" data-username="keZhenxu" data-uid="41345">keZhenxu</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="114370"><i class="fa fa-reply"></i> @dachuan.huang</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="6" data-uid="41345" class="formatted-number reputation">6</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			This post is deleted!
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/131119"><span class="timeago" title="Thu Sep 15 2016 22:29:21 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="11" data-pid="133812" data-uid="8188" data-timestamp="1474782408554" data-username="macctown" data-userslug="macctown" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="11" name="11"></a>
+
+					<meta itemprop="datePublished" content="2016-09-25T05:46:48.554Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/macctown">
+										<div component="user/picture" data-uid="8188" class="user-icon" style="background-color: #009688;" data-original-title="" title="">M</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/macctown" itemprop="author" data-username="macctown" data-uid="8188">macctown</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="114370"><i class="fa fa-reply"></i> @dachuan.huang</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="1" data-uid="8188" class="formatted-number reputation">1</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/4834">@dachuan.huang</a> thx for your solution! can you provide some explanation of the border of each loop? and why you pick them... the formula is easy to understand, but I'm a little bit confused about those loop</p>
+<p>THX！！</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/133812"><span class="timeago" title="Sun Sep 25 2016 01:46:48 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+						<li component="post" class="" data-index="12" data-pid="133883" data-uid="4834" data-timestamp="1474814951164" data-username="dachuan.huang" data-userslug="dachuan-huang" itemscope="" itemtype="http://schema.org/Comment">
+					<a component="post/anchor" data-index="12" name="12"></a>
+
+					<meta itemprop="datePublished" content="2016-09-25T14:49:11.164Z">
+					<meta itemprop="dateModified" content="">
+
+<div class="post-body">
+		<div class="vote-buttons">
+		<div component="post/upvote" href="#" class="">
+			<i class="fa fa-caret-up vote-button"></i>
+		</div>
+
+		<div class="vote-count" component="post/vote-count" data-votes="0">0</div>
+
+				<div class="vote-size" component="post/downvote" href="#">
+			<i class="fa fa-caret-down vote-button"></i>
+		</div>
+	</div>
+
+	<div class="answer">
+		<div class="avatar-meta">
+			<span class="icon">
+				<a href="https://discuss.leetcode.com/user/dachuan-huang">
+										<div component="user/picture" data-uid="4834" class="user-icon" style="background-color: #607d8b;" data-original-title="" title="">D</div>
+					<i component="user/status" class="fa fa-circle status offline" title="Offline"></i>
+
+				</a>
+			</span>
+
+			<div class="user-info">
+				<span class="username">
+					<a href="https://discuss.leetcode.com/user/dachuan-huang" itemprop="author" data-username="dachuan.huang" data-uid="4834">dachuan.huang</a>
+					<span>
+
+
+
+						
+					</span>
+				</span>
+
+				<div class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+										<button component="post/parent" class="btn btn-xs btn-default hidden-xs" data-topid="133812"><i class="fa fa-reply"></i> @macctown</button>
+
+					<span>
+						
+					</span>
+				</div>
+
+				<div class="reputation-info">
+					Reputation: <i class="fa fa-star"></i> <span component="user/reputation" data-reputation="140" data-uid="4834" class="formatted-number reputation">140</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content" component="post/content" itemprop="text">
+			<p><a class="plugin-mentions-a" href="https://discuss.leetcode.com/uid/8188">@macctown</a> The two for loops actually iterate one matrix in a special way. Since dp[i][j] has two dimensions i and j, then it forms a matrix. You need to imagine that it is a matrix. Our target is the top-right corner. In order to achieve our target, we have to calculate all its predecessors first. The base cases are actually the diagonal of the matrix. That's why I use jminusi (j - i) as 1 first. Then calculate the diagonal one by one.</p>
+<p>The key is: imagine it as a matrix, and we are filling the diagonal one by one!</p>
+
+		</div>
+
+		<small class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block date-info pull-left">
+			<a class="permalink" style="text-decoration: none" href="https://discuss.leetcode.com/post/133883"><span class="timeago" title="Sun Sep 25 2016 10:49:11 GMT-0400 (东部夏令时)">3 months ago</span></a>
+
+			<i class="fa fa-pencil-square pointer edit-icon hidden"></i>
+
+			<small data-editor="" component="post/editor" class="hidden">last edited by  <span class="timeago" title="Invalid Date"></span></small>
+
+		</small>
+
+		<small class="action-info pull-right">
+			
+
+			<span class="post-tools">
+				<a component="post/reply" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Reply</a>
+				<a component="post/quote" href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" class="no-select hidden">Quote</a>
+			</span>
+
+<span component="post/tools" class="dropdown moderator-tools hidden">
+	<a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></a>
+	<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+</span>
+
+		</small>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+
+<hr class="no-space">
+
+					
+				</li>
+		</ul>
+
+		<div class="post-bar">
+<div class="clearfix with-space">
+	<div class="tags pull-left">
+		
+	</div>
+
+	<div class="topic-main-buttons pull-right">
+		<span class="loading-indicator btn pull-left hidden" done="0">
+			<span class="hidden-xs">Loading More Posts</span> <i class="fa fa-refresh fa-spin"></i>
+		</span>
+
+<div class="stats hidden-xs">
+	<span component="topic/post-count" class="human-readable-number" title="13">13</span><br>
+	<small>Posts</small>
+</div>
+<div class="stats hidden-xs">
+	<span class="human-readable-number" title="4924">4.9k</span><br>
+	<small>Views</small>
+</div>
+
+<div component="topic/reply/container" class="btn-group action-bar hidden">
+	<button class="btn btn-primary" component="topic/reply">Reply</button>
+	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu pull-right" role="menu">
+		<li><a href="https://discuss.leetcode.com/topic/51358/java-dp-solution#" component="topic/reply-as-topic">Reply as topic</a></li>
+	</ul>
+</div>
+
+<a href="https://discuss.leetcode.com/login" class="btn btn-primary">Log in to reply</a>
+
+<a class="btn btn-info" id="back_to_leetcode" href="https://leetcode.com/problems/guess-number-higher-or-lower-ii" style="">
+	<span class="visible-sm-inline visible-md-inline visible-lg-inline">Back To Leetcode</span>
+</a>
+<script>
+    if ('1' == '1') {
+        $('#back_to_leetcode').show();
+    }
+</script>
+
+		
+
+
+
+
+
+
+	</div>
+</div>
+<hr class="no-space">
+
+		</div>
+
+		
+
+		<div class="visible-xs visible-sm pagination-block text-center ready">
+			<div class="progress-bar" style="width: 7.69231%;"></div>
+			<div class="wrapper">
+				<i class="fa fa-2x fa-angle-double-up pointer fa-fw pagetop"></i>
+				<i class="fa fa-2x fa-angle-up pointer fa-fw pageup"></i>
+				<span class="pagination-text">1 out of 13</span>
+				<i class="fa fa-2x fa-angle-down pointer fa-fw pagedown"></i>
+				<i class="fa fa-2x fa-angle-double-down pointer fa-fw pagebottom"></i>
+			</div>
+		</div>
+	</div>
+	<div widget-area="sidebar" class="col-lg-3 col-sm-12 hidden"></div>
+</div>
+<div widget-area="footer" class="hidden"></div>
+
+<noscript>
+&lt;div component="pagination" class="text-center pagination-container hidden"&gt;
+	&lt;ul class="pagination hidden-xs"&gt;
+		&lt;li class="previous pull-left disabled"&gt;
+			&lt;a href="?" data-page="1"&gt;&lt;i class="fa fa-chevron-left"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+
+		
+
+		&lt;li class="next pull-right disabled"&gt;
+			&lt;a href="?" data-page="1"&gt; &lt;i class="fa fa-chevron-right"&gt;&lt;/i&gt;&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+
+	&lt;ul class="pagination hidden-sm hidden-md hidden-lg"&gt;
+		&lt;li class="first disabled"&gt;
+			&lt;a href="?page=1" data-page="1"&gt;&lt;i class="fa fa-fast-backward"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+		
+		&lt;li class="previous disabled"&gt;
+			&lt;a href="?" data-page="1"&gt;&lt;i class="fa fa-chevron-left"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+
+		&lt;li component="pagination/select-page" class="page select-page"&gt;
+			&lt;a href="#"&gt;1 / 1&lt;/a&gt;
+		&lt;/li&gt;
+		
+		&lt;li class="next disabled"&gt;
+			&lt;a href="?" data-page="1"&gt; &lt;i class="fa fa-chevron-right"&gt;&lt;/i&gt;&lt;/a&gt;
+		&lt;/li&gt;
+		
+		&lt;li class="last disabled"&gt;
+			&lt;a href="?page=1" data-page="1"&gt;&lt;i class="fa fa-fast-forward"&gt;&lt;/i&gt; &lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</noscript>
+		</div><!-- END container -->
+	</main>
+
+	<div class="hide">
+<script type="text/tpl" data-template="500">
+<div class="alert alert-danger">
+	<strong>Internal error.</strong>
+	<p>Oops! Looks like something went wrong!</p>
+	<p></p>
+	
+
+</div>
+</script>
+	</div>
+
+
+	<div class="topic-search hidden">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default count"></button>
+			<button type="button" class="btn btn-default prev"><i class="fa fa-fw fa-angle-up"></i></button>
+			<button type="button" class="btn btn-default next"><i class="fa fa-fw fa-angle-down"></i></button>
+		</div>
+	</div>
+	<div component="toaster/tray" class="alert-window"></div>
+
+	<script>
+		require(['forum/footer']);
+	</script>
+
+
+<div id="taskbar" class="taskbar navbar-fixed-bottom">
+	<div class="navbar-inner"><ul class="nav navbar-nav pull-right"></ul></div>
+</div></body></html>

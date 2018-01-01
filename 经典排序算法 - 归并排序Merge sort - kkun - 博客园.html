@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>经典排序算法 - 归并排序Merge sort - kkun - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/bundle-coffee.css">
+<link type="text/css" rel="stylesheet" href="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/30877.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/bundle-coffee-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/kkun/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/kkun/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/kkun/wlwmanifest.xml">
+<script type="text/javascript" src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/encoder.js.下载"></script><script src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'kkun', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script></head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/kkun/"><img id="blogLogo" src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/kkun/">还有多少青春可以挥霍</a></h1>
+<h2>这刻在望著父亲笑容时,竟不知不觉的无言</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/kkun/">首页</a></li>
+	<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li></li>
+	<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+	<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/kkun/rss">订阅</a>
+	<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/kkun/rss"><img src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/xml.gif" alt="订阅"></a></li>
+</ul>
+
+
+			<div class="blogStats">
+				
+				<div id="blog_stats">
+<!--done-->
+随笔- 184&nbsp;
+文章- 4&nbsp;
+评论- 359&nbsp;
+</div>
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html">经典排序算法 - 归并排序Merge sort</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><strong>经典排序算法 - 归并排序Merge sort</strong></p>
+<p>原理,把原始数组分成若干子数组,对每一个子数组进行排序,</p>
+<p>继续把子数组与子数组合并,合并后仍然有序,直到全部合并完,形成有序的数组</p>
+<p><strong>举例</strong></p>
+<p>无序数组[6 2 4 1 5 9]</p>
+<p>先看一下每个步骤下的状态,完了再看合并细节</p>
+<p>第一步 [6 2 4 1 5 9]原始状态</p>
+<p>第二步 [2 6] [1 4] [5 9]两两合并排序,排序细节后边介绍</p>
+<p>第三步 [1 2 4 6] [5 9]继续两组两组合并</p>
+<p>第四步 [1 2 4 5 6 9]合并完毕,排序完毕</p>
+<p>输出结果[1 2 4 5 6 9]</p>
+<p><strong>合并细节</strong></p>
+<p>详细介绍第二步到第三步的过程,其余类似</p>
+<p>第二步:[2 6] [1 4] [5 9]</p>
+<p>两两合并,其实仅合并[2 6] [1 4],所以[5 9]不管它,</p>
+<p><strong>原始状态</strong></p>
+<p>第一个数组[2 6]</p>
+<p>第二个数组[1 4]</p>
+<p>--------------------</p>
+<p>第三个数组[...]</p>
+<p>&nbsp;</p>
+<p>第1步,顺序从第一,第二个数组里取出一个数字:2和1</p>
+<p>比较大小后将小的放入第三个数组,此时变成下边这样</p>
+<p>第一个数组[2 6]</p>
+<p>第二个数组[4]</p>
+<p>--------------------</p>
+<p>第三个数组[1]</p>
+<p>&nbsp;</p>
+<p>第2步,继续刚才的步骤,顺序从第一,第二个数组里取数据,2和4,</p>
+<p>同样的比较大小后将小的放入第三个数组,此时状态如下</p>
+<p>第一个数组[6]</p>
+<p>第二个数组[4]</p>
+<p>--------------------</p>
+<p>第三个数组[1 2]</p>
+<p>&nbsp;</p>
+<p>第3步,再重复前边的步骤变成,将较小的4放入第三个数组后变成如下状态</p>
+<p>第一个数组[6]</p>
+<p>第二个数组[...]</p>
+<p>--------------------</p>
+<p>第三个数组[1 2 4]</p>
+<p>&nbsp;</p>
+<p>第4步,最后将6放入,排序完毕</p>
+<p>第一个数组[...]</p>
+<p>第二个数组[...]</p>
+<p>--------------------</p>
+<p>第三个数组[1 2 4 6]</p>
+<p>&nbsp;</p>
+<p>[ 1 2 4 6 ]与[ 5 9 ]的合并过程与上边一样,不再分解</p>
+<p>代码仅供参考</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>        <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> merge(<span style="color: #0000ff;">int</span>[] unsorted, <span style="color: #0000ff;">int</span> first, <span style="color: #0000ff;">int</span> mid, <span style="color: #0000ff;">int</span> last, <span style="color: #0000ff;">int</span><span style="color: #000000;">[] sorted)
+        {
+            </span><span style="color: #0000ff;">int</span> i = first, j =<span style="color: #000000;"> mid;
+            </span><span style="color: #0000ff;">int</span> k = <span style="color: #800080;">0</span><span style="color: #000000;">;
+            </span><span style="color: #0000ff;">while</span> (i &lt; mid &amp;&amp; j &lt;<span style="color: #000000;"> last)
+                </span><span style="color: #0000ff;">if</span> (unsorted[i] &lt;<span style="color: #000000;"> unsorted[j])
+                    sorted[k</span>++] = unsorted[i++<span style="color: #000000;">];
+                </span><span style="color: #0000ff;">else</span><span style="color: #000000;">
+                    sorted[k</span>++] = unsorted[j++<span style="color: #000000;">];
+
+            </span><span style="color: #0000ff;">while</span> (i &lt;<span style="color: #000000;"> mid)
+                sorted[k</span>++] = unsorted[i++<span style="color: #000000;">];
+            </span><span style="color: #0000ff;">while</span> (j &lt;<span style="color: #000000;"> last)
+                sorted[k</span>++] = unsorted[j++<span style="color: #000000;">];
+
+            </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> v = <span style="color: #800080;">0</span>; v &lt; k; v++<span style="color: #000000;">)
+                unsorted[first </span>+ v] =<span style="color: #000000;"> sorted[v];
+        }
+
+        </span><span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> merge_sort(<span style="color: #0000ff;">int</span>[] unsorted, <span style="color: #0000ff;">int</span> first, <span style="color: #0000ff;">int</span> last, <span style="color: #0000ff;">int</span><span style="color: #000000;">[] sorted)
+        {
+            </span><span style="color: #0000ff;">if</span> (first + <span style="color: #800080;">1</span> &lt;<span style="color: #000000;"> last)
+            {
+                </span><span style="color: #0000ff;">int</span> mid = (first + last) / <span style="color: #800080;">2</span><span style="color: #000000;">;
+                Console.WriteLine(</span><span style="color: #800000;">"</span><span style="color: #800000;">{0}-{1}-{2}</span><span style="color: #800000;">"</span><span style="color: #000000;">, first, mid, last);
+                merge_sort(unsorted, first, mid, sorted);
+                merge_sort(unsorted, mid, last, sorted);
+                merge(unsorted, first, mid, last, sorted);
+            }
+        }
+
+        </span><span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> Main(<span style="color: #0000ff;">string</span><span style="color: #000000;">[] args)
+        {
+            </span><span style="color: #0000ff;">int</span>[] x = { <span style="color: #800080;">6</span>, <span style="color: #800080;">2</span>, <span style="color: #800080;">4</span>, <span style="color: #800080;">1</span>, <span style="color: #800080;">5</span>, <span style="color: #800080;">9</span><span style="color: #000000;"> };
+            </span><span style="color: #0000ff;">int</span>[] sorted = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span><span style="color: #000000;">[x.Length];
+            merge_sort(x, </span><span style="color: #800080;">0</span><span style="color: #000000;">, x.Length, sorted);
+            </span><span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; sorted.Length; i++<span style="color: #000000;">)
+            {
+                </span><span style="color: #0000ff;">if</span> (x[i] &gt; <span style="color: #800080;">0</span><span style="color: #000000;">)
+                    Console.WriteLine(x[i]);
+            }
+            Console.ReadLine();
+        }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html">返回主目录 [经典排序算法][集锦]</a></p></div><div id="MySignature" style="display: block;"><br><br>
+------------------------------------------<br>
+除非特别声明,文章均为原创,版权与博客园共有,转载请保留出处</div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/kkun/tag/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%20merge%20sort/">归并排序 merge sort</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2260271,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;a2843d0b-63cf-dd11-9e4d-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/kkun/" target="_blank"><img src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/u27325.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/kkun/">kkun</a><br>
+            <a href="http://home.cnblogs.com/u/kkun/followees">关注 - 22</a><br>
+            <a href="http://home.cnblogs.com/u/kkun/followers">粉丝 - 555</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;a2843d0b-63cf-dd11-9e4d-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2260271,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">5</span>
+    </div>
+    <div class="buryit" onclick="votePost(2260271,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html" title="发布于2011-11-23 14:34">经典排序算法 – 插入排序Insertion sort</a><br><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html" title="发布于2011-11-23 14:36">经典排序算法 - 冒泡排序Bubble sort</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2011-11-23 14:35</span> <a href="http://www.cnblogs.com/kkun/">kkun</a> 阅读(<span id="post_view_count">41165</span>) 评论(<span id="post_comment_count">6</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2260271" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#" onclick="AddToWz(2260271);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=30877,cb_entryId=2260271,cb_blogApp=currentBlogApp,cb_blogUserGuid='a2843d0b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2011/11/23 14:35:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<div class="feedback_area_title">评论</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2252852" class="layer">#1楼</a><a name="2252852" id="comment_anchor_2252852"></a> <span class="comment_date">2011-11-24 18:16</span> | <a id="a_comment_author_2252852" href="http://www.cnblogs.com/blackman/" target="_blank">天空海阔</a> <a href="http://msg.cnblogs.com/send/%E5%A4%A9%E7%A9%BA%E6%B5%B7%E9%98%94" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2252852" class="blog_comment_body"><fieldset class="comment_quote"><legend>引用</legend>子数组与女数组合并</fieldset><br>....</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2252852,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2252852,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2252852_avatar" style="display:none;">http://pic.cnblogs.com/face/u82693.jpg?id=26150914</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2252897" class="layer">#2楼</a><a name="2252897" id="comment_anchor_2252897"></a>[<span class="louzhu">楼主</span>] <span class="comment_date">2011-11-24 19:51</span> | <a id="a_comment_author_2252897" href="http://www.cnblogs.com/kkun/" target="_blank">kkun</a> <a href="http://msg.cnblogs.com/send/kkun" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2252897" class="blog_comment_body"><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2252852" title="查看引用原文">引用</a></legend>天空海阔：<br><fieldset class="comment_quote"><legend>引用</legend>子数组与女数组合并</fieldset><br>....</fieldset><br>子数组与子数组...</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2252897,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2252897,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2252897_avatar" style="display:none;">http://pic.cnblogs.com/face/u27325.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2331507" class="layer">#3楼</a><a name="2331507" id="comment_anchor_2331507"></a> <span class="comment_date">2012-03-15 14:18</span> | <a id="a_comment_author_2331507" href="http://home.cnblogs.com/u/386610/" target="_blank">hhby</a> <a href="http://msg.cnblogs.com/send/hhby" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2331507" class="blog_comment_body"><fieldset class="comment_quote"><legend>引用</legend>原理,把原始数组分成若干子数组,对每一个子数组进行排序,</fieldset><br>子数组怎么排序的？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2331507,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2331507,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2342015" class="layer">#4楼</a><a name="2342015" id="comment_anchor_2342015"></a>[<span class="louzhu">楼主</span>] <span class="comment_date">2012-03-28 14:07</span> | <a id="a_comment_author_2342015" href="http://www.cnblogs.com/kkun/" target="_blank">kkun</a> <a href="http://msg.cnblogs.com/send/kkun" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2342015" class="blog_comment_body"><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2331507" title="查看引用原文">引用</a></legend>hhby：<br><fieldset class="comment_quote"><legend>引用</legend>原理,把原始数组分成若干子数组,对每一个子数组进行排序,</fieldset><br>子数组怎么排序的？</fieldset><br>相临两个子数组归并排序...就是文章里介绍的方法</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2342015,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2342015,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2342015_avatar" style="display:none;">http://pic.cnblogs.com/face/u27325.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2819041" class="layer">#5楼</a><a name="2819041" id="comment_anchor_2819041"></a> <span class="comment_date">2013-11-19 07:06</span> | <a id="a_comment_author_2819041" href="http://www.cnblogs.com/Ligeance/" target="_blank">Ligeance</a> <a href="http://msg.cnblogs.com/send/Ligeance" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2819041" class="blog_comment_body"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2252897" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2252897);">@</a>
+kkun<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#2252897" title="查看引用原文">引用</a></legend><fieldset class="comment_quote"><legend>引用</legend>引用天空海阔：<br>引用子数组与女数组合并</fieldset><br>....<br>子数组与子数组...</fieldset><br> 哈哈哈</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2819041,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2819041,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2819041_avatar" style="display:none;">http://pic.cnblogs.com/face/u129881.png?id=17184548</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#3443947" class="layer">#6楼</a><a name="3443947" id="comment_anchor_3443947"></a><span id="comment-maxId" style="display:none;">3443947</span><span id="comment-maxDate" style="display:none;">2016/6/1 21:02:20</span> <span class="comment_date">2016-06-01 21:02</span> | <a id="a_comment_author_3443947" href="http://www.cnblogs.com/chianquan/" target="_blank">南宫千寻</a> <a href="http://msg.cnblogs.com/send/%E5%8D%97%E5%AE%AB%E5%8D%83%E5%AF%BB" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3443947" class="blog_comment_body">子数组和女数组合并笑cry~~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3443947,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3443947,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://www.163yun.com/zs?zsfrom=vcloud" target="_blank">【邀请】网易云渠道合作伙伴招商大会，邀您共创未来</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/24442-20161115165230123-1587531896.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/558295/" target="_blank">苹果1984年的招聘启事曝光：当时月薪就24K了</a><br> ·  <a href="http://news.cnblogs.com/n/558294/" target="_blank">甲骨文可能终止了Solaris开发</a><br> ·  <a href="http://news.cnblogs.com/n/558293/" target="_blank">回家过年的火车票即将开抢！请收下这份攻略</a><br> ·  <a href="http://news.cnblogs.com/n/558292/" target="_blank">奔驰展示全新“数字灯光”系统：道路交通更安全</a><br> ·  <a href="http://news.cnblogs.com/n/558291/" target="_blank">黑莓Mercury真机曝光 配标志性QWERTY键盘</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/7898/" target="_blank"><img width="468" height="60" src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/24442-20161129114435240-502338490.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><a href="http://dresses.vancl.com/?source=korndorben&amp;sourcesuninfo=ad-4724-1-3-0-2" target="_blank"><img src="./经典排序算法 - 归并排序Merge sort - kkun - 博客园_files/adpics.aspx" width="100" height="100" border="0"></a><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/kkun/">kkun</a><br>园龄：<a href="http://home.cnblogs.com/u/kkun/" title="入园时间：2007-11-16">9年</a><br>粉丝：<a href="http://home.cnblogs.com/u/kkun/followers/">555</a><br>关注：<a href="http://home.cnblogs.com/u/kkun/followees/">22</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;a2843d0b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/kkun/tag/%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/">代码生成</a>(2)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E7%AB%AF%E5%8F%A32628/">端口2628</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E5%88%86%E9%83%A8%E7%B1%BB/">分部类</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E9%AB%98%E6%95%88%20%E6%9F%A5%E8%AF%A2%E8%A1%A8%20%20%E6%80%BB%E8%AE%B0%E5%BD%95%E6%95%B0%20SP_SPACEUSED/">高效 查询表  总记录数 SP_SPACEUSED</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E5%85%B3%E8%81%94%E7%B1%BB/">关联类</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E5%85%B3%E8%81%94%E4%B8%A4%E4%B8%AA%E6%96%87%E4%BB%B6/">关联两个文件</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%20merge%20sort/">归并排序 merge sort</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E5%90%88%E5%B9%B6%E7%B1%BB/">合并类</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E8%AE%A1%E7%AE%97%E6%9C%BA%20%E7%A1%AC%E4%BB%B6%20%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%20%E6%99%B6%E4%BD%93%E7%AE%A1%20%E7%BB%A7%E7%94%B5%E5%99%A8/">计算机 硬件 逻辑电路 晶体管 继电器</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/%E5%BC%80%E6%BA%90/">开源</a>(1)</li><li><a href="http://www.cnblogs.com/kkun/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(184)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/kkun/archive/2015/11.html">2015年11月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/kkun/archive/2015/01.html">2015年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/kkun/archive/2014/12.html">2014年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/kkun/archive/2014/10.html">2014年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/kkun/archive/2014/09.html">2014年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/kkun/archive/2014/08.html">2014年8月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/kkun/archive/2014/05.html">2014年5月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/kkun/archive/2014/03.html">2014年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/kkun/archive/2013/11.html">2013年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/kkun/archive/2013/10.html">2013年10月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/kkun/archive/2013/08.html">2013年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/kkun/archive/2013/07.html">2013年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/kkun/archive/2013/06.html">2013年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/kkun/archive/2012/11.html">2012年11月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/kkun/archive/2012/05.html">2012年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/kkun/archive/2012/04.html">2012年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/kkun/archive/2012/01.html">2012年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/kkun/archive/2011/12.html">2011年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/kkun/archive/2011/11.html">2011年11月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/kkun/archive/2011/10.html">2011年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/kkun/archive/2011/08.html">2011年8月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/kkun/archive/2011/07.html">2011年7月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/kkun/archive/2011/06.html">2011年6月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/kkun/archive/2011/04.html">2011年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/kkun/archive/2011/03.html">2011年3月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/kkun/archive/2011/02.html">2011年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/kkun/archive/2010/10.html">2010年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/kkun/archive/2010/09.html">2010年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/kkun/archive/2010/08.html">2010年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/kkun/archive/2010/07.html">2010年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/kkun/archive/2010/06.html">2010年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/kkun/archive/2010/03.html">2010年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/kkun/archive/2010/02.html">2010年2月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/kkun/archive/2010/01.html">2010年1月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/kkun/archive/2009/12.html">2009年12月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/kkun/archive/2009/11.html">2009年11月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/kkun/archive/2009/10.html">2009年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/kkun/archive/2009/09.html">2009年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_38" href="http://www.cnblogs.com/kkun/archive/2009/08.html">2009年8月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_39" href="http://www.cnblogs.com/kkun/archive/2009/07.html">2009年7月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_40" href="http://www.cnblogs.com/kkun/archive/2009/06.html">2009年6月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_41" href="http://www.cnblogs.com/kkun/archive/2009/04.html">2009年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_42" href="http://www.cnblogs.com/kkun/archive/2009/03.html">2009年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_43" href="http://www.cnblogs.com/kkun/archive/2009/02.html">2009年2月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_44" href="http://www.cnblogs.com/kkun/archive/2009/01.html">2009年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_45" href="http://www.cnblogs.com/kkun/archive/2008/12.html">2008年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_46" href="http://www.cnblogs.com/kkun/archive/2008/09.html">2008年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_47" href="http://www.cnblogs.com/kkun/archive/2008/08.html">2008年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_48" href="http://www.cnblogs.com/kkun/archive/2008/02.html">2008年2月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListArticleArchive">
+<h3 class="catListTitle">文章档案<span style="font-size:11px;font-weight:normal">(4)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/kkun/archives/2016/11.html" rel="nofollow">2016年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/kkun/archives/2009/09.html" rel="nofollow">2009年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/kkun/archives/2009/03.html" rel="nofollow">2009年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/kkun/archives/2008/11.html" rel="nofollow">2008年11月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListImageCategory">
+<h3 class="catListTitle">相册<span style="font-size:11px;font-weight:normal">(9)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/kkun/gallery/124118.html" rel="nofollow">临时目录(6)</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/kkun/gallery/212569.html" rel="nofollow">收藏(3)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList友情连接">
+<h3 class="catListTitle">友情连接</h3>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	215668
+	</li><li class="liRank">
+		排名 -	782
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3560460">1. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">/* 对顺序表L作交换排序（冒泡排序初级版） */void BubbleSort0(SqList *L){ int i,j; for(i=1;ilength;i++) { ......</li>
+        <li class="recent_comment_author">--coolingxyz</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3555670">2. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">请把冒泡排序的概念弄清楚。总的来说就是两两交换，而不是“临近的数字两两进行比较”</li>
+        <li class="recent_comment_author">--达哥的博客</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html#3552065">3. Re:[经典排序算法][集锦]</a></li>
+        <li class="recent_comment_body">这种大部分都是排好序只有个别的不正确的情况下，用插入排序最是高效</li>
+        <li class="recent_comment_author">--BuringKK</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3552063">4. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">public void sort(int[] array) { //这样的代码很低效// for (int i = 0; i array[j + 1]) {// ......</li>
+        <li class="recent_comment_author">--BuringKK</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3552054">5. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">正确代码（低效） ：public void sort(int[] array) { for (int i = 0; i array[j + 1]) { ......</li>
+        <li class="recent_comment_author">--BuringKK</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3545542">6. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">附上正确代码static void bubble_sort(int[] unsorted){for (int i = 0; i unsorted[j+1]){int temp = unsorted[......</li>
+        <li class="recent_comment_author">--叶藏</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3541221">7. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">代码是选择排序。。</li>
+        <li class="recent_comment_author">--公孙璃</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3537576">8. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">我就说这个冒泡看着这么别扭呢。。代码有误</li>
+        <li class="recent_comment_author">--勤劳的Coder</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3533816">9. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">怎么这样的错误也能挂。</li>
+        <li class="recent_comment_author">--风与流年</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html#3530539">10. Re:经典排序算法 - 冒泡排序Bubble sort</a></li>
+        <li class="recent_comment_body">@三胖他爹确认是错的，请直接送他一个 反对，这样对后面的读者有帮助。...</li>
+        <li class="recent_comment_author">--StoneBridge</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html">1. 经典排序算法 - 冒泡排序Bubble sort(204431)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html">2. 经典排序算法 – 插入排序Insertion sort(125053)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html">3. [经典排序算法][集锦](73215)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/shell_sort.html">4. 经典排序算法 - 希尔排序Shell sort(51186)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/quick_sort.html">5. 经典排序算法 - 快速排序Quick sort(43296)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html">6. 经典排序算法 - 归并排序Merge sort(41165)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bucket_sort.html">7. 经典排序算法 - 桶排序Bucket sort(39690)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/radix_sort.html">8. 经典排序算法 - 基数排序Radix sort(23708)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/selection_sort.html">9. 经典排序算法 - 选择排序Selection sort(21247)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/2260286.html">10. 经典排序算法 - 堆排序Heap sort(20920)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html">1. 经典排序算法 - 冒泡排序Bubble sort(58)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html">2. [经典排序算法][集锦](47)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bucket_sort.html">3. 经典排序算法 - 桶排序Bucket sort(24)</a></li><li><a href="http://www.cnblogs.com/kkun/p/3274488.html">4. [MSSQL]如何高效查询表的总记录数(20)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/07/06/fKanban.html">5. 国产开源敏捷工具-fKanban(19)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2008/09/23/1296631.html">6. 新开发的silverlight视频播放器,(12)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/06/07/2074263.html">7. HTML5 离线存储之Web SQL(12)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2009/08/20/1550889.html">8. 为指定的XML文件生成类并反序列化(9)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html">9. 经典排序算法 – 插入排序Insertion sort(8)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/quick_sort.html">10. 经典排序算法 - 快速排序Quick sort(7)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/2260312.html">1. [经典排序算法][集锦](81)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bubble_sort.html">2. 经典排序算法 - 冒泡排序Bubble sort(20)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/insertion_sort.html">3. 经典排序算法 – 插入排序Insertion sort(9)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/06/20/2084962.html">4. 《Javascript高级程序设计》读书笔记 Number对象(8)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/radix_sort.html">5. 经典排序算法 - 基数排序Radix sort(6)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/quick_sort.html">6. 经典排序算法 - 快速排序Quick sort(6)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/merge_sort.html">7. 经典排序算法 - 归并排序Merge sort(5)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/07/06/fKanban.html">8. 国产开源敏捷工具-fKanban(5)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/07/06/agile_software_development.html">9. 敏捷软件开发 Agile software Development(5)</a></li><li><a href="http://www.cnblogs.com/kkun/archive/2011/11/23/bucket_sort.html">10. 经典排序算法 - 桶排序Bucket sort(4)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 kkun
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

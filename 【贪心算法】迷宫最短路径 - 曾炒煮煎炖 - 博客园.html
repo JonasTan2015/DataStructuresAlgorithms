@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://www.cnblogs.com/zengyh-1900/p/4064898.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/bundle-sea.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/bundle-sea-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/zengyh-1900/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/zengyh-1900/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/zengyh-1900/wlwmanifest.xml">
+<script type="text/javascript" src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/encoder.js.下载"></script><script src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'zengyh-1900', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/zengyh-1900/">曾炒煮煎炖</a><br>
+		
+	</div>
+</div>
+
+</div>
+
+<div id="mytopmenu">
+	
+		<div id="mylinks"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a> &nbsp;
+<a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/zengyh-1900/">首页</a> &nbsp;
+<a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> &nbsp;
+<a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%9B%BE%E7%82%92%E7%85%AE%E7%85%8E%E7%82%96">联系</a> &nbsp;
+<a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/zengyh-1900/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/zengyh-1900/rss"><img src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;
+<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+		<div id="mystats"><div id="blog_stats">
+随笔-45&nbsp;
+评论-13&nbsp;
+文章-0&nbsp;
+<!--trackbacks-0-->
+</div></div>
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<div class="post">
+	<h1 class="postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/zengyh-1900/p/4064898.html">【贪心算法】迷宫最短路径</a></h1>
+	<div id="cnblogs_post_body"><div class="headline"><span style="font-size: 16px;"><strong><span style="color: #0000ff;">Description</span></strong></span></div>
+<div class="description">
+<p class="p0">为了测试某种药物对小白鼠方向感的影响，生物学家在实验室做了一个矩形迷宫，入口和出口都确定为唯一的，且分布在矩形的不同边上。现在让你算出小白鼠最短需要走多少步，才可以从入口走到出口。</p>
+</div>
+<div class="headline"><span style="font-size: 16px;"><strong><span style="color: #0000ff;">Input</span></strong></span></div>
+<div class="description">
+<p class="p0">共<span style="font-family: &#39;Times New Roman&#39;;">N+1</span><span style="font-family: 宋体;">行，第一行为</span><span style="font-family: &#39;Times New Roman&#39;;">N</span><span style="font-family: 宋体;">（</span><span style="font-family: &#39;Times New Roman&#39;;">N=0</span><span style="font-family: 宋体;">表示输入结束），以下</span><span style="font-family: &#39;Times New Roman&#39;;">N</span><span style="font-family: 宋体;">行</span><span style="font-family: &#39;Times New Roman&#39;;">N</span><span style="font-family: 宋体;">列</span><span style="font-family: &#39;Times New Roman&#39;;">0-1</span><span style="font-family: 宋体;">矩阵，</span><span style="font-family: &#39;Times New Roman&#39;;">1</span><span style="font-family: 宋体;">表示不能通过</span>，0<span style="font-family: 宋体;">表示可以通过</span>（左上角和右下角为<span style="font-family: &#39;Times New Roman&#39;;">0</span><span style="font-family: 宋体;">，即入口和出口</span>），其中N&lt;30。</p>
+</div>
+<div class="headline"><span style="font-size: 16px;"><strong><span style="color: #0000ff;">Output</span></strong></span></div>
+<div class="description">
+<p class="p0">只有一个数，为最少要走的格子数。<span style="font-family: &#39;Times New Roman&#39;;">0</span><span style="font-family: 宋体;">表示没有路径。</span></p>
+</div>
+<div class="headline"><span style="font-size: 16px;"><strong><span style="color: #0000ff;">Sample Input</span></strong></span></div>
+<div>
+<pre>5
+0 1 1 1 1
+0 0 1 1 1
+1 0 0 0 1
+1 1 1 0 1
+1 1 1 0 0
+4
+0 0 1 1
+0 0 0 1
+1 1 1 1
+1 1 1 0
+0</pre>
+</div>
+<div class="headline"><span style="font-size: 16px;"><strong><span style="color: #0000ff;">Sample Output</span></strong></span></div>
+<div>
+<pre>9
+0<br><br><span style="font-size: 16px; color: #0000ff;"><strong>解题思路：</strong></span><br>贪心算法：1.用一个结构体储存衡中坐标、当前步数。<br>         2.读取起点，此时步数step为1，分别向四个方向读取可探索的点，step++并入队<br>         3.此时的点出队，然后继续同样的方法判断下一个点<br>         4.这样的方法下判断第一个读到出口的就是最短路径。<br>         5.队列为空还是没有读到出口，则没有路径。<br><br><span style="font-size: 16px;"><strong><span style="color: #0000ff;">实现代码：</span></strong></span></pre>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>#include&lt;iostream&gt;<span style="color: #000000;">
+#include</span>&lt;queue&gt;
+<span style="color: #0000ff;">using</span><span style="color: #000000;"> std::cin;
+</span><span style="color: #0000ff;">using</span><span style="color: #000000;"> std::cout;
+</span><span style="color: #0000ff;">using</span><span style="color: #000000;"> std::endl;
+</span><span style="color: #0000ff;">using</span><span style="color: #000000;"> std::queue;
+
+</span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> point {
+    </span><span style="color: #0000ff;">int</span> x;    <span style="color: #008000;">//</span><span style="color: #008000;">横坐标 </span>
+    <span style="color: #0000ff;">int</span> y;    <span style="color: #008000;">//</span><span style="color: #008000;">纵坐标 </span>
+    <span style="color: #0000ff;">int</span> step; <span style="color: #008000;">//</span><span style="color: #008000;">当前走了几步 </span>
+<span style="color: #000000;">};
+
+</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> main() {
+    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> n, i, j;
+    point tmp, next;
+    </span><span style="color: #0000ff;">int</span> maze[<span style="color: #800080;">100</span>][<span style="color: #800080;">100</span><span style="color: #000000;">];
+    queue</span>&lt;point&gt;<span style="color: #000000;"> q;
+    </span><span style="color: #0000ff;">for</span> (cin &gt;&gt; n; n != <span style="color: #800080;">0</span>; cin &gt;&gt;<span style="color: #000000;"> n) {
+        </span><span style="color: #0000ff;">while</span>(q.size() != <span style="color: #800080;">0</span>) q.pop();   <span style="color: #008000;">//</span><span style="color: #008000;">初始化清空队列 </span>
+        <span style="color: #0000ff;">for</span> (i = <span style="color: #800080;">0</span>; i &lt; n; i++) {      <span style="color: #008000;">//</span><span style="color: #008000;">读取迷宫 </span>
+            <span style="color: #0000ff;">for</span> (j = <span style="color: #800080;">0</span>; j &lt; n; j++<span style="color: #000000;">)
+                cin </span>&gt;&gt;<span style="color: #000000;"> maze[i][j];
+        }
+        maze[</span><span style="color: #800080;">0</span>][<span style="color: #800080;">0</span>] = <span style="color: #800080;">1</span>;               <span style="color: #008000;">//</span><span style="color: #008000;">读取起点，并放入队列 </span>
+        tmp.x = tmp.y = <span style="color: #800080;">0</span><span style="color: #000000;">;
+        tmp.step </span>= <span style="color: #800080;">1</span><span style="color: #000000;">;
+        q.push(tmp);
+        
+        </span><span style="color: #0000ff;">while</span>(!q.empty()) {             <span style="color: #008000;">//</span><span style="color: #008000;">队列非空时 </span>
+            tmp =<span style="color: #000000;"> q.front();
+            </span><span style="color: #0000ff;">if</span> (tmp.x == n - <span style="color: #800080;">1</span> &amp;&amp; tmp.y == n - <span style="color: #800080;">1</span>) <span style="color: #0000ff;">break</span>; <span style="color: #008000;">//</span><span style="color: #008000;">读到出口，跳出循环 </span>
+            <span style="color: #0000ff;">if</span> (tmp.x - <span style="color: #800080;">1</span> &gt;= <span style="color: #800080;">0</span> &amp;&amp; !maze[tmp.x - <span style="color: #800080;">1</span>][tmp.y]) {  <span style="color: #008000;">//</span><span style="color: #008000;">向上试探路径 </span>
+                next.x = tmp.x - <span style="color: #800080;">1</span><span style="color: #000000;">;
+                next.y </span>=<span style="color: #000000;"> tmp.y;
+                next.step </span>= tmp.step + <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录成下一步并入队 </span>
+<span style="color: #000000;">                q.push(next);
+                maze[tmp.x </span>- <span style="color: #800080;">1</span>][tmp.y] = <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录此处已经 不能走了，避免走回头路 </span>
+<span style="color: #000000;">            }
+            </span><span style="color: #0000ff;">if</span> (tmp.y - <span style="color: #800080;">1</span> &gt;= <span style="color: #800080;">0</span> &amp;&amp; !maze[tmp.x][tmp.y - <span style="color: #800080;">1</span>]) {<span style="color: #008000;">//</span><span style="color: #008000;">向右试探路径 </span>
+                next.x =<span style="color: #000000;"> tmp.x;
+                next.y </span>= tmp.y - <span style="color: #800080;">1</span><span style="color: #000000;">;
+                next.step </span>= tmp.step + <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录成下一步并入队 </span>
+<span style="color: #000000;">                q.push(next);
+                maze[tmp.x][tmp.y </span>- <span style="color: #800080;">1</span>] = <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录此处已经 不能走了，避免走回头路 </span>
+<span style="color: #000000;">            }
+            </span><span style="color: #0000ff;">if</span> (tmp.x + <span style="color: #800080;">1</span> &lt; n &amp;&amp; !maze[tmp.x + <span style="color: #800080;">1</span>][tmp.y]) {<span style="color: #008000;">//</span><span style="color: #008000;">向下试探路径 </span>
+                next.x = tmp.x + <span style="color: #800080;">1</span><span style="color: #000000;">;
+                next.y </span>=<span style="color: #000000;"> tmp.y;
+                next.step </span>= tmp.step + <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录成下一步并入队 </span>
+<span style="color: #000000;">                q.push(next);
+                maze[tmp.x </span>+ <span style="color: #800080;">1</span>][tmp.y] = <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录此处已经 不能走了，避免走回头路 </span>
+<span style="color: #000000;">            }
+            </span><span style="color: #0000ff;">if</span> (tmp.y + <span style="color: #800080;">1</span> &lt; n &amp;&amp; !maze[tmp.x][tmp.y + <span style="color: #800080;">1</span>]) {<span style="color: #008000;">//</span><span style="color: #008000;">向左试探路径 </span>
+                next.x =<span style="color: #000000;"> tmp.x;
+                next.y </span>= tmp.y + <span style="color: #800080;">1</span><span style="color: #000000;">;
+                next.step </span>= tmp.step + <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录成下一步并入队 </span>
+<span style="color: #000000;">                q.push(next);
+                maze[tmp.x][tmp.y </span>+ <span style="color: #800080;">1</span>] = <span style="color: #800080;">1</span>;<span style="color: #008000;">//</span><span style="color: #008000;">记录此处已经 不能走了，避免走回头路 </span>
+<span style="color: #000000;">            }
+            q.pop();</span><span style="color: #008000;">//</span><span style="color: #008000;">当前所处出队，继续下一步判断 </span>
+<span style="color: #000000;">        }
+        
+        </span><span style="color: #0000ff;">if</span> (tmp.x == n - <span style="color: #800080;">1</span> &amp;&amp; tmp.y == n - <span style="color: #800080;">1</span>)<span style="color: #008000;">//</span><span style="color: #008000;">若读取到出口，输出当前步数 </span>
+            cout &lt;&lt; q.front().step &lt;&lt;<span style="color: #000000;"> endl;
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;">
+            cout </span>&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">0</span><span style="color: #800000;">"</span> &lt;&lt;<span style="color: #000000;"> endl;
+        
+        
+    }
+}                                 </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>（本博文或多或少参考过其他网上资料，但时间已久忘记当初的参考了，在此对他们表示感谢！）</p>
+</div></div><div id="MySignature" style="display: block;">越努力越幸运～</div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/zengyh-1900/category/623975.html" target="_blank">数据结构与算法</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4064898,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;c7ba75b5-5257-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zengyh-1900/" target="_blank"><img src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/20141019134749.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zengyh-1900/">曾炒煮煎炖</a><br>
+            <a href="http://home.cnblogs.com/u/zengyh-1900/followees">关注 - 11</a><br>
+            <a href="http://home.cnblogs.com/u/zengyh-1900/followers">粉丝 - 6</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;c7ba75b5-5257-e411-b908-9dcfd8948a71&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4064898,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(4064898,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/zengyh-1900/p/4064287.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/zengyh-1900/p/4064287.html" title="发布于2014-10-31 09:39">【队列】基于循环数组的实现</a><br><a href="http://www.cnblogs.com/zengyh-1900/p/4064948.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/zengyh-1900/p/4064948.html" title="发布于2014-10-31 14:13">【递归】全排列</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2014-10-31 13:54</span> <a href="http://www.cnblogs.com/zengyh-1900/">曾炒煮煎炖</a> 阅读(<span id="post_view_count">381</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4064898" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/zengyh-1900/p/4064898.html#" onclick="AddToWz(4064898);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=201689,cb_entryId=4064898,cb_blogApp=currentBlogApp,cb_blogUserGuid='c7ba75b5-5257-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2014/10/31 13:54:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/zengyh-1900/p/4064898.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/zengyh-1900/p/4064898.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://group.cnblogs.com/topic/75389.html" target="_blank">【活动】优达学城正式发布“无人驾驶车工程师”课程</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://www.gcpowertools.com.cn/products/componentone_studio_enterprise.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=C1&amp;utm_campaign=community" target="_blank">【推荐】别再闷头写代码！找对工具，事半功倍，全能开发工具包用起来</a><br><a href="http://netease.im/?hmsr=bky10&amp;from=bky10" target="_blank">【推荐】网易这个云产品做了15年才面世，1年吸引10万+开发者</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://activity.hwclouds.com/cloudProduct/index.html?utm_source=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;utm_medium=MediaB&amp;utm_campaign=2016%E5%B9%B410%E6%9C%88%E5%B8%B8%E8%A7%84%E5%B9%BF%E5%91%8A%E6%8A%95%E6%94%BE%E3%80%90%E7%AC%AC%E5%85%AD%E6%AC%A1%E3%80%91&amp;utm_content=%E5%8D%9A%E5%AE%A2%E5%9B%AD%E9%A6%96%E9%A1%B5%E6%96%87%E5%AD%97%E9%93%BE-BH%E6%96%87%E5%AD%97%E9%93%BE" target="_blank"><img width="300" height="250" src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/24442-20161027213553687-432849317.gif" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/556084/" target="_blank">重组为Alphabet之后，Google到底是怎么赚钱的？</a><br> ·  <a href="http://news.cnblogs.com/n/556083/" target="_blank">英国科研人员发明激光围栏，保护农田免遭老鼠侵扰</a><br> ·  <a href="http://news.cnblogs.com/n/556082/" target="_blank">今日头条起诉凤凰新闻客户端诽谤 索赔500万元</a><br> ·  <a href="http://news.cnblogs.com/n/556081/" target="_blank">美团否认裁员2万人，但虎嗅还是了解到了一些裁员信息</a><br> ·  <a href="http://news.cnblogs.com/n/556080/" target="_blank">锂离子电池爆炸也让NASA头疼：一机器人瞬间没了</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./【贪心算法】迷宫最短路径 - 曾炒煮煎炖 - 博客园_files/24442-20161011141820868-1378717477.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br> ·  <a href="http://kb.cnblogs.com/page/550625/" target="_blank">程序猿媳妇儿注意事项</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/zengyh-1900/">曾炒煮煎炖</a><br>园龄：<a href="http://home.cnblogs.com/u/zengyh-1900/" title="入园时间：2014-10-19">2年</a><br>粉丝：<a href="http://home.cnblogs.com/u/zengyh-1900/followers/">6</a><br>关注：<a href="http://home.cnblogs.com/u/zengyh-1900/followees/">11</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;c7ba75b5-5257-e411-b908-9dcfd8948a71&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/09/01&#39;);return false;">&lt;</a></td><td align="center">2016年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalTodayDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/zengyh-1900/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/zengyh-1900/tag/c%2B%2B%20%E9%80%92%E5%BD%92%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">c++ 递归 数据结构与算法</a>(1)</li><li><a href="http://www.cnblogs.com/zengyh-1900/tag/%E6%A0%88%E7%9A%84%E4%BD%BF%E7%94%A8/">栈的使用</a>(1)</li>
+</ul>
+</div></div><div id="sidebar_categories">
+		<h3 class="catListTitle">随笔分类</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/827439.html">ubuntu(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/623977.html">web开发(4)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/683833.html">计算机组成原理(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/623975.html">数据结构与算法(14)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/682741.html">数据库(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/832142.html">系统分析与设计(9)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/793498.html">综合(15)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">随笔档案</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2016/06.html">2016年6月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2016/05.html">2016年5月 (10)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2016/03.html">2016年3月 (12)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2016/02.html">2016年2月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2015/04.html">2015年4月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_5" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2015/01.html">2015年1月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_6" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2014/12.html">2014年12月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_7" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2014/11.html">2014年11月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_8" class="listitem" href="http://www.cnblogs.com/zengyh-1900/archive/2014/10.html">2014年10月 (10)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">文章分类</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_0" class="listitem" href="http://www.cnblogs.com/zengyh-1900/category/680857.html">数据库</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zengyh-1900/p/5225475.html#3492983">1. Re:【基础复习】一：程序设计基本概念</a></li>
+        <li class="recent_comment_body">蟹蟹你！学到好多</li>
+        <li class="recent_comment_author">--gelato</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zengyh-1900/p/5247559.html#3405712">2. Re:【基础复习】七：继承与接口</a></li>
+        <li class="recent_comment_body">@曾炒煮煎炖也不是在运行时使用到的时候动态的临时的合成。而是编译器在【编译期间】，当发现一个类需要创建一个对象，它会去找到这个对象的默认构造函数，但是，如果它找不到这个函数，那么它就会在编译期间帮这个......</li>
+        <li class="recent_comment_author">--向日葵的祈愿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zengyh-1900/p/5247559.html#3380062">3. Re:【基础复习】七：继承与接口</a></li>
+        <li class="recent_comment_body">@向日葵的祈愿意思是，如果我定义了一个空类，只有在我使用它的时候，才会去合成默认构造函数、默认析构函数吗？比如说默认构造函数，书上是说当没有定义构造函数的时候，就会合成默认构造函数，我以为这些函数的合......</li>
+        <li class="recent_comment_author">--曾炒煮煎炖</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zengyh-1900/p/5241625.html#3380004">4. Re:【基础复习】三：指针与引用</a></li>
+        <li class="recent_comment_body">@向日葵的祈愿这个我没有看懂你说的。c++类的数据成员（非静态）在内存中的分布是按照声明的顺序进行分配，也就是说第一个声明的数据成员的地址就是这个对象在内存中的首地址（不考虑虚函数的情况），那么编译器......</li>
+        <li class="recent_comment_author">--曾炒煮煎炖</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zengyh-1900/p/5247559.html#3379040">5. Re:【基础复习】七：继承与接口</a></li>
+        <li class="recent_comment_body">“如果我们没有定义拷贝构造函数，编译器就会为我们合成一个。与合成默认构造函数不通，及时我们定义了其他构造函数，也会合成拷贝构造函数。”C++编译器会不会帮我们合成这些关键在于我们的源代码中有没有用到，......</li>
+        <li class="recent_comment_author">--向日葵的祈愿</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/zengyh-1900/p/4064898.html">1. 【贪心算法】迷宫最短路径(381)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/4064158.html">2. 【栈】射击游戏1(321)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/4064166.html">3. 【栈】射击游戏（待更新）(283)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/4067679.html">4. 【指针】基于单向链表的list（待改进）(202)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/4440503.html">5. 【数据库】 postgresql 和 SQL初级使用（TPC-H数据应用）(195)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/zengyh-1900/p/5225475.html">1. 【基础复习】一：程序设计基本概念(4)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/5247559.html">2. 【基础复习】七：继承与接口(3)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/5241625.html">3. 【基础复习】三：指针与引用(2)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/4064166.html">4. 【栈】射击游戏（待更新）(2)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/4459904.html">5. TEC-2 机      微程序设计(1)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/zengyh-1900/p/4459904.html">1. TEC-2 机      微程序设计(1)</a></li><li><a href="http://www.cnblogs.com/zengyh-1900/p/4440503.html">2. 【数据库】 postgresql 和 SQL初级使用（TPC-H数据应用）(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>
+	
+</div>
+
+<!--done-->
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com/">博客园</a>	模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a>
+	Copyright ©2016 曾炒煮煎炖
+</div>
+
+
+
+
+
+</body></html>

@@ -1,0 +1,1485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0053)http://blog.csdn.net/tclxspy/article/details/51733685 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/tcom"></script><script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ca-pub-8990951720398508.js.下载"></script>  
+
+    <script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/hm.js.下载"></script><script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/tracking.js.下载" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script><script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/repoAddr2.js.下载"></script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/tclxspy/article/details/51733685#">
+
+    <title>算法#08--深入详解并查集union-find算法 - tclxspy的博客
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="深入详解并查集union-find算法优化。用于解决连通性问题。">
+    <script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/jquery.js.下载" type="text/javascript"></script>
+      <script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/jquery-version.js.下载"></script>
+    <script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ad.js.下载"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/index.css">
+        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/tracking.js(1).下载"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/tclxspy/rss/list">
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/share.js.下载"></script><link rel="stylesheet" type="text/css" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/job_reco.css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/wxLogin.js.下载"></script><link rel="stylesheet" type="text/css" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/get_ads.php" type="text/javascript"></script><script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/logger.js.下载"></script><link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/share_style0_16.css"></head>
+<body><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><iframe frameborder="0" style="display: none;" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saved_resource.html"></iframe><div id="MathJax_Message" style="display: none;"></div>
+
+
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57" id="revive-0-0"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/html.js.下载" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="http://passport.csdn.net/account/mobileregister?ref=toolbar&amp;action=mobileRegister">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label"><span class="red_txt">*</span>标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group" style="display:none;">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">位置</label>                        <div class="col-sm-10">                          <div class="my_lib_box">                            个人主页&nbsp;-&nbsp;<a href="http://my.csdn.net/" target="_blank">我的知识</a>                          </div>                          <div class="checkbox">                            <div class="pull-left">                              <label>                                <input type="checkbox" name="share" class="save_lib_map" checked="checked">同时保存至：                              </label>                            </div>                            <div class="pull-left">                              <div class="dropdown">                                <button id="toolbar_sele_map" type="button">                                  选择知识图谱                                  <i class="fa fa-chevron-down"></i>                                </button>                                <div class="top_arr"></div>                                <div class="outside">                                  <ul class="dropdown-menu" id="toolbar_Design_knowledge">                                  </ul>                                </div>                              </div>                            </div>                            <div class="pull-left new_txt">                              <a href="http://lib.csdn.net/my/create/structure" target="_blank">新建？</a>                            </div>                          </div>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left" style="display:none">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saved_resource(1).html" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix" style="display:none;"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt style="border: none;"><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info" style="border: none;"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-left" style="margin-left:132px; width:18px; height:27px; white-space:nowrap; overflow:hidden;"><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div id="chasnew123" class="hasnew" style="display: none;"></div>                <div id="cappsarea123" class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd> <a href="http://lib.csdn.net/?ref=toolbar" target="_blank">知识库</a></dd>                      <dd><a href="http://ask.csdn.net/?ref=toolbar" target="_blank">技术问答</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                      <dd style="display:none"> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd style="display:none"> <a href="http://job.csdn.net/?ref=toolbar" target="_blank">JOB<img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="http://edu.csdn.net/?ref=toolbar" target="_blank">学院<img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                      <dd> <a href="http://mall.csdn.net/?ref=toolbar" target="_blank">C币兑换<img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/new.gif" style="display: none; margin-top: -26px; width: 23px;"></a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/tclxspy">tclxspy的博客</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        
+     
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>           
+                <li id="btnContents"><a href="http://blog.csdn.net/tclxspy?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/tclxspy?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/tclxspy/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "tclxspy";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/tclxspy";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/60144120" target="_blank">
+<font color="red"> CSDN日报20170303——《百亿互金平台救火故事》</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/turingbooks/article/details/58072986" target="_blank">
+<font color="blue">程序员2月书讯
+</font></a>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://bbs.csdn.net/topics/392092888" target="_blank">
+<font color="red">社区有奖问答--一起舞动酷炫的iOS动画
+</font></a>
+
+
+</div>                        </div>
+                        
+
+
+
+  
+<link href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/jquery.cookie.js.下载"></script>
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/main.js.下载"></script>
+<link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/markdown_views.css">
+<link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/category.css">
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/MathJax.js.下载"></script>
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/web-storage-cache.min.js.下载"></script>
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/replace.min.js.下载"></script>
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+      
+      var fasrc="http://my.csdn.net/my/favorite/miniadd?t=%e7%ae%97%e6%b3%95%2308--%e6%b7%b1%e5%85%a5%e8%af%a6%e8%a7%a3%e5%b9%b6%e6%9f%a5%e9%9b%86union-find%e7%ae%97%e6%b3%95&u=http://blog.csdn.net/tclxspy/article/details/51733685"
+
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="http://blog.csdn.net/tclxspy/article/details/51733685">
+        <font color="red">[置顶]</font>
+        算法#08--深入详解并查集union-find算法            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href="http://www.csdn.net/tag/%e5%b9%b6%e6%9f%a5%e9%9b%86" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">并查集</a><a href="http://www.csdn.net/tag/union-find" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">union-find</a><a href="http://www.csdn.net/tag/%e6%a0%91" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">树</a><a href="http://www.csdn.net/tag/%e6%a3%ae%e6%9e%97" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">森林</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2016-06-22 13:44</span>
+            <span class="link_view" title="阅读次数">2074人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/tclxspy/article/details/51733685#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(0)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle(&#39;%e7%ae%97%e6%b3%95%2308--%e6%b7%b1%e5%85%a5%e8%af%a6%e8%a7%a3%e5%b9%b6%e6%9f%a5%e9%9b%86union-find%e7%ae%97%e6%b3%95&#39;,&#39;51733685&#39;);return false;" title="收藏" target="_blank">收藏</a></span>
+             <span class="link_report"> <a href="http://blog.csdn.net/tclxspy/article/details/51733685#report" onclick="javascript:report(51733685,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody" style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            try
+            {
+                var lib = eval("("+$("#lib").attr("value")+")");
+                var html = "";
+                if (lib.err == 0) {
+                    $.each(lib.data, function (i) {
+                        var obj = lib.data[i];
+                        //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                        html += ' <a href="' + obj.url + '" target="_blank">';
+                        html += ' <img src="' + obj.logo + '">';
+                        html += ' <em><b>' + obj.name + '</b></em>';
+                        html += ' </a>';
+                    });
+                    if (html != "") {
+                        setTimeout(function () {
+                            $("#lib").html(html);                      
+                            $("#embody").show();
+                        }, 100);
+                    }
+                }      
+            } catch (err)
+            { }
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label onclick="GetCategoryArticles(&#39;6162301&#39;,&#39;tclxspy&#39;,&#39;top&#39;,&#39;51733685&#39;);">
+                        <span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">算法<em>（25）</em></span>
+                      <img class="arrow-down" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a href="http://blog.csdn.net/tclxspy/article/category/6162301" target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_6162301">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/category.js.下载"></script>  
+        <div class="bog_copyright">         
+            <p class="copyright_p">版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/tclxspy/article/details/51733685#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/tclxspy/article/details/51733685#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/tclxspy/article/details/51733685#t0">深入详解并查集union-find算法</a></li><ol><li><a href="http://blog.csdn.net/tclxspy/article/details/51733685#t1">动态连通性</a></li><li><a href="http://blog.csdn.net/tclxspy/article/details/51733685#t2">quick-find算法</a></li><li><a href="http://blog.csdn.net/tclxspy/article/details/51733685#t3">quick-union算法</a></li><li><a href="http://blog.csdn.net/tclxspy/article/details/51733685#t4">加权quick-union算法</a></li></ol><li><a href="http://blog.csdn.net/tclxspy/article/details/51733685#t5">汇总</a></li></ol></div><div style="clear:both"></div><div id="article_content" class="article_content">
+        <div class="markdown_views"><h1 id="深入详解并查集union-find算法"><a name="t0"></a>深入详解并查集union-find算法</h1>
+
+
+
+<h2 id="动态连通性"><a name="t1"></a>动态连通性</h2>
+
+<p><strong>1. 问题描述</strong></p>
+
+<p>输入一系列整数对，其中每个整数都表示一个某种类型的对象，一对整数pq可以理解为“p和q是相连的”。</p>
+
+<p>相连是一种对等关系，它需要具有以下性质：</p>
+
+<ul>
+<li><p>自反性：p和p是相连的。 </p></li>
+<li><p>对称性：如果p和q是相连的，那么q和p也是相连的。</p></li>
+<li><p>传递性：如果p和q是相连的且q和r也是相连的，那么p和r也是相连的。</p></li>
+</ul>
+
+<p>假设我们输入了一组整数对，即下图中的(4, 3) (3, 8)等等，每对整数代表这两个points/sites是连通的。那么随着数据的不断输入，整个图的连通性也会发生变化，从上图中可以很清晰的发现这一点。同时，对于已经处于连通状态的points/sites，直接忽略，比如上图中的(8, 9)。</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/rVxDYNe.png" alt="" title=""></p>
+
+<p><strong>2. 应用场景</strong></p>
+
+<ul>
+<li><p><strong>网络</strong>：整数表示的可能是一个大型<a href="http://lib.csdn.net/base/computernetworks" class="replace_word" title="计算机网络知识库" target="_blank" style="color:#df3434; font-weight:bold;">计算机网络</a>中的计算机，而整数对表示网络中的无数个连接。这个程序能够判断我们是否需要在p和q之间架一条新的连接才能进行通信。</p></li>
+<li><p><strong>变量名等同性</strong>(类似于指针的概念)： <br>
+在程序中，可以声明多个引用来指向同一对象，这个时候就可以通过为程序中声明的引用和实际对象建立动态连通图来判断哪些引用实际上是指向同一对象。</p></li>
+<li><p><strong>数学集合</strong>：在更高的抽象层次上，可以将输入的所有整数看做属于不同的数学集合。在处理一个整数对pq时，我们是在判断它们是否属于同一个集合。如果不是，我们会归并，最终所有整数属于同一集合。</p></li>
+</ul>
+
+<p><strong>3. 数学建模</strong></p>
+
+<p>在对问题进行建模的时候，我们应该尽量想清楚需要解决的问题是什么。因为模型中选择的<a href="http://lib.csdn.net/base/datastructure" class="replace_word" title="算法与数据结构知识库" target="_blank" style="color:#df3434; font-weight:bold;">数据结构</a>和<a href="http://lib.csdn.net/base/datastructure" class="replace_word" title="算法与数据结构知识库" target="_blank" style="color:#df3434; font-weight:bold;">算法</a>显然会根据问题的不同而不同，就动态连通性这个场景而言，我们需要解决的问题可能是：</p>
+
+<ul>
+<li><p>给出两个节点，判断它们是否连通，如果连通，<font color="red">不需要</font>给出具体的路径</p></li>
+<li><p>给出两个节点，判断它们是否连通，如果连通，<font color="red">需要</font>给出具体的路径</p></li>
+</ul>
+
+<p>就上面两种问题而言，虽然只有是否能够给出具体路径的区别，但是这个区别导致了选择算法的不同，本文主要介绍的是第一种情况，即不需要给出具体路径的Union-Find算法，而第二种情况可以使用基于DFS的算法。</p>
+
+
+
+<h2 id="quick-find算法"><a name="t2"></a>quick-find算法</h2>
+
+<p><strong>1. API</strong></p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/RAoNfnh.jpg" alt="" title=""></p>
+
+<p>注意：其中使用整数来表示节点，如果需要使用其他的数据类型表示节点，比如使用字符串，那么可以用哈希表来进行映射，即将String映射成这里需要的Integer类型。</p>
+
+<p><strong>2. 原理</strong></p>
+
+<p>举个例子，比如输入的整数对是(5， 9)，那么首先通过find方法发现它们的组号并不相同，然后在union的时候通过一次遍历，将组号1都改成8。当然，由8改成1也是可以的，保证操作时都使用一种规则就行。</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/VDEStBz.png" alt="" title=""></p>
+
+<p><strong>3. 代码</strong></p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs cs has-numbering">import java.util.Scanner;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> UF {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] id; <span class="hljs-comment">// 分量id（以触点作为索引）  </span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> count; <span class="hljs-comment">// 分量数量  </span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">UF</span>(<span class="hljs-keyword">int</span> N)  
+    {  
+        <span class="hljs-comment">// 初始化分量id数组.  </span>
+        count = N;  
+        id = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N];  
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++)  
+            id[i] = i;  
+    }  
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">count</span>()  { 
+        <span class="hljs-keyword">return</span> count; 
+    }  
+    <span class="hljs-keyword">public</span> boolean <span class="hljs-title">connected</span>(<span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> q)  { 
+        <span class="hljs-keyword">return</span> find(p) == find(q); 
+    }  
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span>(<span class="hljs-keyword">int</span> p)   { 
+        <span class="hljs-keyword">return</span> id[p]; 
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span>(<span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> q)  {   
+        <span class="hljs-comment">// 获得p和q的组号  </span>
+        <span class="hljs-keyword">int</span> pID = find(p);  
+        <span class="hljs-keyword">int</span> qID = find(q);  
+        <span class="hljs-comment">// 如果两个组号相等，直接返回  </span>
+        <span class="hljs-keyword">if</span> (pID == qID) <span class="hljs-keyword">return</span>;  
+        <span class="hljs-comment">// 遍历一次，改变组号使他们属于一个组  </span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; id.length; i++)  
+            <span class="hljs-keyword">if</span> (id[i] == pID) id[i] = qID;  
+        count--;  
+    }  
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        String data = <span class="hljs-string">"4 3 3 8 6 5 9 4 2 1 5 0 7 2 6 1"</span>;
+        Scanner sc = <span class="hljs-keyword">new</span> Scanner(data);
+        UF uf = <span class="hljs-keyword">new</span> UF(<span class="hljs-number">10</span>);
+        <span class="hljs-keyword">while</span> (sc.hasNext()) {
+            <span class="hljs-keyword">int</span> p = sc.nextInt();
+            <span class="hljs-keyword">int</span> q = sc.nextInt();
+            <span class="hljs-keyword">if</span>(uf.connected(p, q) ) {
+                <span class="hljs-keyword">continue</span>;
+            }
+            uf.union(p, q);
+            System.<span class="hljs-keyword">out</span>.println(p+ <span class="hljs-string">" "</span> + q);
+        }
+        sc.close();
+        System.<span class="hljs-keyword">out</span>.println(uf.count() + <span class="hljs-string">" 分量"</span>);
+    }
+}</code><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li><li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li><li>54</li><li>55</li><li>56</li></ul><div class="save_code tracking-ad" data-mod="popu_249" style="display: none;"><a href="javascript:;" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li><li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li><li>54</li><li>55</li><li>56</li></ul></pre>
+
+<p>输出：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs  has-numbering">4 3
+3 8
+6 5
+9 4
+2 1
+5 0
+7 2
+6 1
+2 分量</code><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li></ul><div class="save_code tracking-ad" data-mod="popu_249"><a href="javascript:;" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li></ul></pre>
+
+<p>轨迹如下图：</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/q20YNII.png" alt="" title=""></p>
+
+<p><strong>4. 算法分析</strong></p>
+
+<ul>
+<li><strong>union(p,q)会访问数组次数N+3~2N+1</strong></li>
+</ul>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs mathematica has-numbering">分析：
+
+(<span class="hljs-number">1</span>)两次find()操作，访问<span class="hljs-number">2</span>次数组
+
+(<span class="hljs-number">2</span>)扫描整个数组id[]，判断p和q是否在同一个连通f分量if(find(i)==pID)，访问<span class="hljs-keyword">N</span>次数组
+
+(<span class="hljs-number">3</span>)①只有p，其余触点均不和p在同一连通分量 id[p] =qID,访问<span class="hljs-number">1</span>次数组
+
+  ②除了q本身，其余均和p在同一连通分量 id[i] = qID(i≠q)，访问 <span class="hljs-keyword">N</span>-<span class="hljs-number">1</span>次数组，故总的访问次数
+
+①<span class="hljs-number">2</span>+<span class="hljs-keyword">N</span>+<span class="hljs-number">1</span> = <span class="hljs-keyword">N</span>+<span class="hljs-number">3</span>②<span class="hljs-number">2</span>+<span class="hljs-keyword">N</span>+<span class="hljs-keyword">N</span>-<span class="hljs-number">1</span> = <span class="hljs-number">2</span><span class="hljs-keyword">N</span>+<span class="hljs-number">1</span></code><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li></ul><div class="save_code tracking-ad" data-mod="popu_249" style="display: none;"><a href="javascript:;" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li></ul></pre>
+
+<ul>
+<li>在最好的情况下，union(p,q)访问数组N+3次，N个整数要进行N-1次合并union(p,q)操作，<strong>访问数组(N+3)(N-1)~N^2</strong>。</li>
+<li><strong>quick-union算法是<font color="red">平方级别的</font></strong>。</li>
+</ul>
+
+
+
+<h2 id="quick-union算法"><a name="t3"></a>quick-union算法</h2>
+
+<p><strong>1. 原理</strong></p>
+
+<p><strong>考虑一下，为什么以上的解法会造成“牵一发而动全身”？</strong></p>
+
+<p>因为每个节点所属的组号都是单独记录，各自为政的，没有将它们以更好的方式组织起来，当涉及到修改的时候，除了逐一通知、修改，别无他法。所以现在的问题就变成了，如何将节点以更好的方式组织起来，组织的方式有很多种，但是最直观的还是将组号相同的节点组织在一起，想想所学的数据结构，什么样子的数据结构能够将一些节点给组织起来？常见的就是链表，图，树，什么的了。但是哪种结构对于查找和修改的效率最高？毫无疑问是树，因此考虑如何将节点和组的关系以树的形式表现出来。</p>
+
+<hr>
+
+<p>如果不改变底层数据结构，即不改变使用数组的表示方法的话。可以采用<strong>parent-link的方式将节点组织起来。</strong></p>
+
+<p>举例而言，id[p]的值就是p节点的父节点的序号，如果p是树根的话，id[p]的值就是p，因此最后经过若干次查找，一个节点总是能够找到它的根节点，即满足id[root] = root的节点也就是组的根节点了，然后就可以使用根节点的序号来表示组号。所以在处理一个整数对的时候，将首先找到整数对中每一个节点的组号(即它们所在树的根节点的序号)，如果属于不同的组的话，就将其中一个根节点的父节点设置为另外一个根节点，相当于将一颗独立的树编程另一颗独立的树的子树。</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/p7Z7qVy.png" alt="" title=""></p>
+
+<p><strong>2. 代码</strong></p>
+
+<p>在实现上，和之前的Quick-Find只有find和union两个方法有所不同：</p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs cs has-numbering"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span>(<span class="hljs-keyword">int</span> p)   { 
+    <span class="hljs-comment">// 寻找p节点所在组的根节点，根节点具有性质id[root] = root  </span>
+    <span class="hljs-keyword">while</span> (p != id[p]) p = id[p];  
+    <span class="hljs-keyword">return</span> p; 
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span>(<span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> q)  {   
+    <span class="hljs-comment">// 将p和q的根节点同一  </span>
+    <span class="hljs-keyword">int</span> pRoot = find(p);  
+    <span class="hljs-keyword">int</span> qRoot = find(q);  
+    <span class="hljs-keyword">if</span> (pRoot == qRoot)   
+        <span class="hljs-keyword">return</span>;  
+    id[pRoot] = qRoot;    <span class="hljs-comment">// 将一颗树(即一个组)变成另外一课树(即一个组)的子树  </span>
+    count--;  
+}  </code><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li></ul><div class="save_code tracking-ad" data-mod="popu_249" style="display: none;"><a href="javascript:;" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li></ul></pre>
+
+<p><strong>3. 算法分析</strong></p>
+
+<p>quick-union算法看似比quick-find算法块，因为它不需要为每对输入遍历整个数组。</p>
+
+<p>① 最好的情况下find(p),仅访问一次数组，此时触点p为根触点</p>
+
+<p>② 最坏的情况下find(p),访问数组2N-1次</p>
+
+<p>while(p != id[p]) p = id[p];</p>
+
+<p>最坏的情况是触点p所在的连通分量对应的树退化成线性表而且仅有一个连通分量,而p在线性表的表尾。while()循环的判断条件要访问N次数组，while()循环的执行体要访问N-1 次数组(当最后一次到达根节点时，不执行循环体)。共2N-1次。</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/UPLBruv.jpg" alt="" title=""></p>
+
+<p>由此可见，find(p)访问数组的次数，是由触点p对应的节点在树的高度所决定的。<strong>设p在树的中的高度为h，则访问数组的次数为2h+1次。</strong></p>
+
+<p>关于一些定义：</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/y2jOcTB.jpg" alt="" title=""></p>
+
+<hr>
+
+<p>假设输入的是有序整数对0-1、0-2、0-3…0-N，N-1对之后的N个触点将全 部处于同一个连通分量内(详见main())，且由quick-union算法得到的树的高度为N-1，其中0→1，1→2…N-1→N。</p>
+
+<p>对于整数对0-i，执行union(0,i)，将访问2i+1次数组。</p>
+
+<p>①其中0的根触点是i-1，高度是i-1，根据3，find(0)访问数组2i-1次</p>
+
+<p>②其中i的根触点是i，高度是0，根据3，find(i)访问数组1次</p>
+
+<p>③将i-1的根触点(原指向本身，现指向触点i)的数组内容变成i，访问数组1次</p>
+
+<p><em>书上是2i+2次，我分析是0-i是连通的，这样0的根触点是i，i的根触点是i，find(0)访问2i+1次，find(i)访问1次共2i+2次。可根据main()方法，此时0和i应该不连通才对。</em></p>
+
+<p>处理N对整数所需的所有find()操作访问是；Σ(1→N)(2i) = 2(1+2+…N) ~N^2</p>
+
+<p>可以看出<strong>quick-union和quick-find都是<font color="red">平方级别的</font></strong>**。</p>
+
+
+
+<h2 id="加权quick-union算法"><a name="t4"></a>加权quick-union算法</h2>
+
+<p><strong>1. 原理</strong></p>
+
+<p>上面quick-union算法的效率之所以低(平方级别)，最主要的原因是union(p,q)方法，随意将一棵树连接到另一棵树上(一棵树对应一个连通分量)。</p>
+
+<ul>
+<li><p>如果是小树(高度低)连接到大树的根节点(高度高)，则小树的高度加1，而整个树的高度不变。</p></li>
+<li><p>如果是大树(高度高)连接到小树的根节点(高度低)，则大树的高度加1，而整个树的高度由原来的小树高度变成大树高度加1。</p></li>
+</ul>
+
+<p>根据quick-union算法分析，find(p)访问的数组的次数与节点p所在的高度有关。高度越高，访问数组的次数越多。</p>
+
+<p>由此可见，为了减少访问数组的次数，提高算法效率，在执行union(p,q)操作时，确保是情况1，即<strong>小树连接到大树</strong>上。为此，需要一个数组sz[]来记录触点p所在的连通分量含有的触点(触点越多，对应的树的节点越多，即为大树)。</p>
+
+<p><font color="red">当然还有一种特殊情况，即p和q所在的连通分量对应的树高度相等，此时无论是p连接到q还是q连接到p，树的高度都会增加。在加权quick-union算法中，这是最坏的情况。</font></p>
+
+<p>因此，由加权quick-union构成的树的高度将远小于未加权所构造的树的高度。</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/cG4oPr1.jpg" alt="" title=""></p>
+
+<p>Quick-Union 和 加权 Quick-Union 的比较：</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/PLhWij0.png" alt="" title=""></p>
+
+<p><strong>2. 代码</strong></p>
+
+<p>代码下载地址：</p>
+
+<p><a href="https://github.com/tclxspy/Articles/blob/master/algorithm/Code/WeightedQuickUnionUF.java">https://github.com/tclxspy/Articles/blob/master/algorithm/Code/WeightedQuickUnionUF.java</a></p>
+
+
+
+<pre class="prettyprint" name="code"><code class="hljs cs has-numbering">import java.util.Scanner;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> WeightedQuickUnionUF {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] id; <span class="hljs-comment">// 分量id（以触点作为索引）      </span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] sz; <span class="hljs-comment">// （由触点索引的）各个根节点所对应的分量的大小</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> count; <span class="hljs-comment">// 分量数量  </span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">WeightedQuickUnionUF</span>(<span class="hljs-keyword">int</span> N)  
+    {  
+        <span class="hljs-comment">// 初始化分量id数组.  </span>
+        count = N;  
+        id = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N]; 
+        sz = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++)  {
+            id[i] = i;  
+            sz[i] = <span class="hljs-number">1</span>;
+        }              
+    }  
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">count</span>()  { 
+        <span class="hljs-keyword">return</span> count; 
+    }  
+    <span class="hljs-keyword">public</span> boolean <span class="hljs-title">connected</span>(<span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> q)  { 
+        <span class="hljs-keyword">return</span> find(p) == find(q); 
+    }  
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span>(<span class="hljs-keyword">int</span> p)   { 
+        <span class="hljs-comment">// 寻找p节点所在组的根节点，根节点具有性质id[root] = root  </span>
+        <span class="hljs-keyword">while</span> (p != id[p]) p = id[p];  
+        <span class="hljs-keyword">return</span> p; 
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span>(<span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> q)  {   
+        <span class="hljs-keyword">int</span> i = find(p);  
+        <span class="hljs-keyword">int</span> j = find(q);  
+        <span class="hljs-keyword">if</span> (i == j) <span class="hljs-keyword">return</span>;  
+        <span class="hljs-comment">// 将小树作为大树的子树  </span>
+        <span class="hljs-keyword">if</span> (sz[i] &lt; sz[j]) { 
+            id[i] = j; 
+            sz[j] += sz[i]; 
+        }  
+        <span class="hljs-keyword">else</span> { 
+            id[j] = i; 
+            sz[i] += sz[j]; 
+        }  
+        count--; 
+    }  
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+        String data = <span class="hljs-string">"4 3 3 8 6 5 9 4 2 1 5 0 7 2 6 1"</span>;
+        Scanner sc = <span class="hljs-keyword">new</span> Scanner(data);
+        WeightedQuickUnionUF uf = <span class="hljs-keyword">new</span> WeightedQuickUnionUF(<span class="hljs-number">10</span>);
+        <span class="hljs-keyword">while</span> (sc.hasNext()) {
+            <span class="hljs-keyword">int</span> p = sc.nextInt();
+            <span class="hljs-keyword">int</span> q = sc.nextInt();
+            <span class="hljs-keyword">if</span>(uf.connected(p, q) ) {
+                <span class="hljs-keyword">continue</span>;
+            }
+            uf.union(p, q);
+            System.<span class="hljs-keyword">out</span>.println(p+ <span class="hljs-string">" "</span> + q);
+        }
+        sc.close();
+        System.<span class="hljs-keyword">out</span>.println(uf.count() + <span class="hljs-string">" 分量"</span>);
+    }
+}</code><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li><li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li><li>54</li><li>55</li><li>56</li><li>57</li><li>58</li><li>59</li><li>60</li><li>61</li><li>62</li><li>63</li><li>64</li><li>65</li><li>66</li><li>67</li></ul><div class="save_code tracking-ad" data-mod="popu_249" style="display: block;"><a href="javascript:;" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/save_snippets.png"></a></div><ul class="pre-numbering"><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>39</li><li>40</li><li>41</li><li>42</li><li>43</li><li>44</li><li>45</li><li>46</li><li>47</li><li>48</li><li>49</li><li>50</li><li>51</li><li>52</li><li>53</li><li>54</li><li>55</li><li>56</li><li>57</li><li>58</li><li>59</li><li>60</li><li>61</li><li>62</li><li>63</li><li>64</li><li>65</li><li>66</li><li>67</li></ul></pre>
+
+<p>输出一样。</p>
+
+<p><strong>3. 算法分析</strong></p>
+
+<p>①最坏的情况：</p>
+
+<p>将要被归并的树的大小总是相等的(且总是2^n)。每个树均是含有2^n节点的满二叉树，因此高度正好是n。当归并两个含有2^n节点的树时，得到含有2^(n+1)个节点的书，由此树的高度增加到n+1。由此可知，<strong>加权quick-union算法是<font color="red">对数级别的</font></strong>。即对于N个触点所构成的树最高的高度为lgN。</p>
+
+<p>即如下推论：</p>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/JuMCYWp.jpg" alt="" title=""></p>
+
+<p>②最坏的情况是怎么得来的？</p>
+
+<p>简单的分析可知，加权quick-union算法不可能会得到线性表(未加权的quick-union会产生退化成线性表的树)。因此，每层的节点越多，树的高度就越小。最坏的情况就是满二叉树。</p>
+
+<p>③加权quick-union算法处理N个触点，M条连接时最多访问数组<font color="red"><strong>cMlgN次</strong></font>。</p>
+
+<p>c为常数。每处理一条连接，调用一次union(p,q)方法。而union(p,q)是lgN级别的。lg[height(p)] + lg[height(q)] + 5 = clgN，5是union方法里if else语句访问数组的次数。M次即为cMlgN )。而quick-find算法以及某些情况下未加权的quick-union算法至少访问数组MN次。</p>
+
+
+
+<h1 id="汇总"><a name="t5"></a>汇总</h1>
+
+<p><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/rcStttS.jpg" alt="" title=""></p></div>
+        <script type="text/javascript">
+            $(function () {
+                $('pre.prettyprint code').each(function () {
+                    var lines = $(this).text().split('\n').length;
+                    var $numbering = $('<ul></ul>').addClass('pre-numbering').hide();
+                    $(this).addClass('has-numbering').parent().append($numbering);
+                    for (i = 1; i <= lines; i++) {
+                        $numbering.append($('<li></li>').text(i));
+                    };
+                    $numbering.fadeIn(1700);
+                });
+            });
+        </script>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad bdshare-button-style0-16" style="float: right;" data-mod="popu_172" data-bd-bind="1488652008262">
+<a href="http://blog.csdn.net/tclxspy/article/details/51733685#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tclxspy/article/details/51733685#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tclxspy/article/details/51733685#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tclxspy/article/details/51733685#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tclxspy/article/details/51733685#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important" target="_blank"></a>
+<a href="http://blog.csdn.net/tclxspy/article/details/51733685#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important" target="_blank"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/blog_detail.css">
+
+    
+<!--172.16.140.12-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/bds_s_v2.js.下载"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+
+        <div id="digg" articleid="51733685">
+            <dl id="btnDigg" class="digg digg_disable" onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable" onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" target="_blank">&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" target="_blank">&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/tclxspy/article/details/51657448&#39;;">上一篇</span><a href="http://blog.csdn.net/tclxspy/article/details/51657448" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">算法#07--背包、队列和栈（链表实现）</a></li>
+                <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/tclxspy/article/details/51894385&#39;;">下一篇</span><a href="http://blog.csdn.net/tclxspy/article/details/51894385" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">如何自学机器学习</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article" style="">
+                <h4>我的同类文章</h4>
+                <div class="similar_c" style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span style="cursor:pointer" onclick="GetCategoryArticles(&#39;6162301&#39;,&#39;tclxspy&#39;,&#39;foot&#39;,&#39;51733685&#39;);">算法<em>（25）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141" style="max-height:195px;">
+                        <a href="http://blog.csdn.net/" style="display:none" target="_blank">http://blog.csdn.net</a>
+                        <ul class="similar_list fl"><li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/53389097" id="foot_aritcle_53389097undefined636759989009203" target="_blank" title="算法#26--查找字符串数组中最长的公共前缀">算法#26--查找字符串数组中最长的公共前缀</a><span>2016-11-29</span><label><i>阅读</i><b>446</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/53374705" id="foot_aritcle_53374705undefined6076986822028403" target="_blank" title="算法#24--判断一个整数是否回环">算法#24--判断一个整数是否回环</a><span>2016-11-28</span><label><i>阅读</i><b>444</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/53316728" id="foot_aritcle_53316728undefined9771414290860228" target="_blank" title="算法#22--求S曲线序列">算法#22--求S曲线序列</a><span>2016-11-24</span><label><i>阅读</i><b>360</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/52691345" id="foot_aritcle_52691345undefined2488463496034652" target="_blank" title="算法#20--正则表达式匹配原理">算法#20--正则表达式匹配原理</a><span>2016-09-28</span><label><i>阅读</i><b>415</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/52622414" id="foot_aritcle_52622414undefined5325443523449782" target="_blank" title="算法#15--子字符串查找算法汇总和代码详解">算法#15--子字符串查找算法汇总和代码详解</a><span>2016-09-22</span><label><i>阅读</i><b>308</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/52596559" id="foot_aritcle_52596559undefined5650038790139578" target="_blank" title="算法#12--详解各种字符串排序算法和代码实现">算法#12--详解各种字符串排序算法和代码实现</a><span>2016-09-20</span><label><i>阅读</i><b>553</b></label></li> </ul>
+
+                        <ul class="similar_list fr"><li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/53389062" id="foot_aritcle_53389062undefined29979635857397224" target="_blank" title="算法#25--两整数链表求和">算法#25--两整数链表求和</a><span>2016-11-29</span><label><i>阅读</i><b>452</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/53330903" id="foot_aritcle_53330903undefined9457848779073845" target="_blank" title="算法#23--整数反转">算法#23--整数反转</a><span>2016-11-25</span><label><i>阅读</i><b>269</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/53300744" id="foot_aritcle_53300744undefined7680429514359854" target="_blank" title="算法#21--两数求和">算法#21--两数求和</a><span>2016-11-23</span><label><i>阅读</i><b>162</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/52636253" id="foot_aritcle_52636253undefined3461228768182092" target="_blank" title="算法#19--霍夫曼压缩（数据压缩）">算法#19--霍夫曼压缩（数据压缩）</a><span>2016-09-23</span><label><i>阅读</i><b>554</b></label></li> <li><em>•</em><a href="http://blog.csdn.net/tclxspy/article/details/52608181" id="foot_aritcle_52608181undefined03662730532925229" target="_blank" title="算法#14--详解各种字符串查找算法和代码实现">算法#14--详解各种字符串查找算法和代码实现</a><span>2016-09-21</span><label><i>阅读</i><b>537</b></label></li> </ul>
+                    <a href="http://blog.csdn.net/tclxspy/article/category/6162301" class="MoreArticle">更多文章</a></div>
+                </div>
+            </div>    
+    <script type="text/javascript">
+        $(function () {
+            GetCategoryArticles('6162301', 'tclxspy','foot','51733685');
+        });
+    </script>
+      
+</div>
+
+     <div>
+             <div class="J_adv" data-view="true" data-mod="ad_popu_206" data-mtp="43" data-order="114" data-con="ad_content_1901" style="width: 960px; height: 90px;"><script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/adsbygoogle.js.下载"></script><ins class="adsbygoogle" style="display:inline-block;width:960px;height:90px" data-ad-client="ca-pub-8990951720398508" data-ad-slot="8267689356/3776917242" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:960px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:960px;background-color:transparent"><iframe width="960" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saved_resource(2).html"></iframe></ins></ins></ins><script>(adsbygoogle=window.adsbygoogle || []).push({});</script></div> 
+    </div>
+
+<div id="suggest">
+
+</div>
+         <script language="javascript" type="text/javascript">     
+             $(function(){
+                 $.get("/tclxspy/svc/GetSuggestContent/51733685",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/replace.css">
+
+<div id="relate" data-mod="popu_218" class="tracking-ad" style="display: block;">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c"><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/computernetworks"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/1463023002983_983.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/computernetworks">计算机网络知识库</a></h4><p><label><span>6076</span><em>关注</em><i>|</i><span>1488</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/javase"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/1453169124297_297.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/javase">Java SE知识库</a></h4><p><label><span>23339</span><em>关注</em><i>|</i><span>468</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/javaee"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/1456818035722_722.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/javaee">Java EE知识库</a></h4><p><label><span>15615</span><em>关注</em><i>|</i><span>1260</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/java"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/1453701371636_636.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/java">Java 知识库</a></h4><p><label><span>23530</span><em>关注</em><i>|</i><span>1449</span><em>收录</em></label></p></dd></dl><dl class="relate_list"><dt><a target="_blank" href="http://lib.csdn.net/base/datastructure"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/1461035533512_512.jpg" alt="img"></a></dt><dd><h4><a target="_blank" href="http://lib.csdn.net/base/datastructure">算法与数据结构知识库</a></h4><p><label><span>13818</span><em>关注</em><i>|</i><span>2320</span><em>收录</em></label></p></dd></dl></div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived"> 
+    <div class="embody embody_b" id="libkeyparent" style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/job_reco.js.下载" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "51733685",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    <div class="tracking-ad" data-mod="popu_84"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1344" title="数据结构基础系列(1)：数据结构和算法" strategy="v4:content" target="_blank">数据结构基础系列(1)：数据结构和算法</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/1434" title="数据结构基础系列(4)：串" strategy="v4:content" target="_blank">数据结构基础系列(4)：串</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/2361" title="Python算法实战视频课程--图" strategy="v4:content" target="_blank">Python算法实战视频课程--图</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/2671" title="数据结构(JAVA版)" strategy="v4:content" target="_blank">数据结构(JAVA版)</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px; white-space: nowrap;"><a href="http://edu.csdn.net/course/detail/3227" title="阿里云机器学习算法应用实践" strategy="v4:content" target="_blank">阿里云机器学习算法应用实践</a></dd></div></div>  
+
+    
+     <div id="res" data-mod="popu_36" class="tracking-ad" style="width: 42%; float: left; margin-right: 30px; display: block;"><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/brilliantyoho/article/details/41946853" title="并查集Union-Find算法介绍" strategy="SearchAlgorithm" target="_blank">并查集Union-Find算法介绍</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/qq_25818131/article/details/46907617" title="并查集Union-Find算法介绍" strategy="SearchAlgorithm" target="_blank">并查集Union-Find算法介绍</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/u010679895/article/details/22715313" title="并查集Union-Find算法介绍" strategy="SearchAlgorithm" target="_blank">并查集Union-Find算法介绍</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/renyisheng/article/details/48809609" title="并查集Union-Find算法介绍" strategy="SearchAlgorithm" target="_blank">并查集Union-Find算法介绍</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/kinghuangjin/article/details/39995355" title="并查集Union-Find算法介绍" strategy="SearchAlgorithm" target="_blank">并查集Union-Find算法介绍</a></dd></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = '算法#08--深入详解并查集union-find算法' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+
+    <div id="ad_cen">        
+                      <div class="J_adv" data-view="true" data-mod="ad_popu_199" data-mtp="43" data-order="114" data-con="ad_content_1843" style="width: 960px; height: 90px;"><script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/adsbygoogle.js.下载"></script><ins class="adsbygoogle" style="display:inline-block;width:960px;height:90px" data-ad-client="ca-pub-8990951720398508" data-ad-slot="8267689356/3115746762" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:960px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:960px;background-color:transparent"><iframe width="960" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saved_resource(3).html"></iframe></ins></ins></ins><script>(adsbygoogle=window.adsbygoogle || []).push({});</script></div>
+    </div>  
+
+    <!-- 广告位开始 -->
+    <div class="J_adv" data-view="true" data-mod="ad_popu_72" data-mtp="62" data-order="40" data-con="ad_content_2072"><script id="popuLayer_js_q" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/popuLayer.js.下载" defer="" type="text/javascript"></script><div id="layerd" style="position: fixed; bottom: 0px; right: 0px; line-height: 0px; z-index: 1000; width: 300px; height: 278px; display: none;"><div class="J_close layer_close" style="display:;background-color:#efefef;padding:0px;color:#333;font:12px/24px Helvetica,Tahoma,Arial,sans-serif;text-align:right;">关闭</div><!-- 广告占位容器 --><div id="cpro_u2895327"><iframe id="iframeu2895327_0" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/tcom.html" width="300" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:300px;height:250px" allowtransparency="true"></iframe></div></div><script>  document.getElementById('popuLayer_js_q').onload=function(){      var styObjd=styObj={width:'300px','height':parseInt(250)+28};window.CSDN.Layer.PopuLayer('#layerd',{storageName:'layerd',styleObj:styObjd,total:50,expoire:1000*60});  }</script><!-- 投放代码 --><script type="text/javascript">   /*服务器频道首页置顶Banner960*90，创建于2014-7-3*/    (window.cproArray = window.cproArray || []).push({        id: 'u2895327'      });  </script>  <script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/c.js.下载" type="text/javascript"></script></div>
+    <!-- 广告位结束 -->
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><br>&nbsp;&nbsp;暂无评论<br><br><div class="clear"></div></div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:loginbox();">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Ftclxspy%2Farticle%2Fdetails%2F51733685">[注册]</a></div></div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '51733685';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/comment.js.下载"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="">
+
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+
+</div>
+  <script language="javascript" type="text/javascript">     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/tclxspy/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/async_new.js.下载"></script>      
+
+
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+               
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/tclxspy" target="_blank">
+    <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/1_tclxspy.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/tclxspy" class="user_name" target="_blank">tclxspy</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=tclxspy&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+                                            <a target="_blank">
+                                                    <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="3">
+                                            </a>
+                                            <a target="_blank">
+                                                    <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="1">
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>24000次</span></li>
+    <li>积分：<span>609</span> </li>    
+    <li>等级： <span style="position:relative;display:inline-block;z-index:1">
+            <img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/blog3.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：609 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>36篇</span></li>
+    <li>转载：<span>4篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>0条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/csharp-nicholas.html" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/20160630092105803" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/csharp-nicholas.html" target="_blank">从零自学C#</a>
+    <p>文章：13篇</p>
+    <span>阅读：6156</span>
+    </td>
+    </tr></tbody></table>
+    <table cellpadding="0" cellspacing="0"><tbody><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/algorithm-nicholas.html" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/20160630091253939" style="width:75px;height:75px;"></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/algorithm-nicholas.html" target="_blank">算法空间</a>
+    <p>文章：26篇</p>
+    <span>阅读：16322</span>
+    </td>
+    </tr></tbody></table>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="http://blog.csdn.net/tclxspy/article/category/6070463" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">C#学习</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tclxspy/article/category/6162301" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">算法</a><span>(26)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tclxspy/article/category/6102436" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">VBA实例</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="http://blog.csdn.net/tclxspy/article/category/6309068" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">机器学习</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/tclxspy/article/month/2017/01">2017年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/11">2016年11月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/09">2016年09月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/08">2016年08月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/07">2016年07月</a><span>(1)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/06">2016年06月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/05">2016年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/04">2016年04月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/03">2016年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/02">2016年02月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/tclxspy/article/month/2016/01">2016年01月</a><span>(3)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/51570203" title="从0自学C#11--多线程创建方法汇总以及优缺点">从0自学C#11--多线程创建方法汇总以及优缺点</a><span>(2824)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/51281811" title="算法#04--详解高斯牛顿迭代法原理和代码">算法#04--详解高斯牛顿迭代法原理和代码</a><span>(2789)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/51733685" title="算法#08--深入详解并查集union-find算法">算法#08--深入详解并查集union-find算法</a><span>(2073)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/51657448" title="算法#07--背包、队列和栈（链表实现）">算法#07--背包、队列和栈（链表实现）</a><span>(1346)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/51211578" title="算法#03--详解最小二乘法原理和代码">算法#03--详解最小二乘法原理和代码</a><span>(1288)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/51148784" title="算法#02--斐波那契Fibonacci数列算法优化">算法#02--斐波那契Fibonacci数列算法优化</a><span>(876)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50818000" title="从0自学C#08--绘制曲线chart控件">从0自学C#08--绘制曲线chart控件</a><span>(709)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50714783" title="VBA outlook实战#01--自动回复邮件">VBA outlook实战#01--自动回复邮件</a><span>(594)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/52596559" title="算法#12--详解各种字符串排序算法和代码实现">算法#12--详解各种字符串排序算法和代码实现</a><span>(554)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/52636253" title="算法#19--霍夫曼压缩（数据压缩）">算法#19--霍夫曼压缩（数据压缩）</a><span>(553)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/54017628" title="从0自学C#13--子类和父类方法的锁对象问题">从0自学C#13--子类和父类方法的锁对象问题</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50818000" title="从0自学C#08--绘制曲线chart控件">从0自学C#08--绘制曲线chart控件</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50803679" title="从0自学C#07--螺旋队列和螺旋运动">从0自学C#07--螺旋队列和螺旋运动</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50727788" title="VBA outlook实战#02--自动分类邮件">VBA outlook实战#02--自动分类邮件</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50714783" title="VBA outlook实战#01--自动回复邮件">VBA outlook实战#01--自动回复邮件</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50684597" title="从0自学C#06--多窗体共用对象">从0自学C#06--多窗体共用对象</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50669201" title="从0自学C#05--窗体之间的相互访问">从0自学C#05--窗体之间的相互访问</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50622326" title="从0自学C#04--特性和设计原则">从0自学C#04--特性和设计原则</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50587352" title="从0自学C#03--文件流保存数据为txt/excel格式">从0自学C#03--文件流保存数据为txt/excel格式</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/tclxspy/article/details/50546843" title="从0自学C#02--子线程访问主线程（UI线程）控件">从0自学C#02--子线程访问主线程（UI线程）控件</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/blogdevteam/article/details/57134599" target="_blank">* CSDN日报20170225——《六年程序生涯》</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/54645085" target="_blank">* Android"挂逼"修炼之行---解析公众号文章消息和链接文章消息如何自动打开原理</a></li>
+<li><a href="http://blog.csdn.net/mindfloating/article/details/57616620" target="_blank">* 技术晋升的评定与博弈</a></li>
+<li><a href="http://blog.csdn.net/baron_leizhang/article/details/58071773" target="_blank">* 安居客Android项目架构演进</a></li>
+<li><a href="http://blog.csdn.net/jiangwei0910410003/article/details/54409957" target="_blank">* Apk脱壳圣战之---如何脱掉“梆梆加固”的保护壳</a></li>
+
+
+</ul></ul>
+</div>
+
+
+    </div>
+    <div class="clear">
+    </div>
+
+
+                 <!-- 广告位开始 --> 
+                    <div class="J_adv" data-view="true" data-mod="ad_popu_189" data-mtp="63" data-order="40" data-con="ad_content_1259" style="width: 250px; height: 250px;"><div id="nav_show_top_stop" style="width: 250px; height: 250px; z-index: 1000; position: fixed; top: 0px;"><div id="cpro_u2734133"><iframe id="iframeu2734133_0" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/tcom(1).html" width="250" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:250px;height:250px" allowtransparency="true"></iframe></div></div><script> var naviga_offsetTop = 0; function naviga_stay_top(){ var scrollTop = jQuery(document).scrollTop(); if( scrollTop > naviga_offsetTop ){jQuery('#nav_show_top_stop').css({'position': 'fixed'});jQuery('#nav_show_top_stop').css({'top': '0px'}); } else {jQuery('#nav_show_top_stop').css({'position': 'fixed'});jQuery('#nav_show_top_stop').css({'top': naviga_offsetTop - scrollTop + 'px'}); } }function onload_function(){naviga_offsetTop = jQuery('#nav_show_top_stop').position().top; jQuery(window).bind('scroll', naviga_stay_top); jQuery(window).bind('mousewheel',naviga_stay_top); jQuery(document).bind('scroll', naviga_stay_top); jQuery(document).bind('mousewheel',naviga_stay_top); }jQuery(document).ready( onload_function ); </script><script type="text/javascript">    (window.cproArray = window.cproArray || []).push({        id: 'u2734133'      });  </script>  <script src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/c.js.下载" type="text/javascript"></script></div> 
+                <!-- 广告位结束 -->
+
+           </div>   
+
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/cnick.js.下载"></script>
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/newblog.min.js.下载"></script>
+
+
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/JavaScript1.js.下载"></script><link rel="stylesheet" type="text/css" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/pub_footer_2014.css"><div class="pub_fo"><div id="pub_footerall" class="pub_footer_new"><dl><dt></dt> <dd class="foot_sub_menu"><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a><span>|</span><a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a><span>|</span><a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a><span>|</span><a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a><span>|</span><a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a><span>|</span><a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a><span>|</span><a href="mailto:webmaster@csdn.net">问题报告</a><span>|</span><a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a><span>|</span><a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd class="foot_contact"><a href="javascript:void(0);" target="_blank" class="qq">网站客服</a><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2251809102&amp;site=qq&amp;menu=yes" target="_blank" class="qq">杂志客服</a><a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a><a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a><span class="phone" title="服务热线">400-600-2320</span><span class="interval">|</span><span>北京创新乐知信息技术有限公司 版权所有</span><span class="interval">|</span><span>江苏知之为计算机有限公司</span><span class="interval">|</span><span>江苏乐知网络技术有限公司</span></dd><dd class="foot_copyright"><span>京&nbsp;ICP&nbsp;证&nbsp;09002463&nbsp;号</span><span class="interval">|</span><span>Copyright © 1999-2016, CSDN.NET, All Rights Reserved&nbsp;</span><a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display:none; position:absolute; z-index:9990; width:170px">  <iframe src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saved_resource(4).html" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/notify.js.下载"></script>
+
+    <script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/login.js.下载"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/counter.js.下载"></script><script type="text/javascript" charset="UTF-8" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/msg.popup.js.下载"></script>
+<script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ad-blog.js.下载"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+
+    </div><input type="hidden" id="aa_g_data_ids">
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/toolbar.js.下载"></script>
+     <!--new top-->
+   
+    <link href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ask_float_block.css" type="text/css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/wmd.js.下载"></script>
+    <script language="JavaScript" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/showdown.js.下载"></script>
+    <script language="JavaScript" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/prettify.js.下载"></script>
+    <script language="JavaScript" type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ask_float_block.js.下载"></script>
+   
+
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/52b5334.js.下载"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+    <link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/blog_code.css">
+    <script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saveToCode.js.下载"></script>
+      <script type="text/javascript" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/main.js(1).下载"></script>
+
+     <link rel="stylesheet" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/fa.css">
+
+    <div class="pop_CA_cover" style="display:none"></div>
+    <div class="pop pop_CA" style="display:none">
+          <div class="CA_header">
+            收藏助手
+            <span class="cancel_icon" id="fapancle" onclick="$(&#39;.pop_CA&#39;).hide();$(&#39;.pop_CA_cover&#39;).hide();"></span>
+          </div>
+          <iframe src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saved_resource(5).html" id="fa" frameborder="0" width="100%" height="360" scrolling="no">
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;   
+ </iframe></div><div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><link rel="stylesheet" type="text/css" media="screen" href="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/ask_float_fonts_css-6b30a53970eb5c3a2a045e3df585b475.css"><div data-mod="popu_64" class="csdn-tracking-statistics" chg-blk="0"><a id="com-quick-reply" title="快速回复" style="top:209px"></a><a id="com-quick-collect" title="我要收藏" style="top:247px"></a><a id="com-d-top-a" style="top: 285px; display: block;" title="返回顶部" onclick=""></a> </div><div class="pop_edit ask_second comm_ask_second"><h3>提问</h3><span class="ask_float_span">您的问题将会被发布在“<a class="ask_float_channel" href="http://ask.csdn.net/" target="_blank" style="cursor:pointer">技术问答</a>”频道</span><a href="http://blog.csdn.net/tclxspy/article/details/51733685#" nodetype="close" class="close">×</a><div class="context"><div class="err_div"><span class="err_ico"></span><span class="err_txt">该问题已存在，请勿重复提问</span></div><div class="input_div"><input id="askInputSecond" type="text" style="font-size:14px;" placeholder="问题标题"></div><div class="cm_box"><div class="cm_dialog"></div> <div class="pop_cm cm_add_link"><input type="text" placeholder="链接内容" id="af_cm_link_txt"><input type="text" placeholder="链接地址" id="af_cm_link_url"><input type="text" placeholder="链接提示" id="af_cm_link_tit"><div class="text-right"><span class="btn btn-default btn-sm" id="add_link_btn">插入链接</span> </div> </div><div class="pop_cm cm_add_img"><div class="nav-tabs"><a class="img_tab active" href="http://blog.csdn.net/tclxspy/article/details/51733685#tab_upload">本地上传</a><a class="img_tab" href="http://blog.csdn.net/tclxspy/article/details/51733685#tab_weburl">网络图片</a></div><div class="tab_panel active" id="tab_upload"><div class="set_img"><iframe src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/upload.html"></iframe></div></div><div class="tab_panel" id="tab_weburl"><input type="text" placeholder="图片地址" id="af_cm_img_url"><input type="text" placeholder="图片说明" id="af_cm_img_alt"><div class="text-right"><span class="btn btn-default btn-sm" id="add_img_btn">插入图片</span> </div></div> </div></div> <textarea id="editor_all" rows="8" style="display: none;"></textarea><div class="editor-toolbar"><i class="separator">|</i><a class="icon-headline" title="标题一（Ctrl+Alt+1）"></a><a class="icon-heading" title="标题二（Ctrl+Alt+2）"></a><a class="icon-bold" title="粗体（Ctrl+B）"></a><a class="icon-italic" title="斜体（Ctrl+I）"></a><i class="separator">|</i><a class="icon-quote-left" title="引用（Ctrl+’）"></a><a class="icon-code" title="插入代码片（Ctrl+,）"></a><a class="icon-list-ul" title="无序列表（Ctrl+L）"></a><a class="icon-list-ol" title="有序列表（Ctrl+Alt+L）"></a><i class="separator">|</i><a class="icon-link" title="添加链接（Ctrl+K）"></a><a class="icon-picture" title="添加图片（Ctrl+Alt+I）"></a><i class="separator">|</i><a class="icon-reply" title="撤退（Ctrl+Z）"></a><a class="icon-share-alt" title="前进（Ctrl+Shift+Z）"></a><i class="separator">|</i><a class="icon-info" href="http://ask.csdn.net/pages/markdown" target="_blank" title="markdown语法参考"></a><a class="icon-preview" title="预览"></a><i class="separator">|</i></div><div class="CodeMirror cm-s-paper CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar"><div style="height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="min-width: 33px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>&nbsp;<span style="display: inline-block; width: 1px; margin-right: -1px;">&nbsp;</span></pre></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"></div><div class="CodeMirror-cursor" style="visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters" style="display: none;"></div></div></div><div class="editor-statusbar"><span class="lines">0</span><span class="words">0</span><span class="cursor">0:0</span></div><div class="div_tags clearfix"><div id="divSearchTags" class="tags_con"><input type="text"></div><input type="hidden" name="txtSearchTags"></div><div id="ask2_tagRecomm_div" class="drt_tagRecomm tracking-ad" data-mod="popu_73"><span class="drt_tit">推荐标签：</span></div></div><div class="success"><div class="left_area"><input id="chk_cb" type="checkbox"><span class="wyxs">我要悬赏</span><input id="cb_num" class="cb_num" readonly="true"><span class="phib_rii"><span> 币</span></span></div><a href="http://blog.csdn.net/tclxspy/article/details/51733685#" nodetype="cancel" class="cancel">取消</a><a href="http://blog.csdn.net/tclxspy/article/details/51733685#" nodetype="ok" class="ok">发布</a></div></div><div id="common_ask_div_sc" class="searchContainer"><div class="sTitle">可能存在类似的问题：</div><div class="sFooter"><a class="sFirstNewAsk">我想提一个新问题</a></div></div><div id="mask_code"></div><div class="gist_edit"><div class="save_snippets clearfix"><div class="tit"><h3>保存代码片</h3><span>整理和分享保存的代码片，请访问<a href="https://code.csdn.net/snippets_manage" target="_blank">代码笔记</a></span></div><div class="con_form"><ul class="gist_edit_list clearfix"><li><span class="red">*</span><span class="txt">标题</span><input id="form_title" class="form-input" placeholder="[置顶]
+        算法#08--深入详解并查集union-find算法" type="text"></li><li><span class="red">*</span><span class="txt">描述</span><textarea id="form-textarea" class="form-textarea" placeholder="[置顶]
+        算法#08--深入详解并查集union-find算法： http://blog.csdn.net/tclxspy/article/details/51733685"></textarea></li><li><span class="red">&nbsp;</span><span class="txt">标签</span><div id="divSearchTags"><span class="label blog_tag"><span>并查集</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>union-find</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>树</span><a title="Removing tag" href="javascript:;">x</a></span><span class="label blog_tag"><span>森林</span><a title="Removing tag" href="javascript:;">x</a></span><input id="insertTag" class="insertTag" placeholder="请输入标签，按Enter生成(最多5项)" type="text" value="" name="insertTag" maxlength="21" style="color: rgb(51, 51, 51);"><input id="OrganTag" class="OrganTag" type="hidden" name="OrganTag" value="并查集,union-find,树,森林,"><input id="OldOrganTag" class="OldOrganTag" type="hidden" name="OldOrganTag" value=""><input type="hidden" name="txtSearchTags"></div></li></ul></div><div class="bottom-bar"><a href="javascript:;" class="btn-submit btn-cancel">取消</a><span class="tracking-ad" data-mod="popu_250"><a class="btn-submit btn-confirm" href="javascript:;" target="_blank">确定</a></span></div></div></div><iframe id="google_osd_static_frame_9934246291888" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./算法#08--深入详解并查集union-find算法 - tclxspy的博客 - 博客频道 - CSDN.NET_files/saved_resource(6).html"></iframe></body></html>

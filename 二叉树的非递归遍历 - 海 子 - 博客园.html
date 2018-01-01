@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>二叉树的非递归遍历 - 海 子 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./二叉树的非递归遍历 - 海 子 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./二叉树的非递归遍历 - 海 子 - 博客园_files/bundle-darkgreentrip.css">
+<link type="text/css" rel="stylesheet" href="./二叉树的非递归遍历 - 海 子 - 博客园_files/86633.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/dolphin0520/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/dolphin0520/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/dolphin0520/wlwmanifest.xml">
+<script type="text/javascript" src="./二叉树的非递归遍历 - 海 子 - 博客园_files/encoder.js"></script><script src="./二叉树的非递归遍历 - 海 子 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'dolphin0520', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./二叉树的非递归遍历 - 海 子 - 博客园_files/blog-common.js" type="text/javascript"></script>
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true } },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./二叉树的非递归遍历 - 海 子 - 博客园_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/dolphin0520/"><img id="blogLogo" src="./二叉树的非递归遍历 - 海 子 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/dolphin0520/">海 子</a></h1>
+<h2>不经历风雨，怎能见彩虹？做一个快乐的程序员。</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/dolphin0520/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%B5%B7%20%E5%AD%90">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/dolphin0520/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/dolphin0520/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+<span id="stats_post_count">随笔 - 184&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 1149</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html">二叉树的非递归遍历</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 二叉树的非递归遍历</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 二叉树是一种非常重要的数据结构，很多其它数据结构都是基于二叉树的基础演变而来的。对于二叉树，有前序、中序以及后序三种遍历方法。因为树的定义本身就是递归定义，因此采用递归的方法去实现树的三种遍历不仅容易理解而且代码很简洁。而对于树的遍历若采用非递归的方法，就要采用栈去模拟实现。在三种遍历中，前序和中序遍历的非递归算法都很容易实现，非递归后序遍历实现起来相对来说要难一点。</p>
+<p>一.前序遍历</p>
+<p>&nbsp;&nbsp; 前序遍历按照“根结点-左孩子-右孩子”的顺序进行访问。</p>
+<p>&nbsp;&nbsp; 1.递归实现</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> preOrder1(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)     </span><span style="color: #008000;">//</span><span style="color: #008000;">递归前序遍历 </span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>    {<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>        preOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        preOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>    }<br>}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;&nbsp; 2.非递归实现</p>
+<p>&nbsp;&nbsp; &nbsp;根据前序遍历访问的顺序，优先访问根结点，然后再分别访问左孩子和右孩子。即对于任一结点，其可看做是根结点，因此可以直接访问，访问完之后，若其左孩子不为空，按相同规则访问它的左子树；当访问其左子树时，再访问它的右子树。因此其处理过程如下：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 对于任一结点P：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 1)访问结点P，并将结点P入栈;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2)判断结点P的左孩子是否为空，若为空，则取栈顶结点并进行出栈操作，并将栈顶结点的右孩子置为当前的结点P，循环至1);若不为空，则将P的左孩子置为当前的结点P;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 3)直到P为NULL并且栈为空，则遍历结束。</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> preOrder2(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)     </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归前序遍历 </span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BinTree</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">p</span><span style="color: #000000;">=</span><span style="color: #000000;">root;<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">||!</span><span style="color: #000000;">s.empty())<br>    {<br>        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>        {<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>            s.push(p);<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild;<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>        {<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>            s.pop();<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild;<br>        }<br>    }<br>}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>二.中序遍历</p>
+<p>&nbsp;&nbsp;&nbsp; 中序遍历按照“左孩子-根结点-右孩子”的顺序进行访问。</p>
+<p>&nbsp;&nbsp;&nbsp; 1.递归实现</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> inOrder1(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)      </span><span style="color: #008000;">//</span><span style="color: #008000;">递归中序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>    {<br>        inOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>        inOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>    }<br>} </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;&nbsp; 2.非递归实现</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;根据中序遍历的顺序，对于任一结点，优先访问其左孩子，而左孩子结点又可以看做一根结点，然后继续访问其左孩子结点，直到遇到左孩子结点为空的结点才进行访问，然后按相同的规则访问其右子树。因此其处理过程如下：</p>
+<p>&nbsp;&nbsp;&nbsp;对于任一结点P，</p>
+<p>&nbsp; 1)若其左孩子不为空，则将P入栈并将P的左孩子置为当前的P，然后对当前结点P再进行相同的处理；</p>
+<p>&nbsp;&nbsp;2)若其左孩子为空，则取栈顶元素并进行出栈操作，访问该栈顶结点，然后将当前的P置为栈顶结点的右孩子；</p>
+<p>&nbsp; 3)直到P为NULL并且栈为空则遍历结束</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> inOrder2(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)      </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归中序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BinTree</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">p</span><span style="color: #000000;">=</span><span style="color: #000000;">root;<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">||!</span><span style="color: #000000;">s.empty())<br>    {<br>        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>        {<br>            s.push(p);<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild;<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>        {<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>            s.pop();<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild;<br>        }<br>    }    <br>} </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; 三.后序遍历</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 后序遍历按照“左孩子-右孩子-根结点”的顺序进行访问。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.递归实现</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> postOrder1(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)    </span><span style="color: #008000;">//</span><span style="color: #008000;">递归后序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>    {<br>        postOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        postOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>    }    <br>} </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.非递归实现</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;后序遍历的非递归实现是三种遍历方式中最难的一种。因为在后序遍历中，要保证左孩子和右孩子都已被访问并且左孩子在右孩子前访问才能访问根结点，这就为流程的控制带来了难题。下面介绍两种思路。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 第一种思路：对于任一结点P，将其入栈，然后沿其左子树一直往下搜索，直到搜索到没有左孩子的结点，此时该结点出现在栈顶，但是此时不能将其出栈并访问，因此其右孩子还为被访问。所以接下来按照相同的规则对其右子树进行相同的处理，当访问完其右孩子时，该结点又出现在栈顶，此时可以将其出栈并访问。这样就保证了正确的访问顺序。可以看出，在这个过程中，每个结点都两次出现在栈顶，只有在第二次出现在栈顶时，才能访问它。因此需要多设置一个变量标识该结点是否是第一次出现在栈顶。</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> postOrder2(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)    </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归后序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BTNode</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">p</span><span style="color: #000000;">=</span><span style="color: #000000;">root;<br>    BTNode </span><span style="color: #000000;">*</span><span style="color: #000000;">temp;<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">||!</span><span style="color: #000000;">s.empty())<br>    {<br>        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)              </span><span style="color: #008000;">//</span><span style="color: #008000;">沿左子树一直往下搜索，直至出现没有左子树的结点 </span><span style="color: #008000;"><br></span><span style="color: #000000;">        {<br>            BTNode </span><span style="color: #000000;">*</span><span style="color: #000000;">btn</span><span style="color: #000000;">=</span><span style="color: #000000;">(BTNode </span><span style="color: #000000;">*</span><span style="color: #000000;">)malloc(</span><span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(BTNode));<br>            btn</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">btnode</span><span style="color: #000000;">=</span><span style="color: #000000;">p;<br>            btn</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">isFirst</span><span style="color: #000000;">=</span><span style="color: #0000ff;">true</span><span style="color: #000000;">;<br>            s.push(btn);<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild;<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>        {<br>            temp</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>            s.pop();<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">isFirst</span><span style="color: #000000;">==</span><span style="color: #0000ff;">true</span><span style="color: #000000;">)     </span><span style="color: #008000;">//</span><span style="color: #008000;">表示是第一次出现在栈顶 </span><span style="color: #008000;"><br></span><span style="color: #000000;">             {<br>                temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">isFirst</span><span style="color: #000000;">=</span><span style="color: #0000ff;">false</span><span style="color: #000000;">;<br>                s.push(temp);<br>                p</span><span style="color: #000000;">=</span><span style="color: #000000;">temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">btnode</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild;    <br>            }<br>            </span><span style="color: #0000ff;">else</span><span style="color: #000000;">                        </span><span style="color: #008000;">//</span><span style="color: #008000;">第二次出现在栈顶 </span><span style="color: #008000;"><br></span><span style="color: #000000;">             {<br>                cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">btnode</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>                p</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;<br>            }<br>        }<br>    }    <br>} </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;第二种思路：要保证根结点在左孩子和右孩子访问之后才能访问，因此对于任一结点P，先将其入栈。如果P不存在左孩子和右孩子，则可以直接访问它；或者P存在左孩子或者右孩子，但是其左孩子和右孩子都已被访问过了，则同样可以直接访问该结点。若非上述两种情况，则将P的右孩子和左孩子依次入栈，这样就保证了每次取栈顶元素的时候，左孩子在右孩子前面被访问，左孩子和右孩子都在根结点前面被访问。</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">void</span><span style="color: #000000;"> postOrder3(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)     </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归后序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BinTree</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">cur;                      </span><span style="color: #008000;">//</span><span style="color: #008000;">当前结点 </span><span style="color: #008000;"><br></span><span style="color: #000000;">    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">pre</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;                 </span><span style="color: #008000;">//</span><span style="color: #008000;">前一次访问的结点 </span><span style="color: #008000;"><br></span><span style="color: #000000;">    s.push(root);<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>    {<br>        cur</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">((cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">==</span><span style="color: #000000;">NULL</span><span style="color: #000000;">&amp;&amp;</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">==</span><span style="color: #000000;">NULL)</span><span style="color: #000000;">||</span><span style="color: #000000;"><br>           (pre</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">&amp;&amp;</span><span style="color: #000000;">(pre</span><span style="color: #000000;">==</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">||</span><span style="color: #000000;">pre</span><span style="color: #000000;">==</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild)))<br>        {<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;  </span><span style="color: #008000;">//</span><span style="color: #008000;">如果当前结点没有孩子结点或者孩子节点都已被访问过 </span><span style="color: #008000;"><br></span><span style="color: #000000;">              s.pop();<br>            pre</span><span style="color: #000000;">=</span><span style="color: #000000;">cur; <br>        }<br>        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"><br>        {<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>                s.push(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)    <br>                s.push(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        }<br>    }    <br>}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;四.整个程序完整的代码</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/*</span><span style="color: #008000;">二叉树的遍历* 2011.8.25</span><span style="color: #008000;">*/</span><span style="color: #000000;"> <br><br>#include </span><span style="color: #000000;">&lt;</span><span style="color: #000000;">iostream</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br>#include</span><span style="color: #000000;">&lt;</span><span style="color: #0000ff;">string</span><span style="color: #000000;">.h</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"><br>#include</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">stack</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> <br></span><span style="color: #0000ff;">using</span><span style="color: #000000;"> </span><span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;<br><br>typedef </span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> node<br>{<br>    </span><span style="color: #0000ff;">char</span><span style="color: #000000;"> data;<br>    </span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> node </span><span style="color: #000000;">*</span><span style="color: #000000;">lchild,</span><span style="color: #000000;">*</span><span style="color: #000000;">rchild;<br>}BinTree;<br><br>typedef </span><span style="color: #0000ff;">struct</span><span style="color: #000000;"> node1<br>{<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">btnode;<br>    </span><span style="color: #0000ff;">bool</span><span style="color: #000000;"> isFirst;<br>}BTNode;<br><br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> creatBinTree(</span><span style="color: #0000ff;">char</span><span style="color: #000000;"> </span><span style="color: #000000;">*</span><span style="color: #000000;">s,BinTree </span><span style="color: #000000;">*&amp;</span><span style="color: #000000;">root)  </span><span style="color: #008000;">//</span><span style="color: #008000;">创建二叉树，s为形如A(B,C(D,E))形式的字符串 </span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> i;<br>    </span><span style="color: #0000ff;">bool</span><span style="color: #000000;"> isRight</span><span style="color: #000000;">=</span><span style="color: #0000ff;">false</span><span style="color: #000000;">;<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BinTree</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s1;          </span><span style="color: #008000;">//</span><span style="color: #008000;">存放结点 </span><span style="color: #008000;"><br></span><span style="color: #000000;">    stack</span><span style="color: #000000;">&lt;</span><span style="color: #0000ff;">char</span><span style="color: #000000;">&gt;</span><span style="color: #000000;"> s2;              </span><span style="color: #008000;">//</span><span style="color: #008000;">存放分隔符</span><span style="color: #008000;"><br></span><span style="color: #000000;">    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">p,</span><span style="color: #000000;">*</span><span style="color: #000000;">temp;<br>    root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">=</span><span style="color: #000000;">s[</span><span style="color: #800080;">0</span><span style="color: #000000;">];<br>    root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;<br>    root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;<br>    s1.push(root);<br>    i</span><span style="color: #000000;">=</span><span style="color: #800080;">1</span><span style="color: #000000;">;<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(i</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">strlen(s))<br>    {<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(s[i]</span><span style="color: #000000;">==</span><span style="color: #800000;">'</span><span style="color: #800000;">(</span><span style="color: #800000;">'</span><span style="color: #000000;">)<br>        {<br>            s2.push(s[i]);<br>            isRight</span><span style="color: #000000;">=</span><span style="color: #0000ff;">false</span><span style="color: #000000;">;<br>        }    <br>        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(s[i]</span><span style="color: #000000;">==</span><span style="color: #800000;">'</span><span style="color: #800000;">,</span><span style="color: #800000;">'</span><span style="color: #000000;">)    <br>        {<br>            isRight</span><span style="color: #000000;">=</span><span style="color: #0000ff;">true</span><span style="color: #000000;">;<br>        }<br>        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(s[i]</span><span style="color: #000000;">==</span><span style="color: #800000;">'</span><span style="color: #800000;">)</span><span style="color: #800000;">'</span><span style="color: #000000;">)<br>        {<br>            s1.pop();<br>            s2.pop();<br>        }<br>        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(isalpha(s[i]))<br>        {<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">)malloc(</span><span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(BinTree));<br>            p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">=</span><span style="color: #000000;">s[i];<br>            p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;<br>            p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;<br>            temp</span><span style="color: #000000;">=</span><span style="color: #000000;">s1.top();<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(isRight</span><span style="color: #000000;">==</span><span style="color: #0000ff;">true</span><span style="color: #000000;">)    <br>            {<br>                temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">=</span><span style="color: #000000;">p;<br>                cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;">的右孩子是</span><span style="color: #800000;">"</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">s[i]</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">endl;<br>            }<br>            </span><span style="color: #0000ff;">else</span><span style="color: #000000;"><br>            {<br>                temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">=</span><span style="color: #000000;">p;<br>                cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;">的左孩子是</span><span style="color: #800000;">"</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">s[i]</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">endl;<br>            }<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(s[i</span><span style="color: #000000;">+</span><span style="color: #800080;">1</span><span style="color: #000000;">]</span><span style="color: #000000;">==</span><span style="color: #800000;">'</span><span style="color: #800000;">(</span><span style="color: #800000;">'</span><span style="color: #000000;">)<br>                s1.push(p);<br>        }<br>        i</span><span style="color: #000000;">++</span><span style="color: #000000;">;<br>    }    <br>}<br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> display(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)        </span><span style="color: #008000;">//</span><span style="color: #008000;">显示树形结构 </span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>    {<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data;<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>        {<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">'</span><span style="color: #800000;">(</span><span style="color: #800000;">'</span><span style="color: #000000;">;<br>            display(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>        {<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">'</span><span style="color: #800000;">,</span><span style="color: #800000;">'</span><span style="color: #000000;">;<br>            display(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">'</span><span style="color: #800000;">)</span><span style="color: #800000;">'</span><span style="color: #000000;">;<br>        }<br>    }<br>}<br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> preOrder1(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)     </span><span style="color: #008000;">//</span><span style="color: #008000;">递归前序遍历 </span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>    {<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>        preOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        preOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>    }<br>}<br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> inOrder1(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)      </span><span style="color: #008000;">//</span><span style="color: #008000;">递归中序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>    {<br>        inOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>        inOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>    }<br>} <br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> postOrder1(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)    </span><span style="color: #008000;">//</span><span style="color: #008000;">递归后序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(root</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>    {<br>        postOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        postOrder1(root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">root</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>    }    <br>} <br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> preOrder2(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)     </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归前序遍历 </span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BinTree</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">p</span><span style="color: #000000;">=</span><span style="color: #000000;">root;<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">||!</span><span style="color: #000000;">s.empty())<br>    {<br>        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>        {<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>            s.push(p);<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild;<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>        {<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>            s.pop();<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild;<br>        }<br>    }<br>}<br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> inOrder2(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)      </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归中序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BinTree</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">p</span><span style="color: #000000;">=</span><span style="color: #000000;">root;<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">||!</span><span style="color: #000000;">s.empty())<br>    {<br>        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>        {<br>            s.push(p);<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild;<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>        {<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>            s.pop();<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild;<br>        }<br>    }    <br>} <br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> postOrder2(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)    </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归后序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BTNode</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">p</span><span style="color: #000000;">=</span><span style="color: #000000;">root;<br>    BTNode </span><span style="color: #000000;">*</span><span style="color: #000000;">temp;<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">||!</span><span style="color: #000000;">s.empty())<br>    {<br>        </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(p</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)              </span><span style="color: #008000;">//</span><span style="color: #008000;">沿左子树一直往下搜索，直至出现没有左子树的结点 </span><span style="color: #008000;"><br></span><span style="color: #000000;">         {<br>            BTNode </span><span style="color: #000000;">*</span><span style="color: #000000;">btn</span><span style="color: #000000;">=</span><span style="color: #000000;">(BTNode </span><span style="color: #000000;">*</span><span style="color: #000000;">)malloc(</span><span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(BTNode));<br>            btn</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">btnode</span><span style="color: #000000;">=</span><span style="color: #000000;">p;<br>            btn</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">isFirst</span><span style="color: #000000;">=</span><span style="color: #0000ff;">true</span><span style="color: #000000;">;<br>            s.push(btn);<br>            p</span><span style="color: #000000;">=</span><span style="color: #000000;">p</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild;<br>        }<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>        {<br>            temp</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>            s.pop();<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">isFirst</span><span style="color: #000000;">==</span><span style="color: #0000ff;">true</span><span style="color: #000000;">)     </span><span style="color: #008000;">//</span><span style="color: #008000;">表示是第一次出现在栈顶 </span><span style="color: #008000;"><br></span><span style="color: #000000;">             {<br>                temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">isFirst</span><span style="color: #000000;">=</span><span style="color: #0000ff;">false</span><span style="color: #000000;">;<br>                s.push(temp);<br>                p</span><span style="color: #000000;">=</span><span style="color: #000000;">temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">btnode</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild;    <br>            }<br>            </span><span style="color: #0000ff;">else</span><span style="color: #000000;">                        </span><span style="color: #008000;">//</span><span style="color: #008000;">第二次出现在栈顶 </span><span style="color: #008000;"><br></span><span style="color: #000000;">             {<br>                cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">temp</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">btnode</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;<br>                p</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;<br>            }<br>        }<br>    }    <br>} <br><br></span><span style="color: #0000ff;">void</span><span style="color: #000000;"> postOrder3(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root)     </span><span style="color: #008000;">//</span><span style="color: #008000;">非递归后序遍历</span><span style="color: #008000;"><br></span><span style="color: #000000;">{<br>    stack</span><span style="color: #000000;">&lt;</span><span style="color: #000000;">BinTree</span><span style="color: #000000;">*&gt;</span><span style="color: #000000;"> s;<br>    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">cur;                      </span><span style="color: #008000;">//</span><span style="color: #008000;">当前结点 </span><span style="color: #008000;"><br></span><span style="color: #000000;">    BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">pre</span><span style="color: #000000;">=</span><span style="color: #000000;">NULL;                 </span><span style="color: #008000;">//</span><span style="color: #008000;">前一次访问的结点 </span><span style="color: #008000;"><br></span><span style="color: #000000;">    s.push(root);<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(</span><span style="color: #000000;">!</span><span style="color: #000000;">s.empty())<br>    {<br>        cur</span><span style="color: #000000;">=</span><span style="color: #000000;">s.top();<br>        </span><span style="color: #0000ff;">if</span><span style="color: #000000;">((cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">==</span><span style="color: #000000;">NULL</span><span style="color: #000000;">&amp;&amp;</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">==</span><span style="color: #000000;">NULL)</span><span style="color: #000000;">||</span><span style="color: #000000;"><br>           (pre</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL</span><span style="color: #000000;">&amp;&amp;</span><span style="color: #000000;">(pre</span><span style="color: #000000;">==</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">||</span><span style="color: #000000;">pre</span><span style="color: #000000;">==</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild)))<br>        {<br>            cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">data</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #800000;">"</span><span style="color: #800000;"> </span><span style="color: #800000;">"</span><span style="color: #000000;">;  </span><span style="color: #008000;">//</span><span style="color: #008000;">如果当前结点没有孩子结点或者孩子节点都已被访问过 </span><span style="color: #008000;"><br></span><span style="color: #000000;">              s.pop();<br>            pre</span><span style="color: #000000;">=</span><span style="color: #000000;">cur; <br>        }<br>        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"><br>        {<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)<br>                s.push(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">rchild);<br>            </span><span style="color: #0000ff;">if</span><span style="color: #000000;">(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild</span><span style="color: #000000;">!=</span><span style="color: #000000;">NULL)    <br>                s.push(cur</span><span style="color: #000000;">-&gt;</span><span style="color: #000000;">lchild);<br>        }<br>    }    <br>}<br><br><br></span><span style="color: #0000ff;">int</span><span style="color: #000000;"> main(</span><span style="color: #0000ff;">int</span><span style="color: #000000;"> argc, </span><span style="color: #0000ff;">char</span><span style="color: #000000;"> </span><span style="color: #000000;">*</span><span style="color: #000000;">argv[])<br>{<br>    </span><span style="color: #0000ff;">char</span><span style="color: #000000;"> s[</span><span style="color: #800080;">100</span><span style="color: #000000;">];<br>    </span><span style="color: #0000ff;">while</span><span style="color: #000000;">(scanf(</span><span style="color: #800000;">"</span><span style="color: #800000;">%s</span><span style="color: #800000;">"</span><span style="color: #000000;">,s)</span><span style="color: #000000;">==</span><span style="color: #800080;">1</span><span style="color: #000000;">)<br>    {<br>        BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">root</span><span style="color: #000000;">=</span><span style="color: #000000;">(BinTree </span><span style="color: #000000;">*</span><span style="color: #000000;">)malloc(</span><span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(BinTree));<br>        creatBinTree(s,root);<br>        display(root);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">endl;<br>        preOrder2(root);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">endl; <br>        inOrder2(root);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">endl;<br>        postOrder2(root);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">endl;<br>        postOrder3(root);<br>        cout</span><span style="color: #000000;">&lt;&lt;</span><span style="color: #000000;">endl;<br>    }<br>    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> </span><span style="color: #800080;">0</span><span style="color: #000000;">;<br>}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature" style="display: block;"><div>作者：<a href="http://www.cnblogs.com/dolphin0520/" target="_blank">海子</a></div>
+　　　　<div>出处：<a href="http://www.cnblogs.com/dolphin0520/" target="_blank">http://www.cnblogs.com/dolphin0520/</a></div>
+　　　　<div>本博客中未标明转载的文章归作者<a href="http://www.cnblogs.com/dolphin0520/" target="_blank">海子</a>和博客园共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。 
+</div>
+</div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/dolphin0520/category/309705.html" target="_blank">数据结构</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2153720,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;ab3961d0-cd5d-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/dolphin0520/" target="_blank"><img src="./二叉树的非递归遍历 - 海 子 - 博客园_files/u288799.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/dolphin0520/">海 子</a><br>
+            <a href="http://home.cnblogs.com/u/dolphin0520/followees">关注 - 6</a><br>
+            <a href="http://home.cnblogs.com/u/dolphin0520/followers">粉丝 - 3074</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;ab3961d0-cd5d-e011-a53f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2153720,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">47</span>
+    </div>
+    <div class="buryit" onclick="votePost(2153720,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">1</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/24/2151846.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/24/2151846.html" title="发布于2011-08-24 13:06">KMP算法</a><br><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/26/2155202.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/26/2155202.html" title="发布于2011-08-26 23:17">Dijkstra算法（单源最短路径）</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2011-08-25 20:12</span> <a href="http://www.cnblogs.com/dolphin0520/">海 子</a> 阅读(<span id="post_view_count">103757</span>) 评论(<span id="post_comment_count">48</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2153720" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" onclick="AddToWz(2153720);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=86633,cb_entryId=2153720,cb_blogApp=currentBlogApp,cb_blogUserGuid='ab3961d0-cd5d-e011-a53f-842b2b196315',cb_entryCreatedDate='2011/8/25 20:12:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2423928" class="layer">#1楼</a><a name="2423928" id="comment_anchor_2423928"></a>  <span class="comment_date">2012-07-10 23:00</span> <a id="a_comment_author_2423928" href="http://home.cnblogs.com/u/397133/" target="_blank">zyqhi</a> <a href="http://msg.cnblogs.com/send/zyqhi" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2423928" class="blog_comment_body">不错的实现，学习了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2423928,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2423928,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2432368" class="layer">#2楼</a><a name="2432368" id="comment_anchor_2432368"></a>  <span class="comment_date">2012-07-22 10:31</span> <a id="a_comment_author_2432368" href="http://home.cnblogs.com/u/429369/" target="_blank">fobdddf</a> <a href="http://msg.cnblogs.com/send/fobdddf" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2432368" class="blog_comment_body">很全，学习了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2432368,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2432368,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2458335" class="layer">#3楼</a><a name="2458335" id="comment_anchor_2458335"></a>  <span class="comment_date">2012-08-28 17:37</span> <a id="a_comment_author_2458335" href="http://www.cnblogs.com/xn4545945/" target="_blank">xn4545945</a> <a href="http://msg.cnblogs.com/send/xn4545945" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2458335" class="blog_comment_body">很详细呀！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2458335,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2458335,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2458335_avatar" style="display:none;">http://pic.cnblogs.com/face/338503/20140915190750.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2465023" class="layer">#4楼</a><a name="2465023" id="comment_anchor_2465023"></a>  <span class="comment_date">2012-09-05 21:10</span> <a id="a_comment_author_2465023" href="http://www.cnblogs.com/zjhnl/" target="_blank">logzh</a> <a href="http://msg.cnblogs.com/send/logzh" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2465023" class="blog_comment_body">谢谢！非递归后序遍历思路2很不错！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2465023,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2465023,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2487350" class="layer">#5楼</a><a name="2487350" id="comment_anchor_2487350"></a>  <span class="comment_date">2012-10-05 21:56</span> <a id="a_comment_author_2487350" href="http://www.cnblogs.com/glamourcc/" target="_blank">白手开始拼</a> <a href="http://msg.cnblogs.com/send/%E7%99%BD%E6%89%8B%E5%BC%80%E5%A7%8B%E6%8B%BC" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2487350" class="blog_comment_body">我的跟作者的思路不太一样<br>先序<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_162151" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">void</code> <code class="cpp plain">preOrder(Node *p) </code><code class="cpp comments">//非递归</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(!p) </code><code class="cpp keyword bold">return</code><code class="cpp plain">;</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stack&lt;Node*&gt; s;</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">Node *t;</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push(p);</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code><code class="cpp plain">(!s.empty())</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">t=s.top();</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"%d\n"</code><code class="cpp plain">,t-&gt;data);</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.pop();</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(t-&gt;right) s.push(t-&gt;right);</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(t-&gt;left) s.push(t-&gt;left);</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div><br>中序<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_232219" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">void</code> <code class="cpp plain">inOrder(Node *p)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(!p)</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code><code class="cpp plain">; </code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stack&lt; pair&lt;Node*,</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt; &gt; s;</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">Node *t;</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">unUsed;</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push(make_pair(p,1));</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code><code class="cpp plain">(!s.empty())</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">t=s.top().first;</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">unUsed = s.top().second;</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.pop();</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(unUsed)</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(t-&gt;right)</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push( make_pair(t-&gt;right,1) );</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push( make_pair(t,0) );</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(t-&gt;left)</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push( make_pair(t-&gt;left,1));</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">else</code> <code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"%d\n"</code><code class="cpp plain">,t-&gt;data);</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number24 index23 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div><br>后序<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_861009" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">void</code> <code class="cpp plain">postOrder(Node *p)</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(!p) </code><code class="cpp keyword bold">return</code><code class="cpp plain">;</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stack&lt;pair&lt;Node*,</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt; &gt; s;</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">Node *t;</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">unUsed;</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push(make_pair(p,1));</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code><code class="cpp plain">(!s.empty())</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">t=s.top().first;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">unUsed=s.top().second;</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.pop();</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(unUsed)</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push(make_pair(t,0);</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(t-&gt;right)</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push(make_pair(t-&gt;right,1));</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(t-&gt;left)</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push(make_pair(t-&gt;left,1));</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">else</code> <code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"%d\n"</code><code class="cpp plain">,t-&gt;data);</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number23 index22 alt2"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2487350,&#39;Digg&#39;,this)">支持(19)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2487350,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2633280" class="layer">#6楼</a><a name="2633280" id="comment_anchor_2633280"></a>  <span class="comment_date">2013-03-12 16:59</span> <a id="a_comment_author_2633280" href="http://home.cnblogs.com/u/475594/" target="_blank">whdugh</a> <a href="http://msg.cnblogs.com/send/whdugh" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2633280" class="blog_comment_body">后序遍历第二种思路 不错  很好理解</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2633280,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2633280,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2645634" class="layer">#7楼</a><a name="2645634" id="comment_anchor_2645634"></a>  <span class="comment_date">2013-03-29 14:31</span> <a id="a_comment_author_2645634" href="http://home.cnblogs.com/u/375113/" target="_blank">tongailing</a> <a href="http://msg.cnblogs.com/send/tongailing" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2645634" class="blog_comment_body">我也觉得博主后序遍历的第二种思路，写的挺好的。我自己琢磨了一晚上加上一个上午还没有搞得很清楚，并且中午午休的时候，还以为你的后序遍历写错了了！<br>多谢博主</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2645634,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2645634,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2645645" class="layer">#8楼</a><a name="2645645" id="comment_anchor_2645645"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2013-03-29 14:37</span> <a id="a_comment_author_2645645" href="http://www.cnblogs.com/dolphin0520/" target="_blank">海 子</a> <a href="http://msg.cnblogs.com/send/%E6%B5%B7%20%E5%AD%90" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2645645" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2645634" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2645634);">@</a>
+tongailing<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2645634" title="查看引用原文">引用</a></legend>我也觉得博主后序遍历的第二种思路，写的挺好的。我自己琢磨了一晚上加上一个上午还没有搞得很清楚，并且中午午休的时候，还以为你的后序遍历写错了了！<br>多谢博主</fieldset><br>  呵呵，互相学习。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2645645,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2645645,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2645645_avatar" style="display:none;">http://pic.cnblogs.com/face/u288799.jpg?id=05221746</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2647446" class="layer">#9楼</a><a name="2647446" id="comment_anchor_2647446"></a>  <span class="comment_date">2013-04-01 16:29</span> <a id="a_comment_author_2647446" href="http://www.cnblogs.com/OSLover/" target="_blank">qwer075</a> <a href="http://msg.cnblogs.com/send/qwer075" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2647446" class="blog_comment_body">博主的思路很好，写的也很清晰，最近正在弄这块的东西。<br>我最先想到的非递归思路跟5楼的差不多。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2647446,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2647446,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2657796" class="layer">#10楼</a><a name="2657796" id="comment_anchor_2657796"></a>  <span class="comment_date">2013-04-15 14:38</span> <a id="a_comment_author_2657796" href="http://www.cnblogs.com/welsh-android-learning/" target="_blank">挡不住会飞的鸡</a> <a href="http://msg.cnblogs.com/send/%E6%8C%A1%E4%B8%8D%E4%BD%8F%E4%BC%9A%E9%A3%9E%E7%9A%84%E9%B8%A1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2657796" class="blog_comment_body">谢谢分享，正在看</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2657796,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2657796,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2708770" class="layer">#11楼</a><a name="2708770" id="comment_anchor_2708770"></a>  <span class="comment_date">2013-06-19 15:49</span> <a id="a_comment_author_2708770" href="http://home.cnblogs.com/u/540223/" target="_blank">水风</a> <a href="http://msg.cnblogs.com/send/%E6%B0%B4%E9%A3%8E" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2708770" class="blog_comment_body">非递归前序遍历第四行应该是：while(p!=NULL&amp;&amp;!s.empty())<br>如果某一个节点没有右节点，这个程序就结束了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2708770,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2708770,&#39;Bury&#39;,this)">反对(5)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2741341" class="layer">#12楼</a><a name="2741341" id="comment_anchor_2741341"></a>  <span class="comment_date">2013-08-01 21:25</span> <a id="a_comment_author_2741341" href="http://home.cnblogs.com/u/553877/" target="_blank">dannyxch</a> <a href="http://msg.cnblogs.com/send/dannyxch" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2741341" class="blog_comment_body">if(!s.empty()) 这个具体的内容 包括s.empty 的程序 和括号内的东西是什么</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2741341,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2741341,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2767155" class="layer">#13楼</a><a name="2767155" id="comment_anchor_2767155"></a>  <span class="comment_date">2013-09-03 11:07</span> <a id="a_comment_author_2767155" href="http://home.cnblogs.com/u/564026/" target="_blank">JMLiu</a> <a href="http://msg.cnblogs.com/send/JMLiu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2767155" class="blog_comment_body">根据楼主的preOrder我写了一个postOrder，跟大家分享<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_903267" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">typedef</code> <code class="cpp keyword bold">struct</code> <code class="cpp plain">_Node{</code></div><div class="line number2 index1 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">data;</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">struct</code> <code class="cpp plain">_Node *left;</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">struct</code> <code class="cpp plain">_Node *right;</code></div><div class="line number5 index4 alt2"><code class="cpp plain">} node;</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="cpp keyword bold">void</code> <code class="cpp plain">postOrder_Stack(node *root) {</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stack &lt; node * &gt; s;</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stack &lt; </code><code class="cpp color1 bold">int</code> <code class="cpp plain">&gt; s_data;</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">node *p = root;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code><code class="cpp plain">(p != NULL || !s.empty()) {</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code><code class="cpp plain">(p != NULL) {</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s_data.push(p -&gt; data);</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.push(p);</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = p -&gt; right;</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = s.top();</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.pop();</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = p -&gt; left;</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code><code class="cpp plain">(!s_data.empty()) {</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout &lt;&lt; s_data.top() &lt;&lt; </code><code class="cpp string">" "</code><code class="cpp plain">;</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s_data.pop();</code></div><div class="line number24 index23 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">;</code></div><div class="line number26 index25 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2767155,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2767155,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2788852" class="layer">#14楼</a><a name="2788852" id="comment_anchor_2788852"></a>  <span class="comment_date">2013-10-09 12:15</span> <a id="a_comment_author_2788852" href="http://home.cnblogs.com/u/572815/" target="_blank">hilbertdu</a> <a href="http://msg.cnblogs.com/send/hilbertdu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2788852" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2708770" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2708770);">@</a>
+水风<br>没错！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2788852,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2788852,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2789868" class="layer">#15楼</a><a name="2789868" id="comment_anchor_2789868"></a>  <span class="comment_date">2013-10-10 15:01</span> <a id="a_comment_author_2789868" href="http://www.cnblogs.com/wyx-713/" target="_blank">andy713</a> <a href="http://msg.cnblogs.com/send/andy713" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2789868" class="blog_comment_body">很不错，总算一遍就看懂了。多谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2789868,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2789868,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2790010" class="layer">#16楼</a><a name="2790010" id="comment_anchor_2790010"></a>  <span class="comment_date">2013-10-10 17:19</span> <a id="a_comment_author_2790010" href="http://www.cnblogs.com/opener/" target="_blank">opener</a> <a href="http://msg.cnblogs.com/send/opener" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2790010" class="blog_comment_body">楼主的非递归后序遍历postOrder3是不是有点问题呀，如果传入的参数root为空的话会异常。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2790010,&#39;Digg&#39;,this)">支持(2)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2790010,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2819001" class="layer">#17楼</a><a name="2819001" id="comment_anchor_2819001"></a>  <span class="comment_date">2013-11-18 23:21</span> <a id="a_comment_author_2819001" href="http://www.cnblogs.com/kaituorensheng/" target="_blank">jihite</a> <a href="http://msg.cnblogs.com/send/jihite" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2819001" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2790010" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2790010);">@</a>
+opener<br>确实是，这时入栈时可以这样<br>if(root)<br>   s.push(root);<br>这样就可以了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2819001,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2819001,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2819001_avatar" style="display:none;">http://pic.cnblogs.com/face/u408927.jpg?id=16165421</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2819243" class="layer">#18楼</a><a name="2819243" id="comment_anchor_2819243"></a>  <span class="comment_date">2013-11-19 11:03</span> <a id="a_comment_author_2819243" href="http://home.cnblogs.com/u/583567/" target="_blank">东方晚来</a> <a href="http://msg.cnblogs.com/send/%E4%B8%9C%E6%96%B9%E6%99%9A%E6%9D%A5" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2819243" class="blog_comment_body">后序遍历第二种方法很好，不过不够完美，加上root指针是否为NULL的判断就更好了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2819243,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2819243,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2821629" class="layer">#19楼</a><a name="2821629" id="comment_anchor_2821629"></a>  <span class="comment_date">2013-11-21 23:15</span> <a id="a_comment_author_2821629" href="http://home.cnblogs.com/u/507963/" target="_blank">lkinga7</a> <a href="http://msg.cnblogs.com/send/lkinga7" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2821629" class="blog_comment_body">嘿嘿  我写的<br><br><a href="http://lk1ngaa7.cf/?p" target="_blank">http://lk1ngaa7.cf/?p</a>=318</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2821629,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2821629,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2872960" class="layer">#20楼</a><a name="2872960" id="comment_anchor_2872960"></a>  <span class="comment_date">2014-02-10 21:45</span> <a id="a_comment_author_2872960" href="http://www.cnblogs.com/jeanschen/" target="_blank">jeans chen</a> <a href="http://msg.cnblogs.com/send/jeans%20chen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2872960" class="blog_comment_body">请教下:postOrder3里面：<br>pre==cur-&gt;lchild||pre==cur-&gt;rchild //这个能等同于“或者P 存在左孩子或者右孩子，但是其左孩子和右孩子都已被访问过了，则同样可以直接访问该结点” ？ <br>我怎么感觉如果pre==cur-&gt;lchild满足了，但是rchild还没有访问就访问了root呢 ？<br><br>求详细解释。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2872960,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2872960,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2872960_avatar" style="display:none;">http://pic.cnblogs.com/face/512940/20130709101602.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2872967" class="layer">#21楼</a><a name="2872967" id="comment_anchor_2872967"></a>  <span class="comment_date">2014-02-10 21:58</span> <a id="a_comment_author_2872967" href="http://www.cnblogs.com/jeanschen/" target="_blank">jeans chen</a> <a href="http://msg.cnblogs.com/send/jeans%20chen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2872967" class="blog_comment_body">A(B,C(D,E))  求解释这个是嘛意思 ？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2872967,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2872967,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2872967_avatar" style="display:none;">http://pic.cnblogs.com/face/512940/20130709101602.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2898771" class="layer">#22楼</a><a name="2898771" id="comment_anchor_2898771"></a>  <span class="comment_date">2014-03-19 13:37</span> <a id="a_comment_author_2898771" href="http://home.cnblogs.com/u/614799/" target="_blank">大番薯520</a> <a href="http://msg.cnblogs.com/send/%E5%A4%A7%E7%95%AA%E8%96%AF520" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2898771" class="blog_comment_body">按博主创建树的方法，有左子树没有右子树，或者有右子树没有左子树应该怎么输入呢，为什么没有的我用空格代替程序会崩溃的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2898771,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2898771,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2911004" class="layer">#23楼</a><a name="2911004" id="comment_anchor_2911004"></a>  <span class="comment_date">2014-04-04 00:18</span> <a id="a_comment_author_2911004" href="http://www.cnblogs.com/4everlove/" target="_blank">Allen Blue</a> <a href="http://msg.cnblogs.com/send/Allen%20Blue" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2911004" class="blog_comment_body">学习了！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2911004,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2911004,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2911004_avatar" style="display:none;">http://pic.cnblogs.com/face/546654/20140421204909.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2930164" class="layer">#24楼</a><a name="2930164" id="comment_anchor_2930164"></a>  <span class="comment_date">2014-05-03 21:12</span> <a id="a_comment_author_2930164" href="http://home.cnblogs.com/u/629936/" target="_blank">YahStudio</a> <a href="http://msg.cnblogs.com/send/YahStudio" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2930164" class="blog_comment_body">您好，您确定您的  后序遍历第二种思路运行正确吗？<br>我是基本仿照你的程序思想编的，编译无错也无警告，但执行时会进入一个死循环。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2930164,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2930164,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2936428" class="layer">#25楼</a><a name="2936428" id="comment_anchor_2936428"></a>  <span class="comment_date">2014-05-11 13:56</span> <a id="a_comment_author_2936428" href="http://www.cnblogs.com/raven-7/" target="_blank">xusulu</a> <a href="http://msg.cnblogs.com/send/xusulu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2936428" class="blog_comment_body">写得太好了，忍不住转载了，介意吗？你介意的话我就删了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2936428,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2936428,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2938514" class="layer">#26楼</a><a name="2938514" id="comment_anchor_2938514"></a>  <span class="comment_date">2014-05-14 09:22</span> <a id="a_comment_author_2938514" href="http://home.cnblogs.com/u/611015/" target="_blank">WeiWpf</a> <a href="http://msg.cnblogs.com/send/WeiWpf" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2938514" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2487350" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2487350);">@</a>
+白手开始拼<br>这个方法不错 很好懂</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2938514,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2938514,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2957827" class="layer">#27楼</a><a name="2957827" id="comment_anchor_2957827"></a>  <span class="comment_date">2014-06-04 17:18</span> <a id="a_comment_author_2957827" href="http://home.cnblogs.com/u/335296/" target="_blank">泡泡熊</a> <a href="http://msg.cnblogs.com/send/%E6%B3%A1%E6%B3%A1%E7%86%8A" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2957827" class="blog_comment_body">后序第二种思路，赞！加上根节点非空判断就太好了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2957827,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2957827,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2957991" class="layer">#28楼</a><a name="2957991" id="comment_anchor_2957991"></a>  <span class="comment_date">2014-06-04 23:27</span> <a id="a_comment_author_2957991" href="http://home.cnblogs.com/u/625913/" target="_blank">richardzrc</a> <a href="http://msg.cnblogs.com/send/richardzrc" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2957991" class="blog_comment_body">博主，感觉中序和先序的while循环里 后面if 判断栈是否空有点多余哈 因为此处如果栈为空则说明上面while 一定没执行，t为空,同时S empty() <br>			那么上一次外层while已经退出了，遍历结束了。可见，此处栈必不空，楼主加了一个永真判断。不知道博主怎么看哈：）</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2957991,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2957991,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2987548" class="layer">#29楼</a><a name="2987548" id="comment_anchor_2987548"></a>  <span class="comment_date">2014-07-17 00:54</span> <a id="a_comment_author_2987548" href="http://www.cnblogs.com/bitzhuwei/" target="_blank">BIT祝威</a> <a href="http://msg.cnblogs.com/send/BIT%E7%A5%9D%E5%A8%81" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2987548" class="blog_comment_body">好文！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2987548,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2987548,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2987548_avatar" style="display:none;">http://pic.cnblogs.com/face/383191/20150317234351.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3015336" class="layer">#30楼</a><a name="3015336" id="comment_anchor_3015336"></a>  <span class="comment_date">2014-08-23 18:42</span> <a id="a_comment_author_3015336" href="http://home.cnblogs.com/u/660064/" target="_blank">偶然偶尔</a> <a href="http://msg.cnblogs.com/send/%E5%81%B6%E7%84%B6%E5%81%B6%E5%B0%94" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3015336" class="blog_comment_body">好!</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3015336,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3015336,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3021877" class="layer">#31楼</a><a name="3021877" id="comment_anchor_3021877"></a>  <span class="comment_date">2014-09-02 21:29</span> <a id="a_comment_author_3021877" href="http://www.cnblogs.com/prettyrain/" target="_blank">prettyrain</a> <a href="http://msg.cnblogs.com/send/prettyrain" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3021877" class="blog_comment_body">不错哇！！！！！！！！！！！！！！！！！！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3021877,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3021877,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3032945" class="layer">#32楼</a><a name="3032945" id="comment_anchor_3032945"></a>  <span class="comment_date">2014-09-23 14:54</span> <a id="a_comment_author_3032945" href="http://www.cnblogs.com/houkai/" target="_blank">侯凯</a> <a href="http://msg.cnblogs.com/send/%E4%BE%AF%E5%87%AF" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3032945" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2767155" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2767155);">@</a>
+JMLiu<br>本以为程序错误呢，看错了，思路完全正确，而且简单可行，非常好，谢谢分享！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3032945,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3032945,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3032945_avatar" style="display:none;">http://pic.cnblogs.com/face/532915/20130527134545.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3034116" class="layer">#33楼</a><a name="3034116" id="comment_anchor_3034116"></a>  <span class="comment_date">2014-09-25 01:07</span> <a id="a_comment_author_3034116" href="http://www.cnblogs.com/zhuangzebo/" target="_blank">庄泽波</a> <a href="http://msg.cnblogs.com/send/%E5%BA%84%E6%B3%BD%E6%B3%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3034116" class="blog_comment_body">@JMLiu<br> 写得不错，简单易懂～</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3034116,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3034116,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3034116_avatar" style="display:none;">http://pic.cnblogs.com/face/301579/20140624234032.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3041357" class="layer">#34楼</a><a name="3041357" id="comment_anchor_3041357"></a>  <span class="comment_date">2014-10-10 17:23</span> <a id="a_comment_author_3041357" href="http://www.cnblogs.com/skydreamteam/" target="_blank">DreamTop</a> <a href="http://msg.cnblogs.com/send/DreamTop" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3041357" class="blog_comment_body">非常好！最简单易懂的~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3041357,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3041357,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3074443" class="layer">#35楼</a><a name="3074443" id="comment_anchor_3074443"></a>  <span class="comment_date">2014-11-29 14:52</span> <a id="a_comment_author_3074443" href="http://home.cnblogs.com/u/698276/" target="_blank">听说你叫小小酥</a> <a href="http://msg.cnblogs.com/send/%E5%90%AC%E8%AF%B4%E4%BD%A0%E5%8F%AB%E5%B0%8F%E5%B0%8F%E9%85%A5" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3074443" class="blog_comment_body">谢谢博主，很有启发~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3074443,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3074443,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3088215" class="layer">#36楼</a><a name="3088215" id="comment_anchor_3088215"></a>  <span class="comment_date">2014-12-17 16:19</span> <a id="a_comment_author_3088215" href="http://www.cnblogs.com/tudas/" target="_blank">caochao88</a> <a href="http://msg.cnblogs.com/send/caochao88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3088215" class="blog_comment_body">先序遍历，这样更简洁：<br>　　<div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_97683" class="syntaxhighlighter  python"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python comments">'''</code></div><div class="line number2 index1 alt1"><code class="python comments">先序遍历二叉树</code></div><div class="line number3 index2 alt2"><code class="python comments">'''</code></div><div class="line number4 index3 alt1"><code class="python keyword">def</code> <code class="python plain">bin_tree_pre_order_traverse( root, visit_func ):</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">s </code><code class="python keyword">=</code> <code class="python plain">Stack()</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">s.push( root )</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">while</code> <code class="python keyword">not</code> <code class="python plain">s.is_empty():</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">node </code><code class="python keyword">=</code> <code class="python plain">s.pop()</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">visit_func( node )</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">node.rchild:</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">s.push( node.rchild )</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">node.lchild:</code></div><div class="line number13 index12 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">s.push( node.lchild )</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3088215,&#39;Digg&#39;,this)">支持(3)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3088215,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3088215_avatar" style="display:none;">http://pic.cnblogs.com/face/207603/20140420162946.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3202785" class="layer">#37楼</a><a name="3202785" id="comment_anchor_3202785"></a>  <span class="comment_date">2015-06-07 13:57</span> <a id="a_comment_author_3202785" href="http://home.cnblogs.com/u/551380/" target="_blank">254808127</a> <a href="http://msg.cnblogs.com/send/254808127" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3202785" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3088215" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3088215);">@</a>
+caochao88<br>你这个才是最佳写法！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3202785,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3202785,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3208709" class="layer">#38楼</a><a name="3208709" id="comment_anchor_3208709"></a>  <span class="comment_date">2015-06-15 13:55</span> <a id="a_comment_author_3208709" href="http://www.cnblogs.com/wgtdkp/" target="_blank">wgtdkp</a> <a href="http://msg.cnblogs.com/send/wgtdkp" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3208709" class="blog_comment_body">也分享一下我的后序遍历吧<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_397191" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp plain">vector&lt;</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt; postorderTraversal(TreeNode *root){</code></div><div class="line number2 index1 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">vector&lt;</code><code class="cpp color1 bold">int</code><code class="cpp plain">&gt; ret;</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stack&lt;TreeNode *&gt; stk;</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code> <code class="cpp plain">(1){</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(; NULL != root; root = root-&gt;left)</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stk.push(root);</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">while</code> <code class="cpp plain">(!stk.empty() &amp;&amp; stk.top()-&gt;right == root){</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">root = stk.top();</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">ret.push_back(root-&gt;val);</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">stk.pop();</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(stk.empty()) </code><code class="cpp keyword bold">break</code><code class="cpp plain">;</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">root = stk.top()-&gt;right;</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">ret;</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3208709,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3208709,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3300940" class="layer">#39楼</a><a name="3300940" id="comment_anchor_3300940"></a>  <span class="comment_date">2015-11-07 15:59</span> <a id="a_comment_author_3300940" href="http://www.cnblogs.com/Neway/" target="_blank">Neway_fight</a> <a href="http://msg.cnblogs.com/send/Neway_fight" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3300940" class="blog_comment_body">总感觉中序的非递归遍历有问题，  stack&lt;BinTree*&gt; s; 声明了之后，后面的while循环中直接使用了，这里不会进不去循环？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3300940,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3300940,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3301470" class="layer">#40楼</a><a name="3301470" id="comment_anchor_3301470"></a>  <span class="comment_date">2015-11-08 23:03</span> <a id="a_comment_author_3301470" href="http://home.cnblogs.com/u/834069/" target="_blank">麦辣鸡腿汉堡</a> <a href="http://msg.cnblogs.com/send/%E9%BA%A6%E8%BE%A3%E9%B8%A1%E8%85%BF%E6%B1%89%E5%A0%A1" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3301470" class="blog_comment_body">请问前序遍历的代码是不是有问题 是否应该为<div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_215202" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">if</code><code class="cpp plain">(!s.empty())</code></div><div class="line number2 index1 alt1"><code class="cpp plain">{</code></div><div class="line number3 index2 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">s.pop();</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p=s.top();</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p=p-&gt;rchild;</code></div><div class="line number6 index5 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div><br>请您指教</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3301470,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3301470,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3309213" class="layer">#41楼</a><a name="3309213" id="comment_anchor_3309213"></a>  <span class="comment_date">2015-11-18 15:14</span> <a id="a_comment_author_3309213" href="http://www.cnblogs.com/hewenny/" target="_blank">banana16314</a> <a href="http://msg.cnblogs.com/send/banana16314" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3309213" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3088215" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3088215);">@</a>
+caochao88<br>学习啊。。够简洁</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3309213,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3309213,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3349030" class="layer">#42楼</a><a name="3349030" id="comment_anchor_3349030"></a>  <span class="comment_date">2016-01-17 09:53</span> <a id="a_comment_author_3349030" href="http://www.cnblogs.com/SyBlog/" target="_blank">PoolMan</a> <a href="http://msg.cnblogs.com/send/PoolMan" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3349030" class="blog_comment_body">个人感觉我的前序和中序更加好理解，嘿嘿<br>前序遍历伪码：<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_714281" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp plain">init_stack(s);</code></div><div class="line number2 index1 alt1"><code class="cpp keyword bold">if</code><code class="cpp plain">(root)</code></div><div class="line number3 index2 alt2"><code class="cpp plain">{</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">do</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">｛ </code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = root;</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">do</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">push(p);</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">visit( top(s) );</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = p-&gt;lchild;</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">｝</code><code class="cpp keyword bold">while</code><code class="cpp plain">(p);</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pop(&amp;p);</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(p-&gt;rchild)</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = p-&gt;rchild;</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code><code class="cpp keyword bold">while</code><code class="cpp plain">(! empty(s) );</code></div><div class="line number20 index19 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div><br><br>中序遍历伪码<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_316058" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp plain">init_stack(s);</code></div><div class="line number2 index1 alt1"><code class="cpp keyword bold">if</code><code class="cpp plain">(root)</code></div><div class="line number3 index2 alt2"><code class="cpp plain">{</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">do</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">｛ </code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = root;</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">do</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">push(p);</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = p-&gt;lchild;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">｝</code><code class="cpp keyword bold">while</code><code class="cpp plain">(p);</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pop(&amp;p);</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">visit( top(s) );</code></div><div class="line number15 index14 alt2">&nbsp;</div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(p-&gt;rchild)</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">p = p-&gt;rchild;</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code><code class="cpp keyword bold">while</code><code class="cpp plain">(! empty(s) );</code></div><div class="line number20 index19 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3349030,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3349030,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3349030_avatar" style="display:none;">http://pic.cnblogs.com/face/678469/20150308222755.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3349031" class="layer">#43楼</a><a name="3349031" id="comment_anchor_3349031"></a>  <span class="comment_date">2016-01-17 10:00</span> <a id="a_comment_author_3349031" href="http://www.cnblogs.com/SyBlog/" target="_blank">PoolMan</a> <a href="http://msg.cnblogs.com/send/PoolMan" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3349031" class="blog_comment_body">后序的非递归实现看不太懂啊~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3349031,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3349031,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3349031_avatar" style="display:none;">http://pic.cnblogs.com/face/678469/20150308222755.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3371858" class="layer">#44楼</a><a name="3371858" id="comment_anchor_3371858"></a>  <span class="comment_date">2016-03-04 13:01</span> <a id="a_comment_author_3371858" href="http://www.cnblogs.com/ranjiewen/" target="_blank">ranjiewen</a> <a href="http://msg.cnblogs.com/send/ranjiewen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3371858" class="blog_comment_body">很全面，学习！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3371858,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3371858,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3371858_avatar" style="display:none;">http://pic.cnblogs.com/face/864046/20160302202247.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3392607" class="layer">#45楼</a><a name="3392607" id="comment_anchor_3392607"></a>  <span class="comment_date">2016-03-26 20:50</span> <a id="a_comment_author_3392607" href="http://www.cnblogs.com/fionajie/" target="_blank">婉菇凉</a> <a href="http://msg.cnblogs.com/send/%E5%A9%89%E8%8F%87%E5%87%89" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3392607" class="blog_comment_body">很好的总结，向楼主学习</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3392607,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3392607,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3442931" class="layer">#46楼</a><a name="3442931" id="comment_anchor_3442931"></a>  <span class="comment_date">2016-05-31 15:45</span> <a id="a_comment_author_3442931" href="http://home.cnblogs.com/u/911473/" target="_blank">hzhen</a> <a href="http://msg.cnblogs.com/send/hzhen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3442931" class="blog_comment_body"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#2872960" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2872960);">@</a>
+jeans chen<br>你应该考虑该节点只有左子树或者右子树的情况！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3442931,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3442931,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3442947" class="layer">#47楼</a><a name="3442947" id="comment_anchor_3442947"></a>  <span class="comment_date">2016-05-31 16:04</span> <a id="a_comment_author_3442947" href="http://home.cnblogs.com/u/911473/" target="_blank">hzhen</a> <a href="http://msg.cnblogs.com/send/hzhen" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3442947" class="blog_comment_body">LZ,在后序遍历的第二种方法中，(pre!=NULL&amp;&amp;(pre==cur-&gt;lchild||pre==cur-&gt;rchild)))，为何一定要加上pre！=Null，恕我愚钝，我想既然能够满足pre==cur-&gt;lchild||pre==cur-&gt;rchild，那为何还需要判断pre！=Null？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3442947,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3442947,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#3501484" class="layer">#48楼</a><a name="3501484" id="comment_anchor_3501484"></a><span id="comment-maxId" style="display:none;">3501484</span><span id="comment-maxDate" style="display:none;">2016/9/1 18:23:18</span>  <span class="comment_date">2016-09-01 18:23</span> <a id="a_comment_author_3501484" href="http://home.cnblogs.com/u/678351/" target="_blank">昏昏昭昭</a> <a href="http://msg.cnblogs.com/send/%E6%98%8F%E6%98%8F%E6%98%AD%E6%98%AD" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3501484" class="blog_comment_body">楼主的后序遍历非递归第二种思想非常喜欢。提出一点小小的改进：前序指针可以初始化为根节点，因为在后序遍历中根节点是没有后继节点的，所以不会出现重复的可能。这样初始化后，在if语句中不用再判断pre是否为空了。改进后的if语句：<br>if((cur-&gt;lchild==NULL&amp;&amp;cur-&gt;rchild==NULL)||(pre==cur-&gt;lchild||pre==cur-&gt;rchild))<br><br>敢问各位高手，这样可还好？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3501484,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3501484,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://group.cnblogs.com/topic/75389.html" target="_blank">【活动】优达学城正式发布“无人驾驶车工程师”课程</a><br><a href="http://www.rongcloud.cn/live" target="_blank">【推荐】移动直播百强八成都在用融云即时通讯云</a><br><a href="http://www.gcpowertools.com.cn/products/componentone_studio_enterprise.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=C1&amp;utm_campaign=community" target="_blank">【推荐】别再闷头写代码！找对工具，事半功倍，全能开发工具包用起来</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://gold.xitu.io/extension/?utm_source=cnblogs&amp;utm_medium=banner&amp;utm_content=juhe&amp;utm_campaign=q3_extension" target="_blank"><img width="300" height="250" src="./二叉树的非递归遍历 - 海 子 - 博客园_files/24442-20160902193613668-1123982956.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/554278/" target="_blank">马斯克：未来地球-火星旅行航班化 80天送100人去火星 票价20万</a><br> ·  <a href="http://news.cnblogs.com/n/554277/" target="_blank">Twitter想把自己卖了，可是谷歌、迪士尼都嫌贵</a><br> ·  <a href="http://news.cnblogs.com/n/554263/" target="_blank">为什么你觉得只开发微信号是不行的？</a><br> ·  <a href="http://news.cnblogs.com/n/554276/" target="_blank">摩托罗拉被曝裁员超一半 联想多品牌失败了吗？</a><br> ·  <a href="http://news.cnblogs.com/n/554275/" target="_blank">数据显示亚马逊超越谷歌成美国多数用户购物默认搜索引擎</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./二叉树的非递归遍历 - 海 子 - 博客园_files/24442-20160803181056012-1919505484.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br> ·  <a href="http://kb.cnblogs.com/page/550625/" target="_blank">程序猿媳妇儿注意事项</a><br> ·  <a href="http://kb.cnblogs.com/page/540529/" target="_blank">可是姑娘，你为什么要编程呢？</a><br> ·  <a href="http://kb.cnblogs.com/page/549631/" target="_blank">知其所以然（以算法学习为例）</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/dolphin0520/">海 子</a><br>园龄：<a href="http://home.cnblogs.com/u/dolphin0520/" title="入园时间：2011-04-03">5年5个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/dolphin0520/followers/">3074</a><br>关注：<a href="http://home.cnblogs.com/u/dolphin0520/followees/">6</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;ab3961d0-cd5d-e011-a53f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/07/01&#39;);return false;">&lt;</a></td><td align="center">2011年8月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/09/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/24.html"><u>24</u></a></td><td align="center"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25.html"><u>25</u></a></td><td align="center"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/26.html"><u>26</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/27.html"><u>27</u></a></td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/dolphin0520/p/4040551.html">1. 金山快盘+TortoiseSVN构建版本控制仓库</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/4012804.html">2. 在windows下安装配置Ulipad</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3920385.html">3. Java并发编程：线程间协作的两种方式：wait、notify、notifyAll和Condition</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3932934.html">4. JAVA多线程和并发基础面试问答（转载）</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3958019.html">5. Java线程面试题 Top 50 （转载）</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3938991.html">6. Java并发编程：Timer和TimerTask（转载）</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3949310.html">7. Java并发编程：Callable、Future和FutureTask</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3920397.html">8. Java并发编程：CountDownLatch、CyclicBarrier和Semaphore</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3932921.html">9. Java并发编程：线程池的使用</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3932906.html">10. Java并发编程：阻塞队列</a></li>
+</ul>
+</div>
+</div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(193)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/dolphin0520/category/291783.html">Android(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/dolphin0520/category/291771.html">C/C++(30)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/dolphin0520/category/602385.html">Java NIO(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/dolphin0520/category/602384.html">Java并发编程(19)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/dolphin0520/category/787419.html">Java代码之美</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/dolphin0520/category/361055.html">Java基础(18)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/dolphin0520/category/602390.html">Java集合</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/dolphin0520/category/787418.html">Java网络编程</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/dolphin0520/category/602387.html">Java虚拟机</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/dolphin0520/category/480376.html">JS/CSS/Jquery</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/dolphin0520/category/361959.html">Linux/Shell(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/dolphin0520/category/731028.html">Mysql</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/dolphin0520/category/327629.html">OJ(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/dolphin0520/category/741432.html">PHP</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/dolphin0520/category/400707.html">Python/Web框架(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/dolphin0520/category/787470.html">Redis</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/dolphin0520/category/575043.html">Web开发(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/dolphin0520/category/294641.html">XML(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/dolphin0520/category/470797.html">计算机网络</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/dolphin0520/category/417710.html">计算机系统(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/dolphin0520/category/477333.html">开发工具(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/dolphin0520/category/605219.html">设计模式(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/dolphin0520/category/309705.html">数据结构(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/dolphin0520/category/407852.html">数据库(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/dolphin0520/category/417089.html">数据挖掘(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/dolphin0520/category/291774.html">算法(27)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/dolphin0520/category/471232.html">无线传感器网络(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/dolphin0520/category/291786.html">信息检索</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/dolphin0520/category/442033.html">业余娱乐(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/dolphin0520/category/470009.html">转载(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/dolphin0520/category/417087.html">自然语言处理</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links291873" class="catList sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cplusplus.com/reference/" rel="nofollow" target="_blank">C++ Reference</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://msdn.microsoft.com/zh-cn/default.aspx" rel="nofollow" target="_blank">MSDN 主页</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://cstest.scu.edu.cn/soj/index.action" rel="nofollow" target="_blank">SOJ</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://poj.org/" rel="nofollow" target="_blank">北大OJ</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://ifeve.com/" rel="nofollow" target="_blank">并发编程网</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://acm.hdu.edu.cn/" rel="nofollow" target="_blank">杭电OJ</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	416435
+	</li>
+	<li class="liRank">
+		排名 -	269
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dolphin0520/p/3949310.html#3520539">1. Re:Java并发编程：Callable、Future和FutureTask</a></li>
+        <li class="recent_comment_body">@小卷    FutureTask不是实现了RunnableFuture接口吗.RunnableFuture继承了Runnable和Futrue,所以是没有错的吧</li>
+        <li class="recent_comment_author">--Vilochen、</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dolphin0520/p/3736238.html#3519808">2. Re:浅析Java中的final关键字</a></li>
+        <li class="recent_comment_body">应该是i值相同，j值不同的吧</li>
+        <li class="recent_comment_author">--猫爱上猪</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/dolphin0520/p/3920407.html#3519686">3. Re:Java并发编程：深入剖析ThreadLocal</a></li>
+        <li class="recent_comment_body">我不明白的只有一点，源码也看了，百度翻遍了都得不到解释。如下：<br>set 方法不是一个引用传递吗？<br>如果是，为什么一个线程 get 对象之后进行修改，另一个线程看不到（所谓的隔离）？</li>
+        <li class="recent_comment_author">--Vampire_x</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/dolphin0520/p/3932921.html">1. Java并发编程：线程池的使用(154369)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/archive/2013/04/29/3046237.html">2. 将Sublime Text 2搭建成一个好用的IDE(134706)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/26/2155202.html">3. Dijkstra算法（单源最短路径）(132518)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3811437.html">4. 深入理解Java的接口和抽象类(131956)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3736238.html">5. 浅析Java中的final关键字(124933)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/archive/2011/08/25/2153720.html">6. 二叉树的非递归遍历(103755)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/archive/2011/10/06/2199741.html">7. 堆排序(97893)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3949310.html">8. Java并发编程：Callable、Future和FutureTask(87528)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3933551.html">9. Java ConcurrentModificationException异常原因和解决方法(79738)</a></li><li><a href="http://www.cnblogs.com/dolphin0520/p/3920357.html">10. Java并发编程：Thread类的使用(74419)</a></li></ul></div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 海 子
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

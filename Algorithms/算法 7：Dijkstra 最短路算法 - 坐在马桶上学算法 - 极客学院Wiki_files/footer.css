@@ -1,0 +1,185 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+#footer {
+	margin-top: 70px;
+	position: relative;
+	font-size: 12px;
+	background: #fff;
+	box-sizing: border-box;
+	padding-bottom: 20px;
+	border-top:1px solid #e4e4e4;
+}
+
+#footer .footer-content {
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#footer .contact-way {
+	box-sizing: border-box;
+	width: 240px;
+	z-index: 100;
+	background: #fff;
+	margin: 20px auto;
+}
+
+
+
+#footer .contact-way {
+	text-align: center;
+}
+
+
+
+
+#footer .telephone {
+	font-family: georgia;
+	font-size: 24px;
+	color: #333;
+	padding-left: 25px;
+	margin-bottom: 25px;
+}
+
+@font-face {
+	font-family: 'georgia';
+	src: url('//e.jikexueyuan.com/headerandfooter/css/Georgia.ttf') format('truetype'), font-weight:normal;
+	font-style: normal;
+}
+
+#footer nav {
+	border-bottom: 1px solid #f0f0f0;
+	padding: 0px 0px 20px 0px;
+}
+
+#footer nav a {
+	padding: 4px 10px;
+	color: #666;
+	text-decoration: none;
+}
+
+#footer nav a:hover{
+	color: #35b558;
+}
+#footer nav i {
+	color: #E4E4E4;
+	font-style: normal;
+}
+
+#footer .copyright {
+	color: #999;
+	padding: 10px 0;
+}
+
+#footer .other-way a {
+	background: url(//e.jikexueyuan.com/headerandfooter/images/otherway.png) 0 0 no-repeat;
+	display: inline-block;
+	width: 22px;
+	height:18px;
+	margin-right: 20px;
+}
+#footer .other-way a:last-child {
+	margin-right: 0;
+}
+
+#footer .other-way a.weixin-icon {
+	background-position: -28px 0px;
+}
+
+#footer .other-way a.tencen-icon {
+	background-position: -56px 0px;
+}
+
+#footer .other-way a.sina-icon {
+	background-position: 0px 0px;
+}
+
+#footer .other-way a.facebook-icon {
+	background-position: -104px 0px;
+}
+
+#footer .other-way a.google-icon {
+	background-position: -80px 0px;
+}
+
+#footer .gotop {
+	position: fixed;
+	left: 50%;
+	margin-left: 515px;
+	top:450px;
+	width: 40px;
+	text-align: center;
+	z-index: 2000;
+}
+
+#footer .gotop span,#footer .gotop a {
+	display: block;
+	width:40px;
+	height:40px;
+	margin-bottom: 1px;
+}
+
+#footer .top i{
+	display: block;
+	width: 40px;
+	height: 40px;
+	background: #fff url(//e.jikexueyuan.com/headerandfooter/images/top.png) 11px 10px no-repeat;
+}
+
+#footer .top i:hover{
+	background: #fafafa url(//e.jikexueyuan.com/headerandfooter/images/top_hover.png) 11px 10px no-repeat;
+}
+#footer .wx{
+	position: relative;
+	background: #fff url(//e.jikexueyuan.com/headerandfooter/images/wx.png) 12px 10px no-repeat;
+}
+#footer .wx:hover{
+	background: #fafafa url(//e.jikexueyuan.com/headerandfooter/images/wx_hover.png) 12px 10px no-repeat;
+}
+#footer .wx:hover .appewm{
+	display: block;
+}
+
+
+#footer .tel-icon{
+	position: relative;
+	background: #fff url(//e.jikexueyuan.com/headerandfooter/images/tel.png) 12px 10px no-repeat;
+}
+#footer .tel-icon:hover{
+	background: #fafafa url(//e.jikexueyuan.com/headerandfooter/images/tel_hover.png) 12px 10px no-repeat;
+}
+#footer .tel-icon:hover .tel-number{ display: block;}
+#footer .tel-icon .tel-number{
+	background: url(//e.jikexueyuan.com/headerandfooter/images/tel_number.png) center center no-repeat;
+    background-size: 100%;
+    width: 157px;
+    height: 89px;
+    position: absolute;
+    z-index: 2100;
+    left: -155px;
+    top: -4px;
+    display: none;
+}
+
+
+
+
+#footer .service{
+	background: #fff url(//e.jikexueyuan.com/headerandfooter/images/service.png) 10px 10px no-repeat;
+}
+#footer .service:hover{
+	background: #fafafa url(//e.jikexueyuan.com/headerandfooter/images/service_hover.png) 10px 10px no-repeat;
+}
+#footer .appewm{
+	background: url(//e.jikexueyuan.com/headerandfooter/images/qrcode.png) center center no-repeat;
+    background-size: 100%;
+    width: 158px;
+    height: 178px;
+    position: absolute;
+    z-index: 2100;
+    left: -156px;
+    top: -87px;
+    display: none;
+}

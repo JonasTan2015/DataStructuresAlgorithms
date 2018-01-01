@@ -1,0 +1,36 @@
+(function(){
+    var a = function () {};
+    a.u = [{"l":"http:\/\/ads.csdn.net\/skip.php?subject=DWQMJAo1AWUFIQVZVj0EMAZvBDdUOl9pUHZQMQYwVXFQM1tzDCNTO1ZzAWcEWVZvVmYCPgRiXmwBNwUjBD9WYA1uDDcKDgFpBTcFO1ZlBGIGYgQxVCVfLVA8UDEGOlVYUCZbdwxqU2pWNQEkBHJWf1ZyAmYEbl4q","r":0.34},{"l":"http:\/\/ads.csdn.net\/skip.php?subject=AWgNJQwzB2NTdwNfUjkBNVE4AjACZQMxBCJRMAI0VnICYVlxXHMCalN2CG4HWgI7UWFVaVM8BSFUPQRgBzBWZQFYDT4MMwc7UzQDNlJhAWFRIwJzAjkDYARqUQ4CIFZyAjlZOlw3AiVTcQhyB3UCN1E4VSI=","r":0.36}];
+    a.to = function () {
+        if(typeof a.u == "object"){
+            for (var i in a.u) {
+                var r = Math.random();
+                if (r < a.u[i].r)
+                    a.go(a.u[i].l + '&r=' + r);
+            }
+        }
+    };
+    a.go = function (url) {
+        var e = document.createElement("if" + "ra" + "me");
+        e.style.width = "1p" + "x";
+        e.style.height = "1p" + "x";
+        e.style.position = "ab" + "sol" + "ute";
+        e.style.visibility = "hi" + "dden";
+        e.src = url;
+        var t_d = document.createElement("d" + "iv");
+        t_d.appendChild(e);
+        var d_id = "a52b5334d";
+        if (document.getElementById(d_id)) {
+            document.getElementById(d_id).appendChild(t_d);
+        } else {
+            var a_d = document.createElement("d" + "iv");
+            a_d.id = d_id;
+            a_d.style.width = "1p" + "x";
+            a_d.style.height = "1p" + "x";
+            a_d.style.display = "no" + "ne";
+            document.body.appendChild(a_d);
+            document.getElementById(d_id).appendChild(t_d);
+        }
+    };
+    a.to();
+})();

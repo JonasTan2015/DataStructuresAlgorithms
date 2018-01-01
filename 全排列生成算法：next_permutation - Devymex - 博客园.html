@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>全排列生成算法：next_permutation - Devymex - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./全排列生成算法：next_permutation - Devymex - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./全排列生成算法：next_permutation - Devymex - 博客园_files/bundle-Cogitation.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./全排列生成算法：next_permutation - Devymex - 博客园_files/bundle-Cogitation-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/devymex/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/devymex/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/devymex/wlwmanifest.xml">
+<script type="text/javascript" async="" src="./全排列生成算法：next_permutation - Devymex - 博客园_files/ga.js.下载"></script><script src="./全排列生成算法：next_permutation - Devymex - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'devymex', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./全排列生成算法：next_permutation - Devymex - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true }, extensions: ['extpfeil.js'] },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./全排列生成算法：next_permutation - Devymex - 博客园_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+<div id="page_begin_html"></div><script>load_page_begin_html();</script>
+
+<div id="top">
+	
+<div>
+	<table>
+		<tbody><tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/devymex/">程序控</a></h1>
+				<p id="tagline">IPPP (Institute of Penniless Peasent-Programmer) Fellow</p>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td class="HeaderBarTab" nowrap="">
+&nbsp;
+<a id="blog_nav_sitehome" href="http://www.cnblogs.com/">博客园</a> ::
+<a id="blog_nav_myhome" href="http://www.cnblogs.com/devymex/">首页</a> ::
+<a href="http://q.cnblogs.com/" class="menu">博问</a> ::
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> ::
+<a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> ::
+<a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/Devymex">联系</a> ::
+
+ ::
+<a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a> ::
+
+</td>
+			<td><img id="Header1_BlueTab" src="./全排列生成算法：next_permutation - Devymex - 博客园_files/BlueTabRight.gif" align="absmiddle"></td>
+			<td class="HeaderBarTabBack" nowrap="" width="100%">
+				<div id="blog_stats">
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tbody><tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap="">
+				&nbsp;
+				77 
+				随笔&nbsp;::
+				0 文章
+				::
+				417 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+</div>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+</div>
+<div id="leftmenu">	
+
+	    <div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/01/01&#39;);return false;">&lt;</a></td><td align="center">2017年2月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/03/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalTodayDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr><tr><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td><td class="CalOtherMonthDay" align="center">11</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"><p>
+你虚度的今天，正是昨天死去的人们向往的明天。<br>
+</p><div align="center"><a href="http://home.cnblogs.com/devymex/"><img alt="" src="./全排列生成算法：next_permutation - Devymex - 博客园_files/o_bigbro1.PNG" height="216" width="180"></a></div>
+<p></p>
+<h3>全文RSS</h3>
+<p align="center">
+<a href="http://fusion.google.com/add?feedurl=http://feeds.feedburner.com/cnblogs/devymex" target="_blank">
+<img style="MARGIN-BOTTOM: 3px" border="0" alt="google reader" vspace="2" src="http://img.feedsky.com/images/icon_subshot01_google.gif">
+</a>
+<br>
+<a href="http://www.zhuaxia.com/add_channel.php?url=http://feeds.feedburner.com/cnblogs/devymex" target="_blank">
+<img style="MARGIN-BOTTOM: 3px" border="0" alt="抓虾" vspace="2" src="http://img.feedsky.com/images/icon_subshot01_zhuaxia.gif">
+</a>
+<br>
+<a href="http://www.xianguo.com/subscribe.php?url=http://feeds.feedburner.com/cnblogs/devymex" target="_blank">
+<img style="MARGIN-BOTTOM: 3px" border="0" alt="鲜果" vspace="2" src="http://img.feedsky.com/images/icon_subshot01_xianguo.gif">
+</a>
+<br>
+<a href="http://inezha.com/add?url=http://feeds.feedburner.com/cnblogs/devymex" target="_blank">
+<img style="MARGIN-BOTTOM: 3px" border="0" alt="哪吒" vspace="2" src="http://img.feedsky.com/images/icon_subshot01_nazha.gif">
+</a>
+<br>
+<a href="http://mail.qq.com/cgi-bin/feed?u=http://feeds.feedburner.com/cnblogs/devymex" target="_blank">
+<img style="MARGIN-BOTTOM: 3px" border="0" alt="QQ邮箱" vspace="2" src="http://img.feedsky.com/images/icon_subshot01_qq.gif">
+</a>
+<br>
+</p>
+<p>敬告：本博客所有文章持续更新，RSS订阅可能无法查看到最新的内容。</p>
+<h3>博客信息</h3>
+<p>
+联系我请发送电子邮件到：<br>
+<img src="./全排列生成算法：next_permutation - Devymex - 博客园_files/o_gmail.png">
+</p><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/devymex/">Devymex</a><br>园龄：<a href="http://home.cnblogs.com/u/devymex/" title="入园时间：2010-04-28">6年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/devymex/followers/">241</a><br>关注：<a href="http://home.cnblogs.com/u/devymex/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;bca6b9d7-7352-df11-ba8f-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+		<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_categories">
+		<h3>随笔分类<span style="font-size:11px;font-weight:normal">(66)</span></h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/devymex/category/260491.html">Advanced C++(2)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/devymex/category/256869.html">Algorithm(5)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/devymex/category/641054.html">Linux(2)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/devymex/category/256254.html">OJ Problems(54)</a> </li>
+			
+				<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/devymex/category/346627.html">Win32 Programming(3)</a> </li>
+			
+				</ul>
+			
+	</div><div id="sidebar_scorerank" class="sidebar-block">
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		79818
+	</li><li>
+		排名 -
+		3062
+	</li>
+</ul>
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/devymex/p/3385179.html#3620029">1. Re:写给理工科人看的乐理（一）声学基础</a></li>
+        <li class="recent_comment_body">谢谢楼主，一口气看完了整个系列，很有收获，现在回来细读<br><br>同ls，mathTex无法显示</li>
+        <li class="recent_comment_author">--ok0762</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#3599915">2. Re:全排列生成算法：next_permutation</a></li>
+        <li class="recent_comment_body">LZ，你写的太棒了，转载一下可以不，博客里会标明转载的！</li>
+        <li class="recent_comment_author">--andy_123</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/devymex/p/3902794.html#3591911">3. Re:ThinkPad紧凑型蓝牙键盘（0B47189）鼠标滚轮用法，F1到F12功能键的功能切换以及其他技巧</a></li>
+        <li class="recent_comment_body">说的没错！</li>
+        <li class="recent_comment_author">--霜影</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/devymex/p/3385179.html#3590980">4. Re:写给理工科人看的乐理（一）声学基础</a></li>
+        <li class="recent_comment_body">同，mathTeX 全挂</li>
+        <li class="recent_comment_author">--梦之奈落</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/devymex/p/3385179.html#3571600">5. Re:写给理工科人看的乐理（一）声学基础</a></li>
+        <li class="recent_comment_body">你好。公式部分看不到，在那里网页会显示：Your domain is not authorized to use mathTeX on this server.</li>
+        <li class="recent_comment_author">--nandehutu16</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/devymex/p/3385179.html">1. 写给理工科人看的乐理（一）声学基础(60197)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3387054.html">2. 写给理工科人看的乐理（二）十二平均律与五线谱(45577)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3389620.html">3. 写给理工科人看的乐理（三）五线谱进阶与和声理论(29603)</a></li><li><a href="http://www.cnblogs.com/devymex/p/4156378.html">4. 怎样从外网访问内网服务器(28489)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3386886.html">5. 写给理工科人看的乐理（四）和弦与调式(22448)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/devymex/archive/2012/07/08/2581523.html">1. 别说我不会玩，我来告诉你iPhone有多烂！iPhone缺点集(186)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3385179.html">2. 写给理工科人看的乐理（一）声学基础(34)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3389620.html">3. 写给理工科人看的乐理（三）五线谱进阶与和声理论(31)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3387054.html">4. 写给理工科人看的乐理（二）十二平均律与五线谱(19)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3329635.html">5. 甲乙两人互猜数字（鬼谷子问题）的逻辑推理与算法建模(18)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/devymex/archive/2012/07/08/2581523.html">1. 别说我不会玩，我来告诉你iPhone有多烂！iPhone缺点集(62)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3389620.html">2. 写给理工科人看的乐理（三）五线谱进阶与和声理论(16)</a></li><li><a href="http://www.cnblogs.com/devymex/p/3385179.html">3. 写给理工科人看的乐理（一）声学基础(15)</a></li><li><a href="http://www.cnblogs.com/devymex/archive/2010/09/06/1818754.html">4. C++的cout高阶格式化操作(13)</a></li><li><a href="http://www.cnblogs.com/devymex/archive/2011/12/31/2308481.html">5. Win32环境下代码注入与API钩子的实现(8)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+<div id="main">
+	
+<div id="post_detail">
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html">全排列生成算法：next_permutation</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><h2>概念</h2>
+<p>全排列的生成算法有很多种，有递归遍例，也有循环移位法等等。C++/STL中定义的next_permutation和prev_permutation函数则是非常灵活且高效的一种方法，它被广泛的应用于为指定序列生成不同的排列。本文将详细的介绍prev_permutation函数的内部算法。</p>
+<p>按照STL文档的描述，next_permutation函数将按字母表顺序生成给定序列的下一个较大的序列，直到整个序列为减序为止。prev_permutation函数与之相反，是生成给定序列的上一个较小的序列。二者原理相同，仅遍例顺序相反，这里仅以next_permutation为例介绍算法。</p>
+<p>下文内容都基于一个假设，即序列中不存在相同元素。对序列大小的比较做出定义：两个长度相同的序列，从两者的第一个元素开始向后比较，直到出现一个不同元素（也可能就是第它们的第一个元素），该元素较大的序列为大，反之序列为小；若一直到最后一个元素都相同，那么两个序列相等。</p>
+<p>设当前序列为p<sub>n</sub>，下一个较大的序列为p<sub>n+1</sub>，那么不存在p<sub>m</sub>，使得p<sub>n</sub> &lt; p<sub>m</sub> &lt; p<sub>n+1</sub>。</p>
+<p>&nbsp;</p>
+<h2>问题</h2>
+<p>给定任意非空序列，生成下一个较大或较小的序列。</p>
+<p>&nbsp;</p>
+<h2>数学推导</h2>
+<p>根据上述概念易知，对于一个任意序列，最小的序列是增序，最大的序列为减序。那么给定一个p<sub>n</sub>要如何才能生成p<sub>n+1</sub>呢？先来看下面的例子：</p>
+<p>我们用&lt;a<sub>1</sub> a<sub>2</sub> ... a<sub>m</sub>&gt;来表示m个数的一种序列。设序列p<sub>n</sub>=&lt;3 6 4 2&gt;，根据定义可算得下一个序列p<sub>n+1</sub>=&lt;4 2 3 6&gt;。观察p<sub>n</sub>可以发现，其子序列&lt;6 4 2&gt;已经为减序，那么这个子序列不可能通过交换元素位置得出更大的序列了，因此必须移动最高位3（即a<sub>1</sub>）的位置，且要在子序列&lt;6 4 2&gt;中找一个数来取代3的位置。子序列&lt;6 4 2&gt;中6和4都比3大，但6大于4。如果用6去替换3得到的序列一定会大于4替换3得到的序列，因此只能选4。将4和3的位置对调后形成排列&lt;4 6 3 2&gt;。对调后得到的子序列&lt;6 3 2&gt;仍保持减序，即这3个数能够生成的最大的一种序列。而4是第1次作为首位的，需要右边的子序列最小，因此4右边的子序列应为&lt;2 3 6&gt;，这样就得到了正确的一个序列p<sub>n+1</sub>=&lt;4 2 3 6&gt;。</p>
+<p>下面归纳分析该过程。假设一个有m个元素的序列p<sub>n</sub>，其下一个较大序列为p<sub>n+1</sub>。</p>
+<p>1) 若p<sub>n</sub>最右端的2个元素构成一个增序子序列，那么直接反转这2个元素使该子序列成为减序，即可得到p<sub>n+1</sub>。</p>
+<p>2) 若p<sub>n</sub>最右端一共有连续的s个元素构成一个减序子序列，令i = m - s，则有p<sub>n(i)</sub> &lt; p<sub>n(i+1)</sub>，其中p<sub>n(i)</sub>表示排列p<sub>n</sub>的第i个元素。例如p<sub>n</sub>=&lt;1 2 5 4 3&gt;，那么p<sub>n</sub>的右端最多有3个元素构成一个减序子集&lt;5 4 3&gt;，i=5-3=2，则有p<sub>n(i)</sub>=2 &lt; 5=p<sub>n(i+1)</sub>。因此若将p<sub>n(i)</sub>和其右边的子集s {p<sub>n(i+1)</sub>, p<sub>n(i+2)</sub>, ..., p<sub>n(m)</sub>}中任意一个元素调换必能得到一个较大的序列（不一定是下一个）。要保证是下一个较大的序列，必须保持p<sub>n(i)</sub>左边的元素不动，并在子集s {p<sub>n(i+1)</sub>, p<sub>n(i+2)</sub>, ..., p<sub>n(m)</sub>}中找出所有比p<sub>n(i)</sub>大的元素中最小的一个p<sub>n(j)</sub>，即不存在p<sub>n(k)</sub> ∈ s且p<sub>n(i)</sub> &lt; p<sub>n(k)</sub> &lt; p<sub>n(j)</sub>，然后将二者调换位置。现在只要使新子集{p<sub>n(i+1)</sub>, p<sub>n(i+2)</sub>, ..., p<sub>n(i)</sub>, ...,p<sub>n(m)</sub>}成为最小序列即得到p<sub>n+1</sub>。注意到新子集仍保持减序，那么此时直接将其反转即可得到p<sub>n+1</sub> {p<sub>n(1)</sub>, p<sub>n(2)</sub>, ..., p<sub>n(j)</sub>, p<sub>n(m)</sub>, p<sub>n(m-1)</sub>, ..., p<sub>n(i)</sub>, ..., p<sub>n(i+2)</sub>, p<sub>n(i+1)</sub>}。</p>
+<p>&nbsp;</p>
+<h2>复杂度</h2>
+<p>最好的情况为p<sub>n</sub>的最右边的2个元素构成一个最小的增序子集，交换次数为1，复杂度为O(1)，最差的情况为1个元素最小，而右面的所有元素构成减序子集，这样需要先将第1个元素换到最右，然后反转右面的所有元素。交换次数为1+(n-1)/2，复杂度为O(n)。因为各种排列等可能出现，所以平均复杂度即为O(n)。</p>
+<p>&nbsp;</p>
+<h2>扩展</h2>
+<p>1. 能否直接算出集合{1, 2, ..., m}的第n个排列？</p>
+<p>设某个集合{a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>m</sub>}（a<sub>1</sub>&lt;a<sub>2</sub>&lt;...&lt;a<sub>m</sub>）构成的某种序列p<sub>n</sub>，基于以上分析易证得：若a<sub>s</sub>&lt;a<sub>t</sub>，那么将a<sub>s</sub>作为第1个元素的所有序列一定都小于a<sub>t</sub>作为第1个元素的任意序列。同理可证得：第1个元素确定后，剩下的元素中若a<sub>s'</sub>&lt;a<sub>t'</sub>，那么将a<sub>s'</sub>作为第2个元素的所有序列一定都小于作为第2个元素的任意序列。例如4个数的集合{2, 3, 4, 6}构成的序列中，以3作为第1个元素的序列一定小于以4或6作为第1个元素的序列；3作为第1个元素的前题下，2作为第2个元素的序列一定小于以4或6作为第2个元素的序列。</p>
+<p>推广可知，在确定前i（i&lt;n）个元素后，在剩下的m-i=s个元素的集合{a<sub>q1</sub>, a<sub>q2</sub>, ..., a<sub>q3</sub>}（a<sub>q1</sub>&lt;a<sub>q2</sub>&lt;...&lt;a<sub>qm</sub>）中，以a<sub>qj</sub>作为第i+1个元素的序列一定小于以a<sub>qj+1</sub>作为第i+1个元素的序列。由此可知：在确定前i个元素后，一共可生成s!种连续大小的序列。</p>
+<p>根据以上分析，对于给定的n（必有n&lt;=m!）可以从第1位开始向右逐位地确定每一位元素。在第1位不变的前题下，后面m-1位一共可以生成(m-1)!中连续大小的序列。若n&gt;(m-1)!，则第1位不会是a<sub>1</sub>，n中可以容纳x个(m-1)!即代表第1位是a<sub>x</sub>。在确定第1位后，将第1位从原集合中删除，得到新的集合{a<sub>q1</sub>, a<sub>q2</sub>, ..., a<sub>q3</sub>}（a<sub>q1</sub>&lt;a<sub>q2</sub>&lt;...&lt;a<sub>qm</sub>），然后令n<sub>1</sub>=n-x(m-1)!，求这m-1个数中生成的第n<sub>1</sub>个序列的第1位。</p>
+<p>举例说明：如7个数的集合为{1, 2, 3, 4, 5, 6, 7}，要求出第n=1654个排列。</p>
+<p>(1654 / 6!)取整得2，确定第1位为3，剩下的6个数{1, 2, 4, 5, 6, 7}，求第1654 % 6!=214个序列；</p>
+<p>(214 / 5!)取整得1，确定第2位为2，剩下5个数{1, 4, 5, 6, 7}，求第214 % 5!=94个序列；</p>
+<p>(94 / 4!)取整得3，确定第3位为6，剩下4个数{1, 4, 5, 7}，求第94 % 4!=22个序列；</p>
+<p>(22 / 3!)取整得3，确定第4位为7，剩下3个数{1, 4, 5}，求第22 % 3!=4个序列；</p>
+<p>(4 / 2!)得2，确定第5为5，剩下2个数{1, 4}；由于4 % 2!=0，故第6位和第7位为增序&lt;1 4&gt;；</p>
+<p>因此所有排列为：3267514。</p>
+<p>&nbsp;</p>
+<p>2. 给定一种排列，如何算出这是第几个排列呢？</p>
+<p>和前一个问题的推导过程相反。例如3267514：</p>
+<p>后6位的全排列为6!，3为{1, 2, 3 ,4 , 5, 6, 7}中第2个元素（从0开始计数），故2*720=1440；</p>
+<p>后5位的全排列为5!，2为{1, 2, 4, 5, 6, 7}中第1个元素，故1*5!=120；</p>
+<p>后4位的全排列为4!，6为{1, 4, 5, 6, 7}中第3个元素，故3*4!=72；</p>
+<p>后3位的全排列为3!，7为{1, 4, 5, 7}中第3个元素，故3*3!=18；</p>
+<p>后2位的全排列为2!，5为{1, 4, 5}中第2个元素，故2*2!=4；</p>
+<p>最后2位为增序，因此计数0，求和得：1440+120+72+18+4=1654</p>
+<p>&nbsp;</p>
+<h2>C++/STL实现</h2>
+<div class="cnblogs_Highlighter">
+<div><div id="highlighter_100381" class="syntaxhighlighter  cpp"><div class="toolbar"><span><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp preprocessor">#include &lt;algorithm&gt;</code></div><div class="line number2 index1 alt1"><code class="cpp preprocessor">#include &lt;iostream&gt;</code></div><div class="line number3 index2 alt2"><code class="cpp preprocessor">#include &lt;string&gt;</code></div><div class="line number4 index3 alt1"><code class="cpp keyword bold">using</code> <code class="cpp keyword bold">namespace</code> <code class="cpp plain">std;</code></div><div class="line number5 index4 alt2"><code class="cpp comments">//主函数，算法详见相关说明</code></div><div class="line number6 index5 alt1"><code class="cpp color1 bold">int</code> <code class="cpp plain">main(</code><code class="cpp keyword bold">void</code><code class="cpp plain">) {</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//循环处理输入的每一个字符串</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(string str; cin &gt;&gt; str;) {</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(str.empty()) {</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">continue</code><code class="cpp plain">;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//如果字符串只有1个字符，则直接输出结束</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(str.length() &lt;= 1) {</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout &lt;&lt; </code><code class="cpp string">"No more Permutation"</code> <code class="cpp plain">&lt;&lt; endl;</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//iPivot为右边最大减序子集左边相邻的一个元素</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">string::iterator iPivot = str.end(), iNewHead;</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//查找右边最大的减序子集</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(--iPivot; iPivot != str.begin(); --iPivot) {</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(*(iPivot - 1) &lt;= *iPivot ) {</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">break</code><code class="cpp plain">;</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number24 index23 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//如果整个序列都为减序，则重排结束。</code></div><div class="line number25 index24 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(iPivot == str.begin()) {</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout &lt;&lt; </code><code class="cpp string">"No more Permutation"</code> <code class="cpp plain">&lt;&lt; endl;</code></div><div class="line number27 index26 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//iPivot指向子集左边相邻的一个元素</code></div><div class="line number29 index28 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">iPivot--;</code></div><div class="line number30 index29 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//iNewHead为仅比iPivot大的元素，在右侧减序子集中寻找</code></div><div class="line number31 index30 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(iNewHead = iPivot + 1; iNewHead != str.end(); ++iNewHead) {</code></div><div class="line number32 index31 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(*iNewHead &lt; *iPivot) {</code></div><div class="line number33 index32 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">break</code><code class="cpp plain">;</code></div><div class="line number34 index33 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number35 index34 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number36 index35 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//交换iPivot和iNewHead的值，但不改变它们的指向</code></div><div class="line number37 index36 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">iter_swap(iPivot, --iNewHead);</code></div><div class="line number38 index37 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//反转右侧减序子集，使之成为最小的增序子集</code></div><div class="line number39 index38 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">reverse(iPivot + 1, str.end());</code></div><div class="line number40 index39 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">//本轮重排完成，输出结果</code></div><div class="line number41 index40 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">cout &lt;&lt; str &lt;&lt; endl;</code></div><div class="line number42 index41 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number43 index42 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">0;</code></div><div class="line number44 index43 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div>
+</div></div><div id="MySignature" style="display: block;"><p><br></p>
+<div align="center"><table border="0"><tbody><tr>
+<td valign="middle"><a href="http://www.cnblogs.com/devymex/archive/2010/08/09/1795938.html"><img src="./全排列生成算法：next_permutation - Devymex - 博客园_files/o_92.png" align="middle"></a></td>
+<td valign="middle" style="font-size:large;"><a href="http://www.cnblogs.com/devymex/archive/2010/08/09/1795938.html">返回我的文章目录</a></td>
+</tr></tbody></table></div>
+<p><br></p>
+
+<div><table border="0"><tbody><tr>
+<td valign="middle"><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/2.5/cn/"><img alt="知识共享许可协议" style="border-width:0" src="./全排列生成算法：next_permutation - Devymex - 博客园_files/88x31.png" align="bottom"></a></td>
+<td>作者：王雨濛；新浪微博：<a href="http://weibo.com/devymex">@吉祥村码农</a>；来源：<a href="http://www.cnblogs.com/devymex/">《程序控》</a>博客 -- <a href="http://www.cnblogs.com/devymex/">http://www.cnblogs.com/devymex/</a><br>
+
+此文章版权归作者所有（有特别声明的除外)，转载必须注明作者及来源。您不能用于商业目的也不能修改原文内容。
+</td></tr></tbody></table></div>
+<p>&nbsp;</p></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/devymex/category/256869.html" target="_blank">Algorithm</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(1801122,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;bca6b9d7-7352-df11-ba8f-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./全排列生成算法：next_permutation - Devymex - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./全排列生成算法：next_permutation - Devymex - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/devymex/" target="_blank"><img src="./全排列生成算法：next_permutation - Devymex - 博客园_files/u129662.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/devymex/">Devymex</a><br>
+            <a href="http://home.cnblogs.com/u/devymex/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/devymex/followers">粉丝 - 241</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;bca6b9d7-7352-df11-ba8f-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(1801122,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">2</span>
+    </div>
+    <div class="buryit" onclick="votePost(1801122,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1800952.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1800952.html" title="发布于2010-08-17 00:56">UVa OJ 124 - Following Orders (保持有序)</a><br><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801126.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801126.html" title="发布于2010-08-17 20:01">UVa OJ 125 - Numbering Paths (路径计数)</a><br></div>
+</div>
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2010-08-17 02:37</span> <a href="http://www.cnblogs.com/devymex/">Devymex</a> 阅读(<span id="post_view_count">7099</span>) 评论(<span id="post_comment_count">13</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=1801122" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#" onclick="AddToWz(1801122);return false;">收藏</a>
+	</div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=73997,cb_entryId=1801122,cb_blogApp=currentBlogApp,cb_blogUserGuid='bca6b9d7-7352-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2010/8/17 2:37:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<a name="comments"></a>
+<br>
+<div id="comments">
+<h3>评论</h3>
+
+
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895085" class="layer">#1楼</a><a name="1895085" id="comment_anchor_1895085"></a>
+					<span>
+						 <span class="comment_date">2010-08-17 08:03</span>
+					</span>
+				<a id="a_comment_author_1895085" href="http://www.cnblogs.com/sanjia/" target="_blank">小AI</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8FAI" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_1895085" class="blog_comment_body">这东西当时写的时候觉得很麻烦，现在又忘掉了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(1895085,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(1895085,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_1895085_avatar" style="display:none;">http://pic.cnblogs.com/face/55900/20140124202608.png</span>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895113" class="layer">#2楼</a><a name="1895113" id="comment_anchor_1895113"></a>
+					<span>
+						 <span class="comment_date">2010-08-17 08:39</span>
+					</span>
+				<a id="a_comment_author_1895113" href="http://www.cnblogs.com/graphics/" target="_blank">zdd</a> <a href="http://msg.cnblogs.com/send/zdd" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_1895113" class="blog_comment_body">兄弟真是算法狂人啊！佩服</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(1895113,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(1895113,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_1895113_avatar" style="display:none;">http://pic.cnblogs.com/face/u64257.jpg?id=21102348</span>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895286" class="layer">#3楼</a><a name="1895286" id="comment_anchor_1895286"></a>
+					<span>
+						 <span class="comment_date">2010-08-17 11:09</span>
+					</span>
+				<a id="ctl00_CommentList_NameLink_2" title="未注册用户" target="_blank"> 不想说</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_1895286" class="blog_comment_body"><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895113" title="查看引用原文">引用</a></legend>zdd：兄弟真是算法狂人啊！佩服</fieldset><br></div>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895287" class="layer">#4楼</a><a name="1895287" id="comment_anchor_1895287"></a>
+					<span>
+						 <span class="comment_date">2010-08-17 11:10</span>
+					</span>
+				<a id="ctl00_CommentList_NameLink_3" title="未注册用户" target="_blank">路过路过路过</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_1895287" class="blog_comment_body"><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895286" title="查看引用原文">引用</a></legend> 不想说：<fieldset class="comment_quote"><legend>引用</legend>zdd：兄弟真是算法狂人啊！佩服</fieldset><br></fieldset><br></div>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895585" class="layer">#5楼</a><a name="1895585" id="comment_anchor_1895585"></a>
+					<span>
+						 <span class="comment_date">2010-08-17 15:43</span>
+					</span>
+				<a id="a_comment_author_1895585" href="http://www.cnblogs.com/isyd/" target="_blank">Sylvester</a> <a href="http://msg.cnblogs.com/send/Sylvester" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_1895585" class="blog_comment_body">貌似记得c++ primer有提到。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(1895585,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(1895585,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_1895585_avatar" style="display:none;">http://pic.cnblogs.com/face/u102636.jpg</span>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895586" class="layer">#6楼</a><a name="1895586" id="comment_anchor_1895586"></a>
+					<span>
+						 <span class="comment_date">2010-08-17 15:43</span>
+					</span>
+				<a id="a_comment_author_1895586" href="http://www.cnblogs.com/isyd/" target="_blank">Sylvester</a> <a href="http://msg.cnblogs.com/send/Sylvester" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_1895586" class="blog_comment_body"><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1895287" title="查看引用原文">引用</a></legend>路过路过路过：<br><fieldset class="comment_quote"><legend>引用</legend> 不想说：<fieldset class="comment_quote"><legend>引用</legend>zdd：兄弟真是算法狂人啊！佩服</fieldset><br></fieldset><br></fieldset><br></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(1895586,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(1895586,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_1895586_avatar" style="display:none;">http://pic.cnblogs.com/face/u102636.jpg</span>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#1910463" class="layer">#7楼</a><a name="1910463" id="comment_anchor_1910463"></a>
+					<span>
+						 <span class="comment_date">2010-09-07 11:12</span>
+					</span>
+				<a id="ctl00_CommentList_NameLink_6" title="未注册用户" href="http://www.cnitblog.com/r.aspx?url=http://www.wutianqi.com" rel="nofllow" target="_blank">Tanky_Woo</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_1910463" class="blog_comment_body">嗯，ACM里经常有字符串排列题目，可以用next_permutation()直接搞定。</div>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#2398247" class="layer">#8楼</a><a name="2398247" id="comment_anchor_2398247"></a>
+					<span>
+						 <span class="comment_date">2012-06-11 17:28</span>
+					</span>
+				<a id="a_comment_author_2398247" href="http://home.cnblogs.com/u/417823/" target="_blank">kasuosuo</a> <a href="http://msg.cnblogs.com/send/kasuosuo" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_2398247" class="blog_comment_body">如果没错的话，lz的算法有点小问题：<br> if (*iNewHead &lt; *iPivot) { <br>                break; <br>            } <br>这个条件判断要改成：<br>(*iNewHead &lt; =*iPivot)<br>这样考虑了元素相等的情况，否则lz的算法会有问题的。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2398247,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2398247,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#2419972" class="layer">#9楼</a><a name="2419972" id="comment_anchor_2419972"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						 <span class="comment_date">2012-07-06 12:47</span>
+					</span>
+				<a id="a_comment_author_2419972" href="http://www.cnblogs.com/devymex/" target="_blank">Devymex</a> <a href="http://msg.cnblogs.com/send/Devymex" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_2419972" class="blog_comment_body"><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#2398247" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2398247);">@</a>
+kasuosuo<br>确实存在问题！文章里还有一些数学性的描述不够严谨，也一并做了修正。感谢提出宝贵意见！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2419972,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2419972,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2419972_avatar" style="display:none;">http://pic.cnblogs.com/face/u129662.png</span>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#2440417" class="layer">#10楼</a><a name="2440417" id="comment_anchor_2440417"></a>
+					<span>
+						 <span class="comment_date">2012-08-03 02:48</span>
+					</span>
+				<a id="a_comment_author_2440417" href="http://home.cnblogs.com/u/423841/" target="_blank">杯中取月</a> <a href="http://msg.cnblogs.com/send/%E6%9D%AF%E4%B8%AD%E5%8F%96%E6%9C%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_2440417" class="blog_comment_body">因此若将pn(i)和其右边的子集s {pn(i+1), pn(i+2), ..., pn(m)}中任意一个元素调换必能得到一个较大的排列（不一定是下一个）<br><br>比如初始为2, 4, 5, 6<br>现在到了4, 6, 5, 2<br>按lz的说法,此时右边最多有3个元素保持递减,i=1, s = {6, 5, 2},      pn(i) == 4<br>按上面那句说法,将 4 与 {6, 5, 2}中的任意一个交换都会得到一个较大排列.但是很明显,4与2交换得到2654却是变小了.....</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2440417,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2440417,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#2938210" class="layer">#11楼</a><a name="2938210" id="comment_anchor_2938210"></a>
+					<span>
+						 <span class="comment_date">2014-05-13 17:26</span>
+					</span>
+				<a id="a_comment_author_2938210" href="http://www.cnblogs.com/hustlijian/" target="_blank">hustlijian</a> <a href="http://msg.cnblogs.com/send/hustlijian" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_2938210" class="blog_comment_body">有个小笔误，拓展中，第一个是1654 --&gt; 3267514第二个是3267451 --&gt; 1654。也就是说1654有两个值明显是错误的。应该是1654 &lt;--&gt; 3267514。<br>这个有python的代码由k得列表：<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_735099" class="syntaxhighlighter  python"><div class="toolbar"><span><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">get_kth_permutation(k, n):</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">p </code><code class="python keyword">=</code> <code class="python plain">[]</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">i </code><code class="python keyword">in</code> <code class="python functions">xrange</code><code class="python plain">(n):</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">p.append(k </code><code class="python keyword">%</code> <code class="python plain">(i </code><code class="python keyword">+</code> <code class="python value">1</code><code class="python plain">))</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">k </code><code class="python keyword">/</code><code class="python keyword">=</code> <code class="python plain">i </code><code class="python keyword">+</code> <code class="python value">1</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">i </code><code class="python keyword">in</code> <code class="python functions">xrange</code><code class="python plain">(n):</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">j </code><code class="python keyword">in</code> <code class="python functions">xrange</code><code class="python plain">(i </code><code class="python keyword">+</code> <code class="python value">1</code><code class="python plain">, n):</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">if</code> <code class="python plain">p[j] &lt;</code><code class="python keyword">=</code> <code class="python plain">p[i]:</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">p[i] </code><code class="python keyword">+</code><code class="python keyword">=</code> <code class="python value">1</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">return</code> <code class="python functions">list</code><code class="python plain">(</code><code class="python functions">reversed</code><code class="python plain">(p))</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2938210,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2938210,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2938210_avatar" style="display:none;">http://pic.cnblogs.com/face/u246162.jpg?id=08223220</span>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#2942341" class="layer">#12楼</a><a name="2942341" id="comment_anchor_2942341"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						 <span class="comment_date">2014-05-20 10:11</span>
+					</span>
+				<a id="a_comment_author_2942341" href="http://www.cnblogs.com/devymex/" target="_blank">Devymex</a> <a href="http://msg.cnblogs.com/send/Devymex" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_2942341" class="blog_comment_body"><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#2938210" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2938210);">@</a>
+hustlijian<br>非常感谢，已经修改！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2942341,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2942341,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2942341_avatar" style="display:none;">http://pic.cnblogs.com/face/u129662.png</span>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#3599915" class="layer">#13楼</a><a name="3599915" id="comment_anchor_3599915"></a><span id="comment-maxId" style="display:none;">3599915</span><span id="comment-maxDate" style="display:none;">2017/1/9 17:35:42</span>
+					<span>
+						 <span class="comment_date">2017-01-09 17:35</span>
+					</span>
+				<a id="a_comment_author_3599915" href="http://www.cnblogs.com/LIXG2016/" target="_blank">andy_123</a> <a href="http://msg.cnblogs.com/send/andy_123" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_3599915" class="blog_comment_body">LZ，你写的太棒了，转载一下可以不，博客里会标明转载的！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3599915,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3599915,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+</div><div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://click.aliyun.com/m/10467/" target="_blank">【秘密】藏在春节红包里的技术秘密</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－豆果美食、Faceu等亿级APP都在用</a><br><a href="https://group.cnblogs.com/topic/76017.html" target="_blank">【活动】一元专享1500元微软智能云Azure</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://click.aliyun.com/m/10467/" target="_blank"><img width="300" height="250" src="./全排列生成算法：next_permutation - Devymex - 博客园_files/24442-20170215141525175-203290624.jpg" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/563203/" target="_blank">大众点评这个美食必吃榜，也实在太不“中产阶级”了</a><br> ·  <a href="http://news.cnblogs.com/n/563189/" target="_blank">Theranos窘境：2015和2016年无实质收入 现金流仅剩2亿美元</a><br> ·  <a href="http://news.cnblogs.com/n/563190/" target="_blank">奔驰Urban eTruck纯电动概念卡车有望在今年上路测试</a><br> ·  <a href="http://news.cnblogs.com/n/563202/" target="_blank">VR在国内越做越“廉价”，到底需要反思什么？</a><br> ·  <a href="http://news.cnblogs.com/n/563201/" target="_blank">被刘强东炮轰为“毒瘤”的快递业，是否真的如此不堪？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank"><img width="468" height="60" src="./全排列生成算法：next_permutation - Devymex - 博客园_files/24442-20170118152220281-363324784.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/554260/" target="_blank">「代码家」的学习过程和学习经验分享</a><br> ·  <a href="http://kb.cnblogs.com/page/556770/" target="_blank">写给未来的程序媛</a><br> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © Devymex
+</p>
+</div>
+
+
+</body></html>

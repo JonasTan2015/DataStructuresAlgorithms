@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.cnblogs.com/springfor/p/3883942.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Search leetcode java - 爱做饭的小莹子 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/bundle-BlackLowKey.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/bundle-BlackLowKey-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/springfor/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/springfor/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/springfor/wlwmanifest.xml">
+<script type="text/javascript" src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/encoder.js.下载"></script><script src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'springfor', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script></head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/springfor/"><img id="blogLogo" src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/springfor/">爱做饭的小莹子</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/springfor/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E7%88%B1%E5%81%9A%E9%A5%AD%E7%9A%84%E5%B0%8F%E8%8E%B9%E5%AD%90">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/springfor/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/springfor/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 175&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 49</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/springfor/p/3883942.html">Word Search leetcode java</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p> <strong>题目</strong>：</p><p>
+Given a 2D board and a word, find if the word exists in the grid.
+</p>
+<p>
+The word can be constructed from letters of sequentially adjacent cell, 
+where "adjacent" cells are those horizontally or vertically neighboring.
+ The same letter cell may not be used more than once.
+</p>
+
+<p>
+For example,<br>
+Given <strong>board</strong> = 
+</p><pre>[
+  ["ABCE"],
+  ["SFCS"],
+  ["ADEE"]
+]
+</pre>
+
+<strong>word</strong> = <code>"ABCCED"</code>, -&gt; returns <code>true</code>,<br>
+<strong>word</strong> = <code>"SEE"</code>, -&gt; returns <code>true</code>,<br><p>
+<strong>word</strong> = <code>"ABCB"</code>, -&gt; returns <code>false</code>.</p><p>&nbsp;</p><p><strong>题解</strong>：</p><p>&nbsp;这道题分析看，就是一个词，在一行出现也是true，一列出现也是true，一行往下拐弯也是true，一行往上拐弯也是true，一列往左拐弯也是true，一列往右拐弯也是true。所以是要考虑到所有可能性，基本思路是使用DFS来对一个起点字母上下左右搜索，看是不是含有给定的Word。还要维护一个visited数组，表示从当前这个元素是否已经被访问过了，过了这一轮visited要回false，因为对于下一个元素，当前这个元素也应该是可以被访问的。</p><p>代码如下：</p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div><div><span style="color: #008080;">&nbsp;1</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">public</span>&nbsp;<span style="color: #0000FF;">boolean</span>&nbsp;exist(<span style="color: #0000FF;">char</span>[][]&nbsp;board,&nbsp;String&nbsp;word)&nbsp;{<br><span style="color: #008080;">&nbsp;2</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">int</span>&nbsp;m&nbsp;=&nbsp;board.length;&nbsp;&nbsp;<br><span style="color: #008080;">&nbsp;3</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">int</span>&nbsp;n&nbsp;=&nbsp;board[0].length;&nbsp;&nbsp;<br><span style="color: #008080;">&nbsp;4</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">boolean</span>[][]&nbsp;visited&nbsp;=&nbsp;<span style="color: #0000FF;">new</span>&nbsp;<span style="color: #0000FF;">boolean</span>[m][n];&nbsp;&nbsp;<br><span style="color: #008080;">&nbsp;5</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">for</span>&nbsp;(<span style="color: #0000FF;">int</span>&nbsp;i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;m;&nbsp;i++)&nbsp;{&nbsp;&nbsp;<br><span style="color: #008080;">&nbsp;6</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">for</span>&nbsp;(<span style="color: #0000FF;">int</span>&nbsp;j&nbsp;=&nbsp;0;&nbsp;j&nbsp;&lt;&nbsp;n;&nbsp;j++)&nbsp;{&nbsp;&nbsp;<br><span style="color: #008080;">&nbsp;7</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">if</span>&nbsp;(dfs(board,&nbsp;word,&nbsp;0,&nbsp;i,&nbsp;j,&nbsp;visited))&nbsp;&nbsp;<br><span style="color: #008080;">&nbsp;8</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;<span style="color: #0000FF;">true</span>;&nbsp;&nbsp;<br><span style="color: #008080;">&nbsp;9</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;<br><span style="color: #008080;">10</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;<br><span style="color: #008080;">11</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;<span style="color: #0000FF;">false</span>;&nbsp;&nbsp;<br><span style="color: #008080;">12</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><span style="color: #008080;">13</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><span style="color: #008080;">14</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">public</span>&nbsp;<span style="color: #0000FF;">boolean</span>&nbsp;dfs(<span style="color: #0000FF;">char</span>[][]&nbsp;board,&nbsp;String&nbsp;word,&nbsp;<span style="color: #0000FF;">int</span>&nbsp;index,&nbsp;<span style="color: #0000FF;">int</span>&nbsp;rowindex,&nbsp;<span style="color: #0000FF;">int</span>&nbsp;colindex,&nbsp;<span style="color: #0000FF;">boolean</span>[][]&nbsp;visited)&nbsp;{&nbsp;&nbsp;<br><span style="color: #008080;">15</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">if</span>&nbsp;(index&nbsp;==&nbsp;word.length())&nbsp;&nbsp;<br><span style="color: #008080;">16</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;<span style="color: #0000FF;">true</span>;&nbsp;&nbsp;<br><span style="color: #008080;">17</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">if</span>&nbsp;(rowindex&nbsp;&lt;&nbsp;0&nbsp;||&nbsp;colindex&nbsp;&lt;&nbsp;0&nbsp;||&nbsp;rowindex&nbsp;&gt;=board.length&nbsp;||&nbsp;colindex&nbsp;&gt;=&nbsp;board[0].length)&nbsp;&nbsp;<br><span style="color: #008080;">18</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;<span style="color: #0000FF;">false</span>;&nbsp;&nbsp;<br><span style="color: #008080;">19</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">if</span>&nbsp;(visited[rowindex][colindex])&nbsp;&nbsp;<br><span style="color: #008080;">20</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;<span style="color: #0000FF;">false</span>;&nbsp;&nbsp;<br><span style="color: #008080;">21</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">if</span>&nbsp;(board[rowindex][colindex]&nbsp;!=&nbsp;word.charAt(index))&nbsp;&nbsp;<br><span style="color: #008080;">22</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;<span style="color: #0000FF;">false</span>;&nbsp;&nbsp;<br><span style="color: #008080;">23</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visited[rowindex][colindex]&nbsp;=&nbsp;<span style="color: #0000FF;">true</span>;&nbsp;&nbsp;<br><span style="color: #008080;">24</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">boolean</span>&nbsp;res&nbsp;=&nbsp;dfs(board,&nbsp;word,&nbsp;index&nbsp;+&nbsp;1,&nbsp;rowindex&nbsp;-&nbsp;1,&nbsp;colindex,&nbsp;&nbsp;<br><span style="color: #008080;">25</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visited)&nbsp;&nbsp;<br><span style="color: #008080;">26</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;dfs(board,&nbsp;word,&nbsp;index&nbsp;+&nbsp;1,&nbsp;rowindex&nbsp;+&nbsp;1,&nbsp;colindex,&nbsp;visited)&nbsp;&nbsp;<br><span style="color: #008080;">27</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;dfs(board,&nbsp;word,&nbsp;index&nbsp;+&nbsp;1,&nbsp;rowindex,&nbsp;colindex&nbsp;+&nbsp;1,&nbsp;visited)&nbsp;&nbsp;<br><span style="color: #008080;">28</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;dfs(board,&nbsp;word,&nbsp;index&nbsp;+&nbsp;1,&nbsp;rowindex,&nbsp;colindex&nbsp;-&nbsp;1,&nbsp;visited);&nbsp;&nbsp;<br><span style="color: #008080;">29</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visited[rowindex][colindex]&nbsp;=&nbsp;<span style="color: #0000FF;">false</span>;&nbsp;&nbsp;<br><span style="color: #008080;">30</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000FF;">return</span>&nbsp;res;&nbsp;&nbsp;<br><span style="color: #008080;">31</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div><p>&nbsp;Reference：http://blog.csdn.net/yiding_he/article/details/18893621</p><p> </p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/springfor/category/596835.html" target="_blank">leetcode每题整理</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3883942,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;56211abf-1bbd-e211-8d02-90b11c0b17d6&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/springfor/" target="_blank"><img src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/20140721031127.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/springfor/">爱做饭的小莹子</a><br>
+            <a href="http://home.cnblogs.com/u/springfor/followees">关注 - 2</a><br>
+            <a href="http://home.cnblogs.com/u/springfor/followers">粉丝 - 80</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;56211abf-1bbd-e211-8d02-90b11c0b17d6&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3883942,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(3883942,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/springfor/p/3879853.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/springfor/p/3879853.html" title="发布于2014-07-31 08:09">Subset II leetcode java</a><br><a href="http://www.cnblogs.com/springfor/p/3884009.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/springfor/p/3884009.html" title="发布于2014-08-01 02:58">Unique Binary Search Trees leetcode java</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2014-08-01 02:06</span> <a href="http://www.cnblogs.com/springfor/">爱做饭的小莹子</a> 阅读(<span id="post_view_count">2459</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3883942" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/springfor/p/3883942.html#" onclick="AddToWz(3883942);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=151415,cb_entryId=3883942,cb_blogApp=currentBlogApp,cb_blogUserGuid='56211abf-1bbd-e211-8d02-90b11c0b17d6',cb_entryCreatedDate='2014/8/1 2:06:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/springfor/p/3883942.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/springfor/p/3883942.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://vcloud.163.com/?adchannel=bp_cnblogs2" target="_blank">【推荐】用1%的研发投入，搭载3倍性能的网易视频云技术</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/24442-20161031104637174-1758680094.gif" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/557301/" target="_blank">为解决发展中国家卫生问题 盖茨联手Firmenich打造“粪便香水”</a><br> ·  <a href="http://news.cnblogs.com/n/557326/" target="_blank">微软发布同时支持Windows和Linux平台的新SQL Server预览版</a><br> ·  <a href="http://news.cnblogs.com/n/557304/" target="_blank">Facebook收购又一家面部识别初创公司强化对抗Snapchat</a><br> ·  <a href="http://news.cnblogs.com/n/557306/" target="_blank">矢量化艺术效果生成macOS应用Primitive发布</a><br> ·  <a href="http://news.cnblogs.com/n/557325/" target="_blank">谷歌宣布加入.NET基金会，三星Tizen操作系统也支持.NET了</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./Word Search leetcode java - 爱做饭的小莹子 - 博客园_files/24442-20161114133622451-1554357151.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br> ·  <a href="http://kb.cnblogs.com/page/550625/" target="_blank">程序猿媳妇儿注意事项</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/springfor/">爱做饭的小莹子</a><br>园龄：<a href="http://home.cnblogs.com/u/springfor/" title="入园时间：2013-05-15">3年6个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/springfor/followers/">80</a><br>关注：<a href="http://home.cnblogs.com/u/springfor/followees/">2</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;56211abf-1bbd-e211-8d02-90b11c0b17d6&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/10/01&#39;);return false;">&lt;</a></td><td align="center">2016年11月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/12/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td class="CalTodayDay" align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/springfor/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/springfor/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/springfor/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/springfor/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/springfor/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/springfor/category/617165.html">Hackerrank题(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/springfor/category/596836.html">leetcode解题思想(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/springfor/category/596835.html">leetcode每题整理(152)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/springfor/category/596840.html">个人(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/springfor/category/596839.html">经验积累(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/springfor/category/614369.html">面试题(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/springfor/category/596838.html">知识积累(14)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/springfor/archive/2015/01.html">2015年1月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/springfor/archive/2014/12.html">2014年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/springfor/archive/2014/10.html">2014年10月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/springfor/archive/2014/09.html">2014年9月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/springfor/archive/2014/08.html">2014年8月 (69)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/springfor/archive/2014/07.html">2014年7月 (87)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/springfor/archive/2013/09.html">2013年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/springfor/archive/2013/05.html">2013年5月 (3)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	257954
+	</li>
+	<li class="liRank">
+		排名 -	574
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/springfor/p/3888002.html#3524237">1. Re:Plus One leetcode java</a></li>
+        <li class="recent_comment_body">解法2 11-17怎么直接就是返回溢出的情况了。。。没溢出的话，不久错了么</li>
+        <li class="recent_comment_author">--DONUTY</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/springfor/p/3888002.html#3524236">2. Re:Plus One leetcode java</a></li>
+        <li class="recent_comment_body">请问解法1的21-24步是不是没不要啊，直接返回digits不好了， 为什么要拷贝到newdigits再返回。。。</li>
+        <li class="recent_comment_author">--DONUTY</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/springfor/p/3858140.html#3517491">3. Re:Search in Rotated Sorted Array leetcode java</a></li>
+        <li class="recent_comment_body">思路很清晰</li>
+        <li class="recent_comment_author">--673556617</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/springfor/p/3889414.html#3461559">4. Re:ZigZag Conversion leetcode java</a></li>
+        <li class="recent_comment_body">我看了刷题的每篇文章发布的时间，真的要好好向你学习了</li>
+        <li class="recent_comment_author">--聆听雨点丶Kb</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/springfor/p/3870944.html#3459484">5. Re:N-Queens leetcode java</a></li>
+        <li class="recent_comment_body">哈哈我也在做这道题，大致上思路和你一样，只不过我多用了一个判断，我希望每次寻找一个“可选项”最少的行去进行搜索。我感觉在n越来越大的时候，我的算法会比直接逐行搜索高效，不过你的方法比较易懂，用的spa......</li>
+        <li class="recent_comment_author">--woshigtc</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/springfor/p/3889414.html">1. ZigZag Conversion leetcode java(5982)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3874591.html">2. Clone Graph leetcode java（DFS and BFS 基础）(5188)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3861890.html">3. Median of Two Sorted Array leetcode java(4645)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3896469.html">4. Implement strStr() leetcode java(4176)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3896499.html">5. String to Integer (atoi) leetcode java(4107)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/springfor/p/3891896.html">1. Palindrome Partitioning II Leetcode java(5)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3884009.html">2. Unique Binary Search Trees leetcode java(4)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3874591.html">3. Clone Graph leetcode java（DFS and BFS 基础）(3)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3859618.html">4. Two Sum leetcode java(3)</a></li><li><a href="http://www.cnblogs.com/springfor/archive/2013/05/15/3079646.html">5. 菜鸟开技术博啦(3)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/springfor/p/3859618.html">1. Two Sum leetcode java(2)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3869714.html">2. Evaluate Reverse Polish Notation leetcode java(1)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3869686.html">3. Java中String，StringBuffer和StringBuilder的区别（转载）(1)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3869666.html">4. Simplify Path leetcode java(1)</a></li><li><a href="http://www.cnblogs.com/springfor/p/3869393.html">5. LRU Cache leetcode java(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 爱做饭的小莹子
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

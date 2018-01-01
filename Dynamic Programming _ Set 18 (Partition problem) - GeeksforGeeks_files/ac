@@ -1,0 +1,12 @@
+ 
+
+var innerCode='';
+if (typeof(innerCode) == 'undefined') var innerCode; innerCode = innerCode + '<div id="aniplayer"></div>      \r\n'+'<scr'+'ipt>    \r\n'+'    var myPlayer,    \r\n'+'        playerUrl,    \r\n'+'        adConfig;    \r\n'+'        adConfig = {    \r\n'+'        publisherId         : \'5641d3f9181f46f4738b4567\',     \r\n'+'        channelId           : \'580a11800857bbd86c8b4567\',     \r\n'+'        width               : 336,    \r\n'+'        height              : 280,    \r\n'+'        loop                : true,    \r\n'+'        vastRetry           : 8,        \r\n'+'        position            : \'aniplayer\',    \r\n'+'        contentUrl          : \'\',     \r\n'+'        contentClickThrough : \'https://www.youtube.com/user/MilestonesOfScience/videos\',    \r\n'+'        Preroll             : 3,    \r\n'+'        midRollTime         : 2,     \r\n'+'        midRoll             : 3,    \r\n'+'        preloader           : \'\'    \r\n'+'    };      \r\n'+'        \r\n'+'    playerUrl = \'https://video.aniview.com/flash/aniviewFlash.js\';    \r\n'+'    function downloadScript(src,cdata) {    \r\n'+'       var scp = document.createElement(\'script\');    \r\n'+'       scp.src = src;    \r\n'+'       scp.onload = function() {    \r\n'+'            myPlayer= new aniviewPlayerFlash(cdata);    \r\n'+'            myPlayer.onPlay = function() {};    \r\n'+'    \r\n'+'       };    \r\n'+'       document.getElementsByTagName(\'head\')[0].appendChild(scp);    \r\n'+'    };     \r\n'+'    downloadScript(playerUrl,adConfig);    \r\n'+'    \r\n'+'</scr'+'ipt>\r\n'+'\r\n';
+
+
+
+
+innerCode = innerCode + '\r\n';
+
+
+if(typeof(sas_ajax)!='undefined'&&sas_ajax){sas_appendToContainer(30292,innerCode);}else{document.write(innerCode);}

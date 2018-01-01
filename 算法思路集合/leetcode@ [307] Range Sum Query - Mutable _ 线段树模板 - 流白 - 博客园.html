@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://www.cnblogs.com/fu11211129/p/4980114.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>leetcode@ [307] Range Sum Query - Mutable / 线段树模板 - 流白 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/bundle-CodingLife.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/bundle-CodingLife-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/fu11211129/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/fu11211129/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/fu11211129/wlwmanifest.xml">
+<script async="" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/encoder.js.下载"></script><script src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'fu11211129', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true }, extensions: ['extpfeil.js'] },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/fu11211129/"><img id="blogLogo" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/fu11211129/">流白</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/fu11211129/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%B5%81%E7%99%BD">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/fu11211129/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/fu11211129/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 123&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 19</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/fu11211129/p/4980114.html">leetcode@ [307] Range Sum Query - Mutable / 线段树模板</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>Given an integer array&nbsp;<em>nums</em>, find the sum of the elements between indices&nbsp;<em>i</em>&nbsp;and&nbsp;<em>j</em>&nbsp;(<em>i</em>&nbsp;≤&nbsp;<em>j</em>), inclusive.</p>
+<p>The&nbsp;<em>update(i, val)</em>&nbsp;function modifies&nbsp;<em>nums</em>&nbsp;by updating the element at index&nbsp;<em>i</em>&nbsp;to&nbsp;<em>val</em>.</p>
+<p>Example:</p>
+<pre><span style="font-size: 14px;">Given nums = [1, 3, 5]
+
+sumRange(0, 2) -&gt; 9
+update(1, 2)
+sumRange(0, 2) -&gt; 8</span></pre>
+<p>Note:</p>
+<ol>
+<li>The array is only modifiable by the&nbsp;<em>update</em>&nbsp;function.</li>
+<li>You may assume the number of calls to&nbsp;<em>update</em>&nbsp;and&nbsp;<em>sumRange</em>&nbsp;function is distributed evenly</li>
+</ol>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;f0d49035-4d60-44aa-9468-571cda9081a9&#39;)"><img id="code_img_closed_f0d49035-4d60-44aa-9468-571cda9081a9" class="code_img_closed" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_f0d49035-4d60-44aa-9468-571cda9081a9" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;f0d49035-4d60-44aa-9468-571cda9081a9&#39;,event)" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_f0d49035-4d60-44aa-9468-571cda9081a9" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> NumArray {
+    </span><span style="color: #0000ff;">private</span> SegmentTreeNode root = <span style="color: #0000ff;">null</span><span style="color: #000000;">; 
+    </span><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> size = 0<span style="color: #000000;">;
+    
+    </span><span style="color: #0000ff;">public</span> NumArray(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] nums) {
+        root </span>= buildInSegmentTree(nums, 0, nums.length - 1<span style="color: #000000;">);
+        size </span>=<span style="color: #000000;"> nums.length;
+    }
+
+    </span><span style="color: #0000ff;">void</span> update(<span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> val) {
+        </span><span style="color: #0000ff;">if</span>(i&lt;0 || i&gt;=size) <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+        updateInSegmentTree(root, i, val);
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span> sumRange(<span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> j) {
+        </span><span style="color: #0000ff;">if</span>(i&gt;j || i&lt;0 || j&gt;=size)  <span style="color: #0000ff;">return</span> -1<span style="color: #000000;">;  
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> querySum(root, i, j);
+    }
+    
+    </span><span style="color: #0000ff;">class</span><span style="color: #000000;"> SegmentTreeNode{
+        </span><span style="color: #0000ff;">int</span> lc = 0, rc = 0, sum = 0<span style="color: #000000;">;
+        SegmentTreeNode left </span>= <span style="color: #0000ff;">null</span>, right = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        SegmentTreeNode(</span><span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span> r, <span style="color: #0000ff;">int</span><span style="color: #000000;"> val) {
+            lc </span>= l; rc = r; sum =<span style="color: #000000;"> val;
+        }
+    }
+    
+    </span><span style="color: #0000ff;">public</span> SegmentTreeNode buildInSegmentTree(<span style="color: #0000ff;">int</span> []nums, <span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span><span style="color: #000000;"> r) {
+        </span><span style="color: #0000ff;">if</span>(l &gt; r) <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        
+        </span><span style="color: #0000ff;">if</span>(l ==<span style="color: #000000;"> r) {
+            SegmentTreeNode leaf </span>= <span style="color: #0000ff;">new</span><span style="color: #000000;"> SegmentTreeNode(l, r, nums[l]);
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> leaf;
+        }
+        
+        SegmentTreeNode root </span>= <span style="color: #0000ff;">new</span> SegmentTreeNode(l, r, 0<span style="color: #000000;">);
+        </span><span style="color: #0000ff;">int</span> mid = (l + r) &gt;&gt; 1<span style="color: #000000;">;
+        root.left </span>=<span style="color: #000000;"> buildInSegmentTree(nums, l, mid);
+        root.right </span>= buildInSegmentTree(nums, mid+1<span style="color: #000000;">, r);
+        root.sum </span>= root.left.sum +<span style="color: #000000;"> root.right.sum;
+        
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> root;
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> updateInSegmentTree(SegmentTreeNode root, <span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> val) {
+        </span><span style="color: #0000ff;">if</span>(root.lc == root.rc &amp;&amp; root.lc ==<span style="color: #000000;"> i) {
+            root.sum </span>=<span style="color: #000000;"> val;
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;">;
+        }
+        
+        </span><span style="color: #0000ff;">int</span> mid = (root.lc + root.rc) &gt;&gt; 1<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span>(i &gt;= root.lc &amp;&amp; i &lt;=<span style="color: #000000;"> mid) updateInSegmentTree(root.left, i, val);
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> updateInSegmentTree(root.right, i, val);
+        root.sum </span>= root.left.sum +<span style="color: #000000;"> root.right.sum;
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span> querySum(SegmentTreeNode root, <span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> j) {
+        </span><span style="color: #0000ff;">if</span>(root.lc == i &amp;&amp; root.rc == j) <span style="color: #0000ff;">return</span><span style="color: #000000;"> root.sum;
+        
+        </span><span style="color: #0000ff;">int</span> mid = (root.lc + root.rc) &gt;&gt; 1<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span>(i &lt;= mid &amp;&amp; j &lt;= mid) <span style="color: #0000ff;">return</span><span style="color: #000000;"> querySum(root.left, i, j);
+        </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>(i &gt; mid &amp;&amp; j &gt; mid) <span style="color: #0000ff;">return</span><span style="color: #000000;"> querySum(root.right, i, j);
+        </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">return</span> querySum(root.left, i, mid) + querySum(root.right, mid+1<span style="color: #000000;">, j);
+    }
+}
+
+
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> Your NumArray object will be instantiated and called as such:
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> NumArray numArray = new NumArray(nums);
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> numArray.sumRange(0, 1);
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> numArray.update(1, 10);
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> numArray.sumRange(1, 2);</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<span class="cnblogs_code_collapse" style="display: none;">View Code</span></div>
+<p>&nbsp;</p>
+<p>下面附上java版segmentTree模板代码（共有两个文件：一个是SegmentTreeNode.java，另一个是SegmentTree.java。）</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;f59281ae-9ce6-4410-8958-2e9cbd57825b&#39;)"><img id="code_img_closed_f59281ae-9ce6-4410-8958-2e9cbd57825b" class="code_img_closed" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/ContractedBlock.gif" alt="" style="display: none;"><img id="code_img_opened_f59281ae-9ce6-4410-8958-2e9cbd57825b" class="code_img_opened" style="" onclick="cnblogs_code_hide(&#39;f59281ae-9ce6-4410-8958-2e9cbd57825b&#39;,event)" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_f59281ae-9ce6-4410-8958-2e9cbd57825b" class="cnblogs_code_hide" style="display: block;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> cc150;
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> SegmentTreeNode {
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> lc, rc, sum, add;
+    SegmentTreeNode left, right;
+    
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> SegmentTreeNode() {
+        </span><span style="color: #0000ff;">this</span>.lc = 0; <span style="color: #0000ff;">this</span>.rc = 0; <span style="color: #0000ff;">this</span>.sum = 0; <span style="color: #0000ff;">this</span>.add = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">this</span>.left = <span style="color: #0000ff;">null</span>; <span style="color: #0000ff;">this</span>.right = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+    }
+    
+    </span><span style="color: #0000ff;">public</span> SegmentTreeNode(<span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span> r, <span style="color: #0000ff;">int</span><span style="color: #000000;"> val) {
+        </span><span style="color: #0000ff;">this</span>.lc = l; <span style="color: #0000ff;">this</span>.rc = r; <span style="color: #0000ff;">this</span>.sum = val; <span style="color: #0000ff;">this</span>.add = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">this</span>.left = <span style="color: #0000ff;">null</span>; <span style="color: #0000ff;">this</span>.right = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> TODO Auto-generated method stub</span>
+<span style="color: #000000;">
+    }
+
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<span class="cnblogs_code_collapse" style="display: none;">SegmentTreeNode.java</span></div>
+<p>&nbsp;</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;2a40e724-e25a-4047-8e6a-32e17b5a6be9&#39;)"><img id="code_img_closed_2a40e724-e25a-4047-8e6a-32e17b5a6be9" class="code_img_closed" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_2a40e724-e25a-4047-8e6a-32e17b5a6be9" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;2a40e724-e25a-4047-8e6a-32e17b5a6be9&#39;,event)" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_2a40e724-e25a-4047-8e6a-32e17b5a6be9" class="cnblogs_code_hide">
+<pre><span style="color: #0000ff;">package</span><span style="color: #000000;"> cc150;
+
+
+</span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> SegmentTree {
+    </span><span style="color: #0000ff;">public</span> SegmentTreeNode root = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+            </span><span style="color: #0000ff;">int</span><span style="color: #000000;"> lower_bound, upper_bound;
+    
+    </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> SegmentTree() {
+        </span><span style="color: #0000ff;">this</span>.root = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">this</span>.lower_bound = 0; <span style="color: #0000ff;">this</span>.upper_bound = 0<span style="color: #000000;">;
+    }
+    
+    </span><span style="color: #0000ff;">public</span> SegmentTree(<span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span> r, <span style="color: #0000ff;">int</span><span style="color: #000000;"> []nums) {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">@ SegmentTreeNode(left_idx, right_idx, sum).</span>
+        <span style="color: #0000ff;">this</span>.root = <span style="color: #0000ff;">new</span> SegmentTreeNode(l, r, 0<span style="color: #000000;">); 
+        </span><span style="color: #0000ff;">this</span>.lower_bound = l; <span style="color: #0000ff;">this</span>.upper_bound =<span style="color: #000000;"> r;
+        buildSegmentTree(l, r, nums, root);
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> buildSegmentTree(<span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span> r, <span style="color: #0000ff;">int</span><span style="color: #000000;"> []nums, SegmentTreeNode s) {
+        SegmentTreeNode sroot </span>=<span style="color: #000000;"> s;
+        </span><span style="color: #0000ff;">if</span>(l &gt; r) <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+        
+        </span><span style="color: #0000ff;">if</span>(l ==<span style="color: #000000;"> r) {
+            sroot.sum </span>=<span style="color: #000000;"> nums[l];
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;">;
+        }
+        
+        </span><span style="color: #0000ff;">int</span> mid = (l + r) / 2<span style="color: #000000;">;
+        sroot.left </span>= <span style="color: #0000ff;">new</span> SegmentTreeNode(l, mid, 0<span style="color: #000000;">);
+        buildSegmentTree(l, mid, nums, sroot.left);
+        
+        sroot.right </span>= <span style="color: #0000ff;">new</span> SegmentTreeNode(mid+1, r, 0<span style="color: #000000;">);
+        buildSegmentTree(mid</span>+1<span style="color: #000000;">, r, nums, sroot.right);
+        
+        sroot.sum </span>= sroot.left.sum +<span style="color: #000000;"> sroot.right.sum;
+        
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> updateByPoint(SegmentTreeNode sroot, <span style="color: #0000ff;">int</span> idx, <span style="color: #0000ff;">int</span><span style="color: #000000;"> val) {
+        </span><span style="color: #0000ff;">if</span>(idx == sroot.lc &amp;&amp; sroot.lc ==<span style="color: #000000;"> sroot.rc) {
+            sroot.sum </span>=<span style="color: #000000;"> val;
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;">;
+        }
+        
+        </span><span style="color: #0000ff;">int</span> mid = (sroot.lc + sroot.rc) / 2<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span>(idx &lt;=<span style="color: #000000;"> mid) updateByPoint(sroot.left, idx, val);
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> updateByPoint(sroot.right, idx, val);
+        
+        sroot.sum </span>= sroot.left.sum +<span style="color: #000000;"> sroot.right.sum;
+    }
+
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span> updateBySegment(SegmentTreeNode sroot, <span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span> r, <span style="color: #0000ff;">int</span><span style="color: #000000;"> val) {
+        </span><span style="color: #0000ff;">if</span>(l == sroot.lc &amp;&amp; r ==<span style="color: #000000;"> sroot.rc) {
+            sroot.add </span>+=<span style="color: #000000;"> val;
+            sroot.sum </span>+= val * (r - l + 1<span style="color: #000000;">);
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;">;
+        }
+        
+        </span><span style="color: #0000ff;">if</span>(sroot.lc == sroot.rc) <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">int</span> len = sroot.rc - sroot.lc + 1<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span>(sroot.add &gt; 0<span style="color: #000000;">) {
+            sroot.left.add </span>+=<span style="color: #000000;"> sroot.add;
+            sroot.right.add </span>+=<span style="color: #000000;"> sroot.add;
+            sroot.left.sum </span>+= sroot.add * (len - (len/2<span style="color: #000000;">));
+            sroot.right.sum </span>+= sroot.add * (len/2<span style="color: #000000;">);
+            sroot.add </span>= 0<span style="color: #000000;">;
+        }
+        
+        </span><span style="color: #0000ff;">int</span> mid = sroot.lc + (sroot.rc - sroot.lc)/2<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span>(r &lt;=<span style="color: #000000;"> mid) updateBySegment(sroot.left, l, r, val);
+        </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>(l &gt;<span style="color: #000000;"> mid) updateBySegment(sroot.right, l, r, val);
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            updateBySegment(sroot.left, l, mid, val);
+            updateBySegment(sroot.right, mid</span>+1<span style="color: #000000;">, r, val);
+        }
+        
+        sroot.sum </span>= sroot.left.sum +<span style="color: #000000;"> sroot.right.sum;
+    }
+    
+    </span><span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> querySum(SegmentTreeNode sroot, <span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> j) {
+        </span><span style="color: #0000ff;">if</span>(i &gt;<span style="color: #000000;"> j) {
+            System.out.println(</span>"Invalid Query!"<span style="color: #000000;">);
+            </span><span style="color: #0000ff;">return</span> -1<span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">if</span>(i&lt;sroot.lc || j&gt;sroot.rc) <span style="color: #0000ff;">return</span><span style="color: #000000;"> querySum(sroot, sroot.lc, sroot.rc);
+        
+        </span><span style="color: #0000ff;">if</span>(sroot.lc == i &amp;&amp; sroot.rc == j) <span style="color: #0000ff;">return</span> sroot.sum;<span style="color: #008000;">/*</span><span style="color: #008000;">
+        int len = sroot.rc - sroot.lc + 1;
+        if(sroot.add &gt; 0) {
+            sroot.left.add += sroot.add;
+            sroot.right.add += sroot.add;
+            sroot.left.sum += sroot.add * (len - len/2);
+            sroot.right.sum += sroot.add * (len/2);
+            sroot.add = 0;
+        }        
+        </span><span style="color: #008000;">*/</span>
+        <span style="color: #0000ff;">int</span> mid = (sroot.lc + sroot.rc) / 2<span style="color: #000000;">;
+        
+        </span><span style="color: #0000ff;">if</span>(j &lt;= mid) <span style="color: #0000ff;">return</span><span style="color: #000000;"> querySum(sroot.left, i, j);
+        </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>(i &gt; mid) <span style="color: #0000ff;">return</span><span style="color: #000000;"> querySum(sroot.right, i, j);
+        </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">return</span> querySum(sroot.left, i, mid) + querySum(sroot.right, mid+1<span style="color: #000000;">, j);
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> TODO Auto-generated method stub</span>
+        <span style="color: #0000ff;">int</span> []nums = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span>[10<span style="color: #000000;">];
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0;i&lt;nums.length;++i) nums[i] =<span style="color: #000000;"> i;
+        
+        SegmentTree st </span>= <span style="color: #0000ff;">new</span> SegmentTree(0, nums.length-1<span style="color: #000000;">, nums);
+        </span><span style="color: #0000ff;">int</span> tmp = querySum(st.root, 0, 9<span style="color: #000000;">);
+        System.out.println(tmp);
+        
+        st.updateByPoint(st.root, </span>5, 7<span style="color: #000000;">);
+        System.out.println(querySum(st.root, </span>0, 9<span style="color: #000000;">));
+        
+        st.updateBySegment(st.root, </span>3, 4, 2<span style="color: #000000;">);
+        System.out.println(querySum(st.root, </span>2, 7<span style="color: #000000;">));
+    }
+
+}</span></pre>
+</div>
+<span class="cnblogs_code_collapse">SegmentTree.java</span></div>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/fu11211129/category/744737.html" target="_blank">leetcode</a>,<a href="http://www.cnblogs.com/fu11211129/category/747444.html" target="_blank">数据结构</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4980114,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;e7ea6701-4c8c-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/fu11211129/" target="_blank"><img src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/20141225234345.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/fu11211129/">流白</a><br>
+            <a href="http://home.cnblogs.com/u/fu11211129/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/fu11211129/followers">粉丝 - 15</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;e7ea6701-4c8c-e411-b908-9dcfd8948a71&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4980114,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(4980114,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/fu11211129/p/4974469.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/fu11211129/p/4974469.html" title="发布于2015-11-18 14:42">leetcode@ [136/137] Single Number &amp; Single Number II</a><br><a href="http://www.cnblogs.com/fu11211129/p/4999001.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/fu11211129/p/4999001.html" title="发布于2015-11-26 21:27">leetcode@ [139/140] Word Break &amp; Word Break II</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-11-20 11:13</span> <a href="http://www.cnblogs.com/fu11211129/">流白</a> 阅读(<span id="post_view_count">189</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4980114" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/fu11211129/p/4980114.html#" onclick="AddToWz(4980114);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=209811,cb_entryId=4980114,cb_blogApp=currentBlogApp,cb_blogUserGuid='e7ea6701-4c8c-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2015/11/20 11:13:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/fu11211129/p/4980114.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/fu11211129/p/4980114.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://click.aliyun.com/m/13338/" target="_blank">【招募】2017云栖大会深圳峰会火热报名中</a><br><a href="https://activity.ksyun.com/1701/index.html?ch=00033.00005.0011701&amp;hmsr=cnblogs&amp;hmpl=1701&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank">【云上】在金山大米云，让云计算更简单</a><br><a href="http://click.aliyun.com/m/14477/" target="_blank">【推荐】阿里云云盾帮您解读WAF防护功能</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="https://click.aliyun.com/m/13338/" target="_blank"><img width="300" height="250" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/24442-20170313165026510-1590594044.jpg" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/565440/" target="_blank">创业者现身说法：人工智能创业公司必看！</a><br> ·  <a href="http://news.cnblogs.com/n/565439/" target="_blank">人类听不懂怎么办？OpenAI“逼”AI创造自己的语言</a><br> ·  <a href="http://news.cnblogs.com/n/565438/" target="_blank">猎豹移动第一季度预期令人失望 周二股价大跌10.44%</a><br> ·  <a href="http://news.cnblogs.com/n/565437/" target="_blank">苹果新专利：移动设备显示屏可提供各种触觉</a><br> ·  <a href="http://news.cnblogs.com/n/565436/" target="_blank">Win10中国政府专用版或将上市 方便使用监管</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg&amp;utm_source=csdn&amp;utm_medium=pic&amp;utm_campaign=show&amp;utm_content=v10&amp;utm_term=%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD" target="_blank"><img width="468" height="60" src="./leetcode@ [307] Range Sum Query - Mutable _ 线段树模板 - 流白 - 博客园_files/24442-20170118152220281-363324784.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/559403/" target="_blank">为什么我要写自己的框架？</a><br> ·  <a href="http://kb.cnblogs.com/page/562433/" target="_blank">垃圾回收原来是这么回事</a><br> ·  <a href="http://kb.cnblogs.com/page/554260/" target="_blank">「代码家」的学习过程和学习经验分享</a><br> ·  <a href="http://kb.cnblogs.com/page/556770/" target="_blank">写给未来的程序媛</a><br> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/fu11211129/">流白</a><br>园龄：<a href="http://home.cnblogs.com/u/fu11211129/" title="入园时间：2014-12-25">2年2个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/fu11211129/followers/">15</a><br>关注：<a href="http://home.cnblogs.com/u/fu11211129/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;e7ea6701-4c8c-e411-b908-9dcfd8948a71&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/02/01&#39;);return false;">&lt;</a></td><td align="center">2017年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalWeekendDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalTodayDay" align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td></tr><tr><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/fu11211129/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/fu11211129/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/fu11211129/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/fu11211129/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/fu11211129/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/fu11211129/tag/C%2B%2B/">C++</a>(2)</li><li><a href="http://www.cnblogs.com/fu11211129/tag/POJ/">POJ</a>(2)</li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/fu11211129/category/648473.html">ASP开发(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/fu11211129/category/654917.html">CS小知识(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/fu11211129/category/645468.html">CS学习(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/fu11211129/category/848575.html">GeeksforGeeks(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/fu11211129/category/849334.html">Interview</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/fu11211129/category/804693.html">java EE(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/fu11211129/category/744737.html">leetcode(67)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/fu11211129/category/644307.html">编程(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/fu11211129/category/747444.html">数据结构(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/fu11211129/category/747445.html">算法(13)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/fu11211129/archive/2016/08.html">2016年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/fu11211129/archive/2016/07.html">2016年7月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/fu11211129/archive/2016/06.html">2016年6月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/fu11211129/archive/2016/05.html">2016年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/fu11211129/archive/2016/04.html">2016年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/fu11211129/archive/2016/03.html">2016年3月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/fu11211129/archive/2016/02.html">2016年2月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/fu11211129/archive/2016/01.html">2016年1月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/fu11211129/archive/2015/12.html">2015年12月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/fu11211129/archive/2015/11.html">2015年11月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/fu11211129/archive/2015/10.html">2015年10月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/fu11211129/archive/2015/09.html">2015年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/fu11211129/archive/2015/02.html">2015年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/fu11211129/archive/2015/01.html">2015年1月 (14)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/fu11211129/archive/2014/12.html">2014年12月 (8)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/fu11211129/p/4276213.html#3367005">1. Re:算法导论学习-动态规划之记忆化搜索</a></li>
+        <li class="recent_comment_body">@handsomecuiV=0 说明 背包容量为0， 那么背包能够装载的价值自然为0...</li>
+        <li class="recent_comment_author">--流白</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/fu11211129/p/4276213.html#3364765">2. Re:算法导论学习-动态规划之记忆化搜索</a></li>
+        <li class="recent_comment_body">你那个01背包的代码写错了，v==0怎么可能返回0呐；</li>
+        <li class="recent_comment_author">--handsomecui</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/fu11211129/p/4930018.html#3297078">3. Re:leetcode@ [279]Perfect Squares</a></li>
+        <li class="recent_comment_body">强悍的人生~~</li>
+        <li class="recent_comment_author">--老卡</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/fu11211129/p/4282909.html#3127123">4. Re:菜鸟学算法-KMP算法</a></li>
+        <li class="recent_comment_body">@Jeffery You谢谢指正！...</li>
+        <li class="recent_comment_author">--流白</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/fu11211129/p/4282909.html#3127097">5. Re:菜鸟学算法-KMP算法</a></li>
+        <li class="recent_comment_body">算法思想 讲的很清楚！</li>
+        <li class="recent_comment_author">--Jeffery You</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/fu11211129/p/4276213.html">1. 算法导论学习-动态规划之记忆化搜索(1724)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/5146874.html">2. leetcode@ [329] Longest Increasing Path in a Matrix  (DFS + 记忆化搜索)(808)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4281222.html">3. algorithm@ Matrix fast power(715)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4282909.html">4. algorithm@ KMP(627)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4216561.html">5. 算法导论学习-RED-BLACK TREE(615)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/fu11211129/p/4214047.html">1. 算法导论学习-binary search tree(7)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4216561.html">2. 算法导论学习-RED-BLACK TREE(4)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4282909.html">3. algorithm@ KMP(3)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4276213.html">4. 算法导论学习-动态规划之记忆化搜索(2)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4281222.html">5. algorithm@ Matrix fast power(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/fu11211129/p/4282909.html">1. algorithm@ KMP(2)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4231803.html">2. 算法导论学习-线段树(2)(2)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4216561.html">3. 算法导论学习-RED-BLACK TREE(2)</a></li><li><a href="http://www.cnblogs.com/fu11211129/p/4230000.html">4. 算法导论学习-线段树(1)(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 流白
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

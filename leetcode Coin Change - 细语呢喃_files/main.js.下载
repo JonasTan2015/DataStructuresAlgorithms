@@ -1,0 +1,71 @@
+jQuery(document).ready(function(t) {
+    t('#submit, .wpcf7-submit, .comment-reply-link, input[type="submit"]').addClass("btn btn-default"), t(".wp-caption").addClass("thumbnail"), t(".widget_rss ul").addClass("media-list"), t("table#wp-calendar").addClass("table table-striped"), t(window).scroll(function() {
+            t(this).scrollTop() > 100 ? t(".scroll-to-top").fadeIn() : t(".scroll-to-top").fadeOut()
+        }), t(".scroll-to-top").click(function() {
+            return t("html, body").animate({
+                scrollTop: 0
+            }, 500), !1
+        }), t(".scroll-to-down").click(function() {
+            return t("html, body").animate({
+                scrollTop: document.body.scrollHeight
+            }, 500), !1
+        }), t(".scroll-to-sidebar").toggle(function(){  
+              //$('#primary').animate({width: "66.666666667%"}, 200);  
+			  t('#primary').attr("class","content-area col-sm-12 col-md-7 pull-left"); 
+              t('.scroll-to-sidebar i').attr("title","关闭侧边栏");                 
+              t('.scroll-to-sidebar i').attr("class","fa fa-angle-right");    
+              t('#secondary').fadeIn(1000); 
+             },function(){            
+             t('#secondary').hide(); 
+             t('#primary').attr("class","content-area col-sm-12 pull-left"); 
+             t('.scroll-to-sidebar i').attr("title","打开侧边栏");  
+             t('.scroll-to-sidebar i').attr("class","fa fa-angle-left");    
+//        }), t(".flexslider").flexslider({
+//            animation: "fade",
+//            controlNav: !0,
+//            prevText: "",
+//            nextText: "",
+//            smoothHeight: !0
+        }),
+        function() {
+            var t = navigator.userAgent.toLowerCase().indexOf("webkit") > -1,
+                e = navigator.userAgent.toLowerCase().indexOf("opera") > -1,
+                n = navigator.userAgent.toLowerCase().indexOf("msie") > -1;
+            (t || e || n) && document.getElementById && window.addEventListener && window.addEventListener("hashchange", function() {
+                var t, e = location.hash.substring(1);
+                /^[A-z0-9_-]+$/.test(e) && (t = document.getElementById(e), t && (/^(?:a|select|input|button|textarea)$/i.test(t.tagName) || (t.tabIndex = -1), t.focus()))
+            }, !1)
+        }()
+		
+	 	function getMultiLine(f) {
+			var lines =f.toString(); 
+			return lines.substring(lines.indexOf("/*") + 3, lines.lastIndexOf("*/"));   
+		}
+		//字符画不能随意缩进，不然显示会错位
+		var console_text = function() {  
+/* 
+            /~~~~~\        /~~~~~\
+           |    (~'        ~~~)   |
+            \    \__________/    /
+            /~::::::::         ~\
+ /~~~~~~~-_| ::::::::             |_-~~~~~~~\
+\ ======= /|  ::A::;      A     :|\ ====== /
+ ~-_____-~ |  _----------------_::| ~-____-~
+           |/~                  ~\|
+           /                      \
+          (        ()    ()        )
+           `\                   ./'
+             ~-_______________-~
+                   /~~~~\
+                  |      |
+                  |      |
+                 (________)    
+                     ()   
+
+	  努力的人本身就有奇迹 , 
+			  努力让自己更牛逼 ^ ^
+			          %c by hrwhisper
+*/  
+		}
+		console.log(getMultiLine(console_text),'color:#337ab7;font-size:18px;font-style:italic')
+});

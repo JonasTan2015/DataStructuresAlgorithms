@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<!-- saved from url=(0115)https://www.topcoder.com/community/data-science/data-science-tutorials/dynamic-programming-from-novice-to-advanced/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}</style>
+  
+  <meta name="fragment" content="!">
+  <title>Dynamic Programming – From Novice to Advanced  –  topcoder</title>
+  <meta name="description" content="">
+  <meta name="author" content="@topcoder">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"><script async="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/fbevents.js.下载"></script><script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/496af5ee90"></script><script src="./Dynamic Programming – From Novice to Advanced – topcoder_files/nr-974.min.js.下载"></script><script type="text/javascript" async="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/munchkin.js.下载"></script><script async="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/analytics.js.下载"></script><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"UgEGVFNbGwYGXVZaBgQ="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(t){try{s.console&&console.log(t)}catch(e){}}var o,i=t("ee"),a=t(15),s={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(s.console=!0,o.indexOf("dev")!==-1&&(s.dev=!0),o.indexOf("nr_dev")!==-1&&(s.nrDev=!0))}catch(c){}s.nrDev&&i.on("internal-error",function(t){r(t.stack)}),s.dev&&i.on("fn-err",function(t,e,n){r(n.stack)}),s.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(s,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,o){try{d?d-=1:i("err",[o||new UncaughtException(t,e,n)])}catch(s){try{i("ierr",[s,(new Date).getTime(),!0])}catch(c){}}return"function"==typeof f&&f.apply(this,a(arguments))}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function o(t){i("err",[t,(new Date).getTime()])}var i=t("handle"),a=t(16),s=t("ee"),c=t("loader"),f=window.onerror,u=!1,d=0;c.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(l){"stack"in l&&(t(8),t(7),"addEventListener"in window&&t(5),c.xhrWrappable&&t(9),u=!0)}s.on("fn-start",function(t,e,n){u&&(d+=1)}),s.on("fn-err",function(t,e,n){u&&(this.thrown=!0,o(n))}),s.on("fn-end",function(){u&&!this.thrown&&d>0&&(d-=1)}),s.on("internal-error",function(t){i("ierr",[t,(new Date).getTime(),!0])})},{}],3:[function(t,e,n){t("loader").features.ins=!0},{}],4:[function(t,e,n){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var o=t("ee"),i=t("handle"),a=t(8),s=t(7),c="learResourceTimings",f="addEventListener",u="resourcetimingbufferfull",d="bstResource",l="resource",p="-start",h="-end",m="fn"+p,w="fn"+h,v="bstTimer",y="pushState";t("loader").features.stn=!0,t(6);var g=NREUM.o.EV;o.on(m,function(t,e){var n=t[0];n instanceof g&&(this.bstStart=Date.now())}),o.on(w,function(t,e){var n=t[0];n instanceof g&&i("bst",[n,e,this.bstStart,Date.now()])}),a.on(m,function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),a.on(w,function(t,e){i(v,[e,this.bstStart,Date.now(),this.bstType])}),s.on(m,function(){this.bstStart=Date.now()}),s.on(w,function(t,e){i(v,[e,this.bstStart,Date.now(),"requestAnimationFrame"])}),o.on(y+p,function(t){this.time=Date.now(),this.startPath=location.pathname+location.hash}),o.on(y+h,function(t){i("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),f in window.performance&&(window.performance["c"+c]?window.performance[f](u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["c"+c]()},!1):window.performance[f]("webkit"+u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["webkitC"+c]()},!1)),document[f]("scroll",r,!1),document[f]("keypress",r,!1),document[f]("click",r,!1)}},{}],5:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty(u);)e=Object.getPrototypeOf(e);e&&o(e)}function o(t){s.inPlace(t,[u,d],"-",i)}function i(t,e){return t[1]}var a=t("ee").get("events"),s=t(17)(a),c=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";e.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,e){if(t[1]){var n=t[1];if("function"==typeof n){var r=c(n,"nr@wrapped",function(){return s(n,"fn-",null,n.name||"anonymous")});this.wrapped=t[1]=r}else"function"==typeof n.handleEvent&&s.inPlace(n,["handleEvent"],"fn-")}}),a.on(d+"-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{}],6:[function(t,e,n){var r=t("ee").get("history"),o=t(17)(r);e.exports=r,o.inPlace(window.history,["pushState","replaceState"],"-")},{}],7:[function(t,e,n){var r=t("ee").get("raf"),o=t(17)(r),i="equestAnimationFrame";e.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],8:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function o(t,e,n){this.method=n,this.timerDuration="number"==typeof t[1]?t[1]:0,t[0]=a(t[0],"fn-",this,n)}var i=t("ee").get("timer"),a=t(17)(i),s="setTimeout",c="setInterval",f="clearTimeout",u="-start",d="-";e.exports=i,a.inPlace(window,[s,"setImmediate"],s+d),a.inPlace(window,[c],c+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(c+u,r),i.on(s+u,o)},{}],9:[function(t,e,n){function r(t,e){d.inPlace(e,["onreadystatechange"],"fn-",s)}function o(){var t=this,e=u.context(t);t.readyState>3&&!e.resolved&&(e.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,w,"fn-",s)}function i(t){v.push(t),h&&(g=-g,b.data=g)}function a(){for(var t=0;t<v.length;t++)r([],v[t]);v.length&&(v=[])}function s(t,e){return e}function c(t,e){for(var n in t)e[n]=t[n];return e}t(5);var f=t("ee"),u=f.get("xhr"),d=t(17)(u),l=NREUM.o,p=l.XHR,h=l.MO,m="readystatechange",w=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],v=[];e.exports=u;var y=window.XMLHttpRequest=function(t){var e=new p(t);try{u.emit("new-xhr",[e],e),e.addEventListener(m,o,!1)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}return e};if(c(p,y),y.prototype=p.prototype,d.inPlace(y.prototype,["open","send"],"-xhr-",s),u.on("send-xhr-start",function(t,e){r(t,e),i(e)}),u.on("open-xhr-start",r),h){var g=1,b=document.createTextNode(g);new h(a).observe(b,{characterData:!0})}else f.on("fn-end",function(t){t[0]&&t[0].type===m||a()})},{}],10:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<d;r++)t.removeEventListener(u[r],this.listener,!1);if(!e.aborted){if(n.duration=(new Date).getTime()-this.startTime,4===t.readyState){e.status=t.status;var i=o(t,this.lastSize);if(i&&(n.rxSize=i),this.sameOrigin){var a=t.getResponseHeader("X-NewRelic-App-Data");a&&(e.cat=a.split(", ").pop())}}else e.status=0;n.cbTime=this.cbTime,f.emit("xhr-done",[t],t),s("xhr",[e,n,this.startTime])}}}function o(t,e){var n=t.responseType;if("json"===n&&null!==e)return e;var r="arraybuffer"===n||"blob"===n||"json"===n?t.response:t.responseText;return h(r)}function i(t,e){var n=c(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}var a=t("loader");if(a.xhrWrappable){var s=t("handle"),c=t(11),f=t("ee"),u=["load","error","abort","timeout"],d=u.length,l=t("id"),p=t(14),h=t(13),m=window.XMLHttpRequest;a.features.xhr=!0,t(9),f.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,p&&(p>34||p<10)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),f.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),f.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),f.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],o=this;if(n&&r){var i=h(r);i&&(n.txSize=i)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof e.onload))&&o.end(e)}catch(n){try{f.emit("internal-error",[n])}catch(r){}}};for(var a=0;a<d;a++)e.addEventListener(u[a],this.listener,!1)}),f.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),f.on("xhr-load-added",function(t,e){var n=""+l(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),f.on("xhr-load-removed",function(t,e){var n=""+l(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),f.on("addEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&f.emit("xhr-load-added",[t[1],t[2]],e)}),f.on("removeEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&f.emit("xhr-load-removed",[t[1],t[2]],e)}),f.on("fn-start",function(t,e,n){e instanceof m&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),f.on("fn-end",function(t,e){this.xhrCbStart&&f.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{}],11:[function(t,e,n){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!e.protocol||":"===e.protocol||e.protocol===n.protocol,a=e.hostname===document.domain&&e.port===n.port;return r.sameOrigin=i&&(!e.hostname||a),r}},{}],12:[function(t,e,n){function r(){}function o(t,e,n){return function(){return i(t,[(new Date).getTime()].concat(s(arguments)),e?null:this,n),e?void 0:this}}var i=t("handle"),a=t(15),s=t(16),c=t("ee").get("tracer"),f=NREUM;"undefined"==typeof window.newrelic&&(newrelic=f);var u=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit"],d="api-",l=d+"ixn-";a(u,function(t,e){f[e]=o(d+e,!0,"api")}),f.addPageAction=o(d+"addPageAction",!0),e.exports=newrelic,f.interaction=function(){return(new r).get()};var p=r.prototype={createTracer:function(t,e){var n={},r=this,o="function"==typeof e;return i(l+"tracer",[Date.now(),t,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[Date.now(),r,o],n),o)try{return e.apply(this,arguments)}finally{c.emit("fn-end",[Date.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){p[e]=o(l+e)}),newrelic.noticeError=function(t){"string"==typeof t&&(t=new Error(t)),i("err",[t,(new Date).getTime()])}},{}],13:[function(t,e,n){e.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}},{}],14:[function(t,e,n){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),e.exports=r},{}],15:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],16:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(o<0?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],17:[function(t,e,n){function r(t){return!(t&&"function"==typeof t&&t.apply&&!t[a])}var o=t("ee"),i=t(16),a="nr@original",s=Object.prototype.hasOwnProperty,c=!1;e.exports=function(t){function e(t,e,n,o){function nrWrapper(){var r,a,s,c;try{a=this,r=i(arguments),s="function"==typeof n?n(r,a):n||{}}catch(u){d([u,"",[r,a,o],s])}f(e+"start",[r,a,o],s);try{return c=t.apply(a,r)}catch(l){throw f(e+"err",[r,a,l],s),l}finally{f(e+"end",[r,a,c],s)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,u(t,nrWrapper),nrWrapper)}function n(t,n,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<n.length;c++)s=n[c],a=t[s],r(a)||(t[s]=e(a,f?s+o:o,i,s))}function f(e,n,r){if(!c){c=!0;try{t.emit(e,n,r)}catch(o){d([o,e,n,r])}c=!1}}function u(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){d([r])}for(var o in t)s.call(t,o)&&(e[o]=t[o]);return e}function d(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=o),e.inPlace=n,e.flag=a,e}},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?s(t,a,i):i()}function n(n,r,o){t&&t(n,r,o);for(var i=e(o),a=l(n),s=a.length,c=0;c<s;c++)a[c].apply(i,r);var u=f[w[n]];return u&&u.push([v,n,r,i]),i}function d(t,e){m[t]=l(t).concat(e)}function l(t){return m[t]||[]}function p(t){return u[t]=u[t]||o(n)}function h(t,e){c(t,function(t,n){e=e||"feature",w[n]=e,e in f||(f[e]=[])})}var m={},w={},v={on:d,emit:n,get:p,listeners:l,context:e,buffer:h};return v}function i(){return new r}var a="nr@context",s=t("gos"),c=t(15),f={},u={},d=e.exports=o();d.backlog=f},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!g++){var t=y.info=NREUM.info,e=u.getElementsByTagName("script")[0];if(t&&t.licenseKey&&t.applicationID&&e){c(w,function(e,n){t[e]||(t[e]=n)});var n="https"===m.split(":")[0]||t.sslForHttp;y.proto=n?"https://":"http://",s("mark",["onload",a()],null,"api");var r=u.createElement("script");r.src=y.proto+t.agent,e.parentNode.insertBefore(r,e)}}}function o(){"complete"===u.readyState&&i()}function i(){s("mark",["domContent",a()],null,"api")}function a(){return(new Date).getTime()}var s=t("handle"),c=t(15),f=window,u=f.document,d="addEventListener",l="attachEvent",p=f.XMLHttpRequest,h=p&&p.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:p,REQ:f.Request,EV:f.Event,PR:f.Promise,MO:f.MutationObserver},t(12);var m=""+location,w={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-974.min.js"},v=p&&h&&h[d]&&!/CriOS/.test(navigator.userAgent),y=e.exports={offset:a(),origin:m,features:{},xhrWrappable:v};u[d]?(u[d]("DOMContentLoaded",i,!1),f[d]("load",r,!1)):(u[l]("onreadystatechange",o),f[l]("onload",r)),s("mark",["firstbyte",a()],null,"api");var g=0},{}]},{},["loader",2,10,4,3]);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="https://www.topcoder.com/wp-content/themes/tcs-responsive/favicon.ico">
+
+    <!-- External JS -->
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.js" type="text/javascript"></script>
+  <script src="/js/respond.min.js" type="text/javascript"></script>
+  <script src="/js/modernizr.js" type="text/javascript"></script>
+  <link rel = "stylesheet" href = "/css/ie.css ? v = 201407282" / >
+  <![endif]-->
+  <script type="text/javascript">
+    var wpUrl = "https://www.topcoder.com";
+    var tcApiRUL = 'https://api.topcoder.com/v2';
+    var myFiltersURL = '//lc1-user-settings-service.herokuapp.com';
+    var siteURL = 'https://www.topcoder.com';
+    var communityURL = '//community.topcoder.com';
+    var base_url = 'https://www.topcoder.com/wp-content/themes/tcs-responsive';
+    var stylesheet_dir = 'https://www.topcoder.com/wp-content/themes/tcs-responsive/css';
+    var autoRegister = '';
+    var timezone_string = "America/New_York";
+    var challengeType;
+    var cbApiURL = 'https://coderbits.com';
+  </script>
+
+<link rel="stylesheet" id="layerslider-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/layerslider.css" type="text/css" media="all">
+<link rel="stylesheet" id="ls-google-fonts-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="tchook-style-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/tcapi.css" type="text/css" media="all">
+<link rel="stylesheet" id="tchook-selectyze-style-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/Selectyze.jquery.css" type="text/css" media="all">
+<link rel="stylesheet" id="advanced-responsive-video-embedder-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/advanced-responsive-video-embedder-public.css" type="text/css" media="all">
+<link rel="stylesheet" id="responsive-lightbox-fancybox-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/jquery.fancybox-1.3.4.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-syntax-css-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/wp-syntax.css" type="text/css" media="all">
+<link rel="stylesheet" id="default-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/default.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="page-list-style-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/page-list.css" type="text/css" media="all">
+<!-- This site uses the Yoast Google Analytics plugin v5.2.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-6340959-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('require', 'displayfeatures');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Yoast Google Analytics --><script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/greensock.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/jquery.min.js.下载"></script>
+<script>window.jQuery || document.write('<script src="https://www.topcoder.com/wp-content/themes/tcs-responsive/js/vendor/jquery/jquery.js"><\/script>')</script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/layerslider.kreaturamedia.jquery.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/layerslider.transitions.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/jquery.fancybox-1.3.4.js.下载"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var rlArgs = {"script":"fancybox","selector":"lightbox","customEvents":"","activeGalleries":"0","modal":"0","showOverlay":"1","showCloseButton":"1","enableEscapeButton":"1","hideOnOverlayClick":"1","hideOnContentClick":"0","cyclic":"0","showNavArrows":"1","autoScale":"1","scrolling":"yes","centerOnScroll":"1","opacity":"1","overlayOpacity":"70","overlayColor":"#666","titleShow":"1","titlePosition":"outside","transitions":"fade","easings":"swing","speeds":"300","changeSpeed":"300","changeFade":"100","padding":"5","margin":"5","videoWidth":"1080","videoHeight":"720"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/front.js.下载"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.topcoder.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.topcoder.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Greedy is Good" href="https://www.topcoder.com/community/data-science/data-science-tutorials/greedy-is-good/">
+<link rel="next" title="Computational Complexity: Section 1" href="https://www.topcoder.com/community/data-science/data-science-tutorials/computational-complexity-section-1/">
+<meta name="generator" content="WordPress 3.9.1">
+<link rel="shortlink" href="https://www.topcoder.com/?p=15617">
+<meta name="google-site-verification" content="UA-6340959-1">
+<meta name="google-publisher-plugin-pagetype" content="page"><meta name="google-site-verification" content="13nbPcn6VRWD2zdq-CEG0LbT00aOwSyhofA3OAEmbEI"><meta name="google-site-verification" content="13nbPcn6VRWD2zdq-CEG0LbT00aOwSyhofA3OAEmbEI"><meta name="google-site-verification" content="13nbPcn6VRWD2zdq-CEG0LbT00aOwSyhofA3OAEmbEI"><meta name="google-site-verification" content="p0OVxcrMQ2HYDsGgaRLRS9bsXuXmjKVcTGZnXNphIUI">	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+  <style>
+    .btn, a.btn, .blogCategoryMenu a, .searchBox input, .subscribeBox input {
+      behavior: url("https://www.topcoder.com/wp-content/themes/tcs-responsive/css/PIE.htc");
+    }
+  </style>
+
+<script async="true" type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/roundtrip.js.下载"></script><script async="true" type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/4XU6H3BYL5EQBFHZM4DIUU"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out(2)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out(3)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out(4)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out(5)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out(6)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/out(7)">
+</div></head>
+
+<body style="">
+
+
+<div id="wrapper" class="tcssoUsingJS">
+<div class="ng-header-bootstrap ng-scope"><div class="header-wrapper" ng-class="{&#39;menu-visible&#39;: main.menuVisible}">
+  <header class="top-header">
+    <a href="https://www.topcoder.com/" class="logo-link"></a>
+    <div class="show-small mobile-heading"><!-- ngIf: main.menuVisible -->
+      <!-- ngIf: !main.menuVisible --><button type="button" ng-if="!main.menuVisible" ng-click="main.menuVisible = true" class="btn-open-menu ng-scope">Menu</button><!-- end ngIf: !main.menuVisible -->
+      <!-- ngIf: main.menuVisible -->
+      <!-- ngIf: !main.menuVisible --><a ng-href="" ng-switch="vm.isAuth" data-ng-if="!main.menuVisible" class="user-link ng-scope"><!-- ngSwitchWhen: true --><!-- ngSwitchWhen: false --><span ng-switch-when="false" class="btn-link ng-scope">JOIN</span></a><!-- end ngIf: !main.menuVisible -->
+    </div>
+   <ul class="main-menu">
+      <li class="menu-item search-wrapper">
+        <div class="menu-item-header show-large">
+          <button type="button" class="btn-expand-search search-icon"></button>
+        </div>
+        <div class="submenu">
+          <input class="member-search-old-nav ng-pristine ng-valid" type="text" placeholder="find members by username or skill" ng-model="vm.searchTerm" ng-keyup="vm.checkSubmit($event)">
+        </div>
+      </li>
+      <li ng-switch="vm.isAuth" ng-class="{&#39;anonymous-menu&#39;: !vm.isAuth}" class="menu-item link-group user-menu anonymous-menu">
+        <!-- ngSwitchWhen: true -->
+        <!-- ngSwitchWhen: false --><div ng-switch-when="false" class="menu-item-header ng-scope">
+          <a href="https://www.topcoder.com/register" class="tc-btn tc-btn-s btn-link">JOIN</a>
+          <a ng-click="vm.login()" class="tc-btn tc-btn-s tc-btn-ghost btn-link tc-header-login">LOG IN</a>
+        </div>
+      </li>
+      <!-- ngRepeat: header in vm.menuHeaders --><li ng-repeat="header in vm.menuHeaders" class="menu-item link-group ng-scope">
+        <div class="menu-item-header ng-binding">compete</div>
+        <ul class="submenu">
+          <!-- ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/challenges/design/active/?pageIndex=1" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/challenges/design/active/?pageIndex=1">
+              <img ng-src="/mf/i/nav/track-design.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/track-design.svg">
+              <div class="menu-text ng-binding">DESIGN CHALLENGES</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/challenges/develop/active/?pageIndex=1" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/challenges/develop/active/?pageIndex=1">
+              <img ng-src="/mf/i/nav/track-develop.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/track-develop.svg">
+              <div class="menu-text ng-binding">DEVELOPMENT CHALLENGES</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/challenges/data/active/?pageIndex=1" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/challenges/data/active/?pageIndex=1">
+              <img ng-src="/mf/i/nav/track-data.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/track-data.svg">
+              <div class="menu-text ng-binding">DATA SCIENCE CHALLENGES</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="https://arena.topcoder.com" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_blank" href="https://arena.topcoder.com/">
+              <img ng-src="/mf/i/nav/track-cp.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/track-cp.svg">
+              <div class="menu-text ng-binding">COMPETITIVE PROGRAMMING</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] -->
+        </ul>
+      </li><!-- end ngRepeat: header in vm.menuHeaders --><li ng-repeat="header in vm.menuHeaders" class="menu-item link-group ng-scope">
+        <div class="menu-item-header ng-binding">learn</div>
+        <ul class="submenu">
+          <!-- ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/getting-started/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/getting-started/">
+              <img ng-src="/mf/i/nav/rocket.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/rocket.svg">
+              <div class="menu-text ng-binding">GETTING STARTED</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/design/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/design/">
+              <img ng-src="/mf/i/nav/book-design.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/book-design.svg">
+              <div class="menu-text ng-binding">DESIGN</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/development/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/development/">
+              <img ng-src="/mf/i/nav/book-develop.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/book-develop.svg">
+              <div class="menu-text ng-binding">DEVELOPMENT</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/data-science/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/data-science/">
+              <img ng-src="/mf/i/nav/book-data.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/book-data.svg">
+              <div class="menu-text ng-binding">DATA SCIENCE</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/competitive%20programming/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/competitive%20programming/">
+              <img ng-src="/mf/i/nav/book-cp.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/book-cp.svg">
+              <div class="menu-text ng-binding">COMPETITIVE PROGRAMMING</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] -->
+        </ul>
+      </li><!-- end ngRepeat: header in vm.menuHeaders --><li ng-repeat="header in vm.menuHeaders" class="menu-item link-group ng-scope">
+        <div class="menu-item-header ng-binding">community</div>
+        <ul class="submenu">
+          <!-- ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/members/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/members/">
+              <img ng-src="/mf/i/nav/members.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/members.svg">
+              <div class="menu-text ng-binding">OVERVIEW</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/tco" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/tco">
+              <img ng-src="/mf/i/nav/tco-generic.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/tco-generic.svg">
+              <div class="menu-text ng-binding">TCO</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/member-programs/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/member-programs/">
+              <img ng-src="/mf/i/nav/programs.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/programs.svg">
+              <div class="menu-text ng-binding">PROGRAMS</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="https://apps.topcoder.com/forums/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://apps.topcoder.com/forums/">
+              <img ng-src="/mf/i/nav/forums.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/forums.svg">
+              <div class="menu-text ng-binding">FORUMS</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/statistics/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/statistics/">
+              <img ng-src="/mf/i/nav/statistics.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/statistics.svg">
+              <div class="menu-text ng-binding">STATISTICS</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/community/events/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/community/events/">
+              <img ng-src="/mf/i/nav/events.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/events.svg">
+              <div class="menu-text ng-binding">EVENTS</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] --><li class="submenu-item ng-scope" ng-repeat="item in vm.menuLinks[header]">
+            <a ng-click="$event.stopPropagation();" ng-href="/blog/" ng-class="{ &#39;active&#39;: vm.isActive(item.href) }" class="menu-link" target="_self" href="https://www.topcoder.com/blog/">
+              <img ng-src="/mf/i/nav/blog.svg" class="menu-icon" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/blog.svg">
+              <div class="menu-text ng-binding">BLOG</div>
+            </a>
+          </li><!-- end ngRepeat: item in vm.menuLinks[header] -->
+        </ul>
+      </li><!-- end ngRepeat: header in vm.menuHeaders -->
+    </ul>
+  </header>
+</div>
+</div>
+<!-- Bugfix: I-108496 hidden element needed for non-firefox browsers to detect cache-persist status of page, used for above code to display member details -->
+<input type="hidden" id="cache-persist" value="1">
+  <!-- /#header -->
+
+<script type="text/javascript">
+	var siteurl = "https://www.topcoder.com";
+</script>
+<div class="content">
+	<div id="main">
+
+		<!-- Start Overview Page-->
+		<div class="pageTitleWrapper">
+			<div class="pageTitle container">
+				<h2 class="overviewPageTitle DynamicProgramming–FromNovicetoAdvancedPageTitle">Dynamic Programming – From Novice to Advanced</h2>
+			</div>
+		</div>
+
+
+
+
+		<article id="mainContent" class="splitLayout overviewPage">
+			<div class="container">
+				<div class="rightSplit  grid-3-3">
+					<div class="mainStream postContent pageContent grid-2-3">
+
+						<p> By <strong><a class="tc_coder coder" href="https://www.topcoder.com/member-profile/Dumitru" style="color: #DDCC00">Dumitru</a></strong> — <em>topcoder member</em><br>
+<a href="http://apps.topcoder.com/forums/?module=ThreadList&amp;forumID=505844">Discuss this article in the forums</a> </p>
+<p> An important part of given problems can be solved with the help of dynamic programming (<strong>DP</strong> for short).  Being able to tackle problems of this type would greatly increase your skill.
+	I will try to help you in understanding how to solve problems using DP. The article is based on examples, because a raw theory is very hard to understand. </p>
+<p> Note: If you’re bored reading one section and you already know what’s being discussed in it – skip it and go to the next one. </p>
+<h3>Introduction (Beginner)</h3>
+<p><em><strong>What is a dynamic programming, how can it be described?</strong></em></p>
+<p> A <strong>DP</strong> is an algorithmic technique which is usually based on a recurrent formula and one (or some) starting states. A sub-solution of the problem is constructed from previously found ones.
+	DP solutions have a polynomial complexity which assures a much faster running time than other techniques like backtracking, brute-force etc. </p>
+<p> Now let’s see the base of DP with the help of an example: </p>
+<p> Given a list of N coins, their values (<strong>V<sub>1</sub></strong>, <strong>V<sub>2</sub></strong>, … , <strong>V<sub>N</sub></strong>), and the total sum <strong>S</strong>. Find the minimum number of coins the sum of which is <strong>S</strong> (we can use as many coins of one type as we want), or report that it’s not possible to select coins in such a way that they sum up to <strong>S</strong>. </p>
+<p> Now let’s start constructing a DP solution: </p>
+<p> First of all we need to find a state for which an optimal solution is found and with the help of which we can find the optimal solution for the next state. </p>
+<p> <em><strong>What does a "state" stand for?</strong></em> </p>
+<p> It’s a way to describe a situation, a sub-solution for the problem. For example a state would be the solution for sum <strong>i</strong>, where <strong>i≤S</strong>. A smaller state than state <strong>i</strong> would be the solution for any sum <strong>j</strong>, where <strong>j&lt;i</strong>. For finding a <strong>state i</strong>, we need to first find all smaller states <strong>j (j&lt;i) </strong>. Having found the minimum number of coins which sum up to <strong>i</strong>, we can easily find the next state – the solution for <strong>i+1</strong>. </p>
+<p> <em><strong>How can we find it?</strong></em> </p>
+<p> It is simple – for each coin <strong>j, V<sub>j</sub>≤i</strong>, look at the minimum number of coins found for the <strong>i-V<sub>j</sub></strong>sum (we have already found it previously). Let this number be <strong>m</strong>. If <strong>m+1</strong> is less than the minimum number of coins already found for current sum <strong>i</strong>, then we write the new result for it. </p>
+<p> For a better understanding let’s take this example:<br>
+	Given coins with values 1, 3, and 5.<br>
+	And the sum <strong>S</strong> is set to be 11. </p>
+<p> First of all we mark that for state 0 (sum 0) we have found a solution with a minimum number of 0 coins.
+	We then go to sum 1. First, we mark that we haven’t yet found a solution for this one (a value of Infinity would be fine). Then we see that only coin 1 is less than or equal to the current sum. Analyzing it, we see that for sum 1-<strong>V<sub>1</sub></strong>= 0  we have a solution with 0 coins. Because we add one coin to this solution, we’ll have a solution with 1 coin for sum 1. It’s the only solution yet found for this sum. We write (save) it.
+	Then we proceed to the next state – <strong>sum 2</strong>. We again see that the only coin which is less or equal to this sum is the first coin, having a value of 1. The optimal solution found for sum (2-1) = 1  is coin 1. This coin 1 plus the first coin will sum up to 2, and thus make a sum of 2 with the help of only 2 coins. This is the best and only solution for sum 2.
+	Now we proceed to sum 3. We now have 2 coins which are to be analyzed – first and second one, having values of 1 and 3. Let’s see the first one. There exists a solution for sum 2 (3 – 1) and therefore we can construct from it a solution for sum 3 by adding the first coin to it. Because the best solution for sum 2 that we found has 2 coins, the new solution for sum 3 will have 3 coins.
+	Now let’s take the second coin with value equal to 3. The sum for which this coin needs to be added to make 3 , is 0. We know that sum 0 is made up of 0 coins. Thus we can make a sum of 3 with only one coin – 3. We see that it’s better than the previous found solution for sum 3 , which was composed of 3 coins. We update it and mark it as having only 1 coin.
+	The same we do for sum 4, and get a solution of 2 coins – 1+3. And so on. </p>
+<p> <strong>Pseudocode:</strong> </p>
+<pre class="code">Set Min[i] equal to Infinity for all of i
+Min[0]=0
+
+For i = 1 to S
+For j = 0 to N - 1
+   If (V<sub>j</sub>&lt;=i AND Min[i-V<sub>j</sub>]+1&lt;Min[i])
+Then Min[i]=Min[i-V<sub>j</sub>]+1
+
+Output Min[S]
+</pre>
+<p>Here are the solutions found for all sums:</p>
+<table width="400" cellspacing="0" cellpadding="5" class="formFrame" align="center" style="visibility: visible;">
+	<tbody>
+		<tr>
+			<td class="sidebarTitle" nowrap="nowrap">Sum</td>
+			<td class="sidebarTitle" nowrap="nowrap">Min. nr. of coins</td>
+			<td class="sidebarTitle" nowrap="nowrap">Coin value added to a smaller sum to<br>
+				obtain this sum (it is displayed in brackets)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">0</td>
+			<td class="sidebarText">0</td>
+			<td class="sidebarText">-</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">1</td>
+			<td class="sidebarText">1</td>
+			<td class="sidebarText">1 (0)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">1 (1)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">3</td>
+			<td class="sidebarText">1</td>
+			<td class="sidebarText">3 (0)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">4</td>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">1 (3)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">5</td>
+			<td class="sidebarText">1</td>
+			<td class="sidebarText">5 (0)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">6</td>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">3 (3)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">7</td>
+			<td class="sidebarText">3</td>
+			<td class="sidebarText">1 (6)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">8</td>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">3 (5)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">9</td>
+			<td class="sidebarText">3</td>
+			<td class="sidebarText">1 (8)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">10</td>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">5 (5)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">11</td>
+			<td class="sidebarText">3</td>
+			<td class="sidebarText">1 (10)</td>
+		</tr>
+	</tbody>
+</table>
+<p> As a result we have found a solution of 3 coins which sum up to 11. </p>
+<p> Additionally, by tracking data about how we got to a certain sum from a previous one, we can find what coins were used in building it. For example: to sum 11 we got by adding the coin with value 1 to a sum of 10. To sum 10 we got from 5. To 5 – from 0.
+	This way we find the coins used: 1, 5 and 5. </p>
+<p> Having understood the basic way a <strong>DP</strong> is used, we may now see a slightly different approach to it. It involves the change (update) of best solution yet found for a sum i, whenever a better solution for this sum was found. In this case the states aren’t calculated consecutively.
+	Let’s consider the problem above. Start with having a solution of 0 coins for sum 0. Now let’s try to add first coin (with value 1) to all sums already found. If the resulting sum <strong>t</strong> will be composed of fewer coins than the one previously found – we’ll update the solution for it. Then we do the same thing for the second coin, third coin, and so on for the rest of them.
+	For example, we first add coin 1 to sum 0 and get sum 1. Because we haven’t yet found a possible way to make a sum of 1 – this is the best solution yet found, and we mark <strong>S[1]=1</strong>. By adding the same coin to sum 1, we’ll get sum 2, thus making <strong>S[2]=2</strong>. And so on for the first coin.
+	After the first coin is processed, take coin 2 (having a value of 3) and consecutively try to add it to each of the sums already found. Adding it to 0, a sum 3 made up of 1 coin will result. Till now, <strong>S[3]</strong> has been equal to 3, thus the new solution is better than the previously found one. We update it and mark <strong>S[3]=1</strong>. After adding the same coin to sum 1, we’ll get a sum 4 composed of 2 coins. Previously we found a sum of 4 composed of 4 coins; having now found a better solution we update <strong>S[4]</strong> to 2.
+	The same thing is done for next sums – each time a better solution is found, the results are updated. </p>
+<h3>Elementary</h3>
+<p>To this point, very simple examples have been discussed. Now let’s see how to find a way for passing from one state to another, for harder problems. For that we will introduce a new term called recurrent relation, which makes a connection between a lower and a greater state.</p>
+<p> Let’s see how it works: </p>
+<p> Given a sequence of N numbers – <strong>A[1] </strong>, <strong>A[2] </strong>, …, <strong>A[N] </strong>. Find the length of the longest non-decreasing sequence. </p>
+<p> As described above we must first find how to define a "state" which represents a sub-problem and thus we have to find a solution for it. Note that in most cases the states rely on lower states and are independent from greater states. </p>
+<p> Let’s define a state <strong>i</strong> as being the longest non-decreasing sequence which has its last number <strong>A[i] </strong>. This state carries only data about the length of this sequence. Note that for <strong>i&lt;j</strong> the state <strong>i</strong> is independent from <strong>j</strong>, i.e. doesn’t change when we calculate state <strong>j</strong>. Let’s see now how these states are connected to each other. Having found the solutions for all states lower than <strong>i</strong>, we may now look for state <strong>i</strong>. At first we initialize it with a solution of 1, which consists only of the <strong>i-th</strong> number itself. Now for each <strong>j&lt;i</strong> let’s see if it’s possible to pass from it to state i. This is possible only when <strong>A[j]≤A[i] </strong>, thus keeping (assuring) the sequence non-decreasing. So if <strong>S[j] </strong> (the solution found for state <strong>j</strong>) + <strong>1</strong> (number <strong>A[i] </strong> added to this sequence which ends with number <strong>A[j] </strong>) is better than a solution found for <strong>i</strong> (ie. <strong>S[j]+1&gt;S[i] </strong>), we make <strong>S[i]=S[j]+1</strong>.
+	This way we consecutively find the best solutions for each <strong>i</strong>, until last state N. </p>
+<p> Let’s see what happens for a randomly generated sequence: 5, 3, 4, 8, 6, 7: </p>
+<table width="400" cellspacing="0" cellpadding="5" class="formFrame" align="center" style="visibility: visible;">
+	<tbody>
+		<tr>
+			<td class="sidebarTitle" nowrap="nowrap" width="100%">I</td>
+			<td class="sidebarTitle" nowrap="nowrap">The length of the longest<br>
+				non-decreasing sequence<br>
+				of first i numbers</td>
+			<td class="sidebarTitle" nowrap="nowrap">The last sequence i from<br>
+				which we "arrived"<br>
+				to this one</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">1</td>
+			<td class="sidebarText">1</td>
+			<td class="sidebarText">1 (first number itself)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">1</td>
+			<td class="sidebarText">2 (second number itself)</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">3</td>
+			<td class="sidebarText">2</td>
+			<td class="sidebarText">2</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">4</td>
+			<td class="sidebarText">3</td>
+			<td class="sidebarText">3</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">5</td>
+			<td class="sidebarText">3</td>
+			<td class="sidebarText">3</td>
+		</tr>
+		<tr>
+			<td class="sidebarText">6</td>
+			<td class="sidebarText">4</td>
+			<td class="sidebarText">5</td>
+		</tr>
+	</tbody>
+</table>
+<p> <strong>Practice problem:</strong><br>
+	Given an undirected graph <strong>G</strong> having <strong>N</strong> (1&lt;N&lt;=1000) vertices and positive weights. Find the shortest path from vertex 1 to vertex N, or state that such path doesn’t exist. </p>
+<p> Hint: At each step, among the vertices which weren’t yet checked and for which a path from vertex 1 was found, take the one which has the shortest path, from vertex 1 to it, yet found. </p>
+<p> Try to solve the following problems from topcoder competitions:</p>
+<ul>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4493&amp;pm=1259">ZigZag</a> – 2003 TCCC Semifinals 3</li>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5009&amp;pm=2402">BadNeighbors</a> – 2004 TCCC Round 4</li>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5006&amp;pm=1918">FlowerGarden</a> – 2004 TCCC Round 1</li>
+</ul>
+<h3>Intermediate</h3>
+<p>Let’s see now how to tackle bi-dimensional DP problems.</p>
+<p> <strong>Problem:</strong><br>
+	A table composed of <strong>N x M</strong> cells, each having a certain quantity of apples, is given.
+	You start from the upper-left corner. At each step you can go down or right one cell.
+	Find the maximum number of apples you can collect. </p>
+<p> This problem is solved in the same way as other DP problems; there is almost no difference. </p>
+<p> First of all we have to find a state. The first thing that must be observed is that there are at most 2 ways we can come to a cell – from the left (if it’s not situated on the first column) and from the top (if it’s not situated on the most upper row). Thus to find the best solution for that cell, we have to have already found the best solutions for all of the cells from which we can arrive to the current cell. </p>
+<p> From above, a recurrent relation can be easily obtained:<br>
+	<strong>S[i][j]=A[i][j] + max(S[i-1][j], if i&gt;0 ; S[i][j-1], if j&gt;0) </strong> (where <strong>i</strong> represents the row and <strong>j</strong> the column of the table , its left-upper corner having coordinates {0,0} ; and <strong>A[i][j]</strong> being the number of apples situated in cell <strong>i,j</strong>). </p>
+<p> <strong>S[i][j] </strong> must be calculated by going first from left to right in each row and process the rows from top to bottom, or by going first from top to bottom in each column and process the columns from left to right. </p>
+<p> Pseudocode:</p>
+<pre class="code">For i = 0 to N - 1
+   For j = 0 to M - 1
+   S[i][j] = A[i][j] +
+      max(S[i][j-1], if j&gt;0 ; S[i-1][j], if i&gt;0 ; 0)
+
+Output S[n-1][m-1]
+</pre>
+<p>Here are a few problems, from topcoder Competitions, for practicing:</p>
+<ul>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4709&amp;pm=1889">AvoidRoads</a> – 2003 TCO Semifinals 4</li>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4482&amp;pm=1592">ChessMetric</a> – 2003 TCCC Round 4</li>
+</ul>
+<h3>Upper-Intermediate</h3>
+<p>This section will discuss about dealing DP problems which have an additional condition besides the values that must be calculated.</p>
+<p> As a good example would serve the following problem: </p>
+<p> Given an undirected graph <strong>G</strong> having positive weights and <strong>N</strong> vertices. </p>
+<p> You start with having a sum of <strong>M</strong> money. For passing through a vertex <strong>i</strong>, you must pay <strong>S[i] </strong> money. If you don’t have enough money – you can’t pass through that vertex.
+	Find the shortest path from vertex 1 to vertex N, respecting the above conditions; or state that such path doesn’t exist. If there exist more than one path having the same length, then output the cheapest one.
+	Restrictions: 1&lt;N&lt;=100 ; 0&lt;=M&lt;=100 ; for each i, 0&lt;=S[i]&lt;=100.
+	As we can see, this is the same as the classical Dijkstra problem (finding the shortest path between two vertices), with the exception that it has a condition.
+	In the classical Dijkstra problem we would have used a uni-dimensional array <strong>Min[i] </strong>, which marks the length of the shortest path found to vertex <strong>i</strong>.
+	However in this problem we should also keep information about the money we have.
+	Thus it would be reasonable to extend the array to something like <strong>Min[i][j] </strong>, which represents the length of the shortest path found to vertex <strong>i</strong>, with <strong>j</strong> money being left. In this way the problem is reduced to the original path-finding algorithm.
+	At each step we find the unmarked state (i,j) for which the shortest path was found. We mark it as visited (not to use it later), and for each of its neighbors we look if the shortest path to it may be improved. If so – then update it.
+	We repeat this step until there will remain no unmarked state to which a path was found. The solution will be represented by <strong>Min[N-1][j] </strong> having the least value (and the greatest <strong>j</strong> possible among the states having the same value, i.e. the shortest paths to which has the same length). </p>
+<p> Pseudocode:</p>
+<pre class="code">Set states(i,j) as unvisited for all (i,j)
+Set Min[i][j] to Infinity for all (i,j)
+
+Min[0][M]=0
+
+While(TRUE)
+
+Among all unvisited states(i,j) find the one for which Min[i][j]
+is the smallest. Let this state found be (k,l).
+
+If there wasn't found any state (k,l) for which Min[k][l] is
+less than Infinity - exit While loop.
+
+Mark state(k,l) as visited
+
+For All Neighbors p of Vertex k.
+   If (l-S[p]&gt;=0 AND
+    Min[p][l-S[p]]&gt;Min[k][l]+Dist[k][p])
+      Then Min[p][l-S[p]]=Min[k][l]+Dist[k][p]
+   i.e.
+If for state(i,j) there are enough money left for
+going to vertex p (l-S[p] represents the money that
+will remain after passing to vertex p), and the
+shortest path found for state(p,l-S[p]) is bigger
+than [the shortest path found for
+state(k,l)] + [distance from vertex k to vertex p)],
+then set the shortest path for state(i,j) to be equal
+to this sum.
+End For
+
+End While
+
+Find the smallest number among Min[N-1][j] (for all j, 0&lt;=j&lt;=M);
+if there are more than one such states, then take the one with greater
+j. If there are no states(N-1,j) with value less than Infinity - then
+such a path doesn't exist.
+</pre>
+<p>Here are a few TC problems for practicing:</p>
+<ul>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4705&amp;pm=1166">Jewelry</a> – 2003 TCO Online Round 4</li>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4555&amp;pm=1215">StripePainter</a> – SRM 150 Div 1</li>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5072&amp;pm=2829">QuickSums</a> – SRM 197 Div 2</li>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4630&amp;pm=1861">ShortPalindromes</a> – SRM 165 Div 2</li>
+</ul>
+<h3>Advanced</h3>
+<p>The following problems will need some good observations in order to reduce them to a dynamic solution.</p>
+<p> <strong>Problem <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5854&amp;pm=2940">StarAdventure</a> – SRM 208 Div 1:</strong> </p>
+<p> Given a matrix with <strong>M</strong> rows and <strong>N</strong> columns (<strong>N x M</strong>). In each cell there’s a number of apples.<br>
+	You start from the upper-left corner of the matrix. You can go down or right one cell. You need to arrive to the bottom-right corner. Then you need to go back to the upper-left cell by going each step one cell left or up. Having arrived at this upper-left cell, you need to go again back to the bottom-right cell.<br>
+	Find the maximum number of apples you can collect.<br>
+	When you pass through a cell – you collect all the apples left there. </p>
+<p> Restrictions: 1 &lt; <strong>N</strong>, <strong>M</strong> &lt;= 50 ; each cell contains between 0 and 1000 apples inclusive. </p>
+<p> First of all we observe that this problem resembles to the classical one (described in Section 3 of this article), in which you need to go only once from the top-left cell to the bottom-right one, collecting the maximum possible number of apples. It would be better to try to reduce the problem to this one.
+	Take a good look into the statement of the problem – what can be reduced or modified in a certain way to make it possible to solve using DP?
+	First observation is that we can consider the second path (going from bottom-right cell to the top-left cell) as a path which goes from top-left to bottom-right cell. It makes no difference, because a path passed from bottom to top, may be passed from top to bottom just in reverse order.
+	In this way we get three paths going from top to bottom. This somehow decreases the difficulty of the problem.
+	We can consider these 3 paths as left, middle and right.
+	When 2 paths intersect (like in the figure below) </p>
+<p>
+	</p><center>
+		<img src="./Dynamic Programming – From Novice to Advanced – topcoder_files/dynProg_1.gif" border="0/">
+	</center>
+<p></p>
+<p> we may consider them as in the following picture, without affecting the result: </p>
+<p>
+	</p><center>
+		<img src="./Dynamic Programming – From Novice to Advanced – topcoder_files/dynProg_2.gif" border="0/">
+	</center>
+<p></p>
+<p> This way we’ll get 3 paths, which we may consider as being one left, one middle and the other – right. More than that, we may see that for getting an optimal results they must not intersect (except in the leftmost upper corner and rightmost bottom corner). So for each row <strong>y</strong> (except first and last), the <strong>x</strong> coordinates of the lines (<strong>x1[y] </strong>, <strong>x2[y] </strong> and respectively <strong>x3[y] </strong>) will be : <strong>x1[y] </strong> &lt; <strong>x2[y] </strong> &lt; <strong>x3[y] </strong>.
+	Having done that – the DP solution now becomes much clearer. Let’s consider the row y. Now suppose that for any configuration of <strong>x1[y-1] </strong>, <strong>x2[y-1] </strong> and <strong>x3[y-1] </strong> we have already found the paths which collect the maximum number of apples. From them we can find the optimal solution for row <strong>y</strong>.
+	We now have to find only the way for passing from one row to the next one.
+	Let <strong>Max[i][j][k] </strong> represent the maximum number of apples collected till row <strong>y-1</strong> inclusive, with three paths finishing at column <strong>i</strong>, <strong>j</strong>, and respectively <strong>k</strong>. For the next row <strong>y</strong>, add to each <strong>Max[i][j][k] </strong> (obtained previously) the number of apples situated in cells (<strong>y,i</strong>) , (<strong>y,j</strong>) and (<strong>y,k</strong>). Thus we move down at each step. After we made such a move, we must consider that the paths may move in a row to the right.
+	For keeping the paths out of an intersection, we must first consider the move to the right of the left path, after this of the middle path, and then of the right path. For a better understanding think about the move to the right of the left path – take every possible pair of, <strong>k</strong> (where <strong>j&lt;k</strong>), and for each i (1 i&lt;j) consider the move from position (<strong>i-1,j,k</strong>) to position (<strong>i,j,k</strong>). Having done this for the left path, start processing the middle one, which is done similarly; and then process the right path. </p>
+<p> TC problems for practicing:</p>
+<ul>
+	<li><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4710&amp;pm=1996">MiniPaint</a> – SRM 178 Div 1</li>
+</ul>
+<strong>Additional Note:</strong><br>
+<p>When have read the description of a problem and started to solve it, first look at its restrictions. If a polynomial-time algorithm should be developed, then it’s possible that the solution may be of DP type. In this case try to see if there exist such states (sub-solutions) with the help of which the next states (sub-solutions) may be found. Having found that – think about how to pass from one state to another. If it seems to be a DP problem, but you can’t define such states, then try to reduce the problem to another one (like in the example above, from Section 5).</p>
+<p> <strong>Mentioned in this writeup:</strong><br>
+	TCCC ’03 Semifinals 3 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4493&amp;pm=1259">ZigZag</a><br>
+	TCCC ’04 Round 4 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5009&amp;pm=2402">BadNeighbors</a><br>
+	TCCC ’04 Round 1 Div I Med – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5006&amp;pm=1918">FlowerGarden</a><br>
+	TCO ’03 Semifinals 4 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4709&amp;pm=1889">AvoidRoads</a><br>
+	TCCC ’03 Round 4 Div I Easy – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4482&amp;pm=1592">ChessMetric</a><br>
+	TCO ’03 Round 4 Div I Med – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4705&amp;pm=1166">Jewelry</a><br>
+	SRM 150 Div I Med – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4555&amp;pm=1215">StripePainter</a><br>
+	SRM 197 Div II Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5072&amp;pm=2829">QuickSums</a><br>
+	SRM 165 Div II Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4630&amp;pm=1861">ShortPalindromes</a><br>
+	SRM 208 Div I Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=5854&amp;pm=2940">StarAdventure</a><br>
+	SRM 178 Div I Hard – <a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=4710&amp;pm=1996">MiniPaint</a><br>
+</p>
+<style>
+.formFrame { background: #f5f5f5; margin: auto; }.formFrame td { border: 1px solid #ccc; padding: 5px; }.sideNote {background: #f5f5f5; margin: 15px; padding: 15px; border: 1px solid #eee;}pre {background: #f5f5f5; margin: 15px; padding: 15px; border: 1px solid #eee; overflow: scroll;}p {padding-bottom:0 !important;}
+</style>					
+
+						<!-- /.pageContent -->
+
+					</div>
+					<!-- /.mainStream -->
+
+					<aside class="sideStream  grid-1-3">
+								<div class="textwidget"><div style="display: inline-block; width: 320px; height: 44px; overflow: hidden; background-color: #f1f1f1; padding:5px;">
+           <p style="padding-top: 12px; padding-left: 7px; font-size: 22px">
+    More Resources</p>
+       </div>
+
+
+	  <br>
+<p style="padding-top: 12px; padding-left: 10px; line-height: 150%"><a href="http://www.topcoder.com/community/data-science/data-science-tutorials/">Member Tutorials </a><br>
+Read more than 40 data science tutorials written by topcoder members. </p>
+<p style="padding-top: 12px; padding-left: 10px; line-height: 150%"><a href="http://www.topcoder.com/community/data-science/data-science-editorials/">Problem Set Analysis </a><br>
+Read editorials explaining the problem and solution for each Single Round Match (SRM). </p>
+<p style="padding-top: 12px; padding-left: 10px; line-height: 150%"><a href="http://www.topcoder.com/community/data-science/getting-started-in-data-science/">
+Data Science Guide</a><br>
+New to topcoder's data science track? Read this guide for an overview on how to get started in the arena and how competitions work.</p>
+<p style="padding-top: 12px; padding-left: 10px; line-height: 150%"><a href="http://help.topcoder.com/">Help Center </a><br>
+Need specifics about the process or the rules? Everything you need to know about competing at topcoder can be found in the Help Center.</p>
+<p style="padding-top: 12px; padding-left: 10px; line-height: 150%"><a href="http://apps.topcoder.com/forums/">Member Forums</a> <br>
+Join your peers in our member forums and ask questions from the real experts - topcoder members!</p></div>
+							</aside>
+
+					<!-- /.sideStream -->
+					<div class="clear"></div>
+				</div>
+				<!-- /.rightSplit -->
+			</div>
+		</article>
+		<!-- /#mainContent -->
+<footer class="bottom-footer">
+  <!-- Footer links -->
+  <nav class="menu-item">
+    <div class="menu-item-header show-small">OTHERS</div>
+    <ul class="submenu">
+      <li class="submenu-item"><a ng-click="$event.stopPropagation();" href="https://www.topcoder.com/sitemap" class="menu-link">SITEMAP</a></li>
+      <li class="submenu-item"><a ng-click="$event.stopPropagation();" href="https://www.topcoder.com/about" class="menu-link">ABOUT US</a></li>
+      <li class="submenu-item"><a ng-click="$event.stopPropagation();" href="https://help.topcoder.com/hc/en-us/articles/219069687-Contact-Support" class="menu-link">CONTACT US</a></li>
+      <li class="submenu-item"><a ng-click="$event.stopPropagation();" href="http://help.topcoder.com/" target="_blank" class="menu-link">HELP CENTER</a></li>
+      <li class="submenu-item"><a ng-click="$event.stopPropagation();" href="http://topcoder.com/community/how-it-works/privacy-policy/" class="menu-link">PRIVACY POLICY</a></li>
+      <li class="submenu-item"><a ng-click="$event.stopPropagation();" href="http://topcoder.com/community/how-it-works/terms/" class="menu-link">TERMS</a></li>
+    </ul>
+    <!-- Social links -->
+  </nav>
+  <div class="social-links">
+    <p>Topcoder is also on</p><a href="https://www.facebook.com/topcoder" target="fbwindow" class="fb-link"></a><a href="http://www.twitter.com/topcoder" target="twwindow" class="twitter-link"></a><a href="https://www.linkedin.com/company/topcoder" target="liwindow" class="linkedin-link"></a><a href="https://plus.google.com/u/0/b/104268008777050019973/104268008777050019973/posts" target="gpwindow" class="google-link"></a>
+  </div>
+  <p class="copyright-notice">© 2016 Topcoder. All Rights Reserved</p>
+</footer>
+</div>
+<!-- /.content -->
+</div>
+<!-- /#wrapper -->
+
+
+<div id="bgModal"></div><!-- background modal -->
+<div id="bgOverlapModal"></div><!-- background modal -->
+<div id="bgLoadingModal"><span></span></div><!-- background loading -->
+<div id="thanks" class="modal">
+  <a href="javascript:;" class="closeBtn closeModal"></a>
+
+  <div class="content">
+    <h2>Thanks for joining!</h2>
+
+    <p>We have sent you an email with activation instructions.<br>If you do not receive that email within 1 hour,
+      please email <a href="mailto:support@topcoder.com">support@topcoder.com</a>.</p>
+
+    <div>
+      <a href="javascript:;" class="btn closeModal redirectOnConfirm">Close</a>
+    </div>
+  </div>
+</div><!-- END #thanks -->
+<div id="registerSuccess" class="modal">
+  <a href="javascript:;" class="btnClose closeModal"></a>
+  <div class="content">
+    <h2>Registered!</h2>
+    <p class="success">Thank you for registering. You may now download the challenge files and participate in the challenge forums.</p>
+    <p class="submitBtn">
+      <a class="btn closeModalReg" href="javascript:;">OK</a>
+    </p>
+  </div>
+</div><!-- END #registerSuccess -->
+<div id="registerFailed" class="modal">
+  <a href="javascript:;" class="btnClose closeModal"></a>
+  <div class="content">
+    <h2>Info</h2>
+    <p class="failedMessage"></p>
+    <p class="submitBtn">
+      <a class="btn closeModal" href="javascript:;">OK</a>
+    </p>
+  </div>
+</div><!-- END #registerFailed -->
+
+<div id="showSubmission" class="modal">
+    <a href="javascript:;" class="btnClose closePopupModal"></a>
+    <div class="content">
+       <img alt="" style="width:910px; height:850px">
+    </div>
+</div><!-- END #show submission -->
+
+<div id="filterSavedSuccess" class="modal">
+  <a href="javascript:;" class="btnClose closeModal"></a>
+  <div class="content">
+    <h2>Success</h2>
+    <p class="success">Your filters have been saved and stored in the "My Filters" dropdown list.</p>
+    <p class="submitBtn">
+      <a class="btn closeModal" href="javascript:;">OK</a>
+    </p>
+  </div>
+</div><!-- END #filterSavedSuccess -->
+
+<div id="filterSavedFailed" class="modal">
+  <a href="javascript:;" class="btnClose closeModal"></a>
+  <div class="content">
+    <h2>Info</h2>
+    <p class="failedMessage"></p>
+    <p class="submitBtn">
+      <a class="btn closeModal" href="javascript:;">OK</a>
+    </p>
+  </div>
+</div><!-- END #filterSavedFailed -->
+
+<div id="designSubmissionCommentExample" class="modal">
+  <a href="javascript:;" class="btnClose closeModal"></a>
+  <div class="content">
+    <h2>Comment Examples</h2>
+
+    <strong>Example 1:</strong><br>
+    The logo represents movement and "taking action" rather than being stagnant.
+    The colors I chose signify power and give the brand a strong feel.<br><br>
+
+    <strong>Example 2:</strong><br>
+    This is a revised version of my previous submission. Changes include a new
+    header graphic, new font choices for the pop-up box and new icons for the
+    widget on the fourth page.<br><br>
+
+    <strong>Example 3:</strong><br>
+    This is my Round 2 submission. I have implemented all of the feedback you
+    gave me after Round 1 and I hope you like the changes.<br><br>
+  </div>
+</div><!-- END #show submission -->
+
+<div id="typeTooltip" class="tooltip hide">
+  <div class="inner">
+    <header></header>
+    <div class="data">
+      <p class="contestTy"></p>
+    </div>
+    <div class="arrow"></div>
+  </div>
+</div><!-- /.tooltip -->
+<div id="winnerTooltip" class="tooltip hide">
+  <div class="inner">
+    <header></header>
+    <div class="data">
+      <div class="winnerInfo"></div>
+    </div>
+    <div class="arrow alt"></div>
+  </div>
+</div><!-- /.tooltip -->
+<div id="badgeTooltip" class="tooltip hide">
+  <div class="inner">
+    <header></header>
+    <div class="data">
+      <p class="earnedOn"></p>
+    </div>
+    <div class="data">
+      <p class="currentlyEarned"><span></span></p>
+    </div>
+    <div class="arrow"></div>
+  </div>
+</div><!-- /.tooltip -->
+<link rel="stylesheet" id="ng-grid-css" href="./Dynamic Programming – From Novice to Advanced – topcoder_files/ng-grid.css" type="text/css" media="all">
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/Selectyze.jquery.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/tcapi.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/jquery-ui.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/auth0-1.6.4.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/default.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/angular.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/angular-animate.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/angular-route.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/underscore.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/restangular.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/ng-grid.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/ng-grid-flexible-height.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/angular-cookies.min.js.下载"></script>
+<script type="text/javascript" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/angular-ui-router.min.js.下载"></script>
+<script>
+  window.prerenderReady = false;
+  function getParameterByName(name, source) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(source || location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+  function getHashParameterByName(name, source) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\#&]" + name + "=([^&#]*)"),
+    results = regex.exec(source || location.hash);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+</script>
+
+
+<!-- START Marketo Code -->
+<script type="text/javascript">
+document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./Dynamic Programming – From Novice to Advanced – topcoder_files/munchkin.js(1).下载" type="text/javascript"></script>
+<script>Munchkin.init('921-UOU-112', {"wsInfo":"jFRS"});</script>
+<!-- END Marketo Code -->
+
+<!-- START Google Retargeting Marketing Code -->
+<script type="text/javascript">
+adroll_adv_id = "LOUA2FVRTJDYZC2BMX72Z7";
+adroll_pix_id = "4XU6H3BYL5EQBFHZM4DIUU";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<!-- END Google Retargeting Marketing Code -->
+
+<!-- Start of topcoder Zendesk Widget script -->
+<iframe src="javascript:false" title="" style="display: none;" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/saved_resource.html"></iframe><script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("https://assets.zendesk.com/embeddable_framework/main.js","topcoder.zendesk.com");
+/*]]>*/</script>
+<!-- End of topcoder Zendesk Widget script -->
+
+<script>
+(function() {
+  var headerApp = angular.module('tc.header', [])
+  headerApp.config(function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+      // Allow same origin resource loads.
+      'self',
+      // Allow loading from subdomains.  Notice the difference between * and **.
+      'http://*.topcoder.com/**',
+      'https://*.topcoder.com/**',
+      'http://*.topcoder-qa.com/**',
+      'https://*.topcoder-qa.com/**',
+      'http://*.topcoder-dev.com/**',
+      'https://*.topcoder-dev.com/**'
+    ]);
+  });
+  headerApp.directive('ngHeaderBootstrap', function(){
+    return {
+      restrict: 'C',
+      templateUrl: '/mf/js/app/header/partials/header-nav.html',
+      controller: function($scope, $timeout){
+        $scope.vm = vm = {};
+        $scope.main = {};
+        $scope.main.menuVisible = false;
+        vm.isAuth = false;
+
+        if (app.isLoggedIn()) {
+          vm.isAuth = true;
+          app.getHandle(function(handle) {
+            $.get(tcconfig.apiURL + '/users/' + handle, function(data) {
+              var photoLink = data['photoLink'];
+              if (photoLink) {
+                if (photoLink.indexOf('//') == -1) {
+                  photoLink = tcconfig.communityURL + data['photoLink']
+                }
+              } else {
+                photoLink = tcconfig.communityURL + '/i/m/nophoto_login.gif';
+              }
+              
+              var color = '';
+              var ratings = data['ratingSummary'];
+              if (ratings) {
+                var maxRating = 0;
+                for (var i = 0; i < ratings.length; i++) {
+                  if (maxRating < ratings[i]['rating']) {
+                    maxRating = ratings[i]['rating'];
+                    color = ratings[i]['colorStyle'].split(": ")[1];
+                  }
+                }
+              } else if (data['isPM'] == true) {
+                color = '#FF9900';
+              }
+              
+              $timeout(function() {
+                vm.handleStyle = { color: color };
+                vm.photoURL = photoLink;
+              });
+            });
+
+            $timeout(function() {
+              vm.userHandle = handle;
+              vm.userMenu = [
+                { 'href': '/my-dashboard', 'text': 'DASHBOARD', 'icon': '/mf/i/nav/dashboard.svg' },
+                { 'href': '/members/' + handle, 'text': 'MY PROFILE', 'icon': '/mf/i/nav/profile.svg' },
+                { 'href': 'https:' + tcconfig.communityURL + '/PactsMemberServlet?module=PaymentHistory&full_list=false', 'text': 'PAYMENTS', 'icon': '/mf/i/nav/wallet.svg' },
+                { 'href': '/settings/profile', 'text': 'SETTINGS', 'icon': '/mf/i/nav/settings.svg' },
+              ];
+            });
+          });
+        }
+
+        vm.menuHeaders = [ 'compete', 'learn', 'community' ];
+        vm.menuLinks =
+        {
+          'compete': [
+              { 'href':  "/challenges/design/active/?pageIndex=1", 'text': 'DESIGN CHALLENGES', 'icon': '/mf/i/nav/track-design.svg' },
+              { 'href':  "/challenges/develop/active/?pageIndex=1", 'text': 'DEVELOPMENT CHALLENGES', 'icon': '/mf/i/nav/track-develop.svg' },
+              { 'href':  "/challenges/data/active/?pageIndex=1", 'text': 'DATA SCIENCE CHALLENGES', 'icon': '/mf/i/nav/track-data.svg' },
+              { 'href':  'https:' + tcconfig.arenaURL, 'text': 'COMPETITIVE PROGRAMMING', 'icon': '/mf/i/nav/track-cp.svg', 'target': '_blank' },
+          ],
+          'learn': [
+              { 'href': '/getting-started/', 'text': 'GETTING STARTED', 'icon': '/mf/i/nav/rocket.svg' },
+              { 'href': '/community/design/', 'text': 'DESIGN', 'icon': '/mf/i/nav/book-design.svg' },
+              { 'href': '/community/development/', 'text': 'DEVELOPMENT', 'icon': '/mf/i/nav/book-develop.svg' },
+              { 'href': '/community/data-science/', 'text': 'DATA SCIENCE', 'icon': '/mf/i/nav/book-data.svg' },
+              { 'href': '/community/competitive%20programming/', 'text': 'COMPETITIVE PROGRAMMING', 'icon': '/mf/i/nav/book-cp.svg' },
+          ],
+          'community': [
+              { 'href': '/community/members/', 'text': 'OVERVIEW', 'icon': '/mf/i/nav/members.svg' },
+              { 'href': '/tco', 'text': 'TCO', 'icon': '/mf/i/nav/tco-generic.svg' },
+              { 'href': '/community/member-programs/', 'text': 'PROGRAMS', 'icon': '/mf/i/nav/programs.svg' },
+              { 'href': 'https://' + tcconfig.forumsAppURL, 'text': 'FORUMS', 'icon': '/mf/i/nav/forums.svg' },
+              { 'href': '/community/statistics/', 'text': 'STATISTICS', 'icon': '/mf/i/nav/statistics.svg' },
+              { 'href': '/community/events/', 'text': 'EVENTS', 'icon': '/mf/i/nav/events.svg' },
+              { 'href': '/blog/', 'text': 'BLOG', 'icon': '/mf/i/nav/blog.svg' }
+          ]
+        };
+
+        vm.checkSubmit = function(ev) {
+          if (ev.keyCode === 13)
+            window.location.replace(tcconfig.mainURL + '/search/members/?q=' + window.encodeURIComponent(vm.searchTerm));
+        }
+
+        vm.isActive = function(href) {
+          if (window.location.pathname == href)
+            return true;
+          return false;
+        }
+
+        vm.login = function() {
+          window.location.href = "/login?next=" + encodeURIComponent(window.location.href);
+        }
+
+        vm.logout = function() {
+          document.cookie = 'tcsso=; path=/; domain=.' + tcconfig.domain + '; expires=' + new Date(0).toUTCString();
+          document.cookie = 'tcjwt=; path=/; domain=.' + tcconfig.domain + '; expires=' + new Date(0).toUTCString();
+          main.menuVisible = vm.isAuth = false;
+          window.location.href = '/logout';
+        }
+      }
+    };
+  });
+
+  angular.bootstrap($('.ng-header-bootstrap'), ['tc.header']);
+})();
+</script>
+
+</div>
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"496af5ee90","applicationID":"5697815","transactionName":"ZlcBbBQAChBSARIKXV8dIlsSCAsNHBYDDkJdUxddSw4SBkEUDwZFHEUKXAEEEApJBwI=","queueTime":0,"applicationTime":99,"atts":"ShACGlwaGR4=","errorBeacon":"bam.nr-data.net","agent":""}</script>
+
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div><div><iframe style="border: none; background: transparent; z-index: 999999; transform: translateZ(0px); position: fixed; opacity: 0; right: 0px; bottom: 0px; width: 357px; margin-left: 15px; margin-right: 15px; margin-top: 0px; height: 473px; transition-property: none; transition-timing-function: unset; top: -9999px;" id="ticketSubmissionForm" class="zEWidget-ticketSubmissionForm" data-ze-reactid=".0" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/saved_resource(1).html"></iframe></div><div><iframe style="border: none; background: transparent; z-index: 999998; transform: translateZ(0px); position: fixed; opacity: 1; right: 0px; bottom: 0px; width: 109px; height: 47px; margin: 10px 20px;" id="launcher" class="zEWidget-launcher zEWidget-launcher--active" data-ze-reactid=".2" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/saved_resource(2).html"></iframe></div><div><iframe style="border: none; background: transparent; z-index: 2147483647; transform: translateZ(0px); position: fixed; opacity: 0; right: 0px; bottom: 0px; left: 50%; margin-left: -310px; margin-bottom: 15px; width: 640px; margin-top: 0px; height: 181px; transition-property: none; transition-timing-function: unset; top: -9999px;" id="nps" class="zEWidget-nps" data-ze-reactid=".4" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/saved_resource(3).html"></iframe></div><div><iframe style="border: none; background: transparent; z-index: 2147483647; transform: translateZ(0px); position: fixed; opacity: 0; right: 0px; top: -230px; margin-right: 15px; margin-top: 0px; height: 180px; width: 395px; transition-property: none; transition-timing-function: unset;" id="ipm" class="zEWidget-ipm" data-ze-reactid=".6" src="./Dynamic Programming – From Novice to Advanced – topcoder_files/saved_resource(4).html"></iframe></div></body></html>

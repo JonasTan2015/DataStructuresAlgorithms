@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.cnblogs.com/grandyang/p/5873525.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/bundle-UnlimitedSunlight.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/bundle-UnlimitedSunlight-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/grandyang/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/grandyang/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/grandyang/wlwmanifest.xml">
+<script type="text/javascript" src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/encoder.js.下载"></script><script src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'grandyang', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script><script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true } },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/grandyang/"><img id="blogLogo" src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/grandyang/">Grandyang</a></h1>
+<h2>选择泥泞的路，才会留下脚印...</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/grandyang/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Grandyang">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/grandyang/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/grandyang/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 920&nbsp; </span>
+<span id="stats_article_count">文章 - 1&nbsp; </span>
+<span id="stats-comment_count">评论 - 364</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/grandyang/p/5873525.html">[LeetCode] Integer Replacement 整数替换</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp;</p>
+<p>Given a positive integer&nbsp;<em>n</em>&nbsp;and you can do operations as follow:</p>
+<p>&nbsp;</p>
+<ol>
+<li>If&nbsp;<em>n</em>&nbsp;is even, replace&nbsp;<em>n</em>&nbsp;with&nbsp;<code><em>n</em>/2</code>.</li>
+<li>If&nbsp;<em>n</em>&nbsp;is odd, you can replace&nbsp;<em>n</em>&nbsp;with either&nbsp;<code><em>n</em>&nbsp;+ 1</code>&nbsp;or&nbsp;<code><em>n</em>&nbsp;- 1</code>.</li>
+</ol>
+<p>&nbsp;</p>
+<p>What is the minimum number of replacements needed for&nbsp;<em>n</em>&nbsp;to become 1?</p>
+<p>&nbsp;</p>
+<p>Example 1:</p>
+<pre>Input:
+8
+
+Output:
+3
+
+Explanation:
+8 -&gt; 4 -&gt; 2 -&gt; 1
+</pre>
+<p>&nbsp;</p>
+<p>Example 2:</p>
+<pre>Input:
+7
+
+Output:
+4
+
+Explanation:
+7 -&gt; 8 -&gt; 4 -&gt; 2 -&gt; 1
+or
+7 -&gt; 6 -&gt; 3 -&gt; 2 -&gt; 1</pre>
+<p>&nbsp;</p>
+<p>这道题给了我们一个整数n，然后让我们通过变换变为1，如果n是偶数，我们变为n/2，如果是奇数，我们可以变为n+1或n-1，让我们求变为1的最少步骤。那么一看道题的要求，就会感觉应该用递归很合适，我们直接按照规则写出递归即可，注意由于有n+1的操作，所以当n为INT_MAX的时候，就有可能溢出，所以我们可以先将n转为长整型，然后再进行运算，参见代码如下：</p>
+<p>&nbsp;</p>
+<p>解法一：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span> integerReplacement(<span style="color: #0000ff;">int</span><span style="color: #000000;"> n) {
+        </span><span style="color: #0000ff;">if</span> (n == <span style="color: #800080;">1</span>) <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span> (n % <span style="color: #800080;">2</span> == <span style="color: #800080;">0</span>) <span style="color: #0000ff;">return</span> <span style="color: #800080;">1</span> + integerReplacement(n / <span style="color: #800080;">2</span><span style="color: #000000;">);
+        </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            </span><span style="color: #0000ff;">long</span> <span style="color: #0000ff;">long</span> t =<span style="color: #000000;"> n;
+            </span><span style="color: #0000ff;">return</span> <span style="color: #800080;">2</span> + min(integerReplacement((t + <span style="color: #800080;">1</span>) / <span style="color: #800080;">2</span>), integerReplacement((t - <span style="color: #800080;">1</span>) / <span style="color: #800080;">2</span><span style="color: #000000;">));
+        }
+    }
+}; </span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>我们也可以使用迭代的解法，那么这里就有小技巧了，当n为奇数的时候，我们什么时候应该加1，什么时候应该减1呢，通过观察来说，除了3和7意外，所有加1就变成4的倍数的奇数，适合加1运算，比如15:</p>
+<p>15 -&gt; 16 -&gt; 8 -&gt; 4 -&gt; 2 -&gt; 1</p>
+<p>15 -&gt; 14 -&gt; 7 -&gt; 6 -&gt; 3 -&gt; 2 -&gt; 1</p>
+<p>对于7来说，加1和减1的结果相同，我们可以不用管，对于3来说，减1的步骤小，所以我们需要去掉这种情况。那么我们如何知道某个数字加1后是否是4的倍数呢，我们可以用个小技巧，由于我们之前判定其是奇数了，那么最右边一位肯定是1，如果其右边第二位也是1的话，那么进行加1运算，进位后右边肯定会出现两个0，则一定是4的倍数，搞定。如果之前判定是偶数，那么除以2即可，参见代码如下：</p>
+<p>&nbsp;</p>
+<p>解法二：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> Solution {
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+    </span><span style="color: #0000ff;">int</span> integerReplacement(<span style="color: #0000ff;">int</span><span style="color: #000000;"> n) {
+        </span><span style="color: #0000ff;">long</span> <span style="color: #0000ff;">long</span> t =<span style="color: #000000;"> n;
+        </span><span style="color: #0000ff;">int</span> cnt = <span style="color: #800080;">0</span><span style="color: #000000;">;
+        </span><span style="color: #0000ff;">while</span> (t &gt; <span style="color: #800080;">1</span><span style="color: #000000;">) {
+            </span>++<span style="color: #000000;">cnt;
+            </span><span style="color: #0000ff;">if</span> (t &amp; <span style="color: #800080;">1</span><span style="color: #000000;">) {
+                </span><span style="color: #0000ff;">if</span> ((t &amp; <span style="color: #800080;">2</span>) &amp;&amp; (t != <span style="color: #800080;">3</span>)) ++<span style="color: #000000;">t;
+                </span><span style="color: #0000ff;">else</span> --<span style="color: #000000;">t;
+            } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+                t </span>&gt;&gt;= <span style="color: #800080;">1</span><span style="color: #000000;">;
+            }
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> cnt;
+    }
+};</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>参考资料：</p>
+<p><a href="https://discuss.leetcode.com/topic/58655/0ms-cpp-solution" target="_blank">https://discuss.leetcode.com/topic/58655/0ms-cpp-solution</a></p>
+<p>&nbsp;</p>
+<p><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/grandyang/p/4606334.html">LeetCode All in One 题目讲解汇总(持续更新中...)</a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/grandyang/category/625406.html" target="_blank">LeetCode</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5873525,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;02affae8-0e77-e111-aa3f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/grandyang/" target="_blank"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/grandyang/">Grandyang</a><br>
+            <a href="http://home.cnblogs.com/u/grandyang/followees">关注 - 23</a><br>
+            <a href="http://home.cnblogs.com/u/grandyang/followers">粉丝 - 110</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;02affae8-0e77-e111-aa3f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5873525,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(5873525,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/grandyang/p/5869791.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/grandyang/p/5869791.html" title="发布于2016-09-13 21:02">[LeetCode] Rotate Function 旋转函数</a><br><a href="http://www.cnblogs.com/grandyang/p/5875509.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/grandyang/p/5875509.html" title="发布于2016-09-15 21:45">[LeetCode] Random Pick Index 随机拾取序列</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-09-14 20:57</span> <a href="http://www.cnblogs.com/grandyang/">Grandyang</a> 阅读(<span id="post_view_count">967</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5873525" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/grandyang/p/5873525.html#" onclick="AddToWz(5873525);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=198221,cb_entryId=5873525,cb_blogApp=currentBlogApp,cb_blogUserGuid='02affae8-0e77-e111-aa3f-842b2b196315',cb_entryCreatedDate='2016/9/14 20:57:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/grandyang/p/5873525.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/grandyang/p/5873525.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://www.163yun.com/zs?zsfrom=vcloud" target="_blank">【邀请】网易云渠道合作伙伴招商大会，邀您共创未来</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/24442-20161115165230123-1587531896.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/558295/" target="_blank">苹果1984年的招聘启事曝光：当时月薪就24K了</a><br> ·  <a href="http://news.cnblogs.com/n/558294/" target="_blank">甲骨文可能终止了Solaris开发</a><br> ·  <a href="http://news.cnblogs.com/n/558293/" target="_blank">回家过年的火车票即将开抢！请收下这份攻略</a><br> ·  <a href="http://news.cnblogs.com/n/558292/" target="_blank">奔驰展示全新“数字灯光”系统：道路交通更安全</a><br> ·  <a href="http://news.cnblogs.com/n/558291/" target="_blank">黑莓Mercury真机曝光 配标志性QWERTY键盘</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/7898/" target="_blank"><img width="468" height="60" src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/24442-20161129114435240-502338490.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2015-09-14 <a href="http://www.cnblogs.com/grandyang/p/4806835.html">[CareerCup] 8.9 An In-memory File System 内存文件系统</a><br></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><a href="http://www.visitormap.org/" target="_top"><img src="./[LeetCode] Integer Replacement 整数替换 - Grandyang - 博客园_files/y-1.png" alt="Free Visitor Maps at VisitorMap.org" border="0"></a><br><a href="http://www.visitormap.org/">Get a FREE visitor map for your site!</a>
+<div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/grandyang/">Grandyang</a><br>园龄：<a href="http://home.cnblogs.com/u/grandyang/" title="入园时间：2012-03-26">4年8个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/grandyang/followers/">110</a><br>关注：<a href="http://home.cnblogs.com/u/grandyang/followees/">23</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;02affae8-0e77-e111-aa3f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/11/01&#39;);return false;">&lt;</a></td><td align="center">2016年12月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/01/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/12/01.html"><u>1</u></a></td><td align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/12/02.html"><u>2</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/grandyang/archive/2016/12/03.html"><u>3</u></a></td></tr><tr><td class="CalTodayDay" align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td class="CalWeekendDay" align="center">10</td></tr><tr><td class="CalWeekendDay" align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td class="CalWeekendDay" align="center">17</td></tr><tr><td class="CalWeekendDay" align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalWeekendDay" align="center">24</td></tr><tr><td class="CalWeekendDay" align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalWeekendDay" align="center">31</td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/grandyang/p/6130003.html">1. [LintCode] Best Time to Buy and Sell Stock 买卖股票的最佳时间</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6127747.html">2. [LintCode] Sort List 链表排序</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6121604.html">3. [LintCode] Climbing Stairs 爬梯子问题</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6117182.html">4. [LintCode] Find Peak Element 求数组的峰值</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6115984.html">5. [LintCode] Container With Most Water 装最多水的容器</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6115972.html">6. [LintCode] Linked List Cycle 单链表中的环</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6108158.html">7. [LeetCode] Optimal Account Balancing 最优账户平衡</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6106167.html">8. 机器学习&amp;深度学习资料</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6103525.html">9. [LeetCode] Can I Win 我能赢吗</a></li><li><a href="http://www.cnblogs.com/grandyang/p/6103521.html">10. IOS UIAlertController 使用方法</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/grandyang/category/652317.html">3D Visualization(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/grandyang/category/637842.html">Adobe Software(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/grandyang/category/663275.html">Algorithms(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/grandyang/category/634612.html">C/C++, Java(31)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/grandyang/category/711820.html">CareerCup(150)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/grandyang/category/784319.html">CUDA/OpenCL(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/grandyang/category/624035.html">Digital Image Processing(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/grandyang/category/625885.html">Entertainment(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/grandyang/category/658003.html">GTK+/VTK/ITK/FLTK(17)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/grandyang/category/628989.html">IOS(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/grandyang/category/875464.html">LaTex(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/grandyang/category/625406.html">LeetCode(444)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/grandyang/category/731123.html">LintCode(92)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/grandyang/category/718760.html">MatLab(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/grandyang/category/734787.html">Maya / 3ds Max(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/grandyang/category/808866.html">MySQL(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/grandyang/category/632345.html">OpenCV(35)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/grandyang/category/624346.html">Point Grey Research(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/grandyang/category/658313.html">Qt(47)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/grandyang/category/624037.html">Useful Links(33)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/grandyang/archive/2016/12.html">2016年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/grandyang/archive/2016/11.html">2016年11月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/grandyang/archive/2016/10.html">2016年10月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/grandyang/archive/2016/09.html">2016年9月 (24)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/grandyang/archive/2016/08.html">2016年8月 (40)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/grandyang/archive/2016/07.html">2016年7月 (31)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/grandyang/archive/2016/06.html">2016年6月 (33)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/grandyang/archive/2016/05.html">2016年5月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/grandyang/archive/2016/04.html">2016年4月 (70)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/grandyang/archive/2016/03.html">2016年3月 (32)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/grandyang/archive/2016/02.html">2016年2月 (32)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/grandyang/archive/2016/01.html">2016年1月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/grandyang/archive/2015/12.html">2015年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/grandyang/archive/2015/11.html">2015年11月 (36)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/grandyang/archive/2015/10.html">2015年10月 (43)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/grandyang/archive/2015/09.html">2015年9月 (51)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/grandyang/archive/2015/08.html">2015年8月 (46)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/grandyang/archive/2015/07.html">2015年7月 (45)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/grandyang/archive/2015/06.html">2015年6月 (29)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/grandyang/archive/2015/05.html">2015年5月 (28)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/grandyang/archive/2015/04.html">2015年4月 (42)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/grandyang/archive/2015/03.html">2015年3月 (55)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/grandyang/archive/2015/02.html">2015年2月 (61)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/grandyang/archive/2015/01.html">2015年1月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/grandyang/archive/2014/12.html">2014年12月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/grandyang/archive/2014/11.html">2014年11月 (27)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/grandyang/archive/2014/10.html">2014年10月 (35)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/grandyang/archive/2014/09.html">2014年9月 (5)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	715277
+	</li>
+	<li class="liRank">
+		排名 -	111
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/5983113.html#3570447">1. Re:[LeetCode] Third Maximum Number 第三大的数</a></li>
+        <li class="recent_comment_body">set insert复杂度是 O(lgn)， 程序的复杂度就是 O(nlgn)了</li>
+        <li class="recent_comment_author">--袁野24</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/5006441.html#3569318">2. Re:[LeetCode] Burst Balloons 打气球游戏</a></li>
+        <li class="recent_comment_body">嗯，看到了第一眼就晓得肯定是用DP, 但是就是硬想不出来动态规划公式，用递归优化了也还是TLE, 郁闷，只要有了动态规划公式，其实也好办，不过这个公式不容易想到，我就不懂为啥Accept率那么高，搞得......</li>
+        <li class="recent_comment_author">--fantasywindy</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/4217175.html#3568733">3. Re:[LeetCode] Find Peak Element 求数组的局部峰值</a></li>
+        <li class="recent_comment_body">@xzhang45一起加油～...</li>
+        <li class="recent_comment_author">--Grandyang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/4217175.html#3568704">4. Re:[LeetCode] Find Peak Element 求数组的局部峰值</a></li>
+        <li class="recent_comment_body">@Grandyang感谢楼主的讲解！！我还需要多练习....</li>
+        <li class="recent_comment_author">--xzhang45</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/grandyang/p/4217175.html#3568320">5. Re:[LeetCode] Find Peak Element 求数组的峰值</a></li>
+        <li class="recent_comment_body">@xzhang45你这是一个很好的想法，我也一直被二分查找的不同写法困扰着，我一般个人习惯是while里都是左闭右开，然后根据题目要求调整初始条件的开闭情况，比如Longest Increasing ......</li>
+        <li class="recent_comment_author">--Grandyang</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/grandyang/p/4606334.html">1. LeetCode All in One 题目讲解汇总(持续更新中...)(43616)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4295761.html">2. [LeetCode] Best Time to Buy and Sell Stock IV 买卖股票的最佳时间之四(12856)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4383632.html">3. [LeetCode] House Robber 打家劫舍(8629)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4523624.html">4. [LeetCode] Shortest Palindrome 最短回文串(8197)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4800552.html">5. [LeetCode] Perfect Squares 完全平方数(8172)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4997417.html">6. [LeetCode] Best Time to Buy and Sell Stock with Cooldown 买股票的最佳时间含冷冻期(7186)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4629032.html">7. [LeetCode] Number of Digit One 数字1的个数(7138)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4743837.html">8. [LeetCode] Ugly Number II 丑陋数之二(6810)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4484571.html">9. [LeetCode] Course Schedule 课程清单(6657)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4545261.html">10. [LeetCode] Contains Duplicate III 包含重复值之三(6609)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/grandyang/p/4105725.html">1. [FlyCapture2] Bumblebee XB3 Save Images to Three AVI Files (Left, Center and Right) 大黄蜂立体相机保存捕获的视频到左中右三个不同的文件(35)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4555831.html">2. [LeetCode] Surrounded Regions 包围区域(17)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4606334.html">3. LeetCode All in One 题目讲解汇总(持续更新中...)(12)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4480780.html">4. [LeetCode] Longest Substring Without Repeating Characters 最长无重复子串(10)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4539680.html">5. [LeetCode] Contains Duplicate II 包含重复值之二(8)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/grandyang/p/4606334.html">1. LeetCode All in One 题目讲解汇总(持续更新中...)(7)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4854466.html">2. [LeetCode] Game of Life 生命游戏(3)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4743837.html">3. [LeetCode] Ugly Number II 丑陋数之二(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4309345.html">4. [LeetCode] Subsets 子集合(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4539768.html">5. [LeetCode] Word Ladder 词语阶梯(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4475985.html">6. Manacher's Algorithm 马拉车算法(2)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4465932.html">7. [LeetCode] Median of Two Sorted Arrays 两个有序数组的中位数(1)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4464476.html">8. [LeetCode] Longest Palindromic Substring 最长回文串(1)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4447233.html">9. [LeetCode] Happy Number 快乐数(1)</a></li><li><a href="http://www.cnblogs.com/grandyang/p/4431949.html">10. [LeetCode] Divide Two Integers 两数相除(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 Grandyang
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

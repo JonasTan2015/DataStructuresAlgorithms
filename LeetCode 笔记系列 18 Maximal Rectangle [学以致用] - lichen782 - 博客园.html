@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/bundle-sea.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/bundle-sea-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/lichen782/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/lichen782/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/lichen782/wlwmanifest.xml">
+<script type="text/javascript" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/encoder.js.下载"></script><script src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'lichen782', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/javascript" src="chrome-extension://aadgmnobpdmgmigaicncghmmoeflnamj/ng-inspector.js"></script></head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/lichen782/">实验室小纸贴校外版</a><br>
+		李二娃的博客 - 大大小小，点点滴滴
+	</div>
+</div>
+
+</div>
+
+<div id="mytopmenu">
+	
+		<div id="mylinks"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a> &nbsp;
+<a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/lichen782/">首页</a> &nbsp;
+<a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> &nbsp;
+<a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/lichen782">联系</a> &nbsp;
+<a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/lichen782/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/lichen782/rss"><img src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;
+<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+		<div id="mystats"><div id="blog_stats">
+随笔-33&nbsp;
+评论-39&nbsp;
+文章-0&nbsp;
+<!--trackbacks-0-->
+</div></div>
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<div class="post">
+	<h1 class="postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html">LeetCode 笔记系列 18 Maximal Rectangle [学以致用]</a></h1>
+	<div id="cnblogs_post_body"><p>题目：&nbsp;<span>Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing all ones and return its area.</span></p>
+<p><span><img src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/20220216-6a5daf74280c4c929a3cf06e741943f6.png" alt="" width="207" height="207"></span></p>
+<p>leetcode的题目真是越来越经典了。比如这个题目，就是一道男默女泪的题。</p>
+<p>一般人拿到这个题目，除非做过类似的，很难一眼找出一个方法来，更别说找一个比较优化的方法了。</p>
+<p>首先一个难点就是，你怎么判断某个区域就是一个矩形呢？</p>
+<p>其次，以何种方式来遍历这个2D的matrix呢？</p>
+<p>一般来说，对这种“棋盘式”的题目，像什么Queen啦，象棋啦，数独啦，如果没有比较明显的遍历方式，可以采用一行一行地遍历。（好像废话哦。。。）</p>
+<p>然后，当遍历到(i, j)的时候，该做什么样的事情呢？想想，嗯，那我可不可以简单看看，以(i,j)为矩形左上角，能不能形成一个矩形，能不能形成多个矩形？那形成的矩形中，我们能不能找一个最大的呢？（有同学问，为毛你要以这个点为左上角，不为左下角，或者其他脚哩？因为我们打算从左到右，从上到下一行一行遍历嘛，这样就不会漏掉，说不定还能做一些优化）</p>
+<p>首先，如果(i, j)是0，那肯定没法是矩形了。</p>
+<p>如果是1，那么我们怎么找以它为左上角的矩形呢？呼唤画面感！</p>
+<p><img src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/20223403-64ab2f344d24409786bca2cdb184042b.png" alt="" width="424" height="275"></p>
+<p>。。。你TM在逗我？==b</p>
+<p>图中圈圈表示左上角的1，那么矩形的可能性是。。。太多啦，怎么数嘛！</p>
+<p>我们可以试探地从左上角的1所在的列开始，往下数数，然后呢，比如在第一行，例如是蓝色的那个矩形，我们看看在列上，它延伸了多远，这个面积是可以算出来的。</p>
+<p>然后继续，第二行，例如是那个红色的矩形，再看它延伸到多远，哦，我们知道，比第一行近一些，我们也可以用当前离第一行的行数，乘以延伸的距离，得到当前行表示的矩形面积。</p>
+<p>但是到了第一个虚线的地方，它远远超过了上面的其他所有行延伸的距离了，注意它的上方都是空心的哦，所以，我们遇到这种情况，计算当前行和左上角1围成的面积的时候，<span style="font-size: 18pt;"><strong>只能取所有前面最小的延伸距离乘以当前离第一行的行数</strong></span>。其实，这对所有情况都是这样的，是吧？于是，我们不是就有方法遍历这些所有的矩形了嘛。</p>
+<p>代码如下：</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;b0202d6a-8821-4c0d-b453-13c4c9358908&#39;)"><img id="code_img_closed_b0202d6a-8821-4c0d-b453-13c4c9358908" class="code_img_closed" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_b0202d6a-8821-4c0d-b453-13c4c9358908" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;b0202d6a-8821-4c0d-b453-13c4c9358908&#39;,event)" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_b0202d6a-8821-4c0d-b453-13c4c9358908" class="cnblogs_code_hide">
+<pre><span style="color: #008080;"> 1</span>     <span style="color: #008000;">/**</span>
+<span style="color: #008080;"> 2</span> <span style="color: #008000;">     * 以给出的坐标作为左上角，计算其中的最大矩形面积
+</span><span style="color: #008080;"> 3</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> matrix
+</span><span style="color: #008080;"> 4</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> row 给出坐标的行
+</span><span style="color: #008080;"> 5</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> col 给出坐标的列
+</span><span style="color: #008080;"> 6</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@return</span><span style="color: #008000;"> 返回最大矩形的面积
+</span><span style="color: #008080;"> 7</span>      <span style="color: #008000;">*/</span>
+<span style="color: #008080;"> 8</span>     <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> maxRectangle(<span style="color: #0000ff;">char</span>[][] matrix, <span style="color: #0000ff;">int</span> row, <span style="color: #0000ff;">int</span><span style="color: #000000;"> col) {
+</span><span style="color: #008080;"> 9</span>         <span style="color: #0000ff;">int</span> minWidth =<span style="color: #000000;"> Integer.MAX_VALUE;
+</span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">int</span> maxArea = 0<span style="color: #000000;">;
+</span><span style="color: #008080;">11</span>         <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = row; i &lt; matrix.length &amp;&amp; matrix[i][col] == '1'; i++<span style="color: #000000;">) {
+</span><span style="color: #008080;">12</span>             <span style="color: #0000ff;">int</span> width = 0<span style="color: #000000;">;
+</span><span style="color: #008080;">13</span>             <span style="color: #0000ff;">while</span> (col + width &lt;<span style="color: #000000;"> matrix[row].length
+</span><span style="color: #008080;">14</span>                     &amp;&amp; matrix[i][col + width] == '1'<span style="color: #000000;">) {
+</span><span style="color: #008080;">15</span>                 width++<span style="color: #000000;">;
+</span><span style="color: #008080;">16</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">17</span>             <span style="color: #0000ff;">if</span> (width &lt; minWidth) {<span style="color: #008000;">//</span><span style="color: #008000;"> 如果当前宽度小于了以前的最小宽度，更新它，为下面的矩形计算做准备</span>
+<span style="color: #008080;">18</span>                 minWidth =<span style="color: #000000;"> width;
+</span><span style="color: #008080;">19</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">20</span>             <span style="color: #0000ff;">int</span> area = minWidth * (i - row + 1<span style="color: #000000;">);
+</span><span style="color: #008080;">21</span>             <span style="color: #0000ff;">if</span> (area &gt;<span style="color: #000000;"> maxArea)
+</span><span style="color: #008080;">22</span>                 maxArea =<span style="color: #000000;"> area;
+</span><span style="color: #008080;">23</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">24</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> maxArea;
+</span><span style="color: #008080;">25</span>     }</pre>
+</div>
+<span class="cnblogs_code_collapse">maxRectangle</span></div>
+<p>这样，我们再对每个点都调用一下上面的这个方法，不是就能求出最大面积了么。</p>
+<p><strong>解法一：</strong></p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;6144408c-23f0-4260-86dc-adb0fbd02a43&#39;)"><img id="code_img_closed_6144408c-23f0-4260-86dc-adb0fbd02a43" class="code_img_closed" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_6144408c-23f0-4260-86dc-adb0fbd02a43" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;6144408c-23f0-4260-86dc-adb0fbd02a43&#39;,event)" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_6144408c-23f0-4260-86dc-adb0fbd02a43" class="cnblogs_code_hide">
+<pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span> maximalRectangle(<span style="color: #0000ff;">char</span><span style="color: #000000;">[][] matrix) {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> Start typing your Java solution below
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> DO NOT write main() function</span>
+        <span style="color: #0000ff;">int</span> m =<span style="color: #000000;"> matrix.length;
+        </span><span style="color: #0000ff;">int</span> n = m == 0 ? 0 : matrix[0<span style="color: #000000;">].length;
+        </span><span style="color: #0000ff;">int</span> maxArea = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = 0; i &lt; m; i++){<span style="color: #008000;">//</span><span style="color: #008000;">row</span>
+            <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j = 0; j &lt; n; j++){<span style="color: #008000;">//</span><span style="color: #008000;">col</span>
+                <span style="color: #0000ff;">if</span>(matrix[i][j] == '1'<span style="color: #000000;">){
+                    </span><span style="color: #0000ff;">int</span> area =<span style="color: #000000;"> maxRectangle(matrix, i, j);
+                    </span><span style="color: #0000ff;">if</span>(area &gt; maxArea) maxArea =<span style="color: #000000;"> area;
+                }
+            }
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> maxArea;
+     }</span></pre>
+</div>
+<span class="cnblogs_code_collapse">View Code </span></div>
+<p>这个需要O(n<sup>3</sup>)，所以没有通过大集合的测试。</p>
+<p>leetcode的讨论组给出了一个比较难理解的<a href="http://discuss.leetcode.com/questions/260/maximal-rectangle">方法</a>，这里就不采用了。</p>
+<p>说说第三个方法。<a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html">前一个笔记</a>，我们讨论了柱状图的最大矩形面积，那可以O(n)的，<strong><span style="font-size: 16px;">学以致用</span></strong>呀！btw，leetcode的这两题也是挨一块儿的，用心良苦。。。。</p>
+<p><img src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/20232015-42cfb4fde2c34119b1811953e34d4193.png" alt="" width="406" height="244"></p>
+<p>如果我们把每一行看成x坐标，那高度就是从那一行开始往上数的1的个数。带入我们的maxAreaInHist方法，在O(n<sup>2</sup>)时间内就可以求出每一行形成的“柱状图”的最大矩形面积了。它们之中最大的，就是我们要的答案。</p>
+<p>代码如下：</p>
+<div class="cnblogs_code" onclick="cnblogs_code_show(&#39;4e326c4a-c6bc-41c8-8008-efb33a663d7e&#39;)"><img id="code_img_closed_4e326c4a-c6bc-41c8-8008-efb33a663d7e" class="code_img_closed" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/ContractedBlock.gif" alt=""><img id="code_img_opened_4e326c4a-c6bc-41c8-8008-efb33a663d7e" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;4e326c4a-c6bc-41c8-8008-efb33a663d7e&#39;,event)" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_4e326c4a-c6bc-41c8-8008-efb33a663d7e" class="cnblogs_code_hide">
+<pre><span style="color: #008080;"> 1</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">int</span> maximalRectangle2(<span style="color: #0000ff;">char</span><span style="color: #000000;">[][] matrix) {
+</span><span style="color: #008080;"> 2</span>         <span style="color: #0000ff;">int</span> m =<span style="color: #000000;"> matrix.length;
+</span><span style="color: #008080;"> 3</span>         <span style="color: #0000ff;">int</span> n = m == 0 ? 0 : matrix[0<span style="color: #000000;">].length;
+</span><span style="color: #008080;"> 4</span>         <span style="color: #0000ff;">int</span>[][] height = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span>[m][n + 1<span style="color: #000000;">];
+</span><span style="color: #008080;"> 5</span>         <span style="color: #008000;">//</span><span style="color: #008000;">actually we know that height can just be a int[n+1], 
+</span><span style="color: #008080;"> 6</span>         <span style="color: #008000;">//</span><span style="color: #008000;">however, in that case, we have to write the 2 parts together in row traverse,
+</span><span style="color: #008080;"> 7</span>         <span style="color: #008000;">//</span><span style="color: #008000;">which, leetcode just doesn't make you pass big set
+</span><span style="color: #008080;"> 8</span>         <span style="color: #008000;">//</span><span style="color: #008000;">所以啊，leetcode是喜欢分开写循环的，即使时间复杂度一样，即使可以节约空间</span>
+<span style="color: #008080;"> 9</span>         <span style="color: #0000ff;">int</span> maxArea = 0<span style="color: #000000;">;
+</span><span style="color: #008080;">10</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = 0; i &lt; m; i++<span style="color: #000000;">){
+</span><span style="color: #008080;">11</span>             <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j = 0; j &lt; n; j++<span style="color: #000000;">) {
+</span><span style="color: #008080;">12</span>                 <span style="color: #0000ff;">if</span>(matrix[i][j] == '0'<span style="color: #000000;">){
+</span><span style="color: #008080;">13</span>                     height[i][j] = 0<span style="color: #000000;">;
+</span><span style="color: #008080;">14</span>                 }<span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+</span><span style="color: #008080;">15</span>                     height[i][j] = i == 0 ? 1 : height[i - 1][j] + 1<span style="color: #000000;">;
+</span><span style="color: #008080;">16</span> <span style="color: #000000;">                }
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">18</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">19</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = 0; i &lt; m; i++<span style="color: #000000;">){
+</span><span style="color: #008080;">20</span>             <span style="color: #0000ff;">int</span> area =<span style="color: #000000;"> maxAreaInHist(height[i]);
+</span><span style="color: #008080;">21</span>             <span style="color: #0000ff;">if</span>(area &gt;<span style="color: #000000;"> maxArea){
+</span><span style="color: #008080;">22</span>                 maxArea =<span style="color: #000000;"> area;
+</span><span style="color: #008080;">23</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">24</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">25</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> maxArea;
+</span><span style="color: #008080;">26</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">27</span>      
+<span style="color: #008080;">28</span>      <span style="color: #0000ff;">private</span> <span style="color: #0000ff;">int</span> maxAreaInHist(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] height){
+</span><span style="color: #008080;">29</span>          Stack&lt;Integer&gt; stack = <span style="color: #0000ff;">new</span> Stack&lt;Integer&gt;<span style="color: #000000;">();
+</span><span style="color: #008080;">30</span>          <span style="color: #0000ff;">int</span> i = 0<span style="color: #000000;">;
+</span><span style="color: #008080;">31</span>          <span style="color: #0000ff;">int</span> maxArea = 0<span style="color: #000000;">;
+</span><span style="color: #008080;">32</span>          <span style="color: #0000ff;">while</span>(i &lt;<span style="color: #000000;"> height.length){
+</span><span style="color: #008080;">33</span>              <span style="color: #0000ff;">if</span>(stack.isEmpty() || height[stack.peek()] &lt;=<span style="color: #000000;"> height[i]){
+</span><span style="color: #008080;">34</span>                  stack.push(i++<span style="color: #000000;">);
+</span><span style="color: #008080;">35</span>              }<span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+</span><span style="color: #008080;">36</span>                  <span style="color: #0000ff;">int</span> t =<span style="color: #000000;"> stack.pop();
+</span><span style="color: #008080;">37</span>                  maxArea = Math.max(maxArea, height[t] * (stack.isEmpty() ? i : i - stack.peek() - 1<span style="color: #000000;">));
+</span><span style="color: #008080;">38</span> <span style="color: #000000;">             }
+</span><span style="color: #008080;">39</span> <span style="color: #000000;">         }
+</span><span style="color: #008080;">40</span>          <span style="color: #0000ff;">return</span><span style="color: #000000;"> maxArea;
+</span><span style="color: #008080;">41</span>      }</pre>
+</div>
+<span class="cnblogs_code_collapse">View Code </span></div>
+<p>这里有一个和leetcode相关的细节。就是本来在计算height数组的时候，我们没有必要分配成代码中的那个样子，一维就可以了，然后在遍历每一行的时候计算当前行的height数组，然后再计算maxArea。这种情况下还是过不了大集合，所以不得不为每一行都保存一个height，先期计算该二维数组。</p>
+<p>总结：</p>
+<p>1. 学到的新知识要用；</p>
+<p>2. 画面感和逻辑分析都很重要，不可偏非。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/lichen782/category/494719.html" target="_blank">LeetCode</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/lichen782/tag/leetcode/">leetcode</a>, <a href="http://www.cnblogs.com/lichen782/tag/algorithm/">algorithm</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3203228,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;f0ded24b-ef2b-e211-aa8f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/lichen782/" target="_blank"><img src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/u466943.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/lichen782/">lichen782</a><br>
+            <a href="http://home.cnblogs.com/u/lichen782/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/lichen782/followers">粉丝 - 20</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;f0ded24b-ef2b-e211-aa8f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3203228,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">2</span>
+    </div>
+    <div class="buryit" onclick="votePost(3203228,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html" title="发布于2013-07-17 21:51">LeetCode 笔记系列 17 Largest Rectangle in Histogram</a><br><a href="http://www.cnblogs.com/lichen782/p/leetcode_Scramble_String.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/lichen782/p/leetcode_Scramble_String.html" title="发布于2013-07-21 17:18">LeetCode 笔记系列 19 Scramble String [合理使用递归]</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2013-07-20 23:17</span> <a href="http://www.cnblogs.com/lichen782/">lichen782</a> 阅读(<span id="post_view_count">18185</span>) 评论(<span id="post_comment_count">5</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3203228" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#" onclick="AddToWz(3203228);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=133341,cb_entryId=3203228,cb_blogApp=currentBlogApp,cb_blogUserGuid='f0ded24b-ef2b-e211-aa8f-842b2b196315',cb_entryCreatedDate='2013/7/20 23:17:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<b>评论:</b>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#2760427" class="layer">#1楼</a><a name="2760427" id="comment_anchor_2760427"></a>
+				 <span class="comment_date">2013-08-26 11:59</span> | <a id="a_comment_author_2760427" href="http://www.cnblogs.com/lautsie/" target="_blank">阿牧遥</a> <a href="http://msg.cnblogs.com/send/%E9%98%BF%E7%89%A7%E9%81%A5" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2760427" class="blog_comment_body">解法一是N^4吧？i,j的遍历是2次方，然后对每个点向右找1的个数是1次方，向下找行数又是1次方</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2760427,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2760427,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2760427_avatar" style="display:none;">http://pic.cnblogs.com/face/545749/20130816001549.png</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#2942195" class="layer">#2楼</a><a name="2942195" id="comment_anchor_2942195"></a>
+				 <span class="comment_date">2014-05-20 04:11</span> | <a id="a_comment_author_2942195" href="http://home.cnblogs.com/u/635306/" target="_blank">tia</a> <a href="http://msg.cnblogs.com/send/tia" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2942195" class="blog_comment_body">计算height数组，一维可以了<br><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_77455" class="syntaxhighlighter  java"><div class="toolbar"><span><a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">int</code><code class="java plain">[] h = </code><code class="java keyword">new</code> <code class="java keyword">int</code><code class="java plain">[col+</code><code class="java value">1</code><code class="java plain">];</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code><code class="java plain">(</code><code class="java keyword">int</code> <code class="java plain">i=</code><code class="java value">0</code><code class="java plain">; i&lt;row; i++){</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code><code class="java plain">(</code><code class="java keyword">int</code> <code class="java plain">j=</code><code class="java value">0</code><code class="java plain">; j&lt;col; j++){</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code><code class="java plain">(matrix[i][j]==</code><code class="java string">'1'</code><code class="java plain">)</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">h[j] = i==</code><code class="java value">0</code> <code class="java plain">? </code><code class="java value">1</code> <code class="java plain">: h[j]+</code><code class="java value">1</code><code class="java plain">;</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">else</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">h[j] = </code><code class="java value">0</code><code class="java plain">;</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">max = Math.max(max, largestRectangleArea(h));</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div></div></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2942195,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2942195,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#3027959" class="layer">#3楼</a><a name="3027959" id="comment_anchor_3027959"></a>
+				 <span class="comment_date">2014-09-14 14:11</span> | <a id="a_comment_author_3027959" href="http://www.cnblogs.com/Kai-Xing/" target="_blank">Ryan-Xing</a> <a href="http://msg.cnblogs.com/send/Ryan-Xing" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3027959" class="blog_comment_body">感觉maxAreaInHist函数有bug, 如果height数组是递增的，按你的逻辑maxArea没有始终没有得到更新，最后返回的是初始值0。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3027959,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3027959,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3027959_avatar" style="display:none;">http://pic.cnblogs.com/face/341595/20130815225842.png</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#3189002" class="layer">#4楼</a><a name="3189002" id="comment_anchor_3189002"></a>
+				 <span class="comment_date">2015-05-21 09:10</span> | <a id="a_comment_author_3189002" href="http://home.cnblogs.com/u/585207/" target="_blank">wee2014</a> <a href="http://msg.cnblogs.com/send/wee2014" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3189002" class="blog_comment_body">lz写的好欢乐。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3189002,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3189002,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#3201418" class="layer">#5楼</a><a name="3201418" id="comment_anchor_3201418"></a><span id="comment-maxId" style="display:none;">3201418</span><span id="comment-maxDate" style="display:none;">2015/6/5 14:30:52</span>
+				 <span class="comment_date">2015-06-05 14:30</span> | <a id="a_comment_author_3201418" href="http://home.cnblogs.com/u/676014/" target="_blank">听雨落下</a> <a href="http://msg.cnblogs.com/send/%E5%90%AC%E9%9B%A8%E8%90%BD%E4%B8%8B" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_3201418" class="blog_comment_body">👍</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3201418,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3201418,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+
+
+
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://arcapp.anruichina.com/arctrac/trac?tid=smb_azure_1212_CNBlog" target="_blank">【福利】Microsoft Azure给博客园的你专属三重大礼</a><br><a href="https://group.cnblogs.com/topic/76065.html" target="_blank">【直播】周三，微软全球黑带专家直播部署Web应用</a><br><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg" target="_blank">【推荐】BPM免费下载</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/24442-20161115165230123-1587531896.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/559325/" target="_blank">Samsung Pay公交卡功能公测：方便快捷 手机有电即可刷</a><br> ·  <a href="http://news.cnblogs.com/n/559324/" target="_blank">完美世界与《战争雷霆》开发商合作，推沙盒载具游戏《创世战车》</a><br> ·  <a href="http://news.cnblogs.com/n/559323/" target="_blank">光年到底是什么？</a><br> ·  <a href="http://news.cnblogs.com/n/559322/" target="_blank">亚马逊点击平台的内幕</a><br> ·  <a href="http://news.cnblogs.com/n/559321/" target="_blank">Ubuntu调查发现大部分人从不更新物联网设备</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="http://bbs.h3bpm.com/index.php?m=app&amp;app=product_download&amp;a=reg" target="_blank"><img width="468" height="60" src="./LeetCode 笔记系列 18 Maximal Rectangle [学以致用] - lichen782 - 博客园_files/35695-20161213142353073-1602158633.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/556770/" target="_blank">写给未来的程序媛</a><br> ·  <a href="http://kb.cnblogs.com/page/558087/" target="_blank">高质量的工程代码为什么难写</a><br> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/lichen782/">lichen782</a><br>园龄：<a href="http://home.cnblogs.com/u/lichen782/" title="入园时间：2012-11-11">4年1个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/lichen782/followers/">20</a><br>关注：<a href="http://home.cnblogs.com/u/lichen782/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;f0ded24b-ef2b-e211-aa8f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/11/01&#39;);return false;">&lt;</a></td><td align="center">2016年12月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/01/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td class="CalWeekendDay" align="center">3</td></tr><tr><td class="CalWeekendDay" align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td class="CalWeekendDay" align="center">10</td></tr><tr><td class="CalWeekendDay" align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td class="CalWeekendDay" align="center">17</td></tr><tr><td class="CalWeekendDay" align="center">18</td><td align="center">19</td><td class="CalTodayDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td class="CalWeekendDay" align="center">24</td></tr><tr><td class="CalWeekendDay" align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalWeekendDay" align="center">31</td></tr><tr><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/lichen782/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/lichen782/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/lichen782/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/lichen782/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/lichen782/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/lichen782/tag/algorithm/">algorithm</a>(23)</li><li><a href="http://www.cnblogs.com/lichen782/tag/leetcode/">leetcode</a>(22)</li>
+</ul>
+</div></div><div id="sidebar_categories">
+		<h3 class="catListTitle">随笔分类</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/lichen782/category/494719.html">LeetCode(32)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">随笔档案</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/lichen782/archive/2016/02.html">2016年2月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/lichen782/archive/2015/03.html">2015年3月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/lichen782/archive/2015/02.html">2015年2月 (6)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/lichen782/archive/2013/07.html">2013年7月 (23)</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html#3524444">1. Re:LeetCode 笔记系列 17 Largest Rectangle in Histogram</a></li>
+        <li class="recent_comment_body">楼主，请问第一个方法里for循环中的走continue那段的if 条件怎么理解呢</li>
+        <li class="recent_comment_author">--673556617</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lichen782/p/leetcode_minimum_window_substring_3.html#3364639">2. Re:LeetCode 笔记系列16.3 Minimum Window Substring [从O(N*M)， O(NlogM)到O(N)，人生就是一场不停的战斗]</a></li>
+        <li class="recent_comment_body">if(hasFound.get(c) &lt;= needToFill.get(c)){20 count++;21 }wouldn't......</li>
+        <li class="recent_comment_author">--hawks</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lichen782/p/leetcode_interleaving_string.html#3354247">3. Re:LeetCode 笔记系列 20 Interleaving String [动态规划的抽象]</a></li>
+        <li class="recent_comment_body">感谢分享!if(c1 == c3){ matched[i1][i2] = matched[i1 - 1][i2];//这写成这样就行了..就这样}...</li>
+        <li class="recent_comment_author">--乔布儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lichen782/p/leetcode_Jump_Game_II.html#3321721">4. Re:LeetCode 笔记系列13 Jump Game II [去掉不必要的计算]</a></li>
+        <li class="recent_comment_body">不错</li>
+        <li class="recent_comment_author">--new教父</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html#3273122">5. Re:LeetCode 笔记系列 17 Largest Rectangle in Histogram</a></li>
+        <li class="recent_comment_body">@鼬与轮回黄色矩形和褐色矩形画错了...</li>
+        <li class="recent_comment_author">--yuuutou</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html">1. LeetCode 笔记系列 18 Maximal Rectangle [学以致用](18185)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html">2. LeetCode 笔记系列 17 Largest Rectangle in Histogram(17870)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Reverse_Nodes_in_kGroup.html">3. LeetCode 笔记系列六 Reverse Nodes in k-Group [学习如何逆转一个单链表](6456)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Jump_Game_II.html">4. LeetCode 笔记系列13 Jump Game II [去掉不必要的计算](5929)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_interleaving_string.html">5. LeetCode 笔记系列 20 Interleaving String [动态规划的抽象](4295)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html">1. LeetCode 笔记系列 17 Largest Rectangle in Histogram(20)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html">2. LeetCode 笔记系列 18 Maximal Rectangle [学以致用](5)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Search_in_Rotated_Sorted_Array.html">3. LeetCode 笔记系列九 Search in Rotated Sorted Array(4)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Jump_Game_II.html">4. LeetCode 笔记系列13 Jump Game II [去掉不必要的计算](3)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_interleaving_string.html">5. LeetCode 笔记系列 20 Interleaving String [动态规划的抽象](1)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_minimum_window_substring_3.html">1. LeetCode 笔记系列16.3 Minimum Window Substring [从O(N*M)， O(NlogM)到O(N)，人生就是一场不停的战斗](4)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html">2. LeetCode 笔记系列 17 Largest Rectangle in Histogram(3)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_maximal_rectangle.html">3. LeetCode 笔记系列 18 Maximal Rectangle [学以致用](2)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Container_With_Most_Water.html">4. LeetCode 笔记系列二 Container With Most Water(1)</a></li><li><a href="http://www.cnblogs.com/lichen782/p/leetcode_Reverse_Nodes_in_kGroup.html">5. LeetCode 笔记系列六 Reverse Nodes in k-Group [学习如何逆转一个单链表](1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>
+	
+</div>
+
+<!--done-->
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com/">博客园</a>	模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a>
+	Copyright ©2016 lichen782
+</div>
+
+
+
+
+
+</body></html>

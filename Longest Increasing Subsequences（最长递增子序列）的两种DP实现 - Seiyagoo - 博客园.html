@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://www.cnblogs.com/Seiyagoo/p/3389501.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/bundle-sea.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/bundle-sea-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/Seiyagoo/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/Seiyagoo/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/Seiyagoo/wlwmanifest.xml">
+<script type="text/javascript" src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/encoder.js.下载"></script><script src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'Seiyagoo', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/Seiyagoo/">Seiyagoo</a><br>
+		积行成习，积习成性，积性成命！
+	</div>
+</div>
+
+</div>
+
+<div id="mytopmenu">
+	
+		<div id="mylinks"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a> &nbsp;
+<a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/Seiyagoo/">首页</a> &nbsp;
+<a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> &nbsp;
+<a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Seiyagoo">联系</a> &nbsp;
+<a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/Seiyagoo/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/Seiyagoo/rss"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;
+<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+		<div id="mystats"><div id="blog_stats">
+随笔-37&nbsp;
+评论-60&nbsp;
+文章-0&nbsp;
+<!--trackbacks-0-->
+</div></div>
+	
+</div>
+<div id="centercontent">
+	
+<div id="post_detail">
+<div class="post">
+	<h1 class="postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/Seiyagoo/p/3389501.html">Longest Increasing Subsequences（最长递增子序列）的两种DP实现</a></h1>
+	<div id="cnblogs_post_body"><div><span style="font-size: 15px;"><strong>一、本文内容</strong></span></div>
+<div>最长递增子序列的两种动态规划算法实现，O(n^2)及O(nlogn).</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span style="font-size: 15px;"><strong>二、问题描述</strong></span></div>
+<div>最长递增子序列：给定一个序列，从该序列找出最长的 升序/递增 子序列。</div>
+<div>特点：1、子序列不要求连续； 2、子序列在原序列中按严格(strictly)升序排序； 3、最长递增子序列不唯一。</div>
+<div>&nbsp;</div>
+<div>注：下文最长递增子序列用缩写LIS表示。</div>
+<div>&nbsp;</div>
+<div>example：</div>
+<div>0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15</div>
+<div>&nbsp;</div>
+<div>对应的LIS：</div>
+<div>0, 2, 6, 9, 13, 15</div>
+<div>0, 4, 6, 9, 11, 15</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><strong><span style="font-size: 15px;">三、算法描述</span></strong></div>
+<div>1、考察第i+1个元素时，不考虑前面i个元素的状态</div>
+<div>
+<div>给定长度为n的序列A[0..n-1]，对于给定某个的阶段状态，它以前各阶段的状态无法直接影响它未来的决策，而只能间接通过当前状态来影响；换句话说，每个状态都是过去历史的完整总结。即LIS[i]当前的状态与LIS[0..i-1]已无关。这几句话可以用Fibonacci的递归树来验证，对LIS的递归树同样适用。 如下面的递归树：</div>
+<div>&nbsp;</div>
+<div align="left"><span style="color: #008000; font-family: Verdana; font-size: xx-small;"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LIS(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></div>
+<div align="left"><span style="color: #008000; font-family: Verdana; font-size: xx-small;"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \</span></span></div>
+<div align="left"><span style="color: #008000; font-family: Verdana; font-size: xx-small;"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LIS(2)&nbsp;&nbsp;&nbsp;&nbsp; LIS(1)&nbsp;&nbsp;&nbsp; LIS(0)&nbsp;</span></span></div>
+<div align="left"><span style="color: #008000; font-family: Verdana; font-size: xx-small;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp; \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></div>
+<div align="left"><span style="color: #008000; font-family: Verdana; font-size: xx-small;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LIS(1)&nbsp; LIS(0)&nbsp; LIS(0)</span></span></div>
+<div align="left"><span style="color: #008000; font-family: Verdana; font-size: xx-small;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;</span></span></div>
+<div align="left"><span style="color: #008000; font-family: Verdana; font-size: xx-small;"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;LIS(0)&nbsp;</span></span></div>
+<div>&nbsp;</div>
+<div>很显然，递归树有很多重复/重叠的子问题，而大问题的最优解又可以由这些子问题的最优解得到，符合DP的两个条件，故可以用DP来解决LIS问题。</div>
+<div>那么给定序列A[0..n-1]，求它的LIS，可以top-down分解任务，得到递归树；递归树<strong>bottom-up</strong>就可以建立子问题的查询表以供求解当前问题时查询。</div>
+<div>这就是DP的两种处理方式：<span>Memoization（top-down) 和&nbsp;</span><span>Tabulation</span><span>&nbsp;(bottom-up).</span></div>
+<div><span>&nbsp;</span></div>
+<div>假设LIS[i]表示A[0..i]的最长递增子序列的长度，那么</div>
+<div>LIS[i+1] = max{1, LIS[j]+1}, A[i+1]&gt;A[j], for any j&lt;=i； &nbsp;&nbsp;<span style="color: #ff0000;">注意</span>：到A[i]的子序列长度不一定大于A[j]的子序列长度（如上例当A[j]=12, LIS[j]={0, 4, 12}和当A[i]=2, LIS[i]={0, 2}）</div>
+<div>若A[i+1]&gt;A[j],则A[i+1]可以接在LIS[j]长的子序列后面构成一个更长的子序列。</div>
+<div>同时, 从A[i+1]开始又构成一个长度为1的子序列。故两者取大值。</div>
+</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>2、考察第i+1个元素时，考虑前面i个元素的状态</div>
+<div>那么，什么时候在一个已存在的序列中添加或者替换一个元素是安全的呢？（DP算法都是offline algorithm，需要全局考虑）</div>
+<div>显然，我们需要维护所有递增的子序列（称其为<strong>active list，即可能成为max{LIS}的子序列</strong>）。而这些子序列的长度都不同，</div>
+<div>可以按照插入排序的思想，一个一个元素地从前面找到其应该归属的子序列(active list)。</div>
+<div>&nbsp;</div>
+<div>有A[i]&gt;A[i-1]和A[i]&lt;A[i-1]两种情况，A[i]&lt;A[i-1]又有一种特殊情况A[i]是当前序列中的最小元素，即A[i]&lt;A[j], for any j&lt;i;</div>
+<div>&nbsp;</div>
+<div>
+<div><strong>case 1. If A[i] is smallest among all end candidates of active lists, we will start new active list of length 1.</strong>&nbsp;</div>
+<div>（when we encounter new smallest element in the array, it can be a potential candidate to start new sequence，{2, 5, 3,&nbsp;<strong>1</strong>, 2, 3, 4, 5, 6}）</div>
+<div><strong>&nbsp;</strong></div>
+<div><strong>case 2. If A[i] is largest among all end candidates of active lists, we will clone the largest active list, and extend it by A[i].</strong></div>
+<div><strong>&nbsp;</strong></div>
+<div><strong>case 3. If A[i] is in between, we will find a list with largest end element that is smaller than A[i]. Clone and extend this list by A[i]. We will discard all other lists of same length as that of this modified list.</strong>&nbsp;</div>
+<div>（找到end element小于A[i]的active list之后，其他相同长度的active list将被删除，因为A[i]小于这些等长active list的end element，用新的active list代替将被删除的active list：复制小于A[i]的active list，并添加A[i]）</div>
+</div>
+<div>&nbsp;</div>
+<div>处理过程如下</div>
+<div>example：A[ ] =&nbsp;{0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}</div>
+<div>
+<div>A[0] = 0. Case 1. There are no active lists, create one.</div>
+<div><strong>0</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[1] = 8. Case 2. Clone and extend.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>8</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[2] = 4. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>4</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 8</span>. Discarded</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[3] = 12. Case 2. Clone and extend.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>4</strong>.</div>
+<div>0, 4,&nbsp;<strong>12</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[4] = 2. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>2</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 4</span>. Discarded.</div>
+<div>0, 4,&nbsp;<strong>12</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[5] = 10. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>2</strong>.</div>
+<div>0, 2,&nbsp;<strong>10</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 4, 12</span>. Discarded.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[6] = 6. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>2</strong>.</div>
+<div>0, 2,&nbsp;<strong>6</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 2, 10</span>. Discarded.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[7] = 14. Case 2. Clone and extend.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>2</strong>.</div>
+<div>0, 2,&nbsp;<strong>6</strong>.</div>
+<div>0, 2, 6,&nbsp;<strong>14</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[8] = 1. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 2</span>. Discarded.</div>
+<div>0, 2,&nbsp;<strong>6</strong>.</div>
+<div>0, 2, 6,&nbsp;<strong>14</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[9] = 9. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div>0, 2,&nbsp;<strong>6</strong>.</div>
+<div>0, 2, 6,&nbsp;<strong>9</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 2, 6, 14</span>. Discarded.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[10] = 5. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div>0, 1,&nbsp;<strong>5</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 2, 6</span>. Discarded.</div>
+<div>0, 2, 6,&nbsp;<strong>9</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[11] = 13. Case 2. Clone and extend.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div>0, 1,&nbsp;<strong>5</strong>.</div>
+<div>0, 2, 6,&nbsp;<strong>9</strong>.</div>
+<div>0, 2, 6, 9,&nbsp;<strong>13</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[12] = 3. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div>0, 1,&nbsp;<strong>3</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 1, 5</span>. Discarded.</div>
+<div>0, 2, 6,&nbsp;<strong>9</strong>.</div>
+<div>0, 2, 6, 9,&nbsp;<strong>13</strong>.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[13] = 11. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div>0, 1,&nbsp;<strong>3</strong>.</div>
+<div>0, 2, 6,&nbsp;<strong>9</strong>.</div>
+<div>0, 2, 6, 9,&nbsp;<strong>11</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 2, 6, 9, 13</span>. Discarded.</div>
+<div>-----------------------------------------------------------------------------</div>
+<div>A[14] = 7. Case 3. Clone, extend and discard.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div>0, 1,&nbsp;<strong>3</strong>.</div>
+<div>0, 1, 3,&nbsp;<strong>7</strong>.</div>
+<div><span style="text-decoration: line-through;">0, 2, 6, 9</span>. Discarded.</div>
+<div>0, 2, 6, 9,&nbsp;<strong>11</strong>.</div>
+<div>----------------------------------------------------------------------------</div>
+<div>A[15] = 15. Case 2. Clone and extend.</div>
+<div><strong>0</strong>.</div>
+<div>0,&nbsp;<strong>1</strong>.</div>
+<div>0, 1,&nbsp;<strong>3</strong>.</div>
+<div>0, 1, 3,&nbsp;<strong>7</strong>.</div>
+<div>0, 2, 6, 9,&nbsp;<strong>11</strong>.</div>
+<div>0, 2, 6, 9, 11,&nbsp;<strong>15</strong>. &lt;-- LIS List</div>
+<div>----------------------------------------------------------------------------</div>
+</div>
+<div>&nbsp;</div>
+<div>注：观察上面的处理过程，我们都只在处理所有active list的最后一个元素end element(粗体)，那么仅仅需要维护所有active list构成的end element集合（粗体斜边），</div>
+<div>&nbsp; &nbsp; &nbsp; 可以用一维数组来存储。discard操作可以用replace操作来模拟。</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div><span style="font-size: 15px;"><strong>四、算法实现</strong></span></div>
+<div>&nbsp;</div>
+<div>第三节的算法描述序号分别对应下面的算法实现</div>
+<div>1、时间复杂度为O(n^2)的DP实现</div>
+<div>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/*</span><span style="color: #008000;">*
+</span><span style="color: #008080;"> 2</span> <span style="color: #008000;"> @description: Longest Increasing Subsequence
+</span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> @author:   seiyagoo
+</span><span style="color: #008080;"> 4</span> <span style="color: #008000;"> @create:   2013.10.25
+</span><span style="color: #008080;"> 5</span> <span style="color: #008000;"> @modified: 2013.10.26
+</span><span style="color: #008080;"> 6</span> <span style="color: #008000;">*</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;"> 7</span> <span style="color: #0000ff;">int</span> LIS_1(<span style="color: #0000ff;">int</span> A[], <span style="color: #0000ff;">int</span><span style="color: #000000;"> size){
+</span><span style="color: #008080;"> 8</span> 
+<span style="color: #008080;"> 9</span>     <span style="color: #0000ff;">int</span> *LIS   = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span><span style="color: #000000;">[size];
+</span><span style="color: #008080;">10</span>     vector&lt;<span style="color: #0000ff;">int</span>&gt; *vec = <span style="color: #0000ff;">new</span> vector&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">[size];
+</span><span style="color: #008080;">11</span> 
+<span style="color: #008080;">12</span>     <span style="color: #008000;">/*</span><span style="color: #008000;"> Compute optimized LIS values in bottom up manner </span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">13</span>     <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=<span style="color: #800080;">0</span>; i &lt; size; i++<span style="color: #000000;">){
+</span><span style="color: #008080;">14</span>         LIS[i]=<span style="color: #800080;">1</span>;                        <span style="color: #008000;">//</span><span style="color: #008000;">初始化默认长度</span>
+<span style="color: #008080;">15</span>         <span style="color: #0000ff;">int</span> max_j=<span style="color: #800080;">0</span>, flag=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">16</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=<span style="color: #800080;">0</span>; j &lt; i; j++){        <span style="color: #008000;">//</span><span style="color: #008000;">查表,找出前面最长的序列, 若将A[i]加入LIS[j](LIS[j]+1的含义)的递增子序列比当前的LIS[i]更长, 则更新LIS[i]</span>
+<span style="color: #008080;">17</span>             <span style="color: #0000ff;">if</span>(A[i] &gt; A[j] &amp;&amp; LIS[i] &lt; LIS[j]+<span style="color: #800080;">1</span><span style="color: #000000;">){
+</span><span style="color: #008080;">18</span>                 LIS[i] = LIS[j]+<span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">19</span>                 max_j=<span style="color: #000000;">j;
+</span><span style="color: #008080;">20</span>                 flag=<span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">21</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">22</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">23</span>         <span style="color: #0000ff;">if</span>(flag)                        <span style="color: #008000;">//</span><span style="color: #008000;">copy前面最长子序列到vec[i]</span>
+<span style="color: #008080;">24</span> <span style="color: #000000;">            vec[i].insert(vec[i].end(), vec[max_j].begin(), vec[max_j].end());
+</span><span style="color: #008080;">25</span>         vec[i].push_back(A[i]);       <span style="color: #008000;">//</span><span style="color: #008000;">最后放入A[i]</span>
+<span style="color: #008080;">26</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">27</span>     
+<span style="color: #008080;">28</span>     <span style="color: #008000;">/*</span><span style="color: #008000;">Show LIS of the current state</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">29</span>     vector&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::iterator it;
+</span><span style="color: #008080;">30</span>     cout&lt;&lt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">31</span>     <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=<span style="color: #800080;">0</span>; i&lt;size; i++<span style="color: #000000;">){
+</span><span style="color: #008080;">32</span>         cout&lt;&lt;setw(<span style="color: #800080;">2</span>)&lt;&lt;A[i]&lt;&lt; <span style="color: #800000;">"</span><span style="color: #800000;">  --&gt;  </span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">33</span>         <span style="color: #0000ff;">for</span>(it = vec[i].begin(); it!=vec[i].end(); it++<span style="color: #000000;">)
+</span><span style="color: #008080;">34</span>             cout&lt;&lt;*it&lt;&lt;<span style="color: #800000;">"</span> <span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">35</span>         cout&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">36</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">37</span>     
+<span style="color: #008080;">38</span>     <span style="color: #008000;">/*</span><span style="color: #008000;"> Pick maximum of all LIS values, namely max{LIS[i]} </span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">39</span>     <span style="color: #0000ff;">int</span> max_len=<span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">40</span>     <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; size; i++<span style="color: #000000;"> )
+</span><span style="color: #008080;">41</span>       <span style="color: #0000ff;">if</span>( max_len &lt;<span style="color: #000000;"> LIS[i] )
+</span><span style="color: #008080;">42</span>          max_len =<span style="color: #000000;"> LIS[i];
+</span><span style="color: #008080;">43</span>          
+<span style="color: #008080;">44</span> <span style="color: #000000;">    delete[] LIS;
+</span><span style="color: #008080;">45</span> <span style="color: #000000;">    delete[] vec;
+</span><span style="color: #008080;">46</span> 
+<span style="color: #008080;">47</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> max_len;
+</span><span style="color: #008080;">48</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<div><span>2、</span><span>时间复杂度为O(nlogn)的DP实现</span></div>
+<div>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/*</span><span style="color: #008000;">*
+</span><span style="color: #008080;"> 2</span> <span style="color: #008000;"> @description: Longest Increasing Subsequence
+</span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> @author:   seiyagoo
+</span><span style="color: #008080;"> 4</span> <span style="color: #008000;"> @create:   2013.10.25
+</span><span style="color: #008080;"> 5</span> <span style="color: #008000;"> @modified: 2013.10.26
+</span><span style="color: #008080;"> 6</span> <span style="color: #008000;">*</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;"> 7</span> 
+<span style="color: #008080;"> 8</span> <span style="color: #008000;">//</span><span style="color: #008000;"> Binary search (note boundaries in the caller)
+</span><span style="color: #008080;"> 9</span> <span style="color: #008000;">//</span><span style="color: #008000;"> A[] is ceilIndex in the caller</span>
+<span style="color: #008080;">10</span> <span style="color: #0000ff;">int</span> CeilIndex(<span style="color: #0000ff;">int</span> A[], <span style="color: #0000ff;">int</span> l, <span style="color: #0000ff;">int</span> r, <span style="color: #0000ff;">int</span><span style="color: #000000;"> key) {
+</span><span style="color: #008080;">11</span>     <span style="color: #0000ff;">int</span><span style="color: #000000;"> m;
+</span><span style="color: #008080;">12</span>  
+<span style="color: #008080;">13</span>     <span style="color: #0000ff;">while</span>( r - l &gt; <span style="color: #800080;">1</span><span style="color: #000000;"> ) {
+</span><span style="color: #008080;">14</span>         m = l + (r - l)/<span style="color: #800080;">2</span><span style="color: #000000;">;
+</span><span style="color: #008080;">15</span>         (A[m] &gt;= key ? r : l) = m; <span style="color: #008000;">//</span><span style="color: #008000;"> ternary expression returns an l-value</span>
+<span style="color: #008080;">16</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">17</span>  
+<span style="color: #008080;">18</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> r;
+</span><span style="color: #008080;">19</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">20</span> 
+<span style="color: #008080;">21</span> <span style="color: #0000ff;">int</span> LIS_2(<span style="color: #0000ff;">int</span> A[], <span style="color: #0000ff;">int</span><span style="color: #000000;"> size) {
+</span><span style="color: #008080;">22</span>     <span style="color: #008000;">//</span><span style="color: #008000;"> boundary case: when array size is one</span>
+<span style="color: #008080;">23</span>     <span style="color: #0000ff;">if</span>( <span style="color: #800080;">1</span> == size ) <span style="color: #0000ff;">return</span> <span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">24</span>  
+<span style="color: #008080;">25</span>     <span style="color: #0000ff;">int</span> *tailTable   = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span><span style="color: #000000;">[size];
+</span><span style="color: #008080;">26</span>     vector&lt;<span style="color: #0000ff;">int</span>&gt; *vec = <span style="color: #0000ff;">new</span> vector&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">[size];
+</span><span style="color: #008080;">27</span>     <span style="color: #0000ff;">int</span> len; <span style="color: #008000;">//</span><span style="color: #008000;"> always points empty slot
+</span><span style="color: #008080;">28</span>  
+<span style="color: #008080;">29</span>     <span style="color: #008000;">//</span><span style="color: #008000;">memset(tailTable, INT_MAX, sizeof(tailTable[0])*size);  @bug</span>
+<span style="color: #008080;">30</span> 
+<span style="color: #008080;">31</span>     <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; size; i++<span style="color: #000000;">)
+</span><span style="color: #008080;">32</span>         tailTable[i] =<span style="color: #000000;"> INT_MAX;
+</span><span style="color: #008080;">33</span>     
+<span style="color: #008080;">34</span>     tailTable[<span style="color: #800080;">0</span>] = A[<span style="color: #800080;">0</span>];          <span style="color: #008000;">//</span><span style="color: #008000;">tailTable[0] store the smallest value</span>
+<span style="color: #008080;">35</span>     vec[<span style="color: #800080;">0</span>].push_back(A[<span style="color: #800080;">0</span><span style="color: #000000;">]);
+</span><span style="color: #008080;">36</span>     
+<span style="color: #008080;">37</span>     len = <span style="color: #800080;">1</span><span style="color: #000000;">;
+</span><span style="color: #008080;">38</span>     <span style="color: #0000ff;">for</span>( <span style="color: #0000ff;">int</span> i = <span style="color: #800080;">1</span>; i &lt; size; i++<span style="color: #000000;"> ) {
+</span><span style="color: #008080;">39</span>         <span style="color: #0000ff;">if</span>( A[i] &lt; tailTable[<span style="color: #800080;">0</span>] ) {  <span style="color: #008000;">//</span><span style="color: #008000;">case 1: new smallest value</span>
+<span style="color: #008080;">40</span>             tailTable[<span style="color: #800080;">0</span>] =<span style="color: #000000;"> A[i];
+</span><span style="color: #008080;">41</span> 
+<span style="color: #008080;">42</span>             <span style="color: #008000;">/*</span><span style="color: #008000;">discard and create</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">43</span>             vec[<span style="color: #800080;">0</span><span style="color: #000000;">].clear();
+</span><span style="color: #008080;">44</span>             vec[<span style="color: #800080;">0</span><span style="color: #000000;">].push_back(A[i]);
+</span><span style="color: #008080;">45</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">46</span>         <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span>( A[i] &gt; tailTable[len-<span style="color: #800080;">1</span>] ) { <span style="color: #008000;">//</span><span style="color: #008000;">case 2: A[i] wants to extend largest subsequence</span>
+<span style="color: #008080;">47</span>             tailTable[len++] =<span style="color: #000000;"> A[i];
+</span><span style="color: #008080;">48</span>             
+<span style="color: #008080;">49</span>             <span style="color: #008000;">/*</span><span style="color: #008000;">clone and extend</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">50</span>             vec[len-<span style="color: #800080;">1</span>] = vec[len-<span style="color: #800080;">2</span><span style="color: #000000;">];
+</span><span style="color: #008080;">51</span>             vec[len-<span style="color: #800080;">1</span><span style="color: #000000;">].push_back(A[i]);
+</span><span style="color: #008080;">52</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">53</span>         <span style="color: #0000ff;">else</span> { <span style="color: #008000;">//</span><span style="color: #008000;">case 3: A[i] wants to be current end candidate of an existing subsequence, It will replace ceil value in tailTable</span>
+<span style="color: #008080;">54</span>             <span style="color: #0000ff;">int</span> ceilIndex = CeilIndex(tailTable, -<span style="color: #800080;">1</span>, len-<span style="color: #800080;">1</span><span style="color: #000000;">, A[i]);
+</span><span style="color: #008080;">55</span>             tailTable[ceilIndex] =<span style="color: #000000;"> A[i];
+</span><span style="color: #008080;">56</span> 
+<span style="color: #008080;">57</span>             <span style="color: #008000;">/*</span><span style="color: #008000;">discard, clone and extend</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">58</span> <span style="color: #000000;">            vec[ceilIndex].clear();
+</span><span style="color: #008080;">59</span>             vec[ceilIndex] = vec[ceilIndex-<span style="color: #800080;">1</span><span style="color: #000000;">];
+</span><span style="color: #008080;">60</span> <span style="color: #000000;">            vec[ceilIndex].push_back(A[i]);
+</span><span style="color: #008080;">61</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">62</span>         
+<span style="color: #008080;">63</span>         <span style="color: #008000;">/*</span><span style="color: #008000;">Printf all the active lists</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">64</span>         vector&lt;<span style="color: #0000ff;">int</span>&gt;<span style="color: #000000;">::iterator it;
+</span><span style="color: #008080;">65</span>         cout&lt;&lt;<span style="color: #000000;">left;
+</span><span style="color: #008080;">66</span>         cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">A[</span><span style="color: #800000;">"</span>&lt;&lt;i&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">] = </span><span style="color: #800000;">"</span>&lt;&lt;A[i]&lt;&lt;endl&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">67</span>         cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">active lists:</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">68</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=<span style="color: #800080;">0</span>; i&lt;len; i++<span style="color: #000000;">){
+</span><span style="color: #008080;">69</span>             <span style="color: #0000ff;">for</span>(it = vec[i].begin(); it!=vec[i].end(); it++<span style="color: #000000;">)
+</span><span style="color: #008080;">70</span>                 cout&lt;&lt;*it&lt;&lt;<span style="color: #800000;">"</span> <span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">71</span>             cout&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">72</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">73</span> 
+<span style="color: #008080;">74</span>         <span style="color: #008000;">/*</span><span style="color: #008000;">Printf end elements of all the active lists</span><span style="color: #008000;">*/</span>
+<span style="color: #008080;">75</span>         cout&lt;&lt;endl&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">end elements array:</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">76</span>         <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; size; i++<span style="color: #000000;">)
+</span><span style="color: #008080;">77</span>             <span style="color: #0000ff;">if</span>(tailTable[i] !=<span style="color: #000000;"> INT_MAX)
+</span><span style="color: #008080;">78</span>                 cout&lt;&lt;tailTable[i]&lt;&lt;<span style="color: #800000;">"</span> <span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">79</span>         cout&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">80</span>         cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">-------------------------</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">81</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">82</span>     
+<span style="color: #008080;">83</span>     
+<span style="color: #008080;">84</span> <span style="color: #000000;">    delete[] tailTable;
+</span><span style="color: #008080;">85</span> <span style="color: #000000;">    delete[] vec;
+</span><span style="color: #008080;">86</span>  
+<span style="color: #008080;">87</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> len;
+</span><span style="color: #008080;">88</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 15px;"><strong>五、运行结果</strong></span></p>
+<p>example：</p>
+<div><span>0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15</span></div>
+<div>&nbsp;</div>
+<div>算法实现一</div>
+<div><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/26151454-ff4e2aba20fd4318aa6f0537c5eb083b.jpg" alt=""></div>
+<div>&nbsp;</div>
+<div>算法实现二</div>
+<div><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/26151522-b664a40c838e4f29a6e18e93fbe48078.jpg" alt=""></div>
+<div><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/26151539-d9f0e04558ae43cc8bc047574bd883e1.jpg" alt=""></div>
+<div><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/26151554-9e4f887147cb448b817842b883928c02.jpg" alt=""></div>
+<div><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/26151607-df224940ce7d4da8a0d25b04e8b35aa5.jpg" alt=""></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>参考：</div>
+<div>《编程之美》</div>
+<div>
+<div><a href="http://en.wikipedia.org/wiki/Longest_increasing_subsequence">http://en.wikipedia.org/wiki/Longest_increasing_subsequence</a></div>
+<div>
+<div><a href="http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/">http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/</a><span>&nbsp;</span></div>
+</div>
+</div>
+</div>
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/Seiyagoo/category/341755.html" target="_blank">数据结构&amp;算法</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3389501,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;d9df9b8a-5893-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Seiyagoo/" target="_blank"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/Seiyagoo/">Seiyagoo</a><br>
+            <a href="http://home.cnblogs.com/u/Seiyagoo/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/Seiyagoo/followers">粉丝 - 36</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;d9df9b8a-5893-e011-a53f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3389501,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(3389501,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/Seiyagoo/p/3366290.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/Seiyagoo/p/3366290.html" title="发布于2013-10-13 01:45">LLRB——红黑树的现代实现</a><br><a href="http://www.cnblogs.com/Seiyagoo/p/3496834.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/Seiyagoo/p/3496834.html" title="发布于2013-12-29 21:53">JNI——Java调用C/C++函数</a><br></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2013-10-26 15:15</span> <a href="http://www.cnblogs.com/Seiyagoo/">Seiyagoo</a> 阅读(<span id="post_view_count">926</span>) 评论(<span id="post_comment_count">2</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=3389501" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/Seiyagoo/p/3389501.html#" onclick="AddToWz(3389501);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=90768,cb_entryId=3389501,cb_blogApp=currentBlogApp,cb_blogUserGuid='d9df9b8a-5893-e011-a53f-842b2b196315',cb_entryCreatedDate='2013/10/26 15:15:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<b>评论:</b>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/Seiyagoo/p/3389501.html#2845450" class="layer">#1楼</a><a name="2845450" id="comment_anchor_2845450"></a>
+				 <span class="comment_date">2013-12-26 22:33</span> | <a id="a_comment_author_2845450" href="http://www.cnblogs.com/fuleying/" target="_blank">fuleying</a> <a href="http://msg.cnblogs.com/send/fuleying" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2845450" class="blog_comment_body">请问这两个算法的空间复杂度有区别吗？<br>好像都分配了LIS[n]和tailTable[n],并且也都分配了vector&lt;int&gt; *vec = new vector&lt;int&gt;[size];</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2845450,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2845450,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2845450_avatar" style="display:none;">http://pic.cnblogs.com/face/u316500.png?id=21001022</span>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<a href="http://www.cnblogs.com/Seiyagoo/p/3389501.html#2846431" class="layer">#2楼</a><a name="2846431" id="comment_anchor_2846431"></a>[<span class="louzhu">楼主</span>]<span id="comment-maxId" style="display:none;">2846431</span><span id="comment-maxDate" style="display:none;">2013/12/28 15:32:01</span>
+				 <span class="comment_date">2013-12-28 15:32</span> | <a id="a_comment_author_2846431" href="http://www.cnblogs.com/Seiyagoo/" target="_blank">Seiyagoo</a> <a href="http://msg.cnblogs.com/send/Seiyagoo" title="发送站内短消息" class="sendMsg2This">&nbsp;</a><br>
+				<div align="left"><div id="comment_body_2846431" class="blog_comment_body"><a href="http://www.cnblogs.com/Seiyagoo/p/3389501.html#2845450" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2845450);">@</a>
+fuleying<br>因为为了演示算法中间过程，所以加了点打印的代码。不影响算法本身的时间复杂度。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2846431,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2846431,&#39;Bury&#39;,this)">反对(0)</a></div>&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+			
+			
+		</div>
+	
+
+
+
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/Seiyagoo/p/3389501.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/Seiyagoo/p/3389501.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://group.cnblogs.com/topic/75389.html" target="_blank">【活动】优达学城正式发布“无人驾驶车工程师”课程</a><br><a href="http://rongcloud.cn/reports/journal2" target="_blank">【推荐】融云发布 App 社交化白皮书 IM 提升活跃超 8 倍</a><br><a href="http://www.gcpowertools.com.cn/products/componentone_studio_enterprise.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=C1&amp;utm_campaign=community" target="_blank">【推荐】别再闷头写代码！找对工具，事半功倍，全能开发工具包用起来</a><br><a href="http://netease.im/?hmsr=bky10&amp;from=bky10" target="_blank">【推荐】网易这个云产品做了15年才面世，1年吸引10万+开发者</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://activity.hwclouds.com/cloudProduct/index.html?utm_source=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;utm_medium=MediaB&amp;utm_campaign=2016%E5%B9%B410%E6%9C%88%E5%B8%B8%E8%A7%84%E5%B9%BF%E5%91%8A%E6%8A%95%E6%94%BE%E3%80%90%E7%AC%AC%E5%85%AD%E6%AC%A1%E3%80%91&amp;utm_content=%E5%8D%9A%E5%AE%A2%E5%9B%AD%E9%A6%96%E9%A1%B5%E6%96%87%E5%AD%97%E9%93%BE-BH%E6%96%87%E5%AD%97%E9%93%BE" target="_blank"><img width="300" height="250" src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/24442-20161027213553687-432849317.gif" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/556084/" target="_blank">重组为Alphabet之后，Google到底是怎么赚钱的？</a><br> ·  <a href="http://news.cnblogs.com/n/556083/" target="_blank">英国科研人员发明激光围栏，保护农田免遭老鼠侵扰</a><br> ·  <a href="http://news.cnblogs.com/n/556082/" target="_blank">今日头条起诉凤凰新闻客户端诽谤 索赔500万元</a><br> ·  <a href="http://news.cnblogs.com/n/556081/" target="_blank">美团否认裁员2万人，但虎嗅还是了解到了一些裁员信息</a><br> ·  <a href="http://news.cnblogs.com/n/556080/" target="_blank">锂离子电池爆炸也让NASA头疼：一机器人瞬间没了</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/24442-20161011141820868-1378717477.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/555750/" target="_blank">循序渐进地代码重构</a><br> ·  <a href="http://kb.cnblogs.com/page/554496/" target="_blank">技术的正宗与野路子</a><br> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br> ·  <a href="http://kb.cnblogs.com/page/550625/" target="_blank">程序猿媳妇儿注意事项</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><a target="_blank" href="http://mail.163.com/share/mail2me.htm#email=115101105121097103111111064049054051046099111109" style="text-decoration:none;"><img src="./Longest Increasing Subsequences（最长递增子序列）的两种DP实现 - Seiyagoo - 博客园_files/mailme_5.png" alt="给我写信"></a><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/Seiyagoo/">Seiyagoo</a><br>园龄：<a href="http://home.cnblogs.com/u/Seiyagoo/" title="入园时间：2011-06-10">5年4个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/Seiyagoo/followers/">36</a><br>关注：<a href="http://home.cnblogs.com/u/Seiyagoo/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;d9df9b8a-5893-e011-a53f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/09/01&#39;);return false;">&lt;</a></td><td align="center">2016年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalTodayDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/Seiyagoo/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<h3 class="catListTitle">最新随笔</h3>
+<div class="RecentComment" id="RecentPosts">
+<ul style="word-break:break-all">
+<li><a href="http://www.cnblogs.com/Seiyagoo/p/3496945.html">1. 根据PID获取进程名&amp;根据进程名获取PID</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3496834.html">2. JNI——Java调用C/C++函数</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3389501.html">3. Longest Increasing Subsequences（最长递增子序列）的两种DP实现</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3366290.html">4. LLRB——红黑树的现代实现</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3346563.html">5. generating permunation——全排列（算法汇总）</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3339886.html">6. Voronoi Diagram——维诺图</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2013/06/08/3125497.html">7. SVM理论之最优超平面</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2013/06/07/3125468.html">8. SVM理论之线性分类</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/07/05/2577917.html">9. 二叉树三种非递归遍历的区别</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/06/30/2571383.html">10. 编写自己的sniffer（二）</a></li>
+</ul>
+</div>
+</div><div id="sidebar_categories">
+		<h3 class="catListTitle">随笔分类</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/347307.html">Java(5)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/356388.html">Linux(7)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/359534.html">other</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/333044.html">感悟(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/487654.html">机器学习(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/361552.html">架构&amp;设计(2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/341755.html">数据结构&amp;算法(9)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/341519.html">数据库(1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/331256.html">搜索(4)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/376310.html">网络编程(3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_0_Link_10" class="listitem" href="http://www.cnblogs.com/Seiyagoo/category/357376.html">云计算(2)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">随笔档案</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2013/12.html">2013年12月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2013/10.html">2013年10月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2013/09.html">2013年9月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2013/06.html">2013年6月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2012/07.html">2012年7月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_5" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2012/06.html">2012年6月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_6" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2012/05.html">2012年5月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_7" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2012/04.html">2012年4月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_8" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2012/03.html">2012年3月 (7)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_9" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2012/02.html">2012年2月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_10" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2012/01.html">2012年1月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_11" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2011/12.html">2011年12月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_12" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2011/11.html">2011年11月 (3)</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_1_Link_13" class="listitem" href="http://www.cnblogs.com/Seiyagoo/archive/2011/10.html">2011年10月 (2)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">Blog Link</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_0" class="listitem" href="http://blog.csdn.net/lovelion" rel="nofollow" target="_blank">刘伟</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_1" class="listitem" href="http://mindhacks.cn/" rel="nofollow" target="_blank">刘未鹏</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_2_Link_2" class="listitem" href="http://blog.codingnow.com/" rel="nofollow" target="_blank">云风</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">My Links</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_3_Link_0" class="listitem" href="http://www.ihao.in/" rel="nofollow" target="_blank">Mr.King</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_3_Link_1" class="listitem" href="http://hi.baidu.com/fcni_cn/blog" rel="nofollow" target="_blank">Ni</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_3_Link_2" class="listitem" href="http://www.cnblogs.com/tunzao/" rel="nofollow" target="_blank">tunzao</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">程序人生</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="CatList_LinkList_4_Link_0" class="listitem" href="http://blog.csdn.net/forfuture1978/article/details/5551388" rel="nofollow" target="_blank">forfuture1978</a></li>
+			
+				<li class="catListItem"> <a id="CatList_LinkList_4_Link_1" class="listitem" href="http://blog.csdn.net/netux/article/list/1" rel="nofollow" target="_blank">IT生涯</a></li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Seiyagoo/p/3339886.html#3379073">1. Re:Voronoi Diagram——维诺图</a></li>
+        <li class="recent_comment_body">好文章</li>
+        <li class="recent_comment_author">--Sawyer Ford</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/06/30/2571383.html#3260792">2. Re:编写自己的sniffer（二）</a></li>
+        <li class="recent_comment_body">留个脚印</li>
+        <li class="recent_comment_author">--轮子手</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Seiyagoo/p/3496834.html#3242569">3. Re:JNI——Java调用C/C++函数</a></li>
+        <li class="recent_comment_body">博主你好~参考你的这篇关于JNI的博客，实现了自己的JNI，感谢你的分享。但文中有个地方可能有个笔误，就是3. 编写C程序J2C.c 里面的返回值类型int与J2C.h中的返回值类型jint不对应，还......</li>
+        <li class="recent_comment_author">--JayGo</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/04/28/2475618.html#3161474">4. Re:linux下libpcap抓包分析</a></li>
+        <li class="recent_comment_body">你好，我想要完整的代码，可以发一份到我的邮箱吗，谢谢！524409628@qq.com</li>
+        <li class="recent_comment_author">--雪不语</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/Seiyagoo/p/3352598.html#3045381">5. Re:Boyer-Moore Algorithm（BM算法解析）</a></li>
+        <li class="recent_comment_body">你好，我仔细思考了你提出的wiki上代码的两个bug，并亲自写了代码进行验证，发现其实wiki上写的是对的，只要随便测几个数据就能发现你的算法有问题了。比如text:fdsacfpattern:dsa......</li>
+        <li class="recent_comment_author">--var_fou:strawberry</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/04/28/2475618.html">1. linux下libpcap抓包分析(10560)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3366290.html">2. LLRB——红黑树的现代实现(6712)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/05/26/2518849.html">3. 用户空间栈&amp;系统空间栈(5533)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3496834.html">4. JNI——Java调用C/C++函数(3840)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3339886.html">5. Voronoi Diagram——维诺图(3386)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/Seiyagoo/p/3366290.html">1. LLRB——红黑树的现代实现(8)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3339886.html">2. Voronoi Diagram——维诺图(7)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/04/28/2475618.html">3. linux下libpcap抓包分析(7)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/07/05/2577917.html">4. 二叉树三种非递归遍历的区别(5)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/01/11/2319181.html">5. 做最好的自己(4)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/03/21/2410369.html">1. 扩展的欧几里得&amp;中国剩余定理(3)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3339886.html">2. Voronoi Diagram——维诺图(2)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2013/06/07/3125468.html">3. SVM理论之线性分类(2)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/p/3496834.html">4. JNI——Java调用C/C++函数(2)</a></li><li><a href="http://www.cnblogs.com/Seiyagoo/archive/2012/04/28/2475618.html">5. linux下libpcap抓包分析(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script></div>
+	
+</div>
+
+<!--done-->
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com/">博客园</a>	模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a>
+	Copyright ©2016 Seiyagoo
+</div>
+
+
+
+
+
+</body></html>
