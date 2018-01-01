@@ -32,44 +32,49 @@ import java.util.*;
 public class PyramidTransitionMatrix {
 
 
-    public boolean solution(String bottom, List<String> allowed){
-        HashMap<String, List<String>> dp = new HashMap<String, List<String>>();
-        for(String allow : allowed){
-            dp.computeIfAbsent(allow.substring(0, 2), k -> new LinkedList<String>()).add(allow.substring(2));
+    public boolean pyramidTransition(String bottom, List<String> allowed) {
+        LinkedList<Set<Character>> curr = new LinkedList<>();
+        for(int i = 0; i < bottom.length(); i ++){
+            curr.add(new HashSet<Character>());
+            curr.get(i).add(bottom.charAt(i));
         }
 
-        return dfs(dp, bottom).size() > 0;
-    }
+        HashMap<String, Set<Character>> memo = new HashMap<>();
+        for(String allow : allowed){
+            String key = allow.substring(0, 2);
+            if(!memo.containsKey(key)) memo.put(key, new HashSet<Character>());
+            memo.get(key).add(allow.charAt(2));
+        }
 
-    private List<String> dfs(HashMap<String, List<String>> dp, String lastLevel){
-        if(dp.containsKey(lastLevel))
-            return dp.get(lastLevel);
+        StringBuilder sb = new StringBuilder();
+        while(curr.size() > 1){
+            LinkedList<Set<Character>> next = new LinkedList<>();
+            for(int i = 0; i < curr.size() - 1; i ++){
+                HashSet<Character> set = new HashSet<Character>();
 
-        List<String> list = new LinkedList<>();
-
-        for(int i = 1; i < lastLevel.length() - 1; i ++){
-            List<String> leftPossibilities = dfs(dp, lastLevel.substring(0, i + 1));
-            List<String> rightPossibilities = dfs(dp, lastLevel.substring(i));
-            if(leftPossibilities.size() == 0 || rightPossibilities.size() == 0) continue;
-
-            for(String left: leftPossibilities){
-                for(String right: rightPossibilities){
-                    if(dfs(dp, left + right).size() > 0){
-                        list.add(left + right);
-                        break;
+                for(char left : curr.get(i)){
+                    for(char right : curr.get(i + 1)){
+                        sb.append(left).append(right);
+                        if(memo.containsKey(sb.toString())) set.addAll(memo.get(sb.toString()));
+                        sb.setLength(0);
                     }
                 }
-            }
-            break;
-        }
-        dp.put(lastLevel, list);
 
-        return list;
+                if(set.size() == 0)
+                    return false;
+
+                next.add(set);
+            }
+
+            curr = next;
+        }
+
+        return true;
     }
 
     public static void main(String[] args){
         PyramidTransitionMatrix p = new PyramidTransitionMatrix();
-        boolean result = p.solution("XXYX", Arrays.asList("XXX", "XXY", "XYX", "XYY", "YXZ"));
+        boolean result = p.pyramidTransition("XXYX", Arrays.asList("XXX", "XXY", "XYX", "XYY", "YXZ"));
         System.out.println(result);
     }
 }
