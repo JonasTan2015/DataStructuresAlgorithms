@@ -1,0 +1,38 @@
+skill or side project: 加入back end  例如分布式缓存...的点
+
+spark:
+
+两页也可以。主要可读性
+
+framework 如果公司没提到 就不放
+用这个framework 做了什么事 为何用 体现了解程度
+
+
+engineer residence program google 毕业做一年 到期后考虑要不要录用
+
+philips scalability 加数据 develop from scratch 重要
+分布式缓存 放到Asta Funding  
+
+技术难题怎么解决  
+
+meetup
+
+
+GPA
+写个兴趣爱好，一行 最后一行
+amazon可以试试firmware
+14个leadership pricipal 面试时要证明
+
+knowledge写成skill 编程语言加上熟悉程度
+
+asta 写part time
+philips 数字写为百分比 user改为组里的data scientist
+节约百分几的时间
+
+
+cover letter
+证明职位感兴趣
+
+personality方面怎么match
+
+technical怎么match  怎么帮助我融入新的工作环境 也可以说平时的project
